@@ -2,10 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta property="og:title" content="ファルコンConsulting｜生成AI×業務改革">
 <meta property="og:description" content="生成AIで業務時間を削減。成果報酬型だから、成果が出なければ費用ゼロ。">
 <meta property="og:type" content="website">
+<meta name="theme-color" content="#06080c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>ファルコンConsulting｜生成AI×業務改革</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -21,7 +24,7 @@
   --border:rgba(201,168,76,0.15);--border2:rgba(255,255,255,0.06);
 }
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Meiryo UI','Meiryo','Hiragino Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;font-weight:400;overflow-x:hidden}
+body{font-family:'Meiryo UI','Meiryo','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;font-weight:400;overflow-x:hidden;-webkit-text-size-adjust:100%;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;background:rgba(6,8,12,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center}
 .logo{font-family:'Meiryo UI','Meiryo',sans-serif;font-size:1.15rem;font-weight:700;color:var(--gold);letter-spacing:.04em}
@@ -29,19 +32,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;background
 .nav-r{display:flex;gap:1.8rem;align-items:center}
 .nav-r a{color:var(--dim);text-decoration:none;font-size:.78rem;letter-spacing:.1em;transition:color .3s}
 .nav-r a:hover{color:var(--gold)}
-.nav-cta{background:var(--gold)!important;color:var(--bg)!important;padding:.5rem 1.2rem;border-radius:4px;font-weight:500;font-size:.78rem!important;letter-spacing:.06em!important}
+.nav-cta{background:var(--gold)!important;color:var(--bg)!important;padding:.5rem 1.2rem;border-radius:6px;font-weight:700;font-size:.78rem!important;letter-spacing:.06em!important;-webkit-tap-highlight-color:transparent}
 
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 1.5rem 4rem;position:relative}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 1.5rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:140%;height:60%;background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),var(--border),var(--gold-dim),transparent)}
 .badge{font-size:.7rem;letter-spacing:.12em;color:var(--dim);padding:.45rem 0;margin-bottom:2rem;display:inline-block}
 .hero h1{font-family:'Meiryo UI','Meiryo',sans-serif;font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:700;color:var(--white);line-height:1.35;margin-bottom:1.2rem;letter-spacing:.02em}
-.hero h1 em{font-style:normal;color:var(--gold)}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero .sub{max-width:520px;color:var(--mid);font-size:.92rem;line-height:2}
 .hero .sub strong{color:var(--white);font-weight:500}
-.hero-metric{display:flex;gap:3rem;margin-top:3rem}
-.hero-metric div{text-align:center}
-.hero-metric .num{font-family:'DM Mono',monospace;font-size:2.4rem;font-weight:500;color:var(--gold-l);line-height:1}
-.hero-metric .num-label{font-size:.7rem;color:var(--dim);margin-top:.4rem;letter-spacing:.08em}
-.hero-line{width:1px;height:40px;background:var(--border2);margin-top:3rem}
+.hero-metric{display:flex;gap:2rem;margin-top:3rem}
+.hero-metric div{text-align:center;padding:1rem 1.2rem;background:rgba(201,168,76,0.04);border:1px solid var(--border);border-radius:10px;min-width:90px}
+.hero-metric .num{font-family:'DM Mono',monospace;font-size:2.2rem;font-weight:500;color:var(--gold-l);line-height:1}
+.hero-metric .num-label{font-size:.68rem;color:var(--dim);margin-top:.5rem;letter-spacing:.08em}
+.hero-line{display:none}
 
 section{padding:5rem 1.5rem}
 .sec-inner{max-width:960px;margin:0 auto}
@@ -119,12 +124,59 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
 
 @media(max-width:768px){
   .nav-r a:not(.nav-cta){display:none}
+  nav{padding:.8rem 1rem}
   .pain-grid,.svc-list{grid-template-columns:1fr}
-  .hero-metric{gap:1.8rem}
-  .hero-metric .num{font-size:1.8rem}
-  .ex-row{flex-direction:column;gap:.5rem}
-  .price-table{font-size:.8rem}
-  section{padding:3.5rem 1.2rem}
+  section{padding:3rem 1.2rem}
+
+  .hero{min-height:100svh;padding:5rem 1.2rem 3rem}
+  .hero h1{font-size:1.65rem;line-height:1.45;margin-bottom:1rem}
+  .hero .sub{font-size:.85rem;line-height:1.9}
+  .hero-metric{gap:.6rem;margin-top:2rem;width:100%}
+  .hero-metric div{flex:1;padding:.8rem .5rem;min-width:0;border-radius:8px}
+  .hero-metric .num{font-size:1.5rem}
+  .hero-metric .num-label{font-size:.6rem;margin-top:.35rem}
+  .badge{font-size:.62rem;margin-bottom:1.4rem}
+
+  .stitle{font-size:1.25rem}
+  .label{font-size:.6rem}
+
+  .pain-card{padding:1.3rem}
+  .pain-card h3{font-size:.88rem}
+  .pain-card p{font-size:.78rem}
+
+  .svc{padding:1.4rem;border-radius:10px}
+  .svc-icon svg{width:28px;height:28px}
+
+  .price-explain{padding:1.4rem;border-radius:10px}
+  .price-formula{font-size:.85rem;padding:.9rem}
+  .price-formula .big{font-size:1.1rem}
+  .price-table th{font-size:.6rem;padding:.6rem .5rem}
+  .price-table td{padding:.7rem .5rem;font-size:.78rem}
+  .price-table .amount{font-size:.88rem}
+
+  .ex-row{flex-direction:column;gap:.4rem;padding:.7rem 0}
+  .ex-before,.ex-after{font-size:.78rem}
+  .ex-arrow{display:none}
+  .ex-after::before{content:'→ ';color:var(--gold)}
+  .ex-result{padding:1rem}
+  .ex-result .num{font-size:1.4rem}
+  .ex-result .desc{font-size:.68rem}
+  .example-card{padding:1.4rem}
+
+  .flow-step{padding:1.2rem 0;gap:1rem}
+  .flow-num{width:32px;height:32px;font-size:.72rem}
+  .flow-body h3{font-size:.85rem}
+  .flow-body p{font-size:.76rem}
+
+  .qual-grid{gap:.5rem}
+  .qual{font-size:.65rem;padding:.35rem .7rem}
+
+  .cta-section{padding:3.5rem 1.2rem}
+  .cta-section p{font-size:.82rem}
+  .cta-btn{display:block;width:100%;padding:1rem;font-size:.92rem;border-radius:8px;text-align:center}
+  .cta-sub{font-size:.68rem}
+
+  footer{padding:2rem 1.2rem}
 }
 </style>
 </head>
@@ -325,6 +377,31 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
 const observer=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');observer.unobserve(el.target)}})},{threshold:.15});
 document.querySelectorAll('.reveal,.svc').forEach(el=>observer.observe(el));
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+
+// count-up animation for hero metrics
+function animateNum(el,target,suffix,duration){
+  let start=0,startTime=null;
+  function step(ts){
+    if(!startTime)startTime=ts;
+    const p=Math.min((ts-startTime)/duration,1);
+    const ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*ease)+suffix;
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const nums=document.querySelectorAll('.hero-metric .num');
+const heroObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      animateNum(nums[0],0,'円',800);
+      animateNum(nums[1],40,'%',1200);
+      animateNum(nums[2],3,'日',1000);
+      heroObs.disconnect();
+    }
+  });
+},{threshold:.3});
+if(nums.length)heroObs.observe(nums[0].parentElement.parentElement);
 </script>
 </body>
 </html>
