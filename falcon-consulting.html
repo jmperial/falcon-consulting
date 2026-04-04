@@ -3,187 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta property="og:title" content="ファルコンConsulting｜生成AI×業務改革">
+<meta property="og:title" content="ファルコンサルティング｜生成AI×業務改革">
 <meta property="og:description" content="生成AIで業務時間を削減。成果報酬型だから、成果が出なければ費用ゼロ。">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#06080c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>ファルコンConsulting｜生成AI×業務改革</title>
+<title>ファルコンサルティング｜生成AI×業務改革</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#06080c;--bg2:#0c1018;--bg3:#111620;
-  --card:#131824;
+  --bg:#06080c;--bg2:#0b0f16;--bg3:#111620;
+  --glass:rgba(16,22,36,0.55);--glass2:rgba(20,28,48,0.45);
+  --glass-border:rgba(255,255,255,0.08);--glass-hi:rgba(255,255,255,0.04);
   --gold:#c9a84c;--gold-l:#e4cd7a;--gold-dim:rgba(201,168,76,0.10);
   --accent:#3b82f6;--accent-dim:rgba(59,130,246,0.08);
   --green:#22c55e;--green-dim:rgba(34,197,94,0.10);
   --text:#ddd9d0;--dim:#7a7670;--mid:#a8a29e;--white:#f5f2eb;
-  --border:rgba(201,168,76,0.15);--border2:rgba(255,255,255,0.06);
+  --border:rgba(201,168,76,0.13);--border2:rgba(255,255,255,0.06);
+  --r:14px;
 }
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Meiryo UI','Meiryo','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;font-weight:400;overflow-x:hidden;-webkit-text-size-adjust:100%;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+body{font-family:'Meiryo UI','Meiryo','Hiragino Kaku Gothic ProN','Hiragino Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-weight:400;overflow-x:hidden;-webkit-text-size-adjust:100%;word-break:auto-phrase;overflow-wrap:anywhere;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;background:rgba(6,8,12,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center}
-.logo{font-family:'Meiryo UI','Meiryo',sans-serif;font-size:1.15rem;font-weight:700;color:var(--gold);letter-spacing:.04em}
-.logo sub{font-size:.55rem;color:var(--dim);letter-spacing:.15em;vertical-align:baseline;margin-left:.4rem;font-weight:400}
+/* ── glass card mixin ── */
+.g{background:var(--glass);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid var(--glass-border);border-radius:var(--r);position:relative;overflow:hidden}
+.g::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(165deg,var(--glass-hi) 0%,transparent 40%);pointer-events:none}
+
+/* ── nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 2rem;background:rgba(6,8,12,0.72);backdrop-filter:blur(28px) saturate(1.6);-webkit-backdrop-filter:blur(28px) saturate(1.6);border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:.08em}
 .nav-r{display:flex;gap:1.8rem;align-items:center}
-.nav-r a{color:var(--dim);text-decoration:none;font-size:.78rem;letter-spacing:.1em;transition:color .3s}
+.nav-r a{color:var(--dim);text-decoration:none;font-size:.75rem;letter-spacing:.1em;transition:color .3s}
 .nav-r a:hover{color:var(--gold)}
-.nav-cta{background:var(--gold)!important;color:var(--bg)!important;padding:.5rem 1.2rem;border-radius:6px;font-weight:700;font-size:.78rem!important;letter-spacing:.06em!important;-webkit-tap-highlight-color:transparent}
+.nav-cta{background:linear-gradient(180deg,#d4b55e 0%,var(--gold) 50%,#b8963e 100%)!important;color:var(--bg)!important;padding:.5rem 1.2rem;border-radius:8px;font-weight:700;font-size:.75rem!important;letter-spacing:.06em!important;-webkit-tap-highlight-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 1px 3px rgba(0,0,0,0.3)}
 
-.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 1.5rem 4rem;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:140%;height:60%;background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 65%);pointer-events:none}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),var(--border),var(--gold-dim),transparent)}
-.badge{font-size:.7rem;letter-spacing:.12em;color:var(--dim);padding:.45rem 0;margin-bottom:2rem;display:inline-block}
-.hero h1{font-family:'Meiryo UI','Meiryo',sans-serif;font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:700;color:var(--white);line-height:1.35;margin-bottom:1.2rem;letter-spacing:.02em}
+/* ── hero ── */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:120%;height:70%;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,rgba(59,130,246,0.02) 40%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,var(--border) 50%,transparent 95%)}
+.badge{font-size:.68rem;letter-spacing:.14em;color:var(--dim);margin-bottom:1.8rem;display:inline-block}
+.hero h1{font-size:clamp(1.7rem,4.5vw,3rem);font-weight:700;color:var(--white);line-height:1.45;margin-bottom:1.4rem;letter-spacing:.02em}
 .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero .sub{max-width:520px;color:var(--mid);font-size:.92rem;line-height:2}
+.hero .sub{max-width:480px;color:var(--mid);font-size:.88rem;line-height:1.95}
 .hero .sub strong{color:var(--white);font-weight:500}
-.hero-metric{display:flex;gap:2rem;margin-top:3rem}
-.hero-metric div{text-align:center;padding:1rem 1.2rem;background:rgba(201,168,76,0.04);border:1px solid var(--border);border-radius:10px;min-width:90px}
-.hero-metric .num{font-family:'DM Mono',monospace;font-size:2.2rem;font-weight:500;color:var(--gold-l);line-height:1}
-.hero-metric .num-label{font-size:.68rem;color:var(--dim);margin-top:.5rem;letter-spacing:.08em}
+.hero-metric{display:flex;gap:1rem;margin-top:2.5rem}
+.hero-metric>div{text-align:center;padding:1rem 1.4rem;min-width:100px}
+.hero-metric .num{font-family:'DM Mono',monospace;font-size:2rem;font-weight:500;color:var(--gold-l);line-height:1}
+.hero-metric .num-label{font-size:.65rem;color:var(--dim);margin-top:.5rem;letter-spacing:.06em}
 .hero-line{display:none}
 
-section{padding:5rem 1.5rem}
-.sec-inner{max-width:960px;margin:0 auto}
-.label{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
-.stitle{font-family:'Meiryo UI','Meiryo',sans-serif;font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:700;color:var(--white);margin-bottom:1rem;line-height:1.4}
-.stitle em{font-style:normal;color:var(--gold)}
+/* ── sections ── */
+section{padding:4.5rem 1.5rem}
+.sec-inner{max-width:920px;margin:0 auto}
+.label{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.stitle{font-size:clamp(1.3rem,2.8vw,1.8rem);font-weight:700;color:var(--white);margin-bottom:1.2rem;line-height:1.45}
+.stitle em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
-.pain-card{background:var(--card);border:1px solid var(--border2);padding:1.8rem;border-radius:8px;position:relative;overflow:hidden}
-.pain-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
-.pain-card.problem::before{background:#ef4444}
-.pain-card.solve::before{background:var(--green)}
-.pain-card .pc-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.6rem}
+/* ── problem / solution ── */
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.8rem}
+.pain-card{padding:1.6rem;position:relative;overflow:hidden}
+.pain-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:3px 0 0 3px}
+.pain-card.problem::after{background:#ef4444}
+.pain-card.solve::after{background:var(--green)}
+.pain-card .pc-label{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.5rem}
 .pain-card.problem .pc-label{color:#ef4444}
 .pain-card.solve .pc-label{color:var(--green)}
-.pain-card h3{font-size:.95rem;color:var(--white);font-weight:500;margin-bottom:.5rem}
-.pain-card p{font-size:.82rem;color:var(--mid);line-height:1.8}
+.pain-card h3{font-size:.9rem;color:var(--white);font-weight:700;margin-bottom:.5rem;line-height:1.5}
+.pain-card p{font-size:.8rem;color:var(--mid);line-height:1.75}
 
-.svc-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem}
-.svc{background:var(--card);border:1px solid var(--border2);padding:1.6rem;border-radius:8px;transition:border-color .3s,transform .3s}
-.svc:hover{border-color:var(--border);transform:translateY(-2px)}
-.svc-icon{margin-bottom:1rem}
-.svc-icon svg{width:32px;height:32px;stroke:var(--gold);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+/* ── services ── */
+.svc-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.8rem}
+.svc{padding:1.6rem;transition:border-color .3s,transform .3s}
+.svc:hover{border-color:rgba(255,255,255,0.12);transform:translateY(-2px)}
+.svc-icon{margin-bottom:.8rem}
+.svc-icon svg{width:30px;height:30px;stroke:var(--gold);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .svc-icon svg .draw{stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset .8s ease}
 .svc.visible .svc-icon svg .draw,.svc:hover .svc-icon svg .draw{stroke-dashoffset:0}
-.svc h3{font-size:.9rem;color:var(--white);font-weight:500;margin-bottom:.5rem}
-.svc p{font-size:.78rem;color:var(--mid);line-height:1.8}
+.svc h3{font-size:.88rem;color:var(--white);font-weight:700;margin-bottom:.4rem;line-height:1.5}
+.svc p{font-size:.78rem;color:var(--mid);line-height:1.75}
 
+/* ── pricing ── */
 .pricing-section{background:var(--bg2)}
-.price-explain{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.5rem;margin-top:2rem}
-.price-formula{text-align:center;margin:1.5rem 0 2rem;font-family:'DM Mono',monospace;font-size:1.1rem;color:var(--gold-l);padding:1.2rem;background:var(--gold-dim);border-radius:8px;border:1px solid var(--border)}
-.price-formula .big{font-size:1.5rem;font-weight:500}
-.price-table{width:100%;border-collapse:collapse;margin-top:1.5rem}
-.price-table th{text-align:left;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:.8rem 1rem;border-bottom:1px solid var(--border2);font-weight:400}
-.price-table td{padding:.9rem 1rem;border-bottom:1px solid var(--border2);font-size:.85rem;color:var(--text)}
+.price-explain{padding:2.2rem;margin-top:1.8rem}
+.price-intro{color:var(--mid);font-size:.85rem;text-align:center;line-height:1.85;margin-bottom:1.5rem}
+.price-formula{text-align:center;margin-bottom:2rem;font-family:'DM Mono',monospace;font-size:1rem;color:var(--gold-l);padding:1.1rem;background:var(--gold-dim);border-radius:10px;border:1px solid var(--border)}
+.price-formula .big{font-size:1.3rem;font-weight:500}
+.price-table{width:100%;border-collapse:collapse}
+.price-table th{text-align:left;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding:.7rem .8rem;border-bottom:1px solid var(--border2);font-weight:400}
+.price-table td{padding:.8rem;border-bottom:1px solid var(--border2);font-size:.82rem;color:var(--text);line-height:1.6}
 .price-table tr:last-child td{border-bottom:none}
-.price-table .amount{font-family:'DM Mono',monospace;color:var(--gold-l);font-weight:500;font-size:1rem}
-.price-table .tag{display:inline-block;font-size:.65rem;padding:.2rem .6rem;border-radius:3px;letter-spacing:.05em;font-weight:500}
+.price-table .amount{font-family:'DM Mono',monospace;color:var(--gold-l);font-weight:500;font-size:.95rem}
+.price-table .tag{display:inline-block;font-size:.6rem;padding:.2rem .55rem;border-radius:4px;letter-spacing:.04em;font-weight:700;margin-right:.4rem}
 .tag-pop{background:var(--green-dim);color:var(--green)}
 .tag-ent{background:var(--accent-dim);color:var(--accent)}
-.price-note{margin-top:1.5rem;padding:1rem 1.2rem;background:var(--green-dim);border-left:3px solid var(--green);border-radius:0 6px 6px 0;font-size:.82rem;color:var(--green);line-height:1.8}
+.price-note{margin-top:1.5rem;padding:1rem 1.2rem;background:var(--green-dim);border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:.8rem;color:var(--green);line-height:1.75}
 .price-note strong{font-weight:700}
 
-.example-card{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:2rem;margin-top:2rem}
-.ex-row{display:flex;align-items:center;gap:1.5rem;margin:.8rem 0}
-.ex-arrow{color:var(--gold);font-size:1.2rem;flex-shrink:0}
-.ex-before{color:var(--dim);font-size:.85rem;text-decoration:line-through;flex:1}
-.ex-after{color:var(--green);font-size:.85rem;font-weight:500;flex:1}
-.ex-result{margin-top:1.5rem;text-align:center;padding:1.2rem;background:var(--gold-dim);border-radius:8px;border:1px solid var(--border)}
-.ex-result .num{font-family:'DM Mono',monospace;font-size:2rem;color:var(--gold-l);font-weight:500}
-.ex-result .desc{font-size:.78rem;color:var(--mid);margin-top:.3rem}
+/* ── simulation ── */
+.example-card{padding:1.8rem;margin-top:1.8rem}
+.example-card h3{color:var(--white);font-size:.92rem;font-weight:700;margin-bottom:1rem;line-height:1.5}
+.ex-row{display:flex;align-items:center;gap:1.2rem;padding:.6rem 0;border-bottom:1px solid var(--border2)}
+.ex-row:last-of-type{border-bottom:none}
+.ex-arrow{color:var(--gold);font-size:1rem;flex-shrink:0}
+.ex-before{color:var(--dim);font-size:.8rem;text-decoration:line-through;flex:1}
+.ex-after{color:var(--green);font-size:.8rem;font-weight:500;flex:1}
+.ex-result{margin-top:1.4rem;text-align:center;padding:1.2rem;background:var(--gold-dim);border-radius:10px;border:1px solid var(--border)}
+.ex-result-inner{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
+.ex-result .num{font-family:'DM Mono',monospace;font-size:1.6rem;color:var(--gold-l);font-weight:500}
+.ex-result .desc{font-size:.7rem;color:var(--dim);margin-top:.25rem}
+.ex-result .note{font-size:.72rem;color:var(--dim);margin-top:.8rem}
 
-.flow{display:flex;flex-direction:column;gap:0;margin-top:2rem}
-.flow-step{display:flex;gap:1.5rem;align-items:flex-start;padding:1.5rem 0;position:relative}
-.flow-num{width:36px;height:36px;border-radius:50%;flex-shrink:0;background:var(--gold-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.8rem;color:var(--gold);font-weight:500}
-.flow-body h3{font-size:.9rem;color:var(--white);font-weight:500;margin-bottom:.3rem}
-.flow-body p{font-size:.8rem;color:var(--mid);line-height:1.7}
+/* ── flow ── */
+.flow{display:flex;flex-direction:column;margin-top:1.8rem}
+.flow-step{display:flex;gap:1.2rem;align-items:flex-start;padding:1.3rem 0}
+.flow-num{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:var(--gold-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.75rem;color:var(--gold);font-weight:500}
+.flow-body h3{font-size:.88rem;color:var(--white);font-weight:700;margin-bottom:.25rem;line-height:1.5}
+.flow-body p{font-size:.78rem;color:var(--mid);line-height:1.75}
 .flow-step+.flow-step{border-top:1px solid var(--border2)}
 
-.qual-grid{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
-.qual{font-size:.72rem;padding:.4rem .9rem;background:var(--card);border:1px solid var(--border2);border-radius:4px;color:var(--mid);letter-spacing:.04em}
+/* ── credentials ── */
+.qual-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.qual{font-size:.7rem;padding:.4rem .8rem;border-radius:6px;color:var(--mid);letter-spacing:.02em}
 
-.cta-section{text-align:center;padding:5rem 1.5rem}
-.cta-section .stitle{margin-bottom:.8rem}
-.cta-section p{color:var(--mid);font-size:.88rem;margin-bottom:2rem}
-.cta-btn{display:inline-block;background:var(--gold);color:var(--bg);padding:.9rem 2.8rem;border-radius:5px;text-decoration:none;font-weight:700;font-size:.9rem;letter-spacing:.06em;transition:transform .2s,box-shadow .2s}
-.cta-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(201,168,76,0.15)}
-.cta-sub{font-size:.72rem;color:var(--dim);margin-top:1rem}
+/* ── CTA ── */
+.cta-section{text-align:center;padding:4.5rem 1.5rem}
+.cta-section .stitle{margin-bottom:.6rem}
+.cta-section p{color:var(--mid);font-size:.85rem;margin-bottom:2rem;line-height:1.85}
+.cta-btn{display:inline-block;background:linear-gradient(180deg,#d4b55e 0%,var(--gold) 45%,#b8963e 100%);color:var(--bg);padding:.95rem 3rem;border-radius:10px;text-decoration:none;font-weight:700;font-size:.9rem;letter-spacing:.06em;transition:transform .2s,box-shadow .2s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 2px 8px rgba(0,0,0,0.3)}
+.cta-btn:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 4px 16px rgba(201,168,76,0.2)}
+.cta-sub{font-size:.7rem;color:var(--dim);margin-top:1rem;letter-spacing:.04em}
 
-footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border2);font-size:.7rem;color:var(--dim);letter-spacing:.08em}
+footer{text-align:center;padding:2rem 1.5rem;border-top:1px solid var(--border2);font-size:.68rem;color:var(--dim);letter-spacing:.06em}
 
-@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+/* ── animations ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
+/* ── mobile ── */
 @media(max-width:768px){
+  :root{--r:12px}
+  nav{padding:.7rem 1rem}
+  .logo{font-size:.88rem}
   .nav-r a:not(.nav-cta){display:none}
-  nav{padding:.8rem 1rem}
-  .pain-grid,.svc-list{grid-template-columns:1fr}
-  section{padding:3rem 1.2rem}
+  .nav-cta{padding:.45rem 1rem;font-size:.72rem!important}
 
-  .hero{min-height:100svh;padding:5rem 1.2rem 3rem}
-  .hero h1{font-size:1.65rem;line-height:1.45;margin-bottom:1rem}
-  .hero .sub{font-size:.85rem;line-height:1.9}
-  .hero-metric{gap:.6rem;margin-top:2rem;width:100%}
-  .hero-metric div{flex:1;padding:.8rem .5rem;min-width:0;border-radius:8px}
-  .hero-metric .num{font-size:1.5rem}
-  .hero-metric .num-label{font-size:.6rem;margin-top:.35rem}
-  .badge{font-size:.62rem;margin-bottom:1.4rem}
+  section{padding:3rem 1rem}
 
-  .stitle{font-size:1.25rem}
-  .label{font-size:.6rem}
+  .hero{min-height:100svh;padding:5rem 1.2rem 2.5rem}
+  .hero h1{font-size:1.5rem;line-height:1.5;margin-bottom:1rem}
+  .hero .sub{font-size:.82rem;line-height:1.85;padding:0 .2rem}
+  .hero-metric{gap:.5rem;margin-top:2rem;width:100%}
+  .hero-metric>div{flex:1;padding:.7rem .3rem;min-width:0}
+  .hero-metric .num{font-size:1.35rem}
+  .hero-metric .num-label{font-size:.55rem;margin-top:.3rem}
+  .badge{font-size:.6rem;margin-bottom:1.2rem}
 
-  .pain-card{padding:1.3rem}
-  .pain-card h3{font-size:.88rem}
-  .pain-card p{font-size:.78rem}
+  .stitle{font-size:1.15rem;line-height:1.5}
+  .label{font-size:.58rem;letter-spacing:.22em}
 
-  .svc{padding:1.4rem;border-radius:10px}
-  .svc-icon svg{width:28px;height:28px}
+  .pain-grid{grid-template-columns:1fr;gap:.8rem}
+  .pain-card{padding:1.2rem 1.2rem 1.2rem 1.4rem}
+  .pain-card h3{font-size:.85rem}
+  .pain-card p{font-size:.76rem;line-height:1.7}
 
-  .price-explain{padding:1.4rem;border-radius:10px}
-  .price-formula{font-size:.85rem;padding:.9rem}
-  .price-formula .big{font-size:1.1rem}
-  .price-table th{font-size:.6rem;padding:.6rem .5rem}
-  .price-table td{padding:.7rem .5rem;font-size:.78rem}
-  .price-table .amount{font-size:.88rem}
+  .svc-list{grid-template-columns:1fr;gap:.8rem}
+  .svc{padding:1.3rem}
+  .svc-icon svg{width:26px;height:26px}
+  .svc h3{font-size:.85rem}
+  .svc p{font-size:.76rem;line-height:1.7}
 
-  .ex-row{flex-direction:column;gap:.4rem;padding:.7rem 0}
-  .ex-before,.ex-after{font-size:.78rem}
+  .price-explain{padding:1.2rem}
+  .price-intro{font-size:.8rem}
+  .price-formula{font-size:.78rem;padding:.8rem}
+  .price-formula .big{font-size:1rem}
+
+  /* mobile: table → card */
+  .price-table,.price-table thead,.price-table tbody,.price-table tr,.price-table th,.price-table td{display:block;width:100%}
+  .price-table thead{display:none}
+  .price-table tr{padding:1rem 0;border-bottom:1px solid var(--border2)}
+  .price-table tr:last-child{border-bottom:none}
+  .price-table td{padding:.2rem 0;border:none;font-size:.78rem;display:flex;justify-content:space-between;align-items:center}
+  .price-table td::before{content:attr(data-label);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);flex-shrink:0;margin-right:.8rem}
+  .price-table .amount{font-size:.85rem}
+
+  .example-card{padding:1.2rem}
+  .example-card h3{font-size:.85rem}
+  .ex-row{flex-direction:column;gap:.3rem;align-items:flex-start;padding:.6rem 0}
+  .ex-before,.ex-after{font-size:.75rem}
   .ex-arrow{display:none}
   .ex-after::before{content:'→ ';color:var(--gold)}
-  .ex-result{padding:1rem}
-  .ex-result .num{font-size:1.4rem}
-  .ex-result .desc{font-size:.68rem}
-  .example-card{padding:1.4rem}
+  .ex-result{padding:.8rem}
+  .ex-result-inner{gap:1rem}
+  .ex-result .num{font-size:1.2rem}
+  .ex-result .desc{font-size:.6rem}
+  .ex-result .note{font-size:.65rem}
 
-  .flow-step{padding:1.2rem 0;gap:1rem}
-  .flow-num{width:32px;height:32px;font-size:.72rem}
-  .flow-body h3{font-size:.85rem}
-  .flow-body p{font-size:.76rem}
+  .flow-step{padding:1rem 0;gap:.8rem}
+  .flow-num{width:30px;height:30px;font-size:.7rem}
+  .flow-body h3{font-size:.82rem}
+  .flow-body p{font-size:.74rem;line-height:1.7}
 
-  .qual-grid{gap:.5rem}
-  .qual{font-size:.65rem;padding:.35rem .7rem}
+  .qual-grid{gap:.4rem}
+  .qual{font-size:.62rem;padding:.3rem .6rem}
 
-  .cta-section{padding:3.5rem 1.2rem}
-  .cta-section p{font-size:.82rem}
-  .cta-btn{display:block;width:100%;padding:1rem;font-size:.92rem;border-radius:8px;text-align:center}
-  .cta-sub{font-size:.68rem}
+  .cta-section{padding:3rem 1.2rem}
+  .cta-section p{font-size:.8rem;line-height:1.8}
+  .cta-btn{display:block;width:100%;padding:1rem;font-size:.9rem;border-radius:10px;text-align:center}
+  .cta-sub{font-size:.65rem}
 
-  footer{padding:2rem 1.2rem}
+  footer{padding:1.5rem 1rem}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">Falcon<sub>CONSULTING</sub></div>
+  <div class="logo">ファルコンサルティング</div>
   <div class="nav-r">
     <a href="#services">サービス</a>
     <a href="#pricing">料金</a>
@@ -197,9 +235,9 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
   <h1>生成AIで、<em>時間</em>を取り戻す。<br>成果が出なければ、<em>費用ゼロ</em>。</h1>
   <p class="sub">業務に生成AIを導入し、<strong>削減できた時間</strong>に応じて報酬をいただく完全成果報酬型。リスクなく、確実な業務改革を実現します。</p>
   <div class="hero-metric">
-    <div><div class="num">0円</div><div class="num-label">初期費用</div></div>
-    <div><div class="num">40%</div><div class="num-label">平均削減率</div></div>
-    <div><div class="num">3日</div><div class="num-label">最短導入</div></div>
+    <div class="g"><div class="num">0円</div><div class="num-label">初期費用</div></div>
+    <div class="g"><div class="num">40%</div><div class="num-label">平均削減率</div></div>
+    <div class="g"><div class="num">3日</div><div class="num-label">最短導入</div></div>
   </div>
   <div class="hero-line"></div>
 </section>
@@ -209,23 +247,23 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
     <div class="label">Problem × Solution</div>
     <div class="stitle">「AI、何から始めれば？」を<em>解決</em>します</div>
     <div class="pain-grid">
-      <div class="pain-card problem">
+      <div class="pain-card problem g">
         <div class="pc-label">よくある課題</div>
         <h3>ツールを入れたが、誰も使わない</h3>
         <p>ChatGPTの法人契約をしたが、活用が一部の社員に留まり、全社的な効果が見えない。</p>
       </div>
-      <div class="pain-card solve">
-        <div class="pc-label">Falconの解決策</div>
+      <div class="pain-card solve g">
+        <div class="pc-label">ファルコンの解決策</div>
         <h3>業務単位で「使える仕組み」を構築</h3>
         <p>現場の業務フローに直接AIを組み込み、「使わざるを得ない」設計で定着率を最大化します。</p>
       </div>
-      <div class="pain-card problem">
+      <div class="pain-card problem g">
         <div class="pc-label">よくある課題</div>
         <h3>導入コストが読めず、稟議が通らない</h3>
         <p>ベンダーの見積もりが高額で、ROIの根拠も不明確。経営層を説得できない。</p>
       </div>
-      <div class="pain-card solve">
-        <div class="pc-label">Falconの解決策</div>
+      <div class="pain-card solve g">
+        <div class="pc-label">ファルコンの解決策</div>
         <h3>成果報酬型だから、稟議リスクゼロ</h3>
         <p>効果が出た分だけの支払い。削減時間×単価の明快な計算式で、事前にシミュレーション可能です。</p>
       </div>
@@ -238,17 +276,17 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
     <div class="label">Services</div>
     <div class="stitle">生成AIを<em>武器</em>に変える3つの支援</div>
     <div class="svc-list">
-      <div class="svc">
+      <div class="svc g">
         <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M6 16h6l3-8 4 16 3-8h4"/><circle class="draw" cx="16" cy="16" r="13"/></svg></div>
         <h3>業務プロセス自動化</h3>
         <p>議事録作成、レポート生成、データ集計、メール対応など、定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。</p>
       </div>
-      <div class="svc">
+      <div class="svc g">
         <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M16 3L4 10v8c0 7 5.3 13.5 12 15 6.7-1.5 12-8 12-15v-8L16 3z"/><polyline class="draw" points="11,16 15,20 22,12"/></svg></div>
         <h3>セキュアAI導入設計</h3>
         <p>情報漏洩リスクを排除したAI利用ポリシーの策定から、オンプレミス／プライベートクラウド環境での安全な生成AI基盤構築まで対応。</p>
       </div>
-      <div class="svc">
+      <div class="svc g">
         <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M8 28V18m8 10V12m8 16V6"/><circle class="draw" cx="8" cy="18" r="2"/><circle class="draw" cx="16" cy="12" r="2"/><circle class="draw" cx="24" cy="6" r="2"/></svg></div>
         <h3>社内AI人材育成</h3>
         <p>プロンプトエンジニアリング研修、部門別ユースケース開発ワークショップを通じて、自走できる組織を実現します。</p>
@@ -261,8 +299,8 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
   <div class="sec-inner reveal">
     <div class="label">Pricing</div>
     <div class="stitle">削減した時間 × 単価。<em>それだけ</em>です。</div>
-    <div class="price-explain">
-      <p style="color:var(--mid);font-size:.88rem;text-align:center">料金は「AIで削減できた業務時間」に基づいて算出されます。<br>効果がなければ、お支払いは一切発生しません。</p>
+    <div class="price-explain g">
+      <p class="price-intro">料金は「AIで削減できた業務時間」に基づいて算出されます。<br>効果がなければ、お支払いは一切発生しません。</p>
       <div class="price-formula">
         <span class="big">月額料金</span> ＝ 削減時間（h/月）× 時間単価（円）
       </div>
@@ -270,16 +308,16 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
         <thead><tr><th>プラン</th><th>時間単価</th><th>想定規模</th><th>月額目安</th></tr></thead>
         <tbody>
           <tr>
-            <td><span class="tag tag-pop">人気</span> スタンダード</td>
-            <td class="amount">¥3,000<span style="font-size:.7rem;color:var(--dim)">/h</span></td>
-            <td style="font-size:.82rem;color:var(--mid)">中小企業・部門単位<br>（5〜30名）</td>
-            <td class="amount">¥150,000〜</td>
+            <td data-label="プラン"><span class="tag tag-pop">人気</span>スタンダード</td>
+            <td data-label="時間単価" class="amount">¥3,000<span style="font-size:.7rem;color:var(--dim)">/h</span></td>
+            <td data-label="想定規模" style="color:var(--mid)">中小企業・部門単位（5〜30名）</td>
+            <td data-label="月額目安" class="amount">¥150,000〜</td>
           </tr>
           <tr>
-            <td><span class="tag tag-ent">大規模</span> エンタープライズ</td>
-            <td class="amount">¥2,000<span style="font-size:.7rem;color:var(--dim)">/h</span></td>
-            <td style="font-size:.82rem;color:var(--mid)">大企業・全社導入<br>（50名〜）</td>
-            <td class="amount">個別見積</td>
+            <td data-label="プラン"><span class="tag tag-ent">大規模</span>エンタープライズ</td>
+            <td data-label="時間単価" class="amount">¥2,000<span style="font-size:.7rem;color:var(--dim)">/h</span></td>
+            <td data-label="想定規模" style="color:var(--mid)">大企業・全社導入（50名〜）</td>
+            <td data-label="月額目安" class="amount">個別見積</td>
           </tr>
         </tbody>
       </table>
@@ -288,9 +326,9 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
       </div>
     </div>
 
-    <div class="example-card">
+    <div class="example-card g">
       <div class="label">Simulation</div>
-      <h3 style="color:var(--white);font-size:1rem;font-weight:500;margin-bottom:1rem">導入シミュレーション：従業員20名の管理部門</h3>
+      <h3>導入シミュレーション：従業員20名の管理部門</h3>
       <div class="ex-row">
         <span class="ex-before">議事録作成：1件60分 × 月20回 = 20h</span>
         <span class="ex-arrow">→</span>
@@ -307,12 +345,12 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
         <span class="ex-after">AIチャットボット：月8h（▲32h）</span>
       </div>
       <div class="ex-result">
-        <div style="display:flex;justify-content:center;gap:3rem;flex-wrap:wrap">
+        <div class="ex-result-inner">
           <div><div class="num">▲69.7h</div><div class="desc">月間削減時間</div></div>
           <div><div class="num">¥209,100</div><div class="desc">月額費用（@¥3,000）</div></div>
           <div><div class="num">¥0</div><div class="desc">初期費用</div></div>
         </div>
-        <p style="font-size:.75rem;color:var(--dim);margin-top:1rem">※ 人件費換算（@¥5,000/h）で月約34.8万円相当 → 実質 月約13.9万円のコスト削減効果</p>
+        <p class="note">※ 人件費換算（@¥5,000/h）で月約34.8万円相当<br>→ 実質 月約13.9万円のコスト削減効果</p>
       </div>
     </div>
   </div>
@@ -347,16 +385,16 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
   <div class="sec-inner reveal">
     <div class="label">Credentials</div>
     <div class="stitle">大手コンサル × エンジニアの<em>実務力</em></div>
-    <p style="color:var(--mid);font-size:.88rem;margin-bottom:.8rem">Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を併せ持つプロフェッショナルが、戦略と実装の両面から支援します。</p>
+    <p style="color:var(--mid);font-size:.85rem;line-height:1.8;margin-bottom:1rem">Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を併せ持つプロフェッショナルが、戦略と実装の両面から支援します。</p>
     <div class="qual-grid">
-      <div class="qual">プロジェクトマネージャー (IPA)</div>
-      <div class="qual">システムアーキテクト (IPA)</div>
-      <div class="qual">情報処理安全確保支援士（登録セキスペ）</div>
-      <div class="qual">ネットワークスペシャリスト</div>
-      <div class="qual">データベーススペシャリスト</div>
-      <div class="qual">PMP®</div>
-      <div class="qual">Big4 Manager経験</div>
-      <div class="qual">金融機関システム部門 実務経験</div>
+      <div class="qual g">プロジェクトマネージャー (IPA)</div>
+      <div class="qual g">システムアーキテクト (IPA)</div>
+      <div class="qual g">情報処理安全確保支援士（登録セキスペ）</div>
+      <div class="qual g">ネットワークスペシャリスト</div>
+      <div class="qual g">データベーススペシャリスト</div>
+      <div class="qual g">PMP®</div>
+      <div class="qual g">Big4 Manager経験</div>
+      <div class="qual g">金融機関システム部門 実務経験</div>
     </div>
   </div>
 </section>
@@ -371,7 +409,7 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
   </div>
 </section>
 
-<footer><p>&copy; 2026 Falcon Consulting. All rights reserved.</p></footer>
+<footer><p>&copy; 2026 ファルコンサルティング All rights reserved.</p></footer>
 
 <script>
 const observer=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');observer.unobserve(el.target)}})},{threshold:.15});
