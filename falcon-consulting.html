@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <title>ファルコンConsulting｜生成AI×業務改革</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -21,34 +21,32 @@
   --border:rgba(201,168,76,0.15);--border2:rgba(255,255,255,0.06);
 }
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Noto Sans JP','Hiragino Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;font-weight:300;overflow-x:hidden}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body{font-family:'Meiryo UI','Meiryo','Hiragino Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;font-weight:400;overflow-x:hidden}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;background:rgba(6,8,12,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--gold);letter-spacing:.06em}
-.logo sub{font-size:.55rem;color:var(--dim);letter-spacing:.15em;vertical-align:baseline;margin-left:.4rem;font-family:'Noto Sans JP',sans-serif;font-weight:400}
+.logo{font-family:'Meiryo UI','Meiryo',sans-serif;font-size:1.15rem;font-weight:700;color:var(--gold);letter-spacing:.04em}
+.logo sub{font-size:.55rem;color:var(--dim);letter-spacing:.15em;vertical-align:baseline;margin-left:.4rem;font-weight:400}
 .nav-r{display:flex;gap:1.8rem;align-items:center}
 .nav-r a{color:var(--dim);text-decoration:none;font-size:.78rem;letter-spacing:.1em;transition:color .3s}
 .nav-r a:hover{color:var(--gold)}
 .nav-cta{background:var(--gold)!important;color:var(--bg)!important;padding:.5rem 1.2rem;border-radius:4px;font-weight:500;font-size:.78rem!important;letter-spacing:.06em!important}
 
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 1.5rem 4rem;position:relative}
-.hero::before{content:'';position:absolute;width:700px;height:700px;top:5%;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(201,168,76,0.05) 0%,rgba(59,130,246,0.03) 40%,transparent 70%);pointer-events:none}
-.badge{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:.45rem 1.4rem;margin-bottom:2.2rem;display:inline-block;animation:fu .8s ease both}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5.5vw,4.2rem);font-weight:700;color:var(--white);line-height:1.25;margin-bottom:1.2rem;letter-spacing:.01em;animation:fu .8s ease .12s both}
+.badge{font-size:.7rem;letter-spacing:.12em;color:var(--dim);padding:.45rem 0;margin-bottom:2rem;display:inline-block}
+.hero h1{font-family:'Meiryo UI','Meiryo',sans-serif;font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:700;color:var(--white);line-height:1.35;margin-bottom:1.2rem;letter-spacing:.02em}
 .hero h1 em{font-style:normal;color:var(--gold)}
-.hero .sub{max-width:520px;color:var(--mid);font-size:.92rem;line-height:2;animation:fu .8s ease .24s both}
+.hero .sub{max-width:520px;color:var(--mid);font-size:.92rem;line-height:2}
 .hero .sub strong{color:var(--white);font-weight:500}
-.hero-metric{display:flex;gap:3rem;margin-top:3rem;animation:fu .8s ease .36s both}
+.hero-metric{display:flex;gap:3rem;margin-top:3rem}
 .hero-metric div{text-align:center}
 .hero-metric .num{font-family:'DM Mono',monospace;font-size:2.4rem;font-weight:500;color:var(--gold-l);line-height:1}
 .hero-metric .num-label{font-size:.7rem;color:var(--dim);margin-top:.4rem;letter-spacing:.08em}
-.hero-line{width:1px;height:60px;background:linear-gradient(var(--gold),transparent);margin-top:3rem;animation:fu .8s ease .5s both}
+.hero-line{width:1px;height:40px;background:var(--border2);margin-top:3rem}
 
 section{padding:5rem 1.5rem}
 .sec-inner{max-width:960px;margin:0 auto}
 .label{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
-.stitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3.2vw,2.2rem);font-weight:600;color:var(--white);margin-bottom:1rem;line-height:1.35}
+.stitle{font-family:'Meiryo UI','Meiryo',sans-serif;font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:700;color:var(--white);margin-bottom:1rem;line-height:1.4}
 .stitle em{font-style:normal;color:var(--gold)}
 
 .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
@@ -65,7 +63,10 @@ section{padding:5rem 1.5rem}
 .svc-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem}
 .svc{background:var(--card);border:1px solid var(--border2);padding:1.6rem;border-radius:8px;transition:border-color .3s,transform .3s}
 .svc:hover{border-color:var(--border);transform:translateY(-2px)}
-.svc-icon{font-size:1.6rem;margin-bottom:.8rem}
+.svc-icon{margin-bottom:1rem}
+.svc-icon svg{width:32px;height:32px;stroke:var(--gold);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.svc-icon svg .draw{stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset .8s ease}
+.svc.visible .svc-icon svg .draw,.svc:hover .svc-icon svg .draw{stroke-dashoffset:0}
 .svc h3{font-size:.9rem;color:var(--white);font-weight:500;margin-bottom:.5rem}
 .svc p{font-size:.78rem;color:var(--mid);line-height:1.8}
 
@@ -107,7 +108,7 @@ section{padding:5rem 1.5rem}
 .cta-section .stitle{margin-bottom:.8rem}
 .cta-section p{color:var(--mid);font-size:.88rem;margin-bottom:2rem}
 .cta-btn{display:inline-block;background:var(--gold);color:var(--bg);padding:.9rem 2.8rem;border-radius:5px;text-decoration:none;font-weight:700;font-size:.9rem;letter-spacing:.06em;transition:transform .2s,box-shadow .2s}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,168,76,0.25)}
+.cta-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(201,168,76,0.15)}
 .cta-sub{font-size:.72rem;color:var(--dim);margin-top:1rem}
 
 footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border2);font-size:.7rem;color:var(--dim);letter-spacing:.08em}
@@ -186,17 +187,17 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
     <div class="stitle">生成AIを<em>武器</em>に変える3つの支援</div>
     <div class="svc-list">
       <div class="svc">
-        <div class="svc-icon">⚡</div>
+        <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M6 16h6l3-8 4 16 3-8h4"/><circle class="draw" cx="16" cy="16" r="13"/></svg></div>
         <h3>業務プロセス自動化</h3>
         <p>議事録作成、レポート生成、データ集計、メール対応など、定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。</p>
       </div>
       <div class="svc">
-        <div class="svc-icon">🛡️</div>
+        <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M16 3L4 10v8c0 7 5.3 13.5 12 15 6.7-1.5 12-8 12-15v-8L16 3z"/><polyline class="draw" points="11,16 15,20 22,12"/></svg></div>
         <h3>セキュアAI導入設計</h3>
         <p>情報漏洩リスクを排除したAI利用ポリシーの策定から、オンプレミス／プライベートクラウド環境での安全な生成AI基盤構築まで対応。</p>
       </div>
       <div class="svc">
-        <div class="svc-icon">🎓</div>
+        <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M8 28V18m8 10V12m8 16V6"/><circle class="draw" cx="8" cy="18" r="2"/><circle class="draw" cx="16" cy="12" r="2"/><circle class="draw" cx="24" cy="6" r="2"/></svg></div>
         <h3>社内AI人材育成</h3>
         <p>プロンプトエンジニアリング研修、部門別ユースケース開発ワークショップを通じて、自走できる組織を実現します。</p>
       </div>
@@ -322,7 +323,7 @@ footer{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border
 
 <script>
 const observer=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');observer.unobserve(el.target)}})},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('.reveal,.svc').forEach(el=>observer.observe(el));
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
 </script>
 </body>
