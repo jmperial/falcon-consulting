@@ -482,41 +482,52 @@ nav a:hover{color:#e0e0e0}
   background:rgba(168,85,247,.08);
 }
 
-/* === SECTION 7: CONTACT (8-BIT GREEN — FULL CIRCLE) === */
+/* === SECTION 7: CONTACT (SPLIT: DOS × Claude Code) === */
 .s7{
-  background:#0a0a0a;color:#33ff00;
+  background:#0a0a0a;color:#e0e0e0;
   min-height:60vh;
 }
-.s7 .out-title{
-  font-size:1.6rem;color:#33ff00;
-  text-shadow:0 0 8px rgba(51,255,0,.4);
+.s7 .inner{max-width:900px}
+.s7-split{display:flex;gap:0;min-height:400px;border-radius:8px;overflow:hidden;border:1px solid rgba(51,255,0,.15)}
+/* Left: DOS side */
+.s7-dos{
+  flex:1;background:#0a0a0a;padding:28px 24px;
+  border-right:1px solid rgba(100,100,100,.2);
+  display:flex;flex-direction:column;justify-content:center;
 }
-.s7 .contact-text{
-  color:rgba(51,255,0,.7);font-size:.95rem;line-height:1.8;margin-bottom:28px;
+.s7-dos .dos-prompt{color:#33ff00;font-size:.8rem;margin-bottom:16px}
+.s7-dos .dos-prompt .p-cursor{display:inline-block;width:8px;height:14px;background:#33ff00;animation:blink 1s step-end infinite;vertical-align:middle}
+.s7-dos .dos-title{color:#33ff00;font-size:1.4rem;font-weight:700;text-shadow:0 0 8px rgba(51,255,0,.4);margin-bottom:16px}
+.s7-dos .dos-text{color:rgba(51,255,0,.7);font-size:.85rem;line-height:1.8;margin-bottom:20px}
+.s7-dos .dos-note{font-size:.7rem;color:rgba(51,255,0,.3)}
+/* Right: Claude Code side */
+.s7-cc{
+  flex:1;background:rgba(10,5,16,.95);padding:0;
+  display:flex;flex-direction:column;
 }
-.s7 .content-area{text-align:center}
-.s7 .cc-frame{border-color:rgba(51,255,0,.2);background:rgba(51,255,0,.02)}
-.s7 .cc-statusbar{background:rgba(51,255,0,.04);border-bottom-color:rgba(51,255,0,.1);color:rgba(51,255,0,.4)}
-.s7 .cc-statusbar svg circle,.s7 .cc-statusbar svg path{stroke:#33ff00}
-.s7 .cc-statusbar svg circle:last-child{fill:#33ff00}
-.s7 .cc-statusbar .cc-path{color:rgba(51,255,0,.5)}
-.s7 .cc-statusbar .cc-branch{color:#33ff00}
-.s7 .cc-statusbar .cc-model{color:rgba(51,255,0,.4)}
-.s7 .cc-prompt .chevron{color:#33ff00}
-.s7 .cc-prompt .p-cmd{color:rgba(51,255,0,.5)}
-.s7 .cc-prompt .p-cursor{background:#33ff00 !important}
-.s7 .contact-form{text-align:left;max-width:480px;margin-left:auto;margin-right:auto}
-.s7 .form-group label{color:rgba(51,255,0,.5)}
+.s7-cc .cc-bar{
+  padding:6px 14px;display:flex;align-items:center;gap:8px;
+  background:rgba(192,132,252,.06);border-bottom:1px solid rgba(192,132,252,.1);
+  font-size:.6rem;color:rgba(192,132,252,.5);
+}
+.s7-cc .cc-bar svg{width:12px;height:12px}
+.s7-cc .cc-bar .cc-p{flex:1;color:rgba(192,132,252,.6)}
+.s7-cc .cc-form-body{padding:20px 24px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.s7-cc .cc-input-line{display:flex;align-items:center;gap:6px;margin-bottom:16px;font-size:.8rem}
+.s7-cc .cc-input-line .chevron{color:#c084fc;font-weight:700}
+.s7-cc .cc-input-line .p-cmd{color:rgba(192,132,252,.5)}
+.s7 .contact-form{text-align:left;max-width:100%}
+.s7 .form-group label{color:rgba(192,132,252,.6);font-size:.7rem}
 .s7 .form-group input,.s7 .form-group textarea{
-  color:#33ff00;background:rgba(51,255,0,.04);
-  border-color:rgba(51,255,0,.2);
+  color:#e0d4ff;background:rgba(192,132,252,.05);
+  border:1px solid rgba(192,132,252,.2);border-radius:6px;
 }
 .s7 .form-group input:focus,.s7 .form-group textarea:focus{
-  border-color:#33ff00;box-shadow:0 0 0 3px rgba(51,255,0,.08);
+  border-color:#c084fc;box-shadow:0 0 0 3px rgba(192,132,252,.08);
 }
-.s7 .form-group input::placeholder,.s7 .form-group textarea::placeholder{color:rgba(51,255,0,.25)}
+.s7 .form-group input::placeholder,.s7 .form-group textarea::placeholder{color:rgba(192,132,252,.25)}
 .cta-btn{
-  display:inline-block;padding:14px 36px;font-size:.95rem;
+  display:inline-block;padding:12px 32px;font-size:.9rem;
   font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-weight:600;
   color:#0a0a0a;border-radius:4px;letter-spacing:.5px;
   background:#33ff00;border:none;
@@ -533,11 +544,17 @@ nav a:hover{color:#e0e0e0}
   animation:shimmer 3s linear infinite;
 }
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
+/* Mobile: stack */
+@media(max-width:600px){
+  .s7-split{flex-direction:column}
+  .s7-dos{border-right:none;border-bottom:1px solid rgba(100,100,100,.2);padding:24px 20px}
+  .s7-cc .cc-form-body{padding:16px 20px}
+}
 
 footer{
   text-align:center;padding:40px 20px;font-size:.7rem;
-  color:rgba(51,255,0,.2);background:#0a0a0a;
-  border-top:1px solid rgba(51,255,0,.1);
+  color:rgba(51,255,0,.15);background:#0a0a0a;
+  border-top:1px solid rgba(51,255,0,.08);
 }
 
 /* === MOBILE (iPhone 17 base: ~393px) === */
@@ -858,29 +875,33 @@ footer{
   </div>
 </div>
 
-<!-- ===== 7. CONTACT — Claude Code ===== -->
+<!-- ===== 7. CONTACT — DOS × Claude Code SPLIT ===== -->
 <section class="sec s7" id="s7">
   <div class="inner">
-    <div class="cc-frame">
-      <div class="cc-statusbar">
-        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#c084fc" stroke-width="1.5" fill="none"/><path d="M5 8.5a3.5 3.5 0 0 1 6 0" stroke="#c084fc" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="6" cy="6" r=".8" fill="#c084fc"/><circle cx="10" cy="6" r=".8" fill="#c084fc"/></svg>
-        <span class="cc-path">~/falcon-consulting</span>
-        <span class="cc-branch">main</span>
-        <span class="cc-model">Claude Code</span>
-      </div>
-      <div class="cc-body">
-        <div class="cc-prompt" data-cmd="まずは相談から始めましょう">
-          <span class="chevron">❯</span>
-          <span class="p-cmd"></span>
-          <span class="p-cursor" style="background:#c084fc"></span>
+    <div class="s7-split">
+      <!-- Left: DOS Green -->
+      <div class="s7-dos">
+        <div class="dos-prompt">C:\falcon&gt; contact.exe <span class="p-cursor"></span></div>
+        <div class="dos-title">Contact</div>
+        <div class="dos-text">
+          「この業務、AIでどれくらい<br>削減できる？」<br><br>
+          その疑問に、<br>具体的な数字でお答えします。<br><br>
+          まずは30分の無料相談から。
         </div>
-        <div class="content-area">
-          <div class="out-title">Contact</div>
-          <p class="contact-text">
-            「この業務、AIでどれくらい削減できる？」<br>
-            その疑問に、具体的な数字でお答えします。<br>
-            まずは30分の無料相談から。
-          </p>
+        <div class="dos-note">初期費用なし ・ 契約の縛りなし<br>成果が出なければ費用ゼロ</div>
+      </div>
+      <!-- Right: Claude Code -->
+      <div class="s7-cc">
+        <div class="cc-bar">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#c084fc" stroke-width="1.5" fill="none"/><circle cx="6" cy="6" r=".8" fill="#c084fc"/><circle cx="10" cy="6" r=".8" fill="#c084fc"/></svg>
+          <span class="cc-p">~/falcon-consulting</span>
+          <span style="color:#c084fc">Claude Code</span>
+        </div>
+        <div class="cc-form-body">
+          <div class="cc-input-line">
+            <span class="chevron">❯</span>
+            <span class="p-cmd">お問い合わせフォーム</span>
+          </div>
           <form action="https://formspree.io/f/xaqllvea" method="POST" class="contact-form">
             <div class="form-group">
               <label>お名前 *</label>
@@ -898,11 +919,10 @@ footer{
               <label>ご相談内容</label>
               <textarea name="message" lang="ja" placeholder="例：&#10;・議事録作成を自動化したい&#10;・社内のAI活用を推進したい&#10;・セキュリティを担保しつつ生成AIを導入したい"></textarea>
             </div>
-            <div class="form-submit-wrap">
+            <div class="form-submit-wrap" style="text-align:center">
               <button type="submit" class="cta-btn">無料相談を予約する</button>
             </div>
           </form>
-          <p style="margin-top:20px;font-size:.75rem;color:rgba(51,255,0,.3);text-align:center">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
         </div>
       </div>
     </div>
