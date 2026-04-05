@@ -189,9 +189,16 @@ nav a:hover{color:#e0e0e0}
 }
 .prof-section p{font-size:.85rem;color:rgba(103,232,249,.72);line-height:1.9;margin-bottom:8px}
 .prof-overview-block{
-  border-left:2px solid rgba(103,232,249,.25);padding-left:14px;margin:4px 0 8px;
+  border-left:2px solid rgba(103,232,249,.25);padding-left:14px;margin:4px 0 12px;
 }
 .prof-overview-block p{color:rgba(103,232,249,.75);margin-bottom:0}
+.spec-label{font-size:.7rem;color:rgba(103,232,249,.4);letter-spacing:1px;margin-top:14px;margin-bottom:6px}
+.spec-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.spec-tag{
+  padding:4px 12px;font-size:.73rem;border-radius:4px;
+  border:1px solid rgba(255,179,0,.35);color:#ffb300;
+  background:rgba(255,179,0,.05);letter-spacing:.3px;
+}
 .prof-highlight{
   display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
 }
@@ -685,7 +692,12 @@ footer{
         <h3>// Overview</h3>
         <div class="prof-overview-block">
           <p>BIG4コンサルティングファームのマネージャーとして大手金融機関にアドバイザリー・コンサルティングサービスを提供。</p>
-          <p style="margin-top:8px">主な専門領域: <span style="color:#c084fc">システムリスク監査</span> / <span style="color:#c084fc">サイバーセキュリティ監査</span> / <span style="color:#c084fc">PMO（プロジェクトマネジメント）</span></p>
+        </div>
+        <div class="spec-label">// SPECIALIZATION</div>
+        <div class="spec-tags">
+          <span class="spec-tag">システムリスク監査</span>
+          <span class="spec-tag">サイバーセキュリティ監査</span>
+          <span class="spec-tag">PMO・プロジェクトマネジメント</span>
         </div>
       </div>
 
@@ -709,8 +721,8 @@ footer{
 
       <div class="prof-section">
         <h3>// Strength</h3>
-        <p style="color:rgba(103,232,249,.72)">企画・提案 → 要件定義 → 設計 → 構築 → 開発 → テスト → 移行 → 運用 → <span style="color:#33ff00;font-weight:600">監査</span><br>
-        <span style="font-size:.78rem;color:rgba(103,232,249,.5)">// システムライフサイクルの全フェーズを実務経験済み</span></p>
+        <p>企画・提案 → 要件定義 → 設計 → 構築 → 開発 → テスト → 移行 → 運用 → 監査</p>
+        <p style="font-size:.78rem;color:rgba(103,232,249,.45);margin-top:4px">// システムライフサイクルの全フェーズを実務経験済み</p>
         <div class="prof-highlight">
           <div class="ph-item"><strong>上流</strong>企画・提案・要件定義</div>
           <div class="ph-item"><strong>構築</strong>設計・開発・テスト</div>
@@ -792,10 +804,36 @@ footer{
 <script>
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 
-// === Hero typing (with scroll-back replay) ===
+// === Scroll direction tracker ===
+var scrollDir='down';
+var lastScrollY=window.scrollY;
+window.addEventListener('scroll',function(){
+  scrollDir=window.scrollY>lastScrollY?'down':'up';
+  lastScrollY=window.scrollY;
+},{passive:true});
+
+// === Global reset: clears all section typing + hero ===
+var heroState='idle';
+var heroOut,heroStats;
+function resetAll(){
+  // hero
+  heroState='idle';
+  if(heroOut){heroOut.innerHTML='';}
+  if(heroStats){heroStats.style.transition='none';heroStats.style.opacity='0';}
+  // all sections
+  document.querySelectorAll('[data-cmd]').forEach(function(el){
+    el.removeAttribute('data-typing');
+    var cmdEl=el.querySelector('.p-cmd');
+    if(cmdEl){cmdEl.textContent='';cmdEl.style.opacity='0';}
+    var inner=el.closest('.inner');
+    if(inner){var ca=inner.querySelector('.content-area');if(ca)ca.classList.remove('show');}
+  });
+}
+
+// === Hero typing ===
 (function(){
-  var out=document.getElementById('terminal-output');
-  var stats=document.getElementById('dos-stats');
+  heroOut=document.getElementById('terminal-output');
+  heroStats=document.getElementById('dos-stats');
   var lines=[
     {text:'FALCON CONSULTING v2.0',color:'#33ff00',delay:30},
     {text:'PERFORMANCE-BASED AI CONSULTING',color:'#33ff00',delay:25},
@@ -807,80 +845,62 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
     {text:'削減できた時間に応じた完全成果報酬型。',color:'#33ff00',delay:30},
     {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:30},
   ];
-  var heroState='idle'; // idle | typing | done
   async function typeLine(c){
     if(!c.text){await sleep(c.pause||200);return}
     var d=document.createElement('div');
     d.className='out-line'+(c.cls?' '+c.cls:'');
     d.style.color=c.color||'#33ff00';
-    out.appendChild(d);
+    heroOut.appendChild(d);
     for(var i=0;i<c.text.length;i++){
-      if(heroState==='idle')return; // aborted by scroll-away
-      d.textContent+=c.text[i];await sleep(c.delay||30)
+      if(heroState!=='typing')return;
+      d.textContent+=c.text[i];await sleep(c.delay||30);
     }
   }
-  async function run(){
+  async function runHero(){
     heroState='typing';
-    out.innerHTML='';
-    stats.style.transition='none';stats.style.opacity='0';
-    for(var l of lines){if(heroState==='idle')return;await typeLine(l)}
-    if(heroState==='idle')return;
+    for(var l of lines){if(heroState!=='typing')return;await typeLine(l);}
+    if(heroState!=='typing')return;
     await sleep(300);
-    stats.style.transition='opacity .8s ease';
-    stats.style.opacity='1';
+    heroStats.style.transition='opacity .8s ease';
+    heroStats.style.opacity='1';
     heroState='done';
   }
-  var io=new IntersectionObserver(function(e){
+  new IntersectionObserver(function(e){
     var entry=e[0];
-    if(!entry.isIntersecting && entry.intersectionRatio<0.05){
-      // nearly fully scrolled away → reset
-      if(heroState!=='idle'){heroState='idle';out.innerHTML='';stats.style.opacity='0';}
-      return;
+    if(!entry.isIntersecting||entry.intersectionRatio<0.25)return;
+    if(heroState==='typing')return; // already running
+    if(heroState==='done'&&scrollDir==='up'){
+      // scrolled back to top → reset everything and replay
+      resetAll();
     }
-    if(entry.isIntersecting && entry.intersectionRatio>=0.25 && heroState==='idle'){
-      run();
-    }
-  },{threshold:[0.04,0.25]});
-  io.observe(document.getElementById('s1'));
+    if(heroState==='idle')runHero();
+  },{threshold:[0.25]}).observe(document.getElementById('s1'));
 })();
 
-// === Scroll-triggered typing for all sections (replay on scroll-back) ===
+// === Scroll-triggered typing (DOWN only — no reset on scroll-away) ===
 (function(){
   var prompts=document.querySelectorAll('[data-cmd]');
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
+      if(!entry.isIntersecting||entry.intersectionRatio<0.18)return;
       var el=entry.target;
+      if(el.getAttribute('data-typing'))return;
       var cmd=el.getAttribute('data-cmd');
       var cmdEl=el.querySelector('.p-cmd');
-      var content=el.closest('.inner').querySelector('.content-area');
+      var inner=el.closest('.inner');
+      var content=inner?inner.querySelector('.content-area'):null;
       if(!cmdEl||!cmd)return;
-      // Reset only when element is nearly fully out of view (<4% visible)
-      if(!entry.isIntersecting && entry.intersectionRatio<0.04){
-        if(el.getAttribute('data-typing')==='done'){
-          el.removeAttribute('data-typing');
-          cmdEl.textContent='';
-          cmdEl.style.opacity='0';
-          if(content)content.classList.remove('show');
-        }
-        return;
-      }
-      // Trigger when at least 18% visible
-      if(!entry.isIntersecting || entry.intersectionRatio<0.18)return;
-      if(el.getAttribute('data-typing'))return;
       el.setAttribute('data-typing','true');
       (async function(){
         cmdEl.style.opacity='1';
-        for(var i=0;i<cmd.length;i++){
-          cmdEl.textContent+=cmd[i];
-          await sleep(25);
-        }
+        for(var i=0;i<cmd.length;i++){cmdEl.textContent+=cmd[i];await sleep(25);}
         await sleep(200);
         if(content)content.classList.add('show');
         el.setAttribute('data-typing','done');
       })();
     });
-  },{threshold:[0.03,0.18,0.5]});
-  prompts.forEach(function(p){io.observe(p)});
+  },{threshold:[0.18]});
+  prompts.forEach(function(p){io.observe(p);});
 })();
 
 // === Profile modal ===
