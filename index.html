@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ファルコンサルティング｜生成AI×業務改革</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /* === RESET === */
@@ -177,11 +178,11 @@ nav a:hover{color:#e0e0e0}
 
 /* Profile content */
 .prof-name{
-  font-size:1.2rem;font-weight:700;margin-bottom:4px;
+  font-size:1.5rem;font-weight:700;margin-bottom:4px;
   background:linear-gradient(135deg,#c084fc,#67e8f9);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.prof-role{font-size:.7rem;color:rgba(200,180,253,.5);margin-bottom:24px}
+.prof-role{font-size:.8rem;color:rgba(200,180,253,.5);margin-bottom:24px}
 .prof-section{margin-bottom:24px}
 .prof-section h3{
   font-size:.75rem;color:#c084fc;letter-spacing:1.5px;
@@ -244,7 +245,7 @@ nav a:hover{color:#e0e0e0}
   padding:20px 0 32px;
 }
 .prof-catchcopy{
-  font-size:1.3rem;font-weight:700;line-height:1.6;
+  font-size:1.8rem;font-weight:700;line-height:1.6;
   color:rgba(224,212,255,.85);
   opacity:0;transform:scale(.95);
   transition:opacity .7s ease,transform .7s ease;
@@ -310,7 +311,6 @@ nav a:hover{color:#e0e0e0}
 
 /* === ANIMATIONS === */
 @keyframes blink{50%{opacity:0}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
 
 /* === SECTION 1: HERO (DOS GREEN) === */
@@ -562,48 +562,24 @@ footer{
 /* === MOBILE (iPhone 17 base: ~393px) === */
 @media(max-width:600px){
   .sec{padding:80px 14px 40px}
-  .inner{max-width:100%}
-  body{font-size:.85rem}
-  .s1 .hayabusa{font-size:3.5rem;top:65px;right:3%}
-  .out-title{font-size:1rem}
-  .s1 .glow-line{font-size:1.1rem}
-  .s1 .era-badge{top:58px;left:14px;font-size:.45rem}
-  .s1 .stats{flex-direction:column;gap:8px}
-  .s1 .stat-card .stat-val{font-size:1.3rem}
-  .s1 .stat-card.highlight .stat-val{font-size:1.6rem}
-  .s2 .out-title{font-size:1rem}
-  .s4-catch{font-size:1.2rem !important}
-  .price-formula{font-size:.9rem}
+  .s1 .hayabusa{font-size:4rem;top:70px;right:3%}
+  .out-title{font-size:1.1rem}
+  .s1 .glow-line{font-size:1.2rem}
+  .s1 .era-badge{top:60px;left:14px;font-size:.5rem}
+  .s1 .stats{flex-direction:column;gap:10px}
+  .s2 .out-title{font-size:1.1rem}
+  .s4-catch{font-size:1.4rem !important}
+  .price-formula{font-size:1rem}
   .price-plans{flex-direction:column}
-  .price-plan .plan-rate{font-size:1.2rem}
-  .svc-item h3{font-size:.9rem}
-  .svc-item p{font-size:.78rem}
-  .flow-step h3{font-size:.85rem}
-  .flow-step p{font-size:.75rem}
-  .cred-card p{font-size:.78rem}
-  .tag{font-size:.65rem;padding:4px 10px}
-  .profile-btn{font-size:.75rem;padding:10px 20px}
   /* Modal */
   .modal-window{max-width:95vw}
-  .prof-catchcopy{font-size:1.1rem !important}
-  .prof-name{font-size:1.1rem !important}
-  .prof-role{font-size:.65rem !important}
-  .prof-section h3{font-size:.68rem}
-  .prof-section p{font-size:.78rem}
-  .ph-item{font-size:.72rem;min-width:120px;padding:8px 12px}
-  .ph-item strong{font-size:.8rem}
-  .spec-tag{font-size:.65rem;padding:3px 8px}
   /* Contact */
   .s7-dos{padding:12px 14px}
-  .s7-dos .dos-line div{font-size:.7rem !important}
   .s7-cc .cc-form-body{padding:14px 16px}
-  .s7-cc .cc-msg{font-size:.72rem}
-  .form-group input,.form-group textarea{font-size:.78rem;padding:8px 10px}
 }
 
 /* === REDUCED MOTION === */
 @media(prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none}
   .s1 .glow-line{text-shadow:none}
   .cta-btn::after{animation:none}
 }
@@ -680,7 +656,7 @@ footer{
   <div class="inner">
     <div class="cmd-frame">
       <div class="cmd-titlebar">
-        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="6" height="6" fill="#f25022"/><rect x="9" y="2" width="6" height="6" fill="#7fba00"/><rect x="1" y="9" width="6" height="6" fill="#00a4ef"/><rect x="9" y="9" width="6" height="6" fill="#ffb900"/></svg>
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1" y="2" width="6" height="6" fill="#f25022"/><rect x="9" y="2" width="6" height="6" fill="#7fba00"/><rect x="1" y="9" width="6" height="6" fill="#00a4ef"/><rect x="9" y="9" width="6" height="6" fill="#ffb900"/></svg>
         <span class="title">コマンド プロンプト — cmd.exe</span>
         <div class="btns">— □ ✕</div>
       </div>
@@ -709,7 +685,7 @@ footer{
     <div class="ps-frame">
       <div class="ps-tabs">
         <div class="ps-tab active">
-          <svg viewBox="0 0 16 16" fill="none" style="width:12px;height:12px;vertical-align:middle;margin-right:4px"><rect rx="2" width="16" height="16" fill="#012456"/><path d="M4 11l4-3.5L4 4" stroke="#fff" stroke-width="1.5" fill="none"/><line x1="9" y1="11" x2="13" y2="11" stroke="#fff" stroke-width="1.5"/></svg>
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" style="width:12px;height:12px;vertical-align:middle;margin-right:4px"><rect rx="2" width="16" height="16" fill="#012456"/><path d="M4 11l4-3.5L4 4" stroke="#fff" stroke-width="1.5" fill="none"/><line x1="9" y1="11" x2="13" y2="11" stroke="#fff" stroke-width="1.5"/></svg>
           PowerShell
         </div>
       </div>
@@ -785,7 +761,7 @@ footer{
   <div class="inner">
     <div class="warp-frame">
       <div class="warp-bar">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1l2 4 4.5.5-3.2 3.2.8 4.3L8 11l-4.1 2 .8-4.3L1.5 5.5 6 5z" fill="#c084fc" opacity=".7"/><path d="M12 6l1 2 2 .2-1.4 1.5.4 2L12 10.5l-2.1 1.2.4-2L8.9 8.2l2-.2z" fill="#67e8f9" opacity=".5"/></svg>
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1l2 4 4.5.5-3.2 3.2.8 4.3L8 11l-4.1 2 .8-4.3L1.5 5.5 6 5z" fill="#c084fc" opacity=".7"/><path d="M12 6l1 2 2 .2-1.4 1.5.4 2L12 10.5l-2.1 1.2.4-2L8.9 8.2l2-.2z" fill="#67e8f9" opacity=".5"/></svg>
         <span class="path">~/falcon/credentials</span>
         <span style="color:#c084fc">AI Terminal</span>
       </div>
@@ -820,7 +796,7 @@ footer{
 <div class="modal-overlay" id="profile-modal">
   <div class="modal-window">
     <div class="modal-bar">
-      <svg viewBox="0 0 16 16" fill="none"><path d="M8 1l2 4 4.5.5-3.2 3.2.8 4.3L8 11l-4.1 2 .8-4.3L1.5 5.5 6 5z" fill="#c084fc" opacity=".7"/></svg>
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1l2 4 4.5.5-3.2 3.2.8 4.3L8 11l-4.1 2 .8-4.3L1.5 5.5 6 5z" fill="#c084fc" opacity=".7"/></svg>
       <span class="modal-path">~/falcon/credentials</span>
       <span style="color:#c084fc">consultant_profile</span>
       <button class="modal-close" id="close-profile" aria-label="Close">✕</button>
@@ -832,12 +808,12 @@ footer{
       <!-- Catchcopy hero -->
       <div class="prof-hero">
         <div class="prof-catchcopy" id="prof-catchcopy">細かい事はどうでもいい。<br><span class="cc-accent">結果を出す。</span><br>それがコンサルタントだ。</div>
-        <div class="prof-scroll-hint" id="prof-scroll-hint">細かいことが気になる方は<br><span class="arrow">↓</span></div>
+        <div class="prof-scroll-hint" id="prof-scroll-hint">ただし、細かいことが気になる方は<br><span class="arrow">↓</span><br>下にスクロールをどうぞ</div>
       </div>
       <hr class="prof-divider">
 
       <!-- Detail profile -->
-      <div class="prof-name" id="prof-name">福田 隼平<br><span style="font-size:.7rem;color:rgba(200,180,253,.5);font-weight:400">JUMPEI FUKUDA</span></div>
+      <div class="prof-name" id="prof-name">福田 隼平<span style="font-size:.8rem;color:rgba(200,180,253,.5);margin-left:10px;font-weight:400">JUMPEI FUKUDA</span></div>
       <div class="prof-role" id="prof-role" style="margin-bottom:24px">ファルコンサルティング — Principal Consultant</div>
 
       <div class="prof-section">
@@ -915,7 +891,7 @@ footer{
     <div class="s7-cc" id="s7-cc" style="opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;position:relative;overflow:hidden">
       <canvas class="invader-canvas" id="invader-canvas"></canvas>
       <div class="cc-bar">
-        <svg viewBox="0 0 16 16" fill="#c084fc" style="width:14px;height:14px"><rect x="2" y="1" width="2" height="2"/><rect x="12" y="1" width="2" height="2"/><rect x="4" y="3" width="2" height="2"/><rect x="10" y="3" width="2" height="2"/><rect x="2" y="5" width="12" height="2"/><rect x="0" y="7" width="2" height="2"/><rect x="4" y="7" width="2" height="2"/><rect x="10" y="7" width="2" height="2"/><rect x="14" y="7" width="2" height="2"/><rect x="0" y="9" width="16" height="2"/><rect x="0" y="11" width="2" height="2"/><rect x="6" y="11" width="4" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="2" y="13" width="4" height="2"/><rect x="10" y="13" width="4" height="2"/></svg>
+        <svg viewBox="0 0 16 16" fill="#c084fc" aria-hidden="true" style="width:14px;height:14px"><rect x="2" y="1" width="2" height="2"/><rect x="12" y="1" width="2" height="2"/><rect x="4" y="3" width="2" height="2"/><rect x="10" y="3" width="2" height="2"/><rect x="2" y="5" width="12" height="2"/><rect x="0" y="7" width="2" height="2"/><rect x="4" y="7" width="2" height="2"/><rect x="10" y="7" width="2" height="2"/><rect x="14" y="7" width="2" height="2"/><rect x="0" y="9" width="16" height="2"/><rect x="0" y="11" width="2" height="2"/><rect x="6" y="11" width="4" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="2" y="13" width="4" height="2"/><rect x="10" y="13" width="4" height="2"/></svg>
         <span class="cc-p">~/falcon-consulting</span>
         <span class="cc-tokens">opus · 1M</span>
         <span style="color:#c084fc">Claude Code</span>
@@ -933,20 +909,20 @@ footer{
           </div>
           <form action="https://formspree.io/f/xaqllvea" method="POST" class="contact-form">
             <div class="form-group">
-              <label>お名前 *</label>
-              <input type="text" name="name" required placeholder="山田 太郎" lang="ja">
+              <label for="cf-name">お名前 *</label>
+              <input type="text" id="cf-name" name="name" required autocomplete="name" placeholder="山田 太郎" lang="ja">
             </div>
             <div class="form-group">
-              <label>会社名</label>
-              <input type="text" name="company" placeholder="未記入でOK" lang="ja">
+              <label for="cf-company">会社名</label>
+              <input type="text" id="cf-company" name="company" autocomplete="organization" placeholder="未記入でOK" lang="ja">
             </div>
             <div class="form-group">
-              <label>メールアドレス *</label>
-              <input type="email" name="email" required placeholder="taro@example.com">
+              <label for="cf-email">メールアドレス *</label>
+              <input type="email" id="cf-email" name="email" required autocomplete="email" placeholder="taro@example.com">
             </div>
             <div class="form-group">
-              <label>ご相談内容</label>
-              <textarea name="message" lang="ja" placeholder="例：&#10;・図面→見積の自動化&#10;・社内AI活用の推進&#10;・セキュアなAI導入"></textarea>
+              <label for="cf-message">ご相談内容</label>
+              <textarea id="cf-message" name="message" lang="ja" placeholder="例：&#10;・図面→見積の自動化&#10;・社内AI活用の推進&#10;・セキュアなAI導入"></textarea>
             </div>
             <div class="form-submit-wrap" style="text-align:center">
               <button type="submit" class="cta-btn">無料相談を予約する</button>
@@ -978,7 +954,7 @@ var heroOut,heroStats;
 function resetAll(){
   // hero
   heroState='idle';
-  if(heroOut){heroOut.innerHTML='';}
+  if(heroOut){while(heroOut.firstChild)heroOut.removeChild(heroOut.firstChild);}
   if(heroStats){heroStats.style.transition='none';heroStats.style.opacity='0';}
   // all sections
   document.querySelectorAll('[data-cmd]').forEach(function(el){
@@ -1106,6 +1082,7 @@ function resetAll(){
     sections.forEach(function(s){s.classList.remove('show')});
 
     modal.classList.add('open');
+    document.body.style.overflow='hidden';
     // type command
     for(var i=0;i<cmd.length;i++){
       typedCmd.textContent+=cmd[i];
@@ -1135,6 +1112,7 @@ function resetAll(){
 
   function closeModal(){
     modal.classList.remove('open');
+    document.body.style.overflow='';
     isOpen=false;
     if(sectionObs){sectionObs.disconnect();sectionObs=null;}
   }
@@ -1179,7 +1157,7 @@ function resetAll(){
   async function boot(){
     if(bootState==='booting')return;
     bootState='booting';
-    dosOut.innerHTML='';
+    while(dosOut.firstChild)dosOut.removeChild(dosOut.firstChild);
     ccCmd.textContent='';
     ccResponse.style.opacity='0';
     ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
@@ -1204,7 +1182,7 @@ function resetAll(){
   }
   function resetBoot(){
     bootState='idle';
-    dosOut.innerHTML='';
+    while(dosOut.firstChild)dosOut.removeChild(dosOut.firstChild);
     ccCmd.textContent='';
     ccResponse.style.opacity='0';
     ccPanel.style.transition='none';
@@ -1260,11 +1238,17 @@ function resetAll(){
       }
     }
     if(Math.random()<0.02&&invaders.length<8)spawn();
-    requestAnimationFrame(draw);
+    animId=requestAnimationFrame(draw);
   }
+  var animId=null;
   resize();window.addEventListener('resize',resize);
   for(var i=0;i<3;i++){spawn();invaders[i].y=Math.random()*h;}
-  draw();
+  // Only animate when s7 is visible
+  var s7El=document.getElementById('s7');
+  new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){if(!animId)draw();}
+    else{if(animId){cancelAnimationFrame(animId);animId=null;}}
+  },{threshold:0}).observe(s7El);
 })();
 </script>
 
