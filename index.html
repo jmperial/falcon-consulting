@@ -432,6 +432,7 @@ nav a:hover{color:#e0e0e0}
 .s6 .out-title{
   background:linear-gradient(135deg,#a855f7,#06b6d4);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-align:center;
 }
 .cred-card{
   border:1px solid rgba(168,85,247,.2);border-radius:16px;padding:28px;
@@ -445,7 +446,7 @@ nav a:hover{color:#e0e0e0}
 }
 .cred-card h3{color:#c4b5fd;font-size:1.1rem;margin-bottom:12px}
 .cred-card p{color:rgba(220,200,255,.75);font-size:.85rem;line-height:1.6;margin-bottom:16px}
-.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start}
 .tag{
   padding:5px 14px;border-radius:20px;font-size:.75rem;
   border:1px solid rgba(168,85,247,.4);color:#d4c8ff;
@@ -638,9 +639,15 @@ footer{
           <span class="p-cursor" style="background:#eee"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="color:#f0d060">削減した時間 × 単価。それだけ。</div>
+          <div class="out-title" style="text-align:center;font-size:1.5rem;color:#ffff00;text-shadow:0 0 12px rgba(255,255,0,.4)">削減した時間 × 単価。それだけ。</div>
           <div class="price-box" style="border-color:rgba(240,208,96,.2);background:rgba(240,208,96,.03)">
-            <div class="price-formula" style="color:#f0d060">月額 ＝ 削減時間(h) × 時間単価(円)</div>
+            <div style="text-align:center;padding:14px 0 18px;margin-bottom:16px;border-bottom:1px solid rgba(240,208,96,.12)">
+              <span style="font-size:1.1rem;font-weight:700;color:#f0d060;letter-spacing:1px">月額</span>
+              <span style="font-size:.9rem;color:rgba(240,208,96,.4);margin:0 8px">=</span>
+              <span style="font-size:1.1rem;font-weight:700;color:#f0d060">削減時間</span><span style="font-size:.7rem;color:rgba(240,208,96,.4)">(h)</span>
+              <span style="font-size:.9rem;color:rgba(240,208,96,.4);margin:0 8px">×</span>
+              <span style="font-size:1.1rem;font-weight:700;color:#f0d060">時間単価</span><span style="font-size:.7rem;color:rgba(240,208,96,.4)">(円)</span>
+            </div>
             <p style="text-align:center;font-size:.78rem;color:rgba(240,208,96,.5);margin-bottom:16px">実際にAIで実現した削減時間をもとに費用を算出</p>
             <div class="price-plans">
               <div class="price-plan">
@@ -710,10 +717,11 @@ footer{
         </div>
         <div class="content-area warp-output">
           <div class="out-title" style="background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">大手コンサル × エンジニアの実務力</div>
+          <p style="font-size:1rem;color:#e0d4ff;text-align:center;margin-bottom:20px">戦略も実装も、<span style="color:#67e8f9;font-weight:700;text-shadow:0 0 8px rgba(103,232,249,.3)">ワンストップ</span>で。</p>
           <div class="cred-card">
-            <p>Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を活かし、戦略と実装の両面から支援します。</p>
+            <p>Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を活かし、戦略と実装の両面から支援。</p>
             <div class="tags">
-              <span class="tag">プロジェクトマネージャー</span><span class="tag">システムアーキテクト</span><span class="tag">情報処理安全確保支援士</span><span class="tag">ネットワークスペシャリスト</span><span class="tag">データベーススペシャリスト</span><span class="tag">PMP</span><span class="tag">Big4 Manager</span><span class="tag">金融機関システム部門</span>
+              <span class="tag">情報処理安全確保支援士</span><span class="tag">PMP</span><span class="tag">プロジェクトマネージャー</span><span class="tag">システムアーキテクト</span><span class="tag">ネットワークスペシャリスト</span><span class="tag">データベーススペシャリスト</span><span class="tag">Big4 Manager</span><span class="tag">金融機関システム部門</span>
             </div>
           </div>
           <button class="profile-btn" id="open-profile" type="button">
