@@ -43,8 +43,19 @@
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:'Meiryo UI','Meiryo','Hiragino Kaku Gothic ProN','Hiragino Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-weight:400;overflow-x:hidden;-webkit-text-size-adjust:100%;word-break:auto-phrase;overflow-wrap:anywhere;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 
-/* ── scroll progress ── */
-.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--purple),var(--accent));z-index:200;width:0%;transition:none}
+/* ── scroll progress — era timeline ── */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;z-index:200;width:0%;transition:none;
+  background:linear-gradient(90deg,
+    #33ff33 0%,
+    #ffb300 14%,
+    #33ff33 28%,
+    #000080 42%,
+    #1a7ecf 56%,
+    #2196f3 70%,
+    #a78bfa 85%,
+    #06b6d4 100%
+  );
+}
 
 /* ── mesh bg orbs ── */
 .orb{position:fixed;border-radius:50%;filter:blur(100px);opacity:.07;pointer-events:none;z-index:-1;transition:background 1.5s ease}
@@ -597,6 +608,68 @@ nav[data-era="ai"] .nav-cta{
   nav[data-era="1981"] .nav-cta{font-size:.35rem!important;padding:.4rem .7rem!important}
   #contact .reveal{padding:2rem 1.2rem;border-radius:20px}
 }
+
+/* ════════════════════════════════════════════
+   Win95 title bar via CSS attr()
+════════════════════════════════════════════ */
+#services .svc[data-title]::after{
+  content:attr(data-title);
+  position:absolute;top:0;left:0;right:0;height:22px;
+  background:var(--e3-blue);color:#fff;
+  font-family:'Courier New',monospace;font-size:.6rem;font-weight:700;
+  display:flex;align-items:center;padding:0 .5rem;
+  letter-spacing:.02em;z-index:2;
+}
+#services .svc[data-title]{padding-top:2.4rem}
+
+/* ════════════════════════════════════════════
+   Section transition gradient dividers
+════════════════════════════════════════════ */
+#problem{position:relative}
+#problem::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:60px;pointer-events:none;z-index:5;
+  background:linear-gradient(to bottom,transparent,var(--e3-bg));
+}
+#services{position:relative}
+#services::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:60px;pointer-events:none;z-index:5;
+  background:linear-gradient(to bottom,transparent,var(--e4-face));
+}
+#pricing{position:relative}
+#pricing::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:60px;pointer-events:none;z-index:5;
+  background:linear-gradient(to bottom,transparent,var(--e5-bg));
+}
+#flow{position:relative}
+#flow::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:60px;pointer-events:none;z-index:5;
+  background:linear-gradient(to bottom,transparent,var(--e6-bg));
+}
+#credentials{position:relative}
+#credentials::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:60px;pointer-events:none;z-index:5;
+  background:linear-gradient(to bottom,transparent,var(--e7-bg));
+}
+
+/* ════════════════════════════════════════════
+   prefers-reduced-motion
+════════════════════════════════════════════ */
+@media(prefers-reduced-motion:reduce){
+  #hero-section::before,
+  .pixel-falcon,
+  .arcade-floor,
+  @keyframes crtFlicker,
+  .cta-btn::before,
+  .orb-1,.orb-2,.orb-3{animation:none!important}
+  #hero-section h1::after{animation:none!important;opacity:1}
+  #hero-section .badge{animation:none!important;opacity:1}
+  .scroll-progress{transition:none}
+}
 </style>
 </head>
 <body>
@@ -684,17 +757,17 @@ nav[data-era="ai"] .nav-cta{
     <div class="label">Services</div>
     <div class="stitle">生成AIを<em>武器</em>に変える3つの支援</div>
     <div class="svc-list">
-      <div class="glow-wrap"><div class="svc g">
+      <div class="glow-wrap"><div class="svc g" data-title="■ 業務プロセス自動化.exe">
         <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M6 16h6l3-8 4 16 3-8h4"/><circle class="draw" cx="16" cy="16" r="13"/></svg></div>
         <h3>業務プロセス自動化</h3>
         <p>議事録作成、レポート生成、データ集計、メール対応など、定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。</p>
       </div></div>
-      <div class="glow-wrap"><div class="svc g">
+      <div class="glow-wrap"><div class="svc g" data-title="■ セキュアAI導入設計.exe">
         <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M16 3L4 10v8c0 7 5.3 13.5 12 15 6.7-1.5 12-8 12-15v-8L16 3z"/><polyline class="draw" points="11,16 15,20 22,12"/></svg></div>
         <h3>セキュアAI導入設計</h3>
         <p>情報漏洩リスクを排除したAI利用ポリシーの策定から、オンプレミス／プライベートクラウド環境での安全な生成AI基盤構築まで対応。</p>
       </div></div>
-      <div class="glow-wrap"><div class="svc g">
+      <div class="glow-wrap"><div class="svc g" data-title="■ 社内AI人材育成.exe">
         <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M8 28V18m8 10V12m8 16V6"/><circle class="draw" cx="8" cy="18" r="2"/><circle class="draw" cx="16" cy="12" r="2"/><circle class="draw" cx="24" cy="6" r="2"/></svg></div>
         <h3>社内AI人材育成</h3>
         <p>プロンプトエンジニアリング研修、部門別ユースケース開発ワークショップを通じて、自走できる組織を実現します。</p>
