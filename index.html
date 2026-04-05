@@ -1119,12 +1119,12 @@ function resetAll(){
   });
 })();
 
-// === S7: DOS boots Claude Code animation ===
+// === S7: DOS boots Claude Code animation (scroll-triggered) ===
 (function(){
+  var dosEl=document.getElementById('s7-dos');
   var dosOut=document.getElementById('s7-dos-lines');
   var ccPanel=document.getElementById('s7-cc');
-  var s7=document.getElementById('s7');
-  var booted=false;
+  var bootState='idle'; // idle | booting | done
   var lines=[
     {text:'C:\\falcon> claude-code.exe',color:'#33ff00',delay:30},
     {text:'',pause:200},
@@ -1138,17 +1138,38 @@ function resetAll(){
     var d=document.createElement('div');
     d.style.color=c.color||'#33ff00';d.style.fontSize='.78rem';d.style.lineHeight='1.7';
     dosOut.appendChild(d);
-    for(var i=0;i<c.text.length;i++){d.textContent+=c.text[i];await sleep(c.delay||25);}
+    for(var i=0;i<c.text.length;i++){
+      if(bootState!=='booting')return;
+      d.textContent+=c.text[i];await sleep(c.delay||25);
+    }
   }
   async function boot(){
-    if(booted)return;booted=true;
+    if(bootState==='booting')return;
+    bootState='booting';
     dosOut.innerHTML='';
-    for(var l of lines)await typeBootLine(l);
+    ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
+    for(var l of lines){if(bootState!=='booting')return;await typeBootLine(l);}
+    if(bootState!=='booting')return;
     ccPanel.style.opacity='1';ccPanel.style.transform='translateY(0)';
+    bootState='done';
+  }
+  function resetBoot(){
+    bootState='idle';
+    dosOut.innerHTML='';
+    ccPanel.style.transition='none';
+    ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
+    setTimeout(function(){ccPanel.style.transition='opacity .5s ease,transform .5s ease';},50);
   }
   new IntersectionObserver(function(e){
-    if(e[0].isIntersecting&&e[0].intersectionRatio>=0.15)boot();
-  },{threshold:[0.15]}).observe(s7);
+    var entry=e[0];
+    if(entry.isIntersecting&&entry.intersectionRatio>=0.3){
+      if(bootState==='idle')boot();
+    }
+  },{threshold:[0.3]}).observe(dosEl);
+  // Reset when hero is reached (scrolling back up)
+  var origReset=window._resetAllOrig||resetAll;
+  var oldResetAll=resetAll;
+  resetAll=function(){oldResetAll();resetBoot();};
 })();
 </script>
 
