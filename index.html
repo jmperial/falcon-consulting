@@ -21,6 +21,39 @@
   @keyframes floatOrb { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-20px) scale(1.1); } }
   @keyframes borderRotate { 0% { --border-angle: 0deg; } 100% { --border-angle: 360deg; } }
 
+  /* === GLOBAL TEXT === */
+  body { word-break: auto-phrase; overflow-wrap: anywhere; }
+
+  /* === HAYABUSA LOGO === */
+  .hayabusa-logo {
+    position: absolute; top: 20px; right: 24px;
+    font-size: 4rem; color: rgba(51,255,51,0.1);
+    font-family: "游明朝", "Yu Mincho", serif;
+    text-shadow: 0 0 30px rgba(51,255,51,0.2);
+    user-select: none; pointer-events: none;
+  }
+  .logo-hayabusa {
+    font-family: "游明朝", "Yu Mincho", serif;
+    font-size: .85em; margin-right: 2px; opacity: .7;
+  }
+
+  /* === TERMINAL TYPING === */
+  #terminal-output .t-line {
+    font-family: 'Courier New', monospace; font-size: 1.1rem;
+    line-height: 1.6; min-height: 1.6em; white-space: pre-wrap;
+  }
+  #terminal-output .t-line.glow {
+    font-size: 1.4rem; font-weight: bold;
+    text-shadow: 0 0 12px currentColor, 0 0 24px currentColor;
+  }
+  #terminal-output .t-line .year-tag {
+    font-size: .65rem; opacity: .35; margin-left: 1em;
+  }
+  #dos-stats {
+    opacity: 0; transition: opacity .8s ease;
+  }
+  #dos-stats.visible { opacity: 1; }
+
   /* === HEADER === */
   header {
     position: fixed; top: 0; width: 100%; z-index: 1000;
@@ -145,10 +178,43 @@
   .glass-win .body { padding: 20px; color: #222; line-height: 1.6; }
   .glass-win .body h3 { margin-bottom: 8px; }
 
+  /* -- Liquid Glass window (final evolution) -- */
+  .liquid-win {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(48px) brightness(1.08) saturate(2.2) contrast(1.04);
+    -webkit-backdrop-filter: blur(48px) brightness(1.08) saturate(2.2) contrast(1.04);
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 24px; overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.18), 0 16px 48px rgba(0,0,0,0.3);
+    margin-bottom: 24px;
+  }
+  .liquid-win .titlebar {
+    background: rgba(255,255,255,0.06); padding: 12px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .liquid-win .titlebar .dots { display: flex; gap: 6px; }
+  .liquid-win .titlebar .dots span { width: 12px; height: 12px; border-radius: 50%; }
+  .liquid-win .titlebar .dots .d-red { background: rgba(255,95,87,0.6); }
+  .liquid-win .titlebar .dots .d-yel { background: rgba(254,188,46,0.6); }
+  .liquid-win .titlebar .dots .d-grn { background: rgba(40,200,64,0.6); }
+  .liquid-win .titlebar .title-text {
+    flex: 1; text-align: center; font-size: .85rem;
+    background: linear-gradient(90deg, rgba(168,85,247,0.8), rgba(6,182,212,0.8));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .liquid-win .body {
+    padding: 24px; color: rgba(255,255,255,0.85); line-height: 1.7;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  }
+  .liquid-win .body h3 {
+    margin-bottom: 10px; font-size: 1.15rem;
+    background: linear-gradient(135deg, #c4b5fd, #67e8f9);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
   /* === 3. COMPACT: Services + Pricing + Flow (Glassmorphism) === */
   .sec-compact {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    background-size: 300% 300%; animation: gradientBG 12s ease infinite;
+    background: linear-gradient(180deg, #4a5568 0%, #553c9a 30%, #6b46c1 60%, #805ad5 100%);
     padding: 80px 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   .compact-container { max-width: 960px; margin: 0 auto; }
@@ -157,8 +223,8 @@
   .compact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
   @media(max-width:768px){ .compact-grid { grid-template-columns: 1fr; } }
   .compact-card {
-    background: rgba(255,255,255,0.18); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 24px;
+    background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 24px;
     color: #fff; transition: transform .2s;
   }
   .compact-card:hover { transform: translateY(-4px); }
@@ -166,8 +232,9 @@
   .compact-card p { font-size: .9rem; line-height: 1.5; opacity: .9; }
 
   .compact-pricing {
-    background: rgba(255,255,255,0.2); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 28px; color: #fff; margin-bottom: 40px;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168,85,247,0.3); border-radius: 16px; padding: 28px; color: #fff; margin-bottom: 40px;
+    box-shadow: 0 0 20px rgba(168,85,247,0.1);
   }
   .compact-pricing h3 { text-align: center; font-size: 1.4rem; margin-bottom: 16px; }
   .price-formula { text-align: center; font-size: 1.3rem; font-weight: bold; margin-bottom: 16px; letter-spacing: 1px; }
@@ -182,8 +249,10 @@
   .compact-flow h3 { text-align: center; font-size: 1.4rem; margin-bottom: 20px; }
   .flow-steps { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
   .flow-step {
-    background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px; padding: 16px; flex: 1; min-width: 180px; max-width: 220px; text-align: center;
+    background: rgba(255,255,255,0.18); backdrop-filter: blur(10px);
+    border: 1px solid rgba(168,85,247,0.35); border-radius: 12px; padding: 16px;
+    flex: 1; min-width: 180px; max-width: 220px; text-align: center;
+    box-shadow: 0 0 16px rgba(168,85,247,0.12);
   }
   .flow-step .num { font-size: 1.6rem; font-weight: bold; opacity: .7; margin-bottom: 6px; }
   .flow-step strong { display: block; margin-bottom: 4px; font-size: .95rem; }
@@ -291,12 +360,42 @@
   .agi-meta { margin-top: 20px; font-size: .9rem; color: rgba(255,255,255,0.5); }
   footer { position: relative; z-index: 2; margin-top: 60px; font-size: .8rem; color: rgba(255,255,255,0.3); }
 
+  /* === SECTION TRANSITIONS === */
+  .sec-1-dos::after {
+    content: ''; display: block; height: 120px;
+    background: linear-gradient(180deg, #000 0%, #008080 100%);
+  }
+  .sec-evolution::after {
+    content: ''; display: block; height: 120px;
+    background: linear-gradient(180deg, #dde7f3 0%, #4a5568 100%);
+  }
+  .sec-compact::after {
+    content: ''; display: block; height: 120px;
+    background: linear-gradient(180deg, #805ad5 0%, #050508 100%);
+  }
+
+  /* === MOBILE === */
+  @media(max-width:600px){
+    .sec-1-dos .container { padding: 16px; }
+    #terminal-output .t-line { font-size: .95rem; }
+    #terminal-output .t-line.glow { font-size: 1.2rem; }
+    .hayabusa-logo { font-size: 3rem; top: 12px; right: 16px; }
+    .dos-stats { flex-direction: column; gap: 8px; }
+    .evo-section-title { font-size: 1.1rem; padding: 8px; }
+    .compact-title { font-size: 1.6rem; }
+    .compact-sub { font-size: .95rem; }
+    .price-row { flex-direction: column; gap: 4px; }
+    .price-formula { font-size: 1rem; }
+    .genai-title { font-size: 2rem; }
+    .agi-title { font-size: 2rem; }
+  }
+
 </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">FalCon_</div>
+    <div class="logo"><span class="logo-hayabusa">隼</span> FalCon_</div>
     <nav>
       <ul>
         <li><a href="#problem">Problem</a></li>
@@ -310,16 +409,13 @@
   <!-- ===== 1. HERO: DOS ===== -->
   <section class="sec-1-dos">
     <div class="container">
-      <h1>A:\> FalCon_<span class="cursor">_</span></h1>
-      <p>PERFORMANCE-BASED AI</p>
-      <p># 生成AIで、*時間*を取り戻す。成果が出なければ、*費用ゼロ*。</p>
-      <p>業務に生成AIを導入し、削減できた時間に応じて報酬をいただく完全成果報酬型。リスクなく、確実な業務改革を実現します。</p>
-      <div class="dos-stats">
+      <div class="hayabusa-logo" aria-hidden="true">隼</div>
+      <div id="terminal-output"></div>
+      <div class="dos-stats" id="dos-stats">
         <div>[ 0円初期費用 ]</div>
         <div>[ 40%平均削減率 ]</div>
         <div>[ 3日最短導入 ]</div>
       </div>
-      <p style="margin-top:30px;font-size:.8rem">(C) 1981 FalCon</p>
     </div>
   </section>
 
@@ -374,8 +470,20 @@
           <div class="title-text">Why FalCon?</div>
         </div>
         <div class="body">
+          <h3>なぜ今、AIコンサルが必要なのか</h3>
+          <p>ツール導入だけでは変わらない。業務に根付く仕組みと、成果で証明する覚悟が必要です。</p>
+        </div>
+      </div>
+
+      <!-- Liquid Glass（最終進化） -->
+      <div class="liquid-win">
+        <div class="titlebar">
+          <div class="dots"><span class="d-red"></span><span class="d-yel"></span><span class="d-grn"></span></div>
+          <div class="title-text">The Future — FalCon</div>
+        </div>
+        <div class="body">
           <h3>テクノロジーは進化した。導入方法も進化すべき。</h3>
-          <p>Windows 95の時代からAGIの時代へ ── FalConは最新のAI技術を、リスクゼロの成果報酬モデルでお届けします。</p>
+          <p>1995年から2025年へ ── FalConは最新のAI技術を、リスクゼロの成果報酬モデルでお届けします。</p>
         </div>
       </div>
     </div>
@@ -466,5 +574,65 @@
     </div>
   </section>
 
+  <script>
+  // === Terminal typing animation ===
+  (function(){
+    const output = document.getElementById('terminal-output');
+    const stats = document.getElementById('dos-stats');
+    const lines = [
+      { text: 'C:\\> falcon.exe', color: '#33ff00', delay: 55, yearTag: '1981' },
+      { text: '', pause: 350 },
+      { text: 'FALCON CONSULTING v2.0', color: '#33ff00', delay: 35 },
+      { text: 'PERFORMANCE-BASED AI', color: '#33ff00', delay: 35 },
+      { text: '', pause: 250 },
+      { text: '生成AIで、時間を取り戻す。', color: '#33ff00', delay: 45 },
+      { text: '成果が出なければ ──', color: '#33ff00', delay: 45 },
+      { text: '費用ゼロ。', color: '#ffff00', delay: 70, glow: true },
+      { text: '', pause: 400 },
+      { text: '削減できた時間に応じた', color: '#33ff00', delay: 35 },
+      { text: '完全成果報酬型。', color: '#33ff00', delay: 35 },
+      { text: '', pause: 200 },
+      { text: 'リスクなく、確実な業務改革を。', color: '#33ff00', delay: 35 },
+    ];
+
+    async function typeLine(cfg) {
+      if (!cfg.text && cfg.pause) {
+        await sleep(cfg.pause);
+        return;
+      }
+      const div = document.createElement('div');
+      div.className = 't-line' + (cfg.glow ? ' glow' : '');
+      div.style.color = cfg.color || '#33ff00';
+      output.appendChild(div);
+
+      for (let i = 0; i < cfg.text.length; i++) {
+        div.textContent += cfg.text[i];
+        await sleep(cfg.delay || 40);
+      }
+      if (cfg.yearTag) {
+        const sp = document.createElement('span');
+        sp.className = 'year-tag';
+        sp.textContent = '[' + cfg.yearTag + ']';
+        div.appendChild(sp);
+      }
+    }
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    async function run() {
+      for (const line of lines) {
+        await typeLine(line);
+      }
+      await sleep(300);
+      stats.classList.add('visible');
+    }
+
+    // Start when hero is visible
+    const obs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) { obs.disconnect(); run(); }
+    }, { threshold: 0.3 });
+    obs.observe(output.closest('section'));
+  })();
+  </script>
 </body>
 </html>
