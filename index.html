@@ -88,7 +88,7 @@ nav a:hover{color:#e0e0e0}
 .mac-dots span{width:12px;height:12px;border-radius:50%}
 .mac-dots .r{background:#ff5f57}.mac-dots .y{background:#febc2e}.mac-dots .g{background:#28c840}
 .mac-titlebar .title{flex:1;text-align:center;font-size:.7rem;color:#999}
-.mac-body{background:#1a1a2e;padding:16px}
+.mac-body{background:#0c1220;padding:16px}
 
 /* Warp frame */
 .warp-frame{border-radius:12px;overflow:hidden;margin-bottom:24px;border:1px solid rgba(168,85,247,.2);background:rgba(168,85,247,.03)}
@@ -415,24 +415,24 @@ nav a:hover{color:#e0e0e0}
   text-align:center;font-size:.8rem;color:#d4c8ff;
 }
 
-/* === SECTION 5: FLOW (PURPLE) === */
-.s5{background:#0d0a14;color:#a855f7}
-.s5 .prompt .p-icon{color:#a855f7}
-.s5 .prompt .p-cursor{background:#a855f7}
-.s5 .out-title{color:#a855f7}
+/* === SECTION 5: FLOW (DEEP NAVY) === */
+.s5{background:#080d18;color:#60a5fa}
+.s5 .prompt .p-icon{color:#60a5fa}
+.s5 .prompt .p-cursor{background:#60a5fa}
+.s5 .out-title{color:#93bbfd}
 .flow-steps{margin-top:20px;position:relative;padding-left:28px}
 .flow-steps::before{
   content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;
-  background:linear-gradient(180deg,#a855f7,#06b6d4);border-radius:1px;
+  background:linear-gradient(180deg,#60a5fa,#3b82f6);border-radius:1px;
 }
 .flow-step{position:relative;margin-bottom:24px}
 .flow-step::before{
   content:'';position:absolute;left:-24px;top:6px;
   width:12px;height:12px;border-radius:50%;
-  background:#a855f7;border:2px solid #0d0a14;
+  background:#60a5fa;border:2px solid #080d18;
 }
-.flow-step h3{font-size:.95rem;color:#d4c8ff;margin-bottom:4px}
-.flow-step p{font-size:.8rem;color:#a78bfa;opacity:.85}
+.flow-step h3{font-size:.95rem;color:#bdd4ff;margin-bottom:4px}
+.flow-step p{font-size:.8rem;color:#7da8e8;opacity:.85}
 
 /* === SECTION 6: CREDENTIALS (DEEP PURPLE + GLOW) === */
 .s6{
@@ -467,58 +467,62 @@ nav a:hover{color:#e0e0e0}
   background:rgba(168,85,247,.08);
 }
 
-/* === SECTION 7: CONTACT (CLAUDE CODE STYLE) === */
+/* === SECTION 7: CONTACT (8-BIT GREEN — FULL CIRCLE) === */
 .s7{
-  background:#0a0510;color:#e0d4ff;
+  background:#0a0a0a;color:#33ff00;
   min-height:60vh;
 }
-.s7 .prompt .p-icon{
-  color:#c084fc;font-size:1rem;
-}
-.s7 .prompt .p-cursor{background:#c084fc}
-.s7 .claude-prompt{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:24px;font-size:1rem;
-}
-.s7 .claude-prompt .chevron{
-  color:#c084fc;font-size:1.2rem;font-weight:700;
-}
-.s7 .claude-prompt .cmd{
-  color:rgba(255,255,255,.5);
-}
 .s7 .out-title{
-  font-size:1.8rem;
-  background:linear-gradient(135deg,#c084fc,#67e8f9);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-size:1.6rem;color:#33ff00;
+  text-shadow:0 0 8px rgba(51,255,0,.4);
 }
 .s7 .contact-text{
-  color:rgba(255,255,255,.6);font-size:.95rem;line-height:1.8;margin-bottom:28px;
+  color:rgba(51,255,0,.7);font-size:.95rem;line-height:1.8;margin-bottom:28px;
 }
+.s7 .content-area{text-align:center}
+.s7 .cc-frame{border-color:rgba(51,255,0,.2);background:rgba(51,255,0,.02)}
+.s7 .cc-statusbar{background:rgba(51,255,0,.04);border-bottom-color:rgba(51,255,0,.1);color:rgba(51,255,0,.4)}
+.s7 .cc-statusbar svg circle,.s7 .cc-statusbar svg path{stroke:#33ff00}
+.s7 .cc-statusbar svg circle:last-child{fill:#33ff00}
+.s7 .cc-statusbar .cc-path{color:rgba(51,255,0,.5)}
+.s7 .cc-statusbar .cc-branch{color:#33ff00}
+.s7 .cc-statusbar .cc-model{color:rgba(51,255,0,.4)}
+.s7 .cc-prompt .chevron{color:#33ff00}
+.s7 .cc-prompt .p-cmd{color:rgba(51,255,0,.5)}
+.s7 .cc-prompt .p-cursor{background:#33ff00 !important}
+.s7 .contact-form{text-align:left;max-width:480px;margin-left:auto;margin-right:auto}
+.s7 .form-group label{color:rgba(51,255,0,.5)}
+.s7 .form-group input,.s7 .form-group textarea{
+  color:#33ff00;background:rgba(51,255,0,.04);
+  border-color:rgba(51,255,0,.2);
+}
+.s7 .form-group input:focus,.s7 .form-group textarea:focus{
+  border-color:#33ff00;box-shadow:0 0 0 3px rgba(51,255,0,.08);
+}
+.s7 .form-group input::placeholder,.s7 .form-group textarea::placeholder{color:rgba(51,255,0,.25)}
 .cta-btn{
   display:inline-block;padding:14px 36px;font-size:.95rem;
   font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-weight:600;
-  color:#fff;border-radius:8px;letter-spacing:.5px;
-  background:linear-gradient(135deg,#7c3aed,#0891b2);
-  box-shadow:0 4px 24px rgba(124,58,237,.3);
+  color:#0a0a0a;border-radius:4px;letter-spacing:.5px;
+  background:#33ff00;border:none;
+  box-shadow:0 0 20px rgba(51,255,0,.3);
   transition:all .3s ease;position:relative;overflow:hidden;
 }
 .cta-btn:hover{
   transform:translateY(-2px);
-  box-shadow:0 8px 32px rgba(124,58,237,.4);
+  box-shadow:0 0 32px rgba(51,255,0,.5);
 }
 .cta-btn::after{
   content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
   animation:shimmer 3s linear infinite;
 }
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
 
-.s7 .meta{margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.3)}
-
 footer{
   text-align:center;padding:40px 20px;font-size:.7rem;
-  color:rgba(255,255,255,.2);background:#0a0510;
-  border-top:1px solid rgba(168,85,247,.1);
+  color:rgba(51,255,0,.2);background:#0a0a0a;
+  border-top:1px solid rgba(51,255,0,.1);
 }
 
 /* === MOBILE === */
@@ -700,7 +704,7 @@ footer{
           <span class="p-cursor" style="background:#a855f7"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="color:#a855f7">最短<span style="font-size:1.8rem;color:#67e8f9;text-shadow:0 0 12px rgba(103,232,249,.4)">0日</span>で導入開始</div>
+          <div class="out-title">最短<span style="font-size:1.8rem;color:#60a5fa;text-shadow:0 0 12px rgba(96,165,250,.4)">0日</span>で導入開始</div>
           <div class="flow-steps">
             <div class="flow-step"><h3>01 — 無料ヒアリング</h3><p>30分で課題と削減見込みを把握</p></div>
             <div class="flow-step"><h3>02 — 業務分析</h3><p>シミュレーションを無料でご提出</p></div>
@@ -770,7 +774,7 @@ footer{
       <hr class="prof-divider">
 
       <!-- Detail profile -->
-      <div class="prof-name" id="prof-name">Consultant Profile</div>
+      <div class="prof-name" id="prof-name">福田 隼平<span style="font-size:.8rem;color:rgba(200,180,253,.5);margin-left:10px;font-weight:400">Junpei Fukuda</span></div>
       <div class="prof-role" id="prof-role" style="margin-bottom:24px">ファルコンサルティング — Principal Consultant</div>
 
       <div class="prof-section">
@@ -788,7 +792,7 @@ footer{
 
       <div class="prof-section">
         <h3>// Past Engagements</h3>
-        <p style="font-size:.75rem;color:rgba(103,232,249,.4);margin-bottom:12px">主要案件 — <span style="color:#67e8f9;font-weight:700;font-size:.9rem">3</span> projects</p>
+        <p style="font-size:.75rem;color:rgba(103,232,249,.4);margin-bottom:12px">関与プロジェクト — <span style="color:#67e8f9;font-weight:700;font-size:.9rem">100+</span> projects（主要案件を抜粋）</p>
         <div class="prof-timeline">
           <div class="prof-tl-item">
             <h4>メガバンク — クラウド監査・サイバーセキュリティ監査</h4>
@@ -824,7 +828,7 @@ footer{
           <div class="ph-item"><strong>PMP</strong>Project Management Professional</div>
           <div class="ph-item"><strong>プロジェクトマネージャー</strong>PM高度専門資格</div>
           <div class="ph-item"><strong>システムアーキテクト</strong>SA高度専門資格</div>
-          <div class="ph-item"><strong>情報処理安全確保支援士</strong>登録セキスペ (RISS)</div>
+          <div class="ph-item"><strong>情報処理安全確保支援士</strong>登録セキスペ (RISS) 第002262号</div>
           <div class="ph-item"><strong>ネットワークスペシャリスト</strong>NW高度専門資格</div>
           <div class="ph-item"><strong>データベーススペシャリスト</strong>DB高度専門資格</div>
           <div class="ph-item"><strong>応用情報技術者</strong>AP</div>
@@ -852,8 +856,8 @@ footer{
           <span class="p-cursor" style="background:#c084fc"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="font-size:1.8rem;background:linear-gradient(135deg,#c084fc,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Contact</div>
-          <p class="contact-text" style="color:rgba(255,255,255,.6);font-size:.95rem;line-height:1.8;margin-bottom:24px">
+          <div class="out-title">Contact</div>
+          <p class="contact-text">
             「この業務、AIでどれくらい削減できる？」<br>
             その疑問に、具体的な数字でお答えします。<br>
             まずは30分の無料相談から。
@@ -879,7 +883,7 @@ footer{
               <button type="submit" class="cta-btn">無料相談を予約する</button>
             </div>
           </form>
-          <p style="margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.25);text-align:center">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
+          <p style="margin-top:20px;font-size:.75rem;color:rgba(51,255,0,.3);text-align:center">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
         </div>
       </div>
     </div>
