@@ -230,17 +230,31 @@ nav a:hover{color:#e0e0e0}
   padding:20px 0 32px;
 }
 .prof-catchcopy{
-  font-size:1.6rem;font-weight:700;line-height:1.6;
-  background:linear-gradient(135deg,#c084fc,#67e8f9);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-size:1.8rem;font-weight:700;line-height:1.6;
+  color:#fff;
   opacity:0;transform:scale(.95);
   transition:opacity .7s ease,transform .7s ease;
+  position:relative;padding:24px 0;
 }
+.prof-catchcopy .cc-accent{
+  color:#67e8f9;text-shadow:0 0 16px rgba(103,232,249,.5);
+}
+.prof-catchcopy::before,.prof-catchcopy::after{
+  content:'';display:block;width:60px;height:2px;margin:0 auto;
+  background:linear-gradient(90deg,transparent,#c084fc,transparent);
+}
+.prof-catchcopy::before{margin-bottom:20px}
+.prof-catchcopy::after{margin-top:20px}
 .prof-catchcopy.show{opacity:1;transform:scale(1)}
 .prof-scroll-hint{
-  margin-top:28px;font-size:.78rem;color:rgba(200,180,253,.45);
+  margin-top:24px;font-size:.78rem;color:rgba(200,180,253,.45);
   opacity:0;transition:opacity .6s ease;line-height:1.8;
 }
+.prof-scroll-hint .arrow{
+  display:inline-block;font-size:1.2rem;color:#c084fc;
+  animation:bounceDown 1.5s ease infinite;margin-top:8px;
+}
+@keyframes bounceDown{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 .prof-scroll-hint.show{opacity:1}
 .prof-divider{
   border:none;border-top:1px solid rgba(168,85,247,.15);
@@ -639,14 +653,15 @@ footer{
           <span class="p-cursor" style="background:#eee"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="text-align:center;font-size:1.5rem;color:#ffff00;text-shadow:0 0 12px rgba(255,255,0,.4)">削減した時間 × 単価。それだけ。</div>
+          <div class="out-title" style="text-align:center;font-size:1.5rem;color:#ffff00;text-shadow:0 0 12px rgba(255,255,0,.4)">削減した時間 × その時間の単価。それだけ。</div>
           <div class="price-box" style="border-color:rgba(240,208,96,.2);background:rgba(240,208,96,.03)">
-            <div style="text-align:center;padding:14px 0 18px;margin-bottom:16px;border-bottom:1px solid rgba(240,208,96,.12)">
-              <span style="font-size:1.1rem;font-weight:700;color:#f0d060;letter-spacing:1px">月額</span>
-              <span style="font-size:.9rem;color:rgba(240,208,96,.4);margin:0 8px">=</span>
-              <span style="font-size:1.1rem;font-weight:700;color:#f0d060">削減時間</span><span style="font-size:.7rem;color:rgba(240,208,96,.4)">(h)</span>
-              <span style="font-size:.9rem;color:rgba(240,208,96,.4);margin:0 8px">×</span>
-              <span style="font-size:1.1rem;font-weight:700;color:#f0d060">時間単価</span><span style="font-size:.7rem;color:rgba(240,208,96,.4)">(円)</span>
+            <div style="text-align:center;padding:16px 0 20px;margin-bottom:16px;border-bottom:1px solid rgba(240,208,96,.12)">
+              <div style="font-size:1.1rem;font-weight:700;color:#f0d060;letter-spacing:1px;margin-bottom:8px">月額料金</div>
+              <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">
+                <span style="padding:6px 14px;border:1px solid rgba(240,208,96,.25);border-radius:6px;font-size:1rem;font-weight:700;color:#f0d060">削減できた時間</span>
+                <span style="font-size:1.2rem;color:rgba(240,208,96,.5)">×</span>
+                <span style="padding:6px 14px;border:1px solid rgba(240,208,96,.25);border-radius:6px;font-size:1rem;font-weight:700;color:#f0d060">その業務の時間単価</span>
+              </div>
             </div>
             <p style="text-align:center;font-size:.78rem;color:rgba(240,208,96,.5);margin-bottom:16px">実際にAIで実現した削減時間をもとに費用を算出</p>
             <div class="price-plans">
@@ -749,8 +764,8 @@ footer{
     <div class="modal-body" id="modal-body" style="opacity:0;transition:opacity .3s ease">
       <!-- Catchcopy hero -->
       <div class="prof-hero">
-        <div class="prof-catchcopy" id="prof-catchcopy">細かい事はどうでもいい。<br>結果を出すのがコンサルタントだ。</div>
-        <div class="prof-scroll-hint" id="prof-scroll-hint">ただし、細かいことが気になる方は<br>↓ 下にスクロールをどうぞ</div>
+        <div class="prof-catchcopy" id="prof-catchcopy">細かい事はどうでもいい。<br><span class="cc-accent">結果を出す</span>のがコンサルタントだ。</div>
+        <div class="prof-scroll-hint" id="prof-scroll-hint">ただし、細かいことが気になる方は<br><span class="arrow">↓</span><br>下にスクロールをどうぞ</div>
       </div>
       <hr class="prof-divider">
 
@@ -973,7 +988,7 @@ function resetAll(){
         if(s2sec){
           var seqItems=s2sec.querySelectorAll('.out-title,.pain-card');
           for(var j=0;j<seqItems.length;j++){
-            await sleep(250);
+            await sleep(500);
             seqItems[j].classList.add('show');
           }
         }
