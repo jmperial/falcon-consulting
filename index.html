@@ -482,61 +482,64 @@ nav a:hover{color:#e0e0e0}
   background:rgba(168,85,247,.08);
 }
 
-/* === SECTION 7: CONTACT (SPLIT: DOS × Claude Code) === */
+/* === SECTION 7: CONTACT (DOS → Claude Code boot) === */
 .s7{
   background:#0a0a0a;color:#e0e0e0;
   min-height:60vh;
 }
-.s7 .inner{max-width:900px}
-.s7-split{display:flex;gap:0;min-height:400px;border-radius:8px;overflow:hidden;border:1px solid rgba(51,255,0,.15)}
-/* Left: DOS side */
+/* DOS top */
 .s7-dos{
-  flex:1;background:#0a0a0a;padding:28px 24px;
-  border-right:1px solid rgba(100,100,100,.2);
-  display:flex;flex-direction:column;justify-content:center;
+  background:#0a0a0a;padding:16px 20px;
+  border:1px solid rgba(51,255,0,.15);border-bottom:none;
+  border-radius:4px 4px 0 0;
 }
-.s7-dos .dos-prompt{color:#33ff00;font-size:.8rem;margin-bottom:16px}
-.s7-dos .dos-prompt .p-cursor{display:inline-block;width:8px;height:14px;background:#33ff00;animation:blink 1s step-end infinite;vertical-align:middle}
-.s7-dos .dos-title{color:#33ff00;font-size:1.4rem;font-weight:700;text-shadow:0 0 8px rgba(51,255,0,.4);margin-bottom:16px}
-.s7-dos .dos-text{color:rgba(51,255,0,.7);font-size:.85rem;line-height:1.8;margin-bottom:20px}
-.s7-dos .dos-note{font-size:.7rem;color:rgba(51,255,0,.3)}
-/* Right: Claude Code side */
+.s7-dos .dos-line{color:#33ff00;font-size:.8rem;line-height:1.8}
+.s7-dos .dos-boot{color:rgba(51,255,0,.5);font-size:.7rem;margin-top:4px}
+/* Claude Code bottom */
 .s7-cc{
-  flex:1;background:rgba(10,5,16,.95);padding:0;
-  display:flex;flex-direction:column;
+  background:#12091e;
+  border:1px solid rgba(192,132,252,.2);border-top:none;
+  border-radius:0 0 8px 8px;overflow:hidden;
 }
 .s7-cc .cc-bar{
   padding:6px 14px;display:flex;align-items:center;gap:8px;
-  background:rgba(192,132,252,.06);border-bottom:1px solid rgba(192,132,252,.1);
-  font-size:.6rem;color:rgba(192,132,252,.5);
+  background:rgba(192,132,252,.08);border-bottom:1px solid rgba(192,132,252,.15);
+  border-top:1px solid rgba(192,132,252,.15);
+  font-size:.6rem;color:rgba(192,132,252,.6);
 }
 .s7-cc .cc-bar svg{width:12px;height:12px}
-.s7-cc .cc-bar .cc-p{flex:1;color:rgba(192,132,252,.6)}
-.s7-cc .cc-form-body{padding:20px 24px;flex:1;display:flex;flex-direction:column;justify-content:center}
-.s7-cc .cc-input-line{display:flex;align-items:center;gap:6px;margin-bottom:16px;font-size:.8rem}
+.s7-cc .cc-bar .cc-p{flex:1;color:rgba(192,132,252,.7)}
+.s7-cc .cc-bar .cc-tokens{color:rgba(192,132,252,.4);font-size:.55rem}
+.s7-cc .cc-form-body{padding:20px 24px}
+.s7-cc .cc-input-line{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-size:.8rem}
 .s7-cc .cc-input-line .chevron{color:#c084fc;font-weight:700}
-.s7-cc .cc-input-line .p-cmd{color:rgba(192,132,252,.5)}
+.s7-cc .cc-input-line .p-cmd{color:rgba(192,132,252,.6)}
+.s7-cc .cc-msg{
+  color:rgba(192,132,252,.5);font-size:.78rem;line-height:1.7;
+  margin-bottom:20px;padding-left:18px;
+  border-left:2px solid rgba(192,132,252,.15);
+}
 .s7 .contact-form{text-align:left;max-width:100%}
-.s7 .form-group label{color:rgba(192,132,252,.6);font-size:.7rem}
+.s7 .form-group label{color:rgba(192,132,252,.7);font-size:.7rem}
 .s7 .form-group input,.s7 .form-group textarea{
-  color:#e0d4ff;background:rgba(192,132,252,.05);
-  border:1px solid rgba(192,132,252,.2);border-radius:6px;
+  color:#e0d4ff;background:rgba(192,132,252,.08);
+  border:1px solid rgba(192,132,252,.25);border-radius:6px;
 }
 .s7 .form-group input:focus,.s7 .form-group textarea:focus{
-  border-color:#c084fc;box-shadow:0 0 0 3px rgba(192,132,252,.08);
+  border-color:#c084fc;box-shadow:0 0 0 3px rgba(192,132,252,.1);
 }
-.s7 .form-group input::placeholder,.s7 .form-group textarea::placeholder{color:rgba(192,132,252,.25)}
+.s7 .form-group input::placeholder,.s7 .form-group textarea::placeholder{color:rgba(192,132,252,.3)}
 .cta-btn{
   display:inline-block;padding:12px 32px;font-size:.9rem;
   font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-weight:600;
   color:#0a0a0a;border-radius:4px;letter-spacing:.5px;
-  background:#33ff00;border:none;
-  box-shadow:0 0 20px rgba(51,255,0,.3);
+  background:#22cc00;border:none;
+  box-shadow:0 0 14px rgba(34,204,0,.25);
   transition:all .3s ease;position:relative;overflow:hidden;
 }
 .cta-btn:hover{
   transform:translateY(-2px);
-  box-shadow:0 0 32px rgba(51,255,0,.5);
+  box-shadow:0 0 24px rgba(34,204,0,.4);
 }
 .cta-btn::after{
   content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
@@ -544,11 +547,9 @@ nav a:hover{color:#e0e0e0}
   animation:shimmer 3s linear infinite;
 }
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
-/* Mobile: stack */
 @media(max-width:600px){
-  .s7-split{flex-direction:column}
-  .s7-dos{border-right:none;border-bottom:1px solid rgba(100,100,100,.2);padding:24px 20px}
-  .s7-cc .cc-form-body{padding:16px 20px}
+  .s7-dos{padding:14px 16px}
+  .s7-cc .cc-form-body{padding:16px}
 }
 
 footer{
@@ -875,55 +876,54 @@ footer{
   </div>
 </div>
 
-<!-- ===== 7. CONTACT — DOS × Claude Code SPLIT ===== -->
+<!-- ===== 7. CONTACT — DOS boots Claude Code ===== -->
 <section class="sec s7" id="s7">
   <div class="inner">
-    <div class="s7-split">
-      <!-- Left: DOS Green -->
-      <div class="s7-dos">
-        <div class="dos-prompt">C:\falcon&gt; contact.exe <span class="p-cursor"></span></div>
-        <div class="dos-title">Contact</div>
-        <div class="dos-text">
-          「この業務、AIでどれくらい<br>削減できる？」<br><br>
-          その疑問に、<br>具体的な数字でお答えします。<br><br>
+    <!-- DOS top: command to launch Claude Code -->
+    <div class="s7-dos" id="s7-dos">
+      <div class="dos-line" id="s7-dos-lines"></div>
+    </div>
+    <!-- Claude Code bottom: form -->
+    <div class="s7-cc" id="s7-cc" style="opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease">
+      <div class="cc-bar">
+        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#c084fc" stroke-width="1.5" fill="none"/><circle cx="6" cy="6" r=".8" fill="#c084fc"/><circle cx="10" cy="6" r=".8" fill="#c084fc"/></svg>
+        <span class="cc-p">~/falcon-consulting</span>
+        <span class="cc-tokens">opus · 1M</span>
+        <span style="color:#c084fc">Claude Code</span>
+      </div>
+      <div class="cc-form-body">
+        <div class="cc-input-line">
+          <span class="chevron">❯</span>
+          <span class="p-cmd">お問い合わせフォーム</span>
+          <span class="p-cursor" style="background:#c084fc;width:7px;height:14px;display:inline-block;vertical-align:middle;animation:blink 1s step-end infinite"></span>
+        </div>
+        <div class="cc-msg">
+          「この業務、AIでどれくらい削減できる？」<br>
+          その疑問に、具体的な数字でお答えします。<br>
           まずは30分の無料相談から。
         </div>
-        <div class="dos-note">初期費用なし ・ 契約の縛りなし<br>成果が出なければ費用ゼロ</div>
-      </div>
-      <!-- Right: Claude Code -->
-      <div class="s7-cc">
-        <div class="cc-bar">
-          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#c084fc" stroke-width="1.5" fill="none"/><circle cx="6" cy="6" r=".8" fill="#c084fc"/><circle cx="10" cy="6" r=".8" fill="#c084fc"/></svg>
-          <span class="cc-p">~/falcon-consulting</span>
-          <span style="color:#c084fc">Claude Code</span>
-        </div>
-        <div class="cc-form-body">
-          <div class="cc-input-line">
-            <span class="chevron">❯</span>
-            <span class="p-cmd">お問い合わせフォーム</span>
+        <form action="https://formspree.io/f/xaqllvea" method="POST" class="contact-form">
+          <div class="form-group">
+            <label>お名前 *</label>
+            <input type="text" name="name" required placeholder="山田 太郎" lang="ja">
           </div>
-          <form action="https://formspree.io/f/xaqllvea" method="POST" class="contact-form">
-            <div class="form-group">
-              <label>お名前 *</label>
-              <input type="text" name="name" required placeholder="山田 太郎" lang="ja">
-            </div>
-            <div class="form-group">
-              <label>会社名</label>
-              <input type="text" name="company" placeholder="なければ未記入でOK" lang="ja">
-            </div>
-            <div class="form-group">
-              <label>メールアドレス *</label>
-              <input type="email" name="email" required placeholder="taro@example.com">
-            </div>
-            <div class="form-group">
-              <label>ご相談内容</label>
-              <textarea name="message" lang="ja" placeholder="例：&#10;・議事録作成を自動化したい&#10;・社内のAI活用を推進したい&#10;・セキュリティを担保しつつ生成AIを導入したい"></textarea>
-            </div>
-            <div class="form-submit-wrap" style="text-align:center">
-              <button type="submit" class="cta-btn">無料相談を予約する</button>
-            </div>
-          </form>
-        </div>
+          <div class="form-group">
+            <label>会社名</label>
+            <input type="text" name="company" placeholder="未記入でOK" lang="ja">
+          </div>
+          <div class="form-group">
+            <label>メールアドレス *</label>
+            <input type="email" name="email" required placeholder="taro@example.com">
+          </div>
+          <div class="form-group">
+            <label>ご相談内容</label>
+            <textarea name="message" lang="ja" placeholder="例：&#10;・図面→見積の自動化&#10;・社内AI活用の推進&#10;・セキュアなAI導入"></textarea>
+          </div>
+          <div class="form-submit-wrap" style="text-align:center">
+            <button type="submit" class="cta-btn">無料相談を予約する</button>
+          </div>
+        </form>
+        <p style="margin-top:16px;font-size:.65rem;color:rgba(192,132,252,.35);text-align:center">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
       </div>
     </div>
   </div>
@@ -1117,6 +1117,38 @@ function resetAll(){
   document.addEventListener('keydown',function(e){
     if(e.key==='Escape'&&isOpen)closeModal();
   });
+})();
+
+// === S7: DOS boots Claude Code animation ===
+(function(){
+  var dosOut=document.getElementById('s7-dos-lines');
+  var ccPanel=document.getElementById('s7-cc');
+  var s7=document.getElementById('s7');
+  var booted=false;
+  var lines=[
+    {text:'C:\\falcon> claude-code.exe',color:'#33ff00',delay:30},
+    {text:'',pause:200},
+    {text:'Loading Claude Code v4.6 ...',color:'rgba(51,255,0,.5)',delay:20},
+    {text:'Connecting to Anthropic API ... OK',color:'rgba(51,255,0,.5)',delay:15},
+    {text:'Model: claude-opus-4-6 (1M context)',color:'rgba(51,255,0,.5)',delay:15},
+    {text:'',pause:300},
+  ];
+  async function typeBootLine(c){
+    if(!c.text){await sleep(c.pause||200);return}
+    var d=document.createElement('div');
+    d.style.color=c.color||'#33ff00';d.style.fontSize='.78rem';d.style.lineHeight='1.7';
+    dosOut.appendChild(d);
+    for(var i=0;i<c.text.length;i++){d.textContent+=c.text[i];await sleep(c.delay||25);}
+  }
+  async function boot(){
+    if(booted)return;booted=true;
+    dosOut.innerHTML='';
+    for(var l of lines)await typeBootLine(l);
+    ccPanel.style.opacity='1';ccPanel.style.transform='translateY(0)';
+  }
+  new IntersectionObserver(function(e){
+    if(e[0].isIntersecting&&e[0].intersectionRatio>=0.15)boot();
+  },{threshold:[0.15]}).observe(s7);
 })();
 </script>
 
