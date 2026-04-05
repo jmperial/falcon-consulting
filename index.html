@@ -194,6 +194,20 @@ nav a:hover{color:#e0e0e0}
 }
 .prof-overview-block p{color:rgba(103,232,249,.75);margin-bottom:0}
 .spec-label{font-size:.7rem;color:rgba(103,232,249,.4);letter-spacing:1px;margin-top:14px;margin-bottom:6px}
+/* Tooltip */
+.tip{position:relative;cursor:help;border-bottom:1px dashed rgba(255,255,0,.4)}
+.tip .tip-text{
+  visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 8px);left:50%;
+  transform:translateX(-50%);white-space:nowrap;
+  font-size:.65rem;font-weight:400;color:#0a0a0a;background:#ffff00;
+  padding:4px 10px;border-radius:4px;
+  transition:opacity .2s ease;z-index:10;pointer-events:none;
+}
+.tip .tip-text::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#ffff00;
+}
+.tip:hover .tip-text,.tip:focus .tip-text{visibility:visible;opacity:1}
 .spec-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .spec-tag{
   padding:4px 12px;font-size:.73rem;border-radius:4px;
@@ -774,13 +788,13 @@ footer{
       <hr class="prof-divider">
 
       <!-- Detail profile -->
-      <div class="prof-name" id="prof-name">福田 隼平<span style="font-size:.8rem;color:rgba(200,180,253,.5);margin-left:10px;font-weight:400">Junpei Fukuda</span></div>
+      <div class="prof-name" id="prof-name">福田 隼平<span style="font-size:.8rem;color:rgba(200,180,253,.5);margin-left:10px;font-weight:400">JUMPEI Fukuda</span></div>
       <div class="prof-role" id="prof-role" style="margin-bottom:24px">ファルコンサルティング — Principal Consultant</div>
 
       <div class="prof-section">
         <h3>// Background</h3>
         <div class="prof-overview-block">
-          <p>前職にて<span style="color:#ffff00;font-weight:600">BIG4</span>コンサルティングファームのマネージャーとして、大手金融機関向けにアドバイザリー・コンサルティングサービスを提供。以下はその経験実績。</p>
+          <p>前職にて<span class="tip" style="color:#ffff00;font-weight:600" tabindex="0">BIG4<span class="tip-text">Deloitte / PwC / EY / KPMG</span></span>コンサルティングファームのマネージャーとして、大手金融機関向けにアドバイザリー・コンサルティングサービスを提供。以下はその経験実績。</p>
         </div>
         <div class="spec-label">// SPECIALIZATION</div>
         <div class="spec-tags">
@@ -828,7 +842,7 @@ footer{
           <div class="ph-item"><strong>PMP</strong>Project Management Professional</div>
           <div class="ph-item"><strong>プロジェクトマネージャー</strong>PM高度専門資格</div>
           <div class="ph-item"><strong>システムアーキテクト</strong>SA高度専門資格</div>
-          <div class="ph-item"><strong>情報処理安全確保支援士</strong>登録セキスペ (RISS) 第002262号</div>
+          <div class="ph-item"><strong>情報処理安全確保支援士</strong>登録セキスペ (RISS)<br><span style="white-space:nowrap">第002262号</span></div>
           <div class="ph-item"><strong>ネットワークスペシャリスト</strong>NW高度専門資格</div>
           <div class="ph-item"><strong>データベーススペシャリスト</strong>DB高度専門資格</div>
           <div class="ph-item"><strong>応用情報技術者</strong>AP</div>
