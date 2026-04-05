@@ -110,6 +110,102 @@ nav a:hover{color:#e0e0e0}
 .cc-prompt .chevron{color:#c084fc;font-size:1.1rem;font-weight:700}
 .cc-prompt .p-cmd{color:rgba(255,255,255,.5)}
 
+/* === PROFILE BUTTON === */
+.profile-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:20px;padding:10px 24px;
+  font-family:'JetBrains Mono',monospace;font-size:.8rem;
+  color:#c084fc;background:rgba(168,85,247,.08);
+  border:1px solid rgba(168,85,247,.3);border-radius:8px;
+  cursor:pointer;transition:all .3s ease;
+}
+.profile-btn:hover{
+  background:rgba(168,85,247,.15);border-color:#c084fc;
+  transform:translateY(-1px);box-shadow:0 4px 16px rgba(168,85,247,.2);
+}
+.profile-btn svg{width:14px;height:14px}
+
+/* === PROFILE MODAL === */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-overlay.open .modal-window{transform:translateY(0);opacity:1}
+
+.modal-window{
+  width:100%;max-width:760px;max-height:90vh;
+  border-radius:12px;overflow:hidden;
+  border:1px solid rgba(168,85,247,.25);
+  background:#0c0816;
+  transform:translateY(30px);opacity:0;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s ease;
+  display:flex;flex-direction:column;
+}
+.modal-bar{
+  padding:8px 14px;display:flex;align-items:center;gap:8px;
+  background:rgba(168,85,247,.06);
+  border-bottom:1px solid rgba(168,85,247,.15);
+  font-size:.65rem;color:rgba(200,180,253,.5);flex-shrink:0;
+}
+.modal-bar svg{width:14px;height:14px;flex-shrink:0}
+.modal-bar .modal-path{flex:1}
+.modal-close{
+  color:rgba(200,180,253,.4);cursor:pointer;font-size:1rem;
+  padding:0 4px;transition:color .2s;background:none;border:none;
+  font-family:'JetBrains Mono',monospace;
+}
+.modal-close:hover{color:#c084fc}
+.modal-cmd-line{
+  padding:10px 16px;font-size:.8rem;color:rgba(200,180,253,.5);
+  border-bottom:1px solid rgba(168,85,247,.08);flex-shrink:0;
+}
+.modal-cmd-line .typed{color:#e0d4ff}
+.modal-body{
+  padding:24px;overflow-y:auto;flex:1;
+}
+.modal-body::-webkit-scrollbar{width:4px}
+.modal-body::-webkit-scrollbar-thumb{background:rgba(168,85,247,.3);border-radius:2px}
+
+/* Profile content */
+.prof-name{
+  font-size:1.5rem;font-weight:700;margin-bottom:4px;
+  background:linear-gradient(135deg,#c084fc,#67e8f9);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.prof-role{font-size:.8rem;color:rgba(200,180,253,.5);margin-bottom:24px}
+.prof-section{margin-bottom:24px}
+.prof-section h3{
+  font-size:.75rem;color:#c084fc;letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:12px;
+  padding-bottom:6px;border-bottom:1px solid rgba(168,85,247,.15);
+}
+.prof-section p{font-size:.85rem;color:rgba(224,212,255,.7);line-height:1.8;margin-bottom:8px}
+.prof-highlight{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
+}
+.prof-highlight .ph-item{
+  padding:10px 16px;border-radius:8px;font-size:.8rem;
+  border:1px solid rgba(168,85,247,.2);background:rgba(168,85,247,.04);
+  color:#c4b5fd;flex:1;min-width:140px;
+}
+.prof-highlight .ph-item strong{display:block;color:#e0d4ff;font-size:.9rem;margin-bottom:2px}
+.prof-timeline{margin-top:8px}
+.prof-tl-item{
+  position:relative;padding:0 0 20px 24px;
+  border-left:2px solid rgba(168,85,247,.2);
+}
+.prof-tl-item:last-child{border-left-color:transparent}
+.prof-tl-item::before{
+  content:'';position:absolute;left:-6px;top:4px;
+  width:10px;height:10px;border-radius:50%;
+  background:#a855f7;border:2px solid #0c0816;
+}
+.prof-tl-item h4{font-size:.85rem;color:#e0d4ff;margin-bottom:2px}
+.prof-tl-item p{font-size:.78rem;color:rgba(200,180,253,.5);line-height:1.6}
+
 /* === ANIMATIONS === */
 @keyframes blink{50%{opacity:0}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -485,11 +581,78 @@ footer{
               <span class="tag">プロジェクトマネージャー</span><span class="tag">システムアーキテクト</span><span class="tag">情報処理安全確保支援士</span><span class="tag">ネットワークスペシャリスト</span><span class="tag">データベーススペシャリスト</span><span class="tag">PMP</span><span class="tag">Big4 Manager</span><span class="tag">金融機関システム部門</span>
             </div>
           </div>
+          <button class="profile-btn" id="open-profile" type="button">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round"/></svg>
+            コンサルタント詳細を見る
+          </button>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ===== PROFILE MODAL ===== -->
+<div class="modal-overlay" id="profile-modal">
+  <div class="modal-window">
+    <div class="modal-bar">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M8 1l2 4 4.5.5-3.2 3.2.8 4.3L8 11l-4.1 2 .8-4.3L1.5 5.5 6 5z" fill="#c084fc" opacity=".7"/></svg>
+      <span class="modal-path">~/falcon/credentials</span>
+      <span style="color:#c084fc">consultant_profile</span>
+      <button class="modal-close" id="close-profile" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-cmd-line">
+      <span style="color:rgba(192,132,252,.5)">falcon ~/credentials ❯ </span><span class="typed" id="modal-typed-cmd"></span><span class="p-cursor" style="background:#c084fc;width:7px;height:14px;display:inline-block;vertical-align:middle;animation:blink 1s step-end infinite"></span>
+    </div>
+    <div class="modal-body" id="modal-body" style="opacity:0;transition:opacity .5s ease">
+      <div class="prof-name">Consultant Profile</div>
+      <div class="prof-role">ファルコンサルティング — Principal Consultant</div>
+
+      <div class="prof-section">
+        <h3>// Overview</h3>
+        <p>前職は、BIG4コンサルティングファームのマネージャーとして大手金融機関にアドバイザリー・コンサルティングサービスを提供。主に、システムリスクおよびサイバーセキュリティ監査、PMO（プログラムおよびプロジェクトマネジメント）業務を専門とする。</p>
+      </div>
+
+      <div class="prof-section">
+        <h3>// Key Engagements</h3>
+        <div class="prof-timeline">
+          <div class="prof-tl-item">
+            <h4>メガバンク — クラウド監査・サイバーセキュリティ監査</h4>
+            <p>クラウド環境およびサイバーセキュリティ領域のアドバイザリー業務を担当。リスク評価から改善提言まで一貫して対応。</p>
+          </div>
+          <div class="prof-tl-item">
+            <h4>メガ損保 — 中期経営計画策定・実行支援</h4>
+            <p>中期経営計画の作成を支援し、実行計画の策定からハンズオンの実行支援コンサルティングまで従事。</p>
+          </div>
+          <div class="prof-tl-item">
+            <h4>メガ生保 — ホールディングス＆事業会社 出向</h4>
+            <p>持株会社および生命保険事業会社へマネージャ職（兼務）として出向。経営層に近い立場でIT戦略・ガバナンス強化を推進。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prof-section">
+        <h3>// Strength</h3>
+        <p>企画・提案、要件定義、設計、構築、開発、テスト、移行、運用、監査まで——システムライフサイクルの全フェーズを実務で経験していることが最大の強み。</p>
+        <div class="prof-highlight">
+          <div class="ph-item"><strong>上流</strong>企画・提案・要件定義</div>
+          <div class="ph-item"><strong>構築</strong>設計・開発・テスト</div>
+          <div class="ph-item"><strong>運用</strong>移行・運用・保守</div>
+          <div class="ph-item"><strong>統制</strong>監査・リスク管理</div>
+        </div>
+      </div>
+
+      <div class="prof-section">
+        <h3>// Certifications</h3>
+        <div class="prof-highlight">
+          <div class="ph-item"><strong>PMP</strong>Project Management Professional</div>
+          <div class="ph-item"><strong>情報処理安全確保支援士</strong>登録セキスペ (RISS)</div>
+          <div class="ph-item"><strong>ネットワークスペシャリスト</strong>NW高度専門資格</div>
+          <div class="ph-item"><strong>データベーススペシャリスト</strong>DB高度専門資格</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===== 7. CONTACT — Claude Code ===== -->
 <section class="sec s7" id="s7">
@@ -586,6 +749,46 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
     });
   },{threshold:.2});
   prompts.forEach(function(p){io.observe(p)});
+})();
+
+// === Profile modal ===
+(function(){
+  var btn=document.getElementById('open-profile');
+  var modal=document.getElementById('profile-modal');
+  var closeBtn=document.getElementById('close-profile');
+  var typedCmd=document.getElementById('modal-typed-cmd');
+  var body=document.getElementById('modal-body');
+  var cmd='cat consultant_profile.md';
+  var isOpen=false;
+
+  async function openModal(){
+    if(isOpen)return;
+    isOpen=true;
+    typedCmd.textContent='';
+    body.style.opacity='0';
+    modal.classList.add('open');
+    // type command
+    for(var i=0;i<cmd.length;i++){
+      typedCmd.textContent+=cmd[i];
+      await sleep(30);
+    }
+    await sleep(300);
+    body.style.opacity='1';
+  }
+
+  function closeModal(){
+    modal.classList.remove('open');
+    isOpen=false;
+  }
+
+  btn.addEventListener('click',openModal);
+  closeBtn.addEventListener('click',closeModal);
+  modal.addEventListener('click',function(e){
+    if(e.target===modal)closeModal();
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&isOpen)closeModal();
+  });
 })();
 </script>
 
