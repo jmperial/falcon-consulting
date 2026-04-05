@@ -2,982 +2,366 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta property="og:title" content="ファルコンサルティング｜生成AI×業務改革">
-<meta property="og:description" content="生成AIで業務時間を削減。成果報酬型だから、成果が出なければ費用ゼロ。">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#06080c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ファルコンサルティング｜生成AI×業務改革</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Russo+One&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#06080c;--bg2:#0b0f16;--bg3:#111620;
-  --glass:rgba(16,22,36,0.55);--glass2:rgba(20,28,48,0.45);
-  --glass-border:rgba(255,255,255,0.08);--glass-hi:rgba(255,255,255,0.04);
-  --gold:#c9a84c;--gold-l:#e4cd7a;--gold-dim:rgba(201,168,76,0.10);
-  --accent:#3b82f6;--accent-dim:rgba(59,130,246,0.08);
-  --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.08);
-  --green:#22c55e;--green-dim:rgba(34,197,94,0.10);
-  --text:#ddd9d0;--dim:#7a7670;--mid:#a8a29e;--white:#f5f2eb;
-  --border:rgba(201,168,76,0.13);--border2:rgba(255,255,255,0.06);
-  --r:14px;
-  /* Era 1: 1981 Home PC */
-  --e1-bg:#010301;--e1-green:#33ff33;--e1-amber:#ffb300;--e1-yellow:#ffff00;
-  /* Era 2: 1989 DOS */
-  --e2-bg:#0a0a0a;--e2-green:#33ff33;--e2-amber:#ffb300;
-  /* Era 3: Win95 */
-  --e3-bg:#008080;--e3-face:#c0c0c0;--e3-blue:#000080;--e3-hi:#ffffff;--e3-sh:#808080;
-  /* Era 4: WinXP */
-  --e4-face:#ece9d8;--e4-blue:#1f3a9c;--e4-btn-hi:#6b9cf5;--e4-green:#2e8b1a;
-  /* Era 5: Web 2.0 */
-  --e5-bg:#e8f4fd;--e5-blue:#1a7ecf;--e5-text:#1a1a2e;
-  /* Era 6: Flat/Material */
-  --e6-bg:#fafafa;--e6-text:#212121;--e6-blue:#2196f3;--e6-teal:#009688;
-  /* Era 7: AI/AGI */
-  --e7-bg:#03050d;--e7-a:#a855f7;--e7-b:#06b6d4;--e7-c:#f0abfc;
-}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Meiryo UI','Meiryo','Hiragino Kaku Gothic ProN','Hiragino Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-weight:400;overflow-x:hidden;-webkit-text-size-adjust:100%;word-break:auto-phrase;overflow-wrap:anywhere;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+  /* =========================================
+     GLOBAL RESET & TYPOGRAPHY
+     ========================================= */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { overflow-x: hidden; scroll-behavior: smooth; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
 
-/* ── scroll progress — era timeline ── */
-.scroll-progress{position:fixed;top:0;left:0;height:2px;z-index:200;width:0%;transition:none;
-  background:linear-gradient(90deg,
-    #33ff33 0%,
-    #ffb300 14%,
-    #33ff33 28%,
-    #000080 42%,
-    #1a7ecf 56%,
-    #2196f3 70%,
-    #a78bfa 85%,
-    #06b6d4 100%
-  );
-}
+  /* =========================================
+     HEADER (Modern Glassmorphism - 常に先を見据える視座)
+     ========================================= */
+  header {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between;
+    padding: 15px 30px; font-family: 'Helvetica Neue', sans-serif; color: #fff; mix-blend-mode: difference;
+  }
+  header nav ul { display: flex; gap: 20px; }
 
-/* ── mesh bg orbs ── */
-.orb{position:fixed;border-radius:50%;filter:blur(100px);opacity:.07;pointer-events:none;z-index:-1;transition:background 1.5s ease}
-.orb-1{width:600px;height:600px;top:-10%;left:-10%;background:var(--orb1,var(--gold));animation:float1 20s ease-in-out infinite}
-.orb-2{width:500px;height:500px;bottom:-5%;right:-10%;background:var(--orb2,var(--purple));animation:float2 25s ease-in-out infinite}
-.orb-3{width:400px;height:400px;top:40%;left:60%;background:var(--orb3,var(--accent));animation:float3 22s ease-in-out infinite}
-@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
-@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,-30px)}}
-@keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,50px)}}
+  /* =========================================
+     1. HERO: 1981 8-bit / MS-DOS
+     ========================================= */
+  .sec-1-dos {
+    background-color: #000; color: #33ff00; font-family: 'Courier New', Courier, monospace;
+    min-height: 100vh; padding: 120px 20px 60px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .sec-1-dos .container { max-width: 800px; margin: 0 auto; border: 2px solid #33ff00; padding: 20px; }
+  .sec-1-dos h1 { font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; }
+  .sec-1-dos p { font-size: 1.2rem; margin-bottom: 20px; line-height: 1.5; }
+  .cursor { animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .dos-stats { display: flex; gap: 20px; margin-top: 30px; border-top: 1px dashed #33ff00; padding-top: 20px; }
+  .dos-stats div { flex: 1; text-align: center; }
 
-/* ── glass card mixin ── */
-.g{background:var(--glass);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid var(--glass-border);border-radius:var(--r);position:relative;overflow:hidden}
-.g::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(165deg,var(--glass-hi) 0%,transparent 40%);pointer-events:none}
+  /* =========================================
+     2. PROBLEM & SOLUTION: Windows 95
+     ========================================= */
+  .sec-2-win95 {
+    background-color: #008080; padding: 80px 20px; font-family: "MS UI Gothic", Tahoma, sans-serif; color: #000;
+  }
+  .win95-container { max-width: 900px; margin: 0 auto; }
+  .win95-title { background: #c0c0c0; border: 2px solid; border-color: #dfdfdf #808080 #808080 #dfdfdf; padding: 10px; margin-bottom: 30px; text-align: center; font-weight: bold; font-size: 1.5rem; }
+  .win95-window {
+    background: #c0c0c0; border: 2px solid; border-color: #dfdfdf #000 #000 #dfdfdf;
+    box-shadow: 1px 1px 0 #000; margin-bottom: 20px;
+  }
+  .win95-titlebar {
+    background: #000080; color: white; padding: 3px 5px; font-weight: bold; display: flex; justify-content: space-between;
+  }
+  .win95-titlebar-controls { display: flex; gap: 2px; }
+  .win95-btn { background: #c0c0c0; border: 2px solid; border-color: #dfdfdf #808080 #808080 #dfdfdf; width: 16px; height: 16px; font-size: 10px; line-height: 12px; text-align: center; cursor: pointer; color: black; font-weight: bold;}
+  .win95-content { padding: 15px; }
+  .win95-content h3 { margin-bottom: 10px; border-bottom: 1px inset #fff; padding-bottom: 5px; }
 
-/* ── glow border card ── */
-.glow-wrap{position:relative;border-radius:var(--r);padding:1px}
-.glow-wrap::before{content:'';position:absolute;inset:-1px;border-radius:inherit;background:conic-gradient(from var(--glow-angle,0deg),var(--gold),var(--purple),var(--accent),var(--gold));opacity:0;transition:opacity .4s;z-index:-1}
-.glow-wrap:hover::before,.glow-wrap.active::before{opacity:1;animation:glowSpin 4s linear infinite}
-@keyframes glowSpin{to{--glow-angle:360deg}}
-@property --glow-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+  /* =========================================
+     3. SERVICES: Windows XP
+     ========================================= */
+  .sec-3-winxp {
+    background: #2D7DE0; /* Bliss blue sky */
+    background-image: linear-gradient(to bottom, #2D7DE0 0%, #68A3E5 100%);
+    padding: 80px 20px; font-family: Tahoma, "MS P Gothic", sans-serif;
+  }
+  .xp-container { max-width: 900px; margin: 0 auto; }
+  .xp-section-title { color: white; text-shadow: 1px 1px 2px #000; font-size: 2rem; margin-bottom: 30px; text-align: center; }
+  .xp-card {
+    background: #fff; border: 1px solid #0054E3; border-radius: 8px 8px 0 0; overflow: hidden; margin-bottom: 20px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  }
+  .xp-header {
+    background: linear-gradient(to bottom, #0058e6 0%, #3a93ff 10%, #288eff 50%, #127dff 51%, #036bba 100%);
+    color: white; padding: 8px 10px; font-weight: bold; text-shadow: 1px 1px 1px #000; font-size: 1.1rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .xp-close { background: #E14436; border: 1px solid #fff; border-radius: 3px; width: 20px; height: 20px; text-align: center; line-height: 18px; box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3); }
+  .xp-content { padding: 20px; color: #333; line-height: 1.6; }
 
-/* ── nav ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 2rem;background:rgba(6,8,12,0.72);backdrop-filter:blur(28px) saturate(1.6);-webkit-backdrop-filter:blur(28px) saturate(1.6);border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:.08em;display:flex;flex-direction:column;line-height:1}
-.logo em{font-style:normal;color:var(--gold-l)}
-.logo small{font-size:.42rem;color:var(--dim);letter-spacing:.12em;margin-top:.2rem;font-weight:400}
-.nav-r{display:flex;gap:1.8rem;align-items:center}
-.nav-r a{color:var(--dim);text-decoration:none;font-size:.75rem;letter-spacing:.1em;transition:color .3s}
-.nav-r a:hover{color:var(--gold)}
-.nav-cta{background:linear-gradient(180deg,#d4b55e 0%,var(--gold) 50%,#b8963e 100%)!important;color:var(--bg)!important;padding:.5rem 1.2rem;border-radius:8px;font-weight:700;font-size:.75rem!important;letter-spacing:.06em!important;-webkit-tap-highlight-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 1px 3px rgba(0,0,0,0.3)}
+  /* =========================================
+     4. PRICING: Aqua Design (Early 2000s OS X)
+     ========================================= */
+  .sec-4-aqua {
+    background: #e5e5e5 repeating-linear-gradient(0deg, transparent, transparent 2px, #f0f0f0 2px, #f0f0f0 4px);
+    padding: 80px 20px; font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #333;
+  }
+  .aqua-container { max-width: 900px; margin: 0 auto; text-align: center; }
+  .aqua-title { font-size: 2.5rem; text-shadow: 0 1px 0 #fff; margin-bottom: 20px; font-weight: normal; }
+  .aqua-card {
+    background: rgba(255,255,255,0.9); border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    border: 1px solid #ccc; padding: 30px; margin-bottom: 30px; text-align: left;
+  }
+  .aqua-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  .aqua-table th, .aqua-table td { border: 1px solid #ccc; padding: 15px; text-align: left; }
+  .aqua-table th { background: linear-gradient(to bottom, #f9f9f9 0%, #e0e0e0 100%); }
+  .aqua-button {
+    display: inline-block; padding: 10px 30px; font-size: 1.2rem; font-weight: bold; color: #111; text-decoration: none;
+    background: linear-gradient(to bottom, #fff 0%, #e6e6e6 50%, #d4d4d4 51%, #f4f4f4 100%);
+    border: 1px solid #999; border-radius: 20px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 3px rgba(0,0,0,0.2);
+  }
 
-/* ── hero ── */
-.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,var(--border) 50%,transparent 95%)}
-.badge{font-size:.65rem;letter-spacing:.14em;color:var(--mid);margin-bottom:1.8rem;display:inline-block;padding:.4rem 1rem;border:1px solid var(--glass-border);border-radius:100px;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.hero h1{font-size:clamp(1.7rem,4.5vw,3rem);font-weight:700;color:var(--white);line-height:1.45;margin-bottom:1.4rem;letter-spacing:.02em}
-.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l),var(--purple));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s ease-in-out infinite}
-@keyframes shimmer{0%,100%{background-position:0% center}50%{background-position:100% center}}
-.hero .sub{max-width:480px;color:var(--mid);font-size:.88rem;line-height:1.95}
-.hero .sub strong{color:var(--white);font-weight:500}
-.hero-metric{display:flex;gap:1rem;margin-top:2.5rem}
-.hero-metric>div{text-align:center;padding:1rem 1.4rem;min-width:100px}
-.hero-metric .num{font-family:'DM Mono',monospace;font-size:2rem;font-weight:500;color:var(--gold-l);line-height:1}
-.hero-metric .num-label{font-size:.65rem;color:var(--dim);margin-top:.5rem;letter-spacing:.06em}
-.hero-line{display:none}
+  /* =========================================
+     5. SIMULATION & FLOW: Glassmorphism / Liquid
+     ========================================= */
+  .sec-5-glass {
+    background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    background-size: 400% 400%; animation: gradientBG 10s ease infinite;
+    padding: 80px 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  .glass-container { max-width: 900px; margin: 0 auto; }
+  .glass-title { text-align: center; font-size: 2.5rem; color: #fff; margin-bottom: 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; padding: 30px; margin-bottom: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); color: #333;
+  }
+  .glass-step { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px; }
+  .glass-num { font-size: 2rem; font-weight: bold; color: rgba(255,255,255,0.8); text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
-/* ── sections ── */
-section{padding:4.5rem 1.5rem}
-.sec-inner{max-width:920px;margin:0 auto}
-.label{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
-.stitle{font-size:clamp(1.3rem,2.8vw,1.8rem);font-weight:700;color:var(--white);margin-bottom:1.2rem;line-height:1.45}
-.stitle em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l),var(--purple));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s ease-in-out infinite}
+  /* =========================================
+     6. CREDENTIALS: Gen AI Design (Cyber / Neon)
+     ========================================= */
+  .sec-6-genai {
+    background-color: #050508;
+    background-image: radial-gradient(circle at top right, rgba(120,0,255,0.2), transparent 50%),
+                      radial-gradient(circle at bottom left, rgba(0,255,255,0.2), transparent 50%);
+    color: #e0e0ff; padding: 80px 20px; font-family: 'Inter', sans-serif; position: relative; overflow: hidden;
+  }
+  .genai-container { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
+  .genai-title { text-align: center; font-size: 2.5rem; margin-bottom: 40px; background: linear-gradient(90deg, #00ffff, #ff00cc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .genai-card {
+    background: rgba(20, 20, 30, 0.7); backdrop-filter: blur(10px); border-radius: 16px; padding: 40px;
+    position: relative; box-shadow: 0 0 20px rgba(120,0,255,0.2); border: 1px solid rgba(255,255,255,0.1);
+  }
+  .genai-card::before {
+    content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffff); z-index: -1; border-radius: 18px; filter: blur(10px); opacity: 0.5; animation: pulseGlow 4s infinite alternate;
+  }
+  @keyframes pulseGlow { 0% { opacity: 0.3; } 100% { opacity: 0.7; } }
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(0,255,255,0.3); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
 
-/* ── problem / solution ── */
-.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.8rem}
-.pain-card{padding:1.6rem;position:relative;overflow:hidden}
-.pain-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:3px 0 0 3px}
-.pain-card.problem::after{background:#ef4444}
-.pain-card.solve::after{background:var(--green)}
-.pain-card .pc-label{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.5rem}
-.pain-card.problem .pc-label{color:#ef4444}
-.pain-card.solve .pc-label{color:var(--green)}
-.pain-card h3{font-size:.9rem;color:var(--white);font-weight:700;margin-bottom:.5rem;line-height:1.5}
-.pain-card p{font-size:.8rem;color:var(--mid);line-height:1.75}
+  /* =========================================
+     7. CONTACT: AGI (Minimal, Fluid, Ethereal)
+     ========================================= */
+  .sec-7-agi {
+    background: #ffffff; color: #111; padding: 120px 20px; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .agi-orb {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(230,230,255,0.8), transparent 60%);
+    filter: blur(60px); animation: agiBreathe 8s ease-in-out infinite alternate; z-index: 1;
+  }
+  @keyframes agiBreathe { 0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; } 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } }
+  .agi-content { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+  .agi-title { font-size: 3rem; font-weight: 200; letter-spacing: 2px; margin-bottom: 20px; }
+  .agi-button {
+    display: inline-block; margin-top: 30px; padding: 15px 40px; font-size: 1.2rem; letter-spacing: 1px; color: #fff; background: #000;
+    border-radius: 50px; transition: all 0.3s ease; text-transform: uppercase;
+  }
+  .agi-button:hover { background: #333; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+  footer { position: relative; z-index: 2; margin-top: 60px; font-size: 0.8rem; color: #888; }
 
-/* ── services ── */
-.svc-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.8rem}
-.svc{padding:1.6rem;transition:transform .3s}
-.svc:hover{transform:translateY(-3px)}
-.svc-icon{margin-bottom:.8rem}
-.svc-icon svg{width:30px;height:30px;stroke:var(--gold);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.svc-icon svg .draw{stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset .8s ease}
-.svc.visible .svc-icon svg .draw,.svc:hover .svc-icon svg .draw{stroke-dashoffset:0}
-.svc h3{font-size:.88rem;color:var(--white);font-weight:700;margin-bottom:.4rem;line-height:1.5}
-.svc p{font-size:.78rem;color:var(--mid);line-height:1.75}
-
-/* ── pricing ── */
-.pricing-section{background:var(--bg2)}
-.price-explain{padding:2.2rem;margin-top:1.8rem}
-.price-intro{color:var(--mid);font-size:.85rem;text-align:center;line-height:1.85;margin-bottom:1.5rem}
-.price-formula{text-align:center;margin-bottom:2rem;font-family:'DM Mono',monospace;font-size:1rem;color:var(--gold-l);padding:1.1rem;background:var(--gold-dim);border-radius:10px;border:1px solid var(--border)}
-.price-formula .big{font-size:1.3rem;font-weight:500}
-.price-table{width:100%;border-collapse:collapse}
-.price-table th{text-align:left;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding:.7rem .8rem;border-bottom:1px solid var(--border2);font-weight:400}
-.price-table td{padding:.8rem;border-bottom:1px solid var(--border2);font-size:.82rem;color:var(--text);line-height:1.6}
-.price-table tr:last-child td{border-bottom:none}
-.price-table .amount{font-family:'DM Mono',monospace;color:var(--gold-l);font-weight:500;font-size:.95rem}
-.price-table .tag{display:inline-block;font-size:.6rem;padding:.2rem .55rem;border-radius:4px;letter-spacing:.04em;font-weight:700;margin-right:.4rem}
-.tag-pop{background:var(--green-dim);color:var(--green)}
-.tag-ent{background:var(--accent-dim);color:var(--accent)}
-.price-note{margin-top:1.5rem;padding:1rem 1.2rem;background:var(--green-dim);border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:.8rem;color:var(--green);line-height:1.75}
-.price-note strong{font-weight:700}
-
-/* ── simulation ── */
-.example-card{padding:1.8rem;margin-top:1.8rem}
-.example-card h3{color:var(--white);font-size:.92rem;font-weight:700;margin-bottom:1rem;line-height:1.5}
-.ex-row{display:flex;align-items:center;gap:1.2rem;padding:.6rem 0;border-bottom:1px solid var(--border2)}
-.ex-row:last-of-type{border-bottom:none}
-.ex-arrow{color:var(--gold);font-size:1rem;flex-shrink:0}
-.ex-before{color:var(--dim);font-size:.8rem;text-decoration:line-through;flex:1}
-.ex-after{color:var(--green);font-size:.8rem;font-weight:500;flex:1}
-.ex-result{margin-top:1.4rem;text-align:center;padding:1.2rem;background:var(--gold-dim);border-radius:10px;border:1px solid var(--border)}
-.ex-result-inner{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
-.ex-result .num{font-family:'DM Mono',monospace;font-size:1.6rem;color:var(--gold-l);font-weight:500}
-.ex-result .desc{font-size:.7rem;color:var(--dim);margin-top:.25rem}
-.ex-result .note{font-size:.72rem;color:var(--dim);margin-top:.8rem}
-
-/* ── flow ── */
-.flow{display:flex;flex-direction:column;margin-top:1.8rem}
-.flow-step{display:flex;gap:1.2rem;align-items:flex-start;padding:1.3rem 0}
-.flow-num{width:36px;height:36px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--gold-dim),var(--purple-dim));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.75rem;color:var(--gold);font-weight:500}
-.flow-body h3{font-size:.88rem;color:var(--white);font-weight:700;margin-bottom:.25rem;line-height:1.5}
-.flow-body p{font-size:.78rem;color:var(--mid);line-height:1.75}
-.flow-step+.flow-step{border-top:1px solid var(--border2)}
-
-/* ── credentials ── */
-.qual-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
-.qual{font-size:.7rem;padding:.4rem .8rem;border-radius:6px;color:var(--mid);letter-spacing:.02em}
-
-/* ── CTA ── */
-.cta-section{text-align:center;padding:4.5rem 1.5rem}
-.cta-section .stitle{margin-bottom:.6rem}
-.cta-section p{color:var(--mid);font-size:.85rem;margin-bottom:2rem;line-height:1.85}
-.cta-btn{display:inline-block;position:relative;background:linear-gradient(135deg,var(--gold),#d4b55e,var(--gold-l));background-size:200% auto;color:var(--bg);padding:1rem 3rem;border-radius:12px;text-decoration:none;font-weight:700;font-size:.9rem;letter-spacing:.06em;transition:transform .25s,box-shadow .25s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 4px 20px rgba(201,168,76,0.15);animation:btnShimmer 3s ease-in-out infinite}
-.cta-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 8px 30px rgba(201,168,76,0.25)}
-@keyframes btnShimmer{0%,100%{background-position:0% center}50%{background-position:100% center}}
-.cta-sub{font-size:.7rem;color:var(--dim);margin-top:1rem;letter-spacing:.04em}
-
-footer{text-align:center;padding:2rem 1.5rem;border-top:1px solid var(--border2);font-size:.68rem;color:var(--dim);letter-spacing:.06em}
-
-/* ── animations ── */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-/* ── mobile ── */
-@media(max-width:768px){
-  :root{--r:12px}
-  nav{padding:.7rem 1rem}
-  .logo{font-size:.88rem}
-  .nav-r a:not(.nav-cta){display:none}
-  .nav-cta{padding:.45rem 1rem;font-size:.72rem!important}
-
-  section{padding:3rem 1rem}
-
-  .hero{min-height:100svh;padding:5rem 1.2rem 2.5rem}
-  .hero h1{font-size:1.5rem;line-height:1.5;margin-bottom:1rem}
-  .hero .sub{font-size:.82rem;line-height:1.85;padding:0 .2rem}
-  .hero-metric{gap:.5rem;margin-top:2rem;width:100%}
-  .hero-metric>div{flex:1;padding:.7rem .3rem;min-width:0}
-  .hero-metric .num{font-size:1.35rem}
-  .hero-metric .num-label{font-size:.55rem;margin-top:.3rem}
-  .badge{font-size:.6rem;margin-bottom:1.2rem}
-
-  .stitle{font-size:1.15rem;line-height:1.5}
-  .label{font-size:.58rem;letter-spacing:.22em}
-
-  .pain-grid{grid-template-columns:1fr;gap:.8rem}
-  .pain-card{padding:1.2rem 1.2rem 1.2rem 1.4rem}
-  .pain-card h3{font-size:.85rem}
-  .pain-card p{font-size:.76rem;line-height:1.7}
-
-  .svc-list{grid-template-columns:1fr;gap:.8rem}
-  .glow-wrap{border-radius:var(--r)}
-  .svc{padding:1.3rem}
-  .svc-icon svg{width:26px;height:26px}
-  .svc h3{font-size:.85rem}
-  .svc p{font-size:.76rem;line-height:1.7}
-  .orb{display:none}
-
-  .price-explain{padding:1.2rem}
-  .price-intro{font-size:.8rem}
-  .price-formula{font-size:.78rem;padding:.8rem}
-  .price-formula .big{font-size:1rem}
-
-  /* mobile: table → card */
-  .price-table,.price-table thead,.price-table tbody,.price-table tr,.price-table th,.price-table td{display:block;width:100%}
-  .price-table thead{display:none}
-  .price-table tr{padding:1rem 0;border-bottom:1px solid var(--border2)}
-  .price-table tr:last-child{border-bottom:none}
-  .price-table td{padding:.2rem 0;border:none;font-size:.78rem;display:flex;justify-content:space-between;align-items:center}
-  .price-table td::before{content:attr(data-label);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);flex-shrink:0;margin-right:.8rem}
-  .price-table .amount{font-size:.85rem}
-
-  .example-card{padding:1.2rem}
-  .example-card h3{font-size:.85rem}
-  .ex-row{flex-direction:column;gap:.3rem;align-items:flex-start;padding:.6rem 0}
-  .ex-before,.ex-after{font-size:.75rem}
-  .ex-arrow{display:none}
-  .ex-after::before{content:'→ ';color:var(--gold)}
-  .ex-result{padding:.8rem}
-  .ex-result-inner{gap:1rem}
-  .ex-result .num{font-size:1.2rem}
-  .ex-result .desc{font-size:.6rem}
-  .ex-result .note{font-size:.65rem}
-
-  .flow-step{padding:1rem 0;gap:.8rem}
-  .flow-num{width:30px;height:30px;font-size:.7rem}
-  .flow-body h3{font-size:.82rem}
-  .flow-body p{font-size:.74rem;line-height:1.7}
-
-  .qual-grid{gap:.4rem}
-  .qual{font-size:.62rem;padding:.3rem .6rem}
-
-  .cta-section{padding:3rem 1.2rem}
-  .cta-section p{font-size:.8rem;line-height:1.8}
-  .cta-btn{display:block;width:100%;padding:1rem;font-size:.9rem;border-radius:10px;text-align:center}
-  .cta-sub{font-size:.65rem}
-
-  footer{padding:1.5rem 1rem}
-}
-
-/* ════════════════════════════════════════════
-   ERA 1 — 1981 Home PC / Arcade
-════════════════════════════════════════════ */
-@keyframes scanRoll{0%{background-position:0 0}100%{background-position:0 200px}}
-@keyframes blinkCursor{0%,49%{opacity:1}50%,100%{opacity:0}}
-@keyframes blinkInsert{0%,49%{opacity:1}50%,100%{opacity:0}}
-@keyframes falconFly{0%,100%{transform:translateY(0) scaleX(-1)}50%{transform:translateY(-8px) scaleX(-1)}}
-@keyframes crtFlicker{0%,98%{opacity:1}99%{opacity:.92}100%{opacity:1}}
-
-#hero-section{
-  background:var(--e1-bg)!important;
-  animation:crtFlicker 6s step-end infinite;
-}
-/* CRT scanlines */
-#hero-section::before{
-  content:'';position:absolute;inset:0;z-index:10;pointer-events:none;
-  background:repeating-linear-gradient(to bottom,transparent 0,transparent 2px,rgba(0,0,0,.32) 2px,rgba(0,0,0,.32) 4px);
-  animation:scanRoll 8s linear infinite;
-}
-/* CRT vignette */
-#hero-section::after{
-  content:'';position:absolute;inset:0;z-index:9;pointer-events:none;
-  background:radial-gradient(ellipse 85% 75% at 50% 50%,transparent 45%,rgba(0,0,0,.7) 100%);
-}
-/* Outrun grid floor */
-.arcade-floor{
-  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:220%;height:45%;pointer-events:none;z-index:1;
-  background:
-    repeating-linear-gradient(transparent,transparent 38px,rgba(51,255,51,.14) 38px,rgba(51,255,51,.14) 39px),
-    repeating-linear-gradient(90deg,transparent,transparent 55px,rgba(51,255,51,.10) 55px,rgba(51,255,51,.10) 56px);
-  transform-origin:bottom center;
-  transform:translateX(-50%) perspective(250px) rotateX(62deg);
-}
-/* ©1981 corner stamp */
-.crt-corner{
-  position:absolute;bottom:1.2rem;right:1.2rem;z-index:12;
-  font-family:'Press Start 2P',monospace;font-size:.38rem;
-  color:rgba(51,255,51,.45);letter-spacing:.1em;pointer-events:none;
-}
-/* Pixel falcon */
-.pixel-falcon{
-  position:relative;z-index:5;margin-bottom:.8rem;
-  animation:falconFly 3s ease-in-out infinite;
-}
-.pixel-falcon svg{filter:drop-shadow(0 0 6px #33ff33)}
-
-#hero-section .badge{
-  font-family:'Press Start 2P',monospace!important;font-size:.46rem!important;
-  color:var(--e1-green)!important;border:1px solid var(--e1-green)!important;
-  border-radius:0!important;background:transparent!important;
-  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-  letter-spacing:.16em!important;padding:.5rem .9rem!important;
-  animation:blinkInsert 1.4s step-end infinite;
-  text-shadow:0 0 8px var(--e1-green);
-}
-#hero-section h1{
-  font-family:'Press Start 2P',monospace!important;
-  font-size:clamp(.72rem,2vw,1.2rem)!important;
-  color:var(--e1-green)!important;line-height:2.1!important;
-  text-shadow:0 0 8px var(--e1-green),0 0 20px var(--e1-green)!important;
-  position:relative;z-index:5;
-  -webkit-text-fill-color:var(--e1-green)!important;
-  background:none!important;animation:none!important;
-}
-#hero-section h1 em{
-  color:var(--e1-yellow)!important;
-  -webkit-text-fill-color:var(--e1-yellow)!important;
-  text-shadow:0 0 8px var(--e1-yellow),0 0 20px var(--e1-yellow)!important;
-  background:none!important;animation:none!important;
-}
-#hero-section h1::after{
-  content:'█';color:var(--e1-green);
-  animation:blinkCursor 1s step-end infinite;
-  margin-left:.2em;font-size:.8em;
-}
-#hero-section .sub{
-  font-family:'Press Start 2P',monospace!important;
-  font-size:.48rem!important;line-height:2.2!important;
-  color:rgba(51,255,51,.8)!important;position:relative;z-index:5;
-}
-#hero-section .sub strong{color:var(--e1-green)!important}
-#hero-section .hero-metric>div{
-  background:transparent!important;
-  border:1px solid var(--e1-green)!important;border-radius:0!important;
-  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-  box-shadow:inset 0 0 8px rgba(51,255,51,.08),0 0 8px rgba(51,255,51,.2)!important;
-}
-#hero-section .hero-metric>div::before{display:none}
-#hero-section .num{
-  font-family:'Press Start 2P',monospace!important;font-size:1rem!important;
-  color:var(--e1-green)!important;
-  text-shadow:0 0 10px var(--e1-green)!important;
-}
-#hero-section .num-label{
-  font-family:'Press Start 2P',monospace!important;font-size:.36rem!important;
-  color:rgba(51,255,51,.65)!important;
-}
-
-/* ════════════════════════════════════════════
-   ERA 2 — 1989 DOS / PC-88
-════════════════════════════════════════════ */
-#problem{background:var(--e2-bg)!important}
-#problem .stitle{
-  font-family:'VT323',monospace!important;font-size:2.2rem!important;
-  color:var(--e2-amber)!important;
-  -webkit-text-fill-color:var(--e2-amber)!important;
-  background:none!important;animation:none!important;
-  text-shadow:0 0 6px rgba(255,179,0,.5);
-}
-#problem .stitle em{
-  color:var(--e2-green)!important;-webkit-text-fill-color:var(--e2-green)!important;
-  background:none!important;animation:none!important;
-}
-#problem .label{color:var(--e2-green)!important;font-family:'VT323',monospace!important;font-size:.85rem!important;letter-spacing:.2em}
-#problem .pain-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(0,20,0,.6)!important}
-#problem .pain-card::before{display:none}
-#problem .pain-card.problem{border:1px solid #ff4444!important}
-#problem .pain-card.problem::after{background:#ff4444!important}
-#problem .pain-card.solve{border:1px solid var(--e2-green)!important}
-#problem .pain-card.solve::after{background:var(--e2-green)!important}
-#problem .pain-card .pc-label{font-family:'VT323',monospace!important;font-size:1.1rem!important;letter-spacing:.2em}
-#problem .pain-card.problem .pc-label{color:#ff6666!important}
-#problem .pain-card.solve .pc-label{color:var(--e2-green)!important}
-#problem .pain-card h3{font-family:'VT323',monospace!important;font-size:1.3rem!important;color:var(--e2-amber)!important;font-weight:400!important}
-#problem .pain-card p{font-family:'VT323',monospace!important;font-size:1.15rem!important;color:rgba(51,255,51,.8)!important;line-height:1.5!important}
-#problem .pain-card.problem h3{color:#ff9999!important}
-#problem .pain-card.problem p{color:rgba(255,100,100,.75)!important}
-
-/* ════════════════════════════════════════════
-   ERA 3 — 1995 Windows 95
-════════════════════════════════════════════ */
-#services{background:var(--e3-bg)!important}
-#services .stitle{
-  font-family:'Russo One',sans-serif!important;color:#fff!important;
-  -webkit-text-fill-color:#fff!important;background:none!important;animation:none!important;
-}
-#services .stitle em{color:#ffff80!important;-webkit-text-fill-color:#ffff80!important;background:none!important;animation:none!important}
-#services .label{color:#fff!important;font-family:'Russo One',sans-serif!important;letter-spacing:.2em}
-#services .glow-wrap::before{display:none!important}
-#services .svc{
-  background:var(--e3-face)!important;
-  border-top:2px solid #fff!important;border-left:2px solid #fff!important;
-  border-bottom:2px solid #404040!important;border-right:2px solid #404040!important;
-  border-radius:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-}
-#services .svc::before{display:none}
-#services .svc-icon{
-  background:var(--e3-blue);padding:.3rem .5rem;margin-bottom:.8rem;display:inline-block;border-radius:0;
-}
-#services .svc-icon svg{stroke:#fff!important;width:20px;height:20px}
-#services .svc h3{
-  font-family:'Russo One',sans-serif!important;color:var(--e3-blue)!important;
-  font-size:.85rem!important;margin-bottom:.4rem;
-}
-#services .svc p{color:#222!important;font-size:.78rem!important}
-
-/* ════════════════════════════════════════════
-   ERA 4 — 2002 Windows XP
-════════════════════════════════════════════ */
-#pricing{background:var(--e4-face)!important}
-#pricing .stitle{
-  font-family:'Russo One',sans-serif!important;color:var(--e4-blue)!important;
-  -webkit-text-fill-color:var(--e4-blue)!important;background:none!important;animation:none!important;
-}
-#pricing .stitle em{color:#2e8b1a!important;-webkit-text-fill-color:#2e8b1a!important;background:none!important;animation:none!important}
-#pricing .label{color:var(--e4-blue)!important;font-family:'Russo One',sans-serif!important;letter-spacing:.15em}
-#pricing .price-explain{
-  background:#fff!important;border-radius:8px!important;
-  border:1px solid #aac!important;
-  box-shadow:2px 2px 0 #9090b0,inset 0 1px 0 #fff!important;
-  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-}
-#pricing .price-explain::before{display:none}
-#pricing .price-intro{color:#334!important}
-#pricing .price-formula{
-  background:linear-gradient(180deg,var(--e4-btn-hi),var(--e4-blue))!important;
-  color:#fff!important;border-color:var(--e4-blue)!important;border-radius:4px!important;
-}
-#pricing .price-table th{background:var(--e4-blue);color:#fff!important;padding:.7rem .8rem}
-#pricing .price-table td{color:#112!important}
-#pricing .price-table .amount{color:var(--e4-blue)!important}
-#pricing .price-note{background:rgba(46,139,26,.1)!important;border-left-color:var(--e4-green)!important;color:var(--e4-green)!important}
-#pricing .example-card{background:#fff!important;border:1px solid #b0c0d0!important;box-shadow:2px 2px 0 #9090b0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-#pricing .example-card::before{display:none}
-#pricing .example-card h3{color:var(--e4-blue)!important;font-family:'Russo One',sans-serif!important}
-#pricing .ex-before{color:#778!important}
-#pricing .ex-after{color:var(--e4-green)!important}
-#pricing .ex-result{background:linear-gradient(180deg,#e8f0ff,#d0dcf8)!important;border-color:var(--e4-blue)!important}
-#pricing .ex-result .num{color:var(--e4-blue)!important}
-#pricing .ex-result .desc{color:#334!important}
-#pricing .ex-result .note{color:#556!important}
-
-/* ════════════════════════════════════════════
-   ERA 5 — 2008 Web 2.0
-════════════════════════════════════════════ */
-#flow{background:var(--e5-bg)!important}
-#flow .stitle{
-  font-family:'Russo One',sans-serif!important;color:var(--e5-text)!important;
-  -webkit-text-fill-color:var(--e5-text)!important;background:none!important;animation:none!important;
-}
-#flow .stitle em{color:var(--e5-blue)!important;-webkit-text-fill-color:var(--e5-blue)!important;background:none!important;animation:none!important}
-#flow .label{color:var(--e5-blue)!important;font-family:'Russo One',sans-serif!important}
-#flow .flow-step{border-bottom:1px solid #c8dff5;padding:.8rem 0}
-#flow .flow-step+.flow-step{border-top:none}
-#flow .flow-num{
-  background:linear-gradient(180deg,#6fc3ff,var(--e5-blue))!important;
-  border:none!important;color:#fff!important;
-  box-shadow:0 2px 4px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.4)!important;
-  position:relative;overflow:hidden;
-}
-#flow .flow-num::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:50%;
-  background:rgba(255,255,255,.25);border-radius:50% 50% 0 0;
-}
-#flow .flow-body h3{font-family:'Russo One',sans-serif!important;color:var(--e5-text)!important}
-#flow .flow-body p{color:#445!important}
-
-/* ════════════════════════════════════════════
-   ERA 6 — 2015 Flat / Material
-════════════════════════════════════════════ */
-#credentials{background:var(--e6-bg)!important}
-#credentials .stitle{
-  color:var(--e6-text)!important;
-  -webkit-text-fill-color:var(--e6-text)!important;background:none!important;animation:none!important;
-}
-#credentials .stitle em{color:var(--e6-teal)!important;-webkit-text-fill-color:var(--e6-teal)!important;background:none!important;animation:none!important}
-#credentials .label{color:var(--e6-teal)!important;border-top:3px solid var(--e6-teal);padding-top:.5rem;display:inline-block}
-#credentials p{color:#444!important}
-#credentials .qual{
-  background:#fff!important;border:1px solid #e0e0e0!important;
-  box-shadow:0 1px 3px rgba(0,0,0,.08)!important;
-  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-  color:#555!important;border-radius:4px!important;
-}
-#credentials .qual::before{display:none}
-
-/* ════════════════════════════════════════════
-   ERA 7 — 2025+ AI / AGI  (Liquid Glass)
-════════════════════════════════════════════ */
-#contact{background:var(--e7-bg)!important;position:relative;overflow:hidden}
-#contact::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 60% 50% at 30% 40%,rgba(168,85,247,.08) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 60% at 75% 60%,rgba(6,182,212,.07) 0%,transparent 60%);
-}
-#contact .stitle{
-  background:linear-gradient(135deg,var(--e7-b),var(--e7-a),var(--e7-c))!important;
-  background-size:200% auto!important;
-  -webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;
-  background-clip:text!important;animation:shimmer 4s ease-in-out infinite!important;
-}
-#contact .stitle em{
-  background:inherit!important;-webkit-text-fill-color:transparent!important;animation:inherit!important;
-}
-#contact p{color:rgba(255,255,255,.55)!important}
-/* Liquid Glass wrapper */
-#contact .reveal{
-  background:rgba(255,255,255,.04);
-  backdrop-filter:blur(48px) brightness(1.08) saturate(2.2) contrast(1.04);
-  -webkit-backdrop-filter:blur(48px) brightness(1.08) saturate(2.2) contrast(1.04);
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:32px;
-  padding:3rem 2rem;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.18),0 32px 80px rgba(0,0,0,.45);
-  position:relative;overflow:hidden;
-}
-#contact .reveal::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
-  pointer-events:none;
-}
-/* Light scan on button */
-.cta-btn{position:relative;overflow:hidden}
-.cta-btn::before{
-  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
-  animation:lightScan 3s ease-in-out infinite;
-}
-@keyframes lightScan{0%{left:-100%}60%,100%{left:160%}}
-/* AGI subtext in footer area */
-#contact .cta-sub{color:rgba(167,139,250,.6)!important}
-
-/* ════════════════════════════════════════════
-   NAV era styles
-════════════════════════════════════════════ */
-nav[data-era="1981"]{
-  background:#000!important;
-  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-  border-bottom:1px solid var(--e1-green)!important;
-}
-nav[data-era="1981"] .logo{
-  font-family:'Press Start 2P',monospace!important;font-size:.6rem!important;
-  color:var(--e1-green)!important;flex-direction:row;align-items:center;gap:.5rem;
-}
-nav[data-era="1981"] .logo em{color:var(--e1-yellow)!important}
-nav[data-era="1981"] .logo small{display:none}
-nav[data-era="1981"] .nav-r a{font-family:'Press Start 2P',monospace!important;font-size:.45rem!important;color:rgba(51,255,51,.7)!important}
-nav[data-era="1981"] .nav-r a:hover{color:var(--e1-green)!important}
-nav[data-era="1981"] .nav-cta{
-  background:transparent!important;color:var(--e1-green)!important;
-  border:1px solid var(--e1-green)!important;border-radius:0!important;
-  box-shadow:none!important;font-family:'Press Start 2P',monospace!important;font-size:.45rem!important;
-  animation:blinkInsert 2s step-end infinite;
-}
-
-nav[data-era="ai"]{
-  backdrop-filter:blur(48px) brightness(1.08) saturate(2.2)!important;
-  -webkit-backdrop-filter:blur(48px) brightness(1.08) saturate(2.2)!important;
-  background:rgba(3,5,13,.5)!important;
-  border-bottom:1px solid rgba(255,255,255,.15)!important;
-}
-nav[data-era="ai"] .logo{color:var(--e7-b)!important}
-nav[data-era="ai"] .logo em{color:var(--e7-a)!important}
-nav[data-era="ai"] .nav-r a{color:rgba(255,255,255,.5)!important}
-nav[data-era="ai"] .nav-r a:hover{color:var(--e7-b)!important}
-nav[data-era="ai"] .nav-cta{
-  background:linear-gradient(135deg,var(--e7-a),var(--e7-b))!important;
-  color:#fff!important;border-radius:20px!important;
-  box-shadow:0 0 16px rgba(168,85,247,.3)!important;
-}
-
-/* mobile era adjustments */
-@media(max-width:768px){
-  #hero-section h1{font-size:.65rem!important;line-height:2!important}
-  #hero-section .sub{font-size:.4rem!important}
-  #hero-section .badge{font-size:.38rem!important;padding:.4rem .6rem!important}
-  #hero-section .num{font-size:.8rem!important}
-  #hero-section .num-label{font-size:.28rem!important}
-  .pixel-falcon svg{width:48px;height:48px}
-  #problem .stitle{font-size:1.6rem!important}
-  #problem .pain-card h3{font-size:1rem!important}
-  #problem .pain-card p{font-size:.95rem!important}
-  #services .svc p{font-size:.72rem!important}
-  nav[data-era="1981"]{padding:.6rem .8rem}
-  nav[data-era="1981"] .logo{font-size:.45rem!important}
-  nav[data-era="1981"] .nav-r a{font-size:.35rem!important}
-  nav[data-era="1981"] .nav-cta{font-size:.35rem!important;padding:.4rem .7rem!important}
-  #contact .reveal{padding:2rem 1.2rem;border-radius:20px}
-}
-
-/* ════════════════════════════════════════════
-   Win95 title bar via CSS attr()
-════════════════════════════════════════════ */
-#services .svc[data-title]::after{
-  content:attr(data-title);
-  position:absolute;top:0;left:0;right:0;height:22px;
-  background:var(--e3-blue);color:#fff;
-  font-family:'Courier New',monospace;font-size:.6rem;font-weight:700;
-  display:flex;align-items:center;padding:0 .5rem;
-  letter-spacing:.02em;z-index:2;
-}
-#services .svc[data-title]{padding-top:2.4rem}
-
-/* ════════════════════════════════════════════
-   Section transition gradient dividers
-════════════════════════════════════════════ */
-#problem{position:relative}
-#problem::after{
-  content:'';position:absolute;bottom:-1px;left:0;right:0;
-  height:60px;pointer-events:none;z-index:5;
-  background:linear-gradient(to bottom,transparent,var(--e3-bg));
-}
-#services{position:relative}
-#services::after{
-  content:'';position:absolute;bottom:-1px;left:0;right:0;
-  height:60px;pointer-events:none;z-index:5;
-  background:linear-gradient(to bottom,transparent,var(--e4-face));
-}
-#pricing{position:relative}
-#pricing::after{
-  content:'';position:absolute;bottom:-1px;left:0;right:0;
-  height:60px;pointer-events:none;z-index:5;
-  background:linear-gradient(to bottom,transparent,var(--e5-bg));
-}
-#flow{position:relative}
-#flow::after{
-  content:'';position:absolute;bottom:-1px;left:0;right:0;
-  height:60px;pointer-events:none;z-index:5;
-  background:linear-gradient(to bottom,transparent,var(--e6-bg));
-}
-#credentials{position:relative}
-#credentials::after{
-  content:'';position:absolute;bottom:-1px;left:0;right:0;
-  height:60px;pointer-events:none;z-index:5;
-  background:linear-gradient(to bottom,transparent,var(--e7-bg));
-}
-
-/* ════════════════════════════════════════════
-   prefers-reduced-motion
-════════════════════════════════════════════ */
-@media(prefers-reduced-motion:reduce){
-  #hero-section::before,
-  .pixel-falcon,
-  .arcade-floor,
-  @keyframes crtFlicker,
-  .cta-btn::before,
-  .orb-1,.orb-2,.orb-3{animation:none!important}
-  #hero-section h1::after{animation:none!important;opacity:1}
-  #hero-section .badge{animation:none!important;opacity:1}
-  .scroll-progress{transition:none}
-}
 </style>
 </head>
 <body>
-<div class="scroll-progress" id="sp"></div>
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
 
-<nav>
-  <div class="logo">Fal<em>Con</em>sulting<small>ファルコンサルティング</small></div>
-  <div class="nav-r">
-    <a href="#services">サービス</a>
-    <a href="#pricing">料金</a>
-    <a href="#flow">導入の流れ</a>
-    <a href="#contact" class="nav-cta">無料相談</a>
-  </div>
-</nav>
+  <header>
+    <div class="logo">FalCon_</div>
+    <nav>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#flow">Flow</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<section class="hero" id="hero-section">
-  <div class="arcade-floor"></div>
-  <div class="pixel-falcon" aria-hidden="true">
-    <svg width="64" height="64" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated">
-      <!-- Pixel art falcon silhouette (flying left→right, mirrored via CSS scaleX) -->
-      <rect x="6" y="1" width="2" height="1" fill="#33ff33"/>
-      <rect x="5" y="2" width="3" height="1" fill="#33ff33"/>
-      <rect x="4" y="3" width="5" height="1" fill="#33ff33"/>
-      <rect x="3" y="4" width="7" height="1" fill="#33ff33"/>
-      <rect x="2" y="5" width="9" height="1" fill="#33ff33"/>
-      <rect x="1" y="6" width="11" height="2" fill="#33ff33"/>
-      <rect x="0" y="7" width="3" height="1" fill="#33ff33"/>
-      <rect x="13" y="7" width="3" height="1" fill="#33ff33"/>
-      <rect x="2" y="8" width="12" height="1" fill="#33ff33"/>
-      <rect x="4" y="9" width="8" height="1" fill="#33ff33"/>
-      <rect x="5" y="10" width="4" height="1" fill="#33ff33"/>
-      <rect x="6" y="11" width="2" height="2" fill="#33ff33"/>
-      <rect x="5" y="13" width="1" height="1" fill="#33ff33"/>
-      <rect x="9" y="13" width="1" height="1" fill="#33ff33"/>
-      <!-- eye -->
-      <rect x="8" y="4" width="1" height="1" fill="#ffff00"/>
-    </svg>
-  </div>
-  <div class="badge">A:\&gt; FalCon_ PERFORMANCE-BASED AI</div>
-  <h1>生成AIで、<em>時間</em>を取り戻す。<br>成果が出なければ、<em>費用ゼロ</em>。</h1>
-  <p class="sub">業務に生成AIを導入し、<strong>削減できた時間</strong>に応じて報酬をいただく完全成果報酬型。リスクなく、確実な業務改革を実現します。</p>
-  <div class="hero-metric">
-    <div class="g"><div class="num">0円</div><div class="num-label">初期費用</div></div>
-    <div class="g"><div class="num">40%</div><div class="num-label">平均削減率</div></div>
-    <div class="g"><div class="num">3日</div><div class="num-label">最短導入</div></div>
-  </div>
-  <div class="hero-line"></div>
-  <div class="crt-corner">©1981 FalCon</div>
-</section>
-
-<section id="problem">
-  <div class="sec-inner reveal">
-    <div class="label">Problem × Solution</div>
-    <div class="stitle">「AI、何から始めれば？」を<em>解決</em>します</div>
-    <div class="pain-grid">
-      <div class="pain-card problem g">
-        <div class="pc-label">よくある課題</div>
-        <h3>ツールを入れたが、誰も使わない</h3>
-        <p>ChatGPTの法人契約をしたが、活用が一部の社員に留まり、全社的な効果が見えない。</p>
+  <section class="sec-1-dos">
+    <div class="container">
+      <h1>A:\> FalCon_<span class="cursor">_</span></h1>
+      <p>PERFORMANCE-BASED AI</p>
+      <p># 生成AIで、*時間*を取り戻す。成果が出なければ、*費用ゼロ*。</p>
+      <p>業務に生成AIを導入し、**削減できた時間**に応じて報酬をいただく完全成果報酬型。リスクなく、確実な業務改革を実現します。</p>
+      <div class="dos-stats">
+        <div>[ 0円初期費用 ]</div>
+        <div>[ 40%平均削減率 ]</div>
+        <div>[ 3日最短導入 ]</div>
       </div>
-      <div class="pain-card solve g">
-        <div class="pc-label">ファルコンの解決策</div>
-        <h3>業務単位で「使える仕組み」を構築</h3>
-        <p>現場の業務フローに直接AIを組み込み、「使わざるを得ない」設計で定着率を最大化します。</p>
-      </div>
-      <div class="pain-card problem g">
-        <div class="pc-label">よくある課題</div>
-        <h3>導入コストが読めず、稟議が通らない</h3>
-        <p>ベンダーの見積もりが高額で、ROIの根拠も不明確。経営層を説得できない。</p>
-      </div>
-      <div class="pain-card solve g">
-        <div class="pc-label">ファルコンの解決策</div>
-        <h3>成果報酬型だから、稟議リスクゼロ</h3>
-        <p>効果が出た分だけの支払い。削減時間×単価の明快な計算式で、事前にシミュレーション可能です。</p>
-      </div>
+      <p style="margin-top: 30px; font-size: 0.8rem;">(C) 1981 FalCon</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="services" style="background:var(--bg2)">
-  <div class="sec-inner reveal">
-    <div class="label">Services</div>
-    <div class="stitle">生成AIを<em>武器</em>に変える3つの支援</div>
-    <div class="svc-list">
-      <div class="glow-wrap"><div class="svc g" data-title="■ 業務プロセス自動化.exe">
-        <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M6 16h6l3-8 4 16 3-8h4"/><circle class="draw" cx="16" cy="16" r="13"/></svg></div>
-        <h3>業務プロセス自動化</h3>
-        <p>議事録作成、レポート生成、データ集計、メール対応など、定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。</p>
-      </div></div>
-      <div class="glow-wrap"><div class="svc g" data-title="■ セキュアAI導入設計.exe">
-        <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M16 3L4 10v8c0 7 5.3 13.5 12 15 6.7-1.5 12-8 12-15v-8L16 3z"/><polyline class="draw" points="11,16 15,20 22,12"/></svg></div>
-        <h3>セキュアAI導入設計</h3>
-        <p>情報漏洩リスクを排除したAI利用ポリシーの策定から、オンプレミス／プライベートクラウド環境での安全な生成AI基盤構築まで対応。</p>
-      </div></div>
-      <div class="glow-wrap"><div class="svc g" data-title="■ 社内AI人材育成.exe">
-        <div class="svc-icon"><svg viewBox="0 0 32 32"><path class="draw" d="M8 28V18m8 10V12m8 16V6"/><circle class="draw" cx="8" cy="18" r="2"/><circle class="draw" cx="16" cy="12" r="2"/><circle class="draw" cx="24" cy="6" r="2"/></svg></div>
-        <h3>社内AI人材育成</h3>
-        <p>プロンプトエンジニアリング研修、部門別ユースケース開発ワークショップを通じて、自走できる組織を実現します。</p>
-      </div></div>
-    </div>
-  </div>
-</section>
+  <section id="problem" class="sec-2-win95">
+    <div class="win95-container">
+      <div class="win95-title">Problem × Solution: 「AI、何から始めれば？」を解決します</div>
 
-<section id="pricing" class="pricing-section">
-  <div class="sec-inner reveal">
-    <div class="label">Pricing</div>
-    <div class="stitle">削減した時間 × 単価。<em>それだけ</em>です。</div>
-    <div class="price-explain g">
-      <p class="price-intro">料金は「AIで削減できた業務時間」に基づいて算出されます。<br>効果がなければ、お支払いは一切発生しません。</p>
-      <div class="price-formula">
-        <span class="big">月額料金</span> ＝ 削減時間（h/月）× 時間単価（円）
-      </div>
-      <table class="price-table">
-        <thead><tr><th>プラン</th><th>時間単価</th><th>想定規模</th><th>月額目安</th></tr></thead>
-        <tbody>
-          <tr>
-            <td data-label="プラン"><span class="tag tag-pop">人気</span>スタンダード</td>
-            <td data-label="時間単価" class="amount">¥3,000<span style="font-size:.7rem;color:var(--dim)">/h</span></td>
-            <td data-label="想定規模" style="color:var(--mid)">中小企業・部門単位（5〜30名）</td>
-            <td data-label="月額目安" class="amount">¥150,000〜</td>
-          </tr>
-          <tr>
-            <td data-label="プラン"><span class="tag tag-ent">大規模</span>エンタープライズ</td>
-            <td data-label="時間単価" class="amount">¥2,000<span style="font-size:.7rem;color:var(--dim)">/h</span></td>
-            <td data-label="想定規模" style="color:var(--mid)">大企業・全社導入（50名〜）</td>
-            <td data-label="月額目安" class="amount">個別見積</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="price-note">
-        <strong>成果保証：</strong>導入後3ヶ月間で削減効果が計測できなかった場合、コンサルティング費用は全額ゼロ。初期費用・解約金も一切なし。
-      </div>
-    </div>
-
-    <div class="example-card g">
-      <div class="label">Simulation</div>
-      <h3>導入シミュレーション：従業員20名の管理部門</h3>
-      <div class="ex-row">
-        <span class="ex-before">議事録作成：1件60分 × 月20回 = 20h</span>
-        <span class="ex-arrow">→</span>
-        <span class="ex-after">AI生成+確認：1件10分 → 約3.3h（▲16.7h）</span>
-      </div>
-      <div class="ex-row">
-        <span class="ex-before">月次レポート集計：8h × 3部門 = 24h</span>
-        <span class="ex-arrow">→</span>
-        <span class="ex-after">自動集計：各1h → 3h（▲21h）</span>
-      </div>
-      <div class="ex-row">
-        <span class="ex-before">FAQ問い合わせ対応：月40h</span>
-        <span class="ex-arrow">→</span>
-        <span class="ex-after">AIチャットボット：月8h（▲32h）</span>
-      </div>
-      <div class="ex-result">
-        <div class="ex-result-inner">
-          <div><div class="num">▲69.7h</div><div class="desc">月間削減時間</div></div>
-          <div><div class="num">¥209,100</div><div class="desc">月額費用（@¥3,000）</div></div>
-          <div><div class="num">¥0</div><div class="desc">初期費用</div></div>
+      <div class="win95-window">
+        <div class="win95-titlebar">
+          <span>よくある課題.exe</span>
+          <div class="win95-titlebar-controls"><div class="win95-btn">_</div><div class="win95-btn">□</div><div class="win95-btn">X</div></div>
         </div>
-        <p class="note">※ 人件費換算（@¥5,000/h）で月約34.8万円相当<br>→ 実質 月約13.9万円のコスト削減効果</p>
+        <div class="win95-content">
+          <h3>ツールを入れたが、誰も使わない</h3>
+          <p>ChatGPTの法人契約をしたが、活用が一部の社員に留まり、全社的な効果が見えない。</p>
+        </div>
+      </div>
+
+      <div class="win95-window">
+        <div class="win95-titlebar">
+          <span>ファルコンの解決策.exe</span>
+          <div class="win95-titlebar-controls"><div class="win95-btn">_</div><div class="win95-btn">□</div><div class="win95-btn">X</div></div>
+        </div>
+        <div class="win95-content">
+          <h3>業務単位で「使える仕組み」を構築</h3>
+          <p>現場の業務フローに直接AIを組み込み、「使わざるを得ない」設計で定着率を最大化します。</p>
+        </div>
+      </div>
+
+      <div class="win95-window">
+        <div class="win95-titlebar">
+          <span>よくある課題2.exe</span>
+          <div class="win95-titlebar-controls"><div class="win95-btn">_</div><div class="win95-btn">□</div><div class="win95-btn">X</div></div>
+        </div>
+        <div class="win95-content">
+          <h3>導入コストが読めず、稟議が通らない</h3>
+          <p>ベンダーの見積もりが高額で、ROIの根拠も不明確。経営層を説得できない。</p>
+        </div>
+      </div>
+
+      <div class="win95-window">
+        <div class="win95-titlebar">
+          <span>ファルコンの解決策2.exe</span>
+          <div class="win95-titlebar-controls"><div class="win95-btn">_</div><div class="win95-btn">□</div><div class="win95-btn">X</div></div>
+        </div>
+        <div class="win95-content">
+          <h3>成果報酬型だから、稟議リスクゼロ</h3>
+          <p>効果が出た分だけの支払い。削減時間×単価の明快な計算式で、事前にシミュレーション可能です。</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="flow">
-  <div class="sec-inner reveal">
-    <div class="label">Flow</div>
-    <div class="stitle">最短<em>3日</em>で導入開始</div>
-    <div class="flow">
-      <div class="flow-step">
-        <div class="flow-num">01</div>
-        <div class="flow-body"><h3>無料ヒアリング（30分）</h3><p>現在の業務フローと課題をお聞きし、AI導入で削減可能な時間を概算でお伝えします。</p></div>
+  <section id="services" class="sec-3-winxp">
+    <div class="xp-container">
+      <h2 class="xp-section-title">Services - 生成AIを武器に変える3つの支援</h2>
+
+      <div class="xp-card">
+        <div class="xp-header"><span>業務プロセス自動化</span><div class="xp-close">X</div></div>
+        <div class="xp-content">
+          議事録作成、レポート生成、データ集計、メール対応など、定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。
+        </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">02</div>
-        <div class="flow-body"><h3>業務分析 & 削減シミュレーション</h3><p>対象業務を詳細に分析し、削減時間・月額費用のシミュレーションを無料でご提出します。</p></div>
+
+      <div class="xp-card">
+        <div class="xp-header"><span>セキュアAI導入設計</span><div class="xp-close">X</div></div>
+        <div class="xp-content">
+          情報漏洩リスクを排除したAI利用ポリシーの策定から、オンプレミス／プライベートクラウド環境での安全な生成AI基盤構築まで対応。
+        </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">03</div>
-        <div class="flow-body"><h3>AI導入 & 定着支援</h3><p>業務フローへのAI組み込み、マニュアル整備、社員向けトレーニングを実施。定着するまで伴走します。</p></div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">04</div>
-        <div class="flow-body"><h3>効果測定 & 月次レポート</h3><p>毎月の削減時間を定量レポートで共有。成果に基づいた透明性のある請求を行います。</p></div>
+
+      <div class="xp-card">
+        <div class="xp-header"><span>社内AI人材育成</span><div class="xp-close">X</div></div>
+        <div class="xp-content">
+          プロンプトエンジニアリング研修、部門別ユースケース開発ワークショップを通じて、自走できる組織を実現します。
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="credentials" style="background:var(--bg2)">
-  <div class="sec-inner reveal">
-    <div class="label">Credentials</div>
-    <div class="stitle">大手コンサル × エンジニアの<em>実務力</em></div>
-    <p style="color:var(--mid);font-size:.85rem;line-height:1.8;margin-bottom:1rem">Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を併せ持つプロフェッショナルが、戦略と実装の両面から支援します。</p>
-    <div class="qual-grid">
-      <div class="qual g">プロジェクトマネージャー (IPA)</div>
-      <div class="qual g">システムアーキテクト (IPA)</div>
-      <div class="qual g">情報処理安全確保支援士（登録セキスペ）</div>
-      <div class="qual g">ネットワークスペシャリスト</div>
-      <div class="qual g">データベーススペシャリスト</div>
-      <div class="qual g">PMP®</div>
-      <div class="qual g">Big4 Manager経験</div>
-      <div class="qual g">金融機関システム部門 実務経験</div>
+  <section id="pricing" class="sec-4-aqua">
+    <div class="aqua-container">
+      <h2 class="aqua-title">Pricing</h2>
+      <p style="margin-bottom: 30px; font-size: 1.2rem;">削減した時間 × 単価。それだけです。</p>
+
+      <div class="aqua-card">
+        <p>料金は「AIで削減できた業務時間」に基づいて算出されます。<br>効果がなければ、お支払いは一切発生しません。</p>
+        <h3 style="margin-top:20px; color:#0055cc;">月額料金 ＝ 削減時間（h/月）× 時間単価（円）</h3>
+
+        <table class="aqua-table">
+          <tr>
+            <th>プラン</th><th>時間単価</th><th>想定規模</th><th>月額目安</th>
+          </tr>
+          <tr>
+            <td>人気スタンダード</td><td>¥3,000/h</td><td>中小企業・部門単位（5〜30名）</td><td>¥150,000〜</td>
+          </tr>
+          <tr>
+            <td>大規模エンタープライズ</td><td>¥2,000/h</td><td>大企業・全社導入（50名〜）</td><td>個別見積</td>
+          </tr>
+        </table>
+
+        <div style="margin-top: 20px; padding: 15px; background: #fff0f0; border-radius: 5px; border: 1px solid #ffcccc;">
+          <strong>成果保証：</strong>導入後3ヶ月間で削減効果が計測できなかった場合、コンサルティング費用は全額ゼロ。初期費用・解約金も一切なし。
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="contact" class="cta-section">
-  <div class="reveal">
-    <div class="label">Contact</div>
-    <div class="stitle">まずは<em>30分</em>の無料相談から</div>
-    <p>「この業務、AIでどれくらい削減できる？」<br>その疑問に、具体的な数字でお答えします。</p>
-    <a href="mailto:jmperial@gmail.com" class="cta-btn">無料相談を予約する</a>
-    <div class="cta-sub">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</div>
-  </div>
-</section>
+  <section id="flow" class="sec-5-glass">
+    <div class="glass-container">
+      <h2 class="glass-title">Simulation & Flow</h2>
 
-<footer><p>&copy; 2026 ファルコンサルティング All rights reserved.</p></footer>
+      <div class="glass-card">
+        <h3>導入シミュレーション：従業員20名の管理部門</h3>
+        <ul style="margin-top: 15px; line-height: 1.8;">
+          <li>・議事録作成：20h → 約3.3h（▲16.7h）</li>
+          <li>・月次レポート集計：24h → 3h（▲21h）</li>
+          <li>・FAQ問い合わせ対応：月40h → 月8h（▲32h）</li>
+        </ul>
+        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(0,0,0,0.1);">
+          <strong>▲69.7h 月間削減時間 / ¥209,100 月額費用（@¥3,000）</strong><br>
+          <span style="font-size: 0.9rem;">※ 人件費換算（@¥5,000/h）で月約34.8万円相当 → 実質 月約13.9万円のコスト削減効果</span>
+        </div>
+      </div>
 
-<script>
-// scroll progress
-const sp=document.getElementById('sp');
-window.addEventListener('scroll',()=>{
-  const h=document.documentElement;
-  sp.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
-},{passive:true});
+      <h3 style="color:#fff; text-align:center; margin: 40px 0 20px; font-size: 2rem;">最短3日で導入開始</h3>
 
-// reveal observer
-const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');obs.unobserve(el.target)}})},{threshold:.12});
-document.querySelectorAll('.reveal,.svc,.glow-wrap').forEach(el=>obs.observe(el));
+      <div class="glass-card">
+        <div class="glass-step"><div class="glass-num">01</div><div><strong>無料ヒアリング（30分）</strong><br>現在の業務フローと課題をお聞きし、削減可能な時間を概算でお伝えします。</div></div>
+        <div class="glass-step"><div class="glass-num">02</div><div><strong>業務分析 & 削減シミュレーション</strong><br>対象業務を詳細に分析し、シミュレーションを無料でご提出します。</div></div>
+        <div class="glass-step"><div class="glass-num">03</div><div><strong>AI導入 & 定着支援</strong><br>業務フローへのAI組み込み、トレーニングを実施。定着するまで伴走します。</div></div>
+        <div class="glass-step"><div class="glass-num">04</div><div><strong>効果測定 & 月次レポート</strong><br>毎月の削減時間を定量レポートで共有。成果に基づいた透明性のある請求を行います。</div></div>
+      </div>
+    </div>
+  </section>
 
-// smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+  <section class="sec-6-genai">
+    <div class="genai-container">
+      <h2 class="genai-title">Credentials</h2>
+      <div class="genai-card">
+        <h3>大手コンサル × エンジニアの実務力</h3>
+        <p style="margin-top: 15px; line-height: 1.6; color: #aaa;">Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を併せ持つプロフェッショナルが、戦略と実装の両面から支援します。</p>
+        <div class="tags">
+          <span class="tag">プロジェクトマネージャー (IPA)</span>
+          <span class="tag">システムアーキテクト (IPA)</span>
+          <span class="tag">情報処理安全確保支援士</span>
+          <span class="tag">ネットワークスペシャリスト</span>
+          <span class="tag">データベーススペシャリスト</span>
+          <span class="tag">PMP®</span>
+          <span class="tag">Big4 Manager経験</span>
+          <span class="tag">金融機関システム部門 実務経験</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-// glow-wrap activate on scroll
-const glowObs=new IntersectionObserver(e=>{e.forEach(el=>{el.target.classList.toggle('active',el.isIntersecting)})},{threshold:.5});
-document.querySelectorAll('.glow-wrap').forEach(el=>glowObs.observe(el));
+  <section id="contact" class="sec-7-agi">
+    <div class="agi-orb"></div>
+    <div class="agi-content">
+      <h2 class="agi-title">Contact</h2>
+      <p style="font-size: 1.2rem; font-weight: 300;">まずは30分の無料相談から<br>「この業務、AIでどれくらい削減できる？」<br>その疑問に、具体的な数字でお答えします。</p>
+      <a href="mailto:jmperial@gmail.com" class="agi-button">無料相談を予約する</a>
+      <p style="margin-top: 20px; font-size: 0.9rem;">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
+      <footer>© 2026 ファルコンサルティング All rights reserved.</footer>
+    </div>
+  </section>
 
-// count-up animation
-function animateNum(el,target,suffix,dur){
-  let st=null;
-  function step(ts){
-    if(!st)st=ts;
-    const p=Math.min((ts-st)/dur,1);
-    const v=1-Math.pow(1-p,3);
-    el.textContent=Math.round(target*v)+suffix;
-    if(p<1)requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-const nums=document.querySelectorAll('.hero-metric .num');
-const heroObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      animateNum(nums[0],0,'円',800);
-      animateNum(nums[1],40,'%',1200);
-      animateNum(nums[2],3,'日',1000);
-      heroObs.disconnect();
-    }
-  });
-},{threshold:.3});
-if(nums.length)heroObs.observe(nums[0].parentElement.parentElement);
-
-// ── Era-based Nav & Orb color transition ──
-const nav=document.querySelector('nav');
-const root=document.documentElement;
-const eraMap={
-  'hero-section':'1981',
-  'problem':'terminal',
-  'services':'w95',
-  'pricing':'xp',
-  'flow':'web2',
-  'credentials':'flat',
-  'contact':'ai'
-};
-const orbColors={
-  '1981':  ['#33ff33','#ffb300','#006600'],
-  terminal:['#33ff33','#ffb300','#004400'],
-  w95:     ['#008080','#000080','#c0c0c0'],
-  xp:      ['#245edb','#2e8b1a','#6b9cf5'],
-  web2:    ['#1a7ecf','#6fc3ff','#a0d0f0'],
-  flat:    ['#2196f3','#009688','#f44336'],
-  ai:      ['#a855f7','#06b6d4','#f0abfc']
-};
-function setEra(era){
-  nav.dataset.era=era;
-  const c=orbColors[era]||orbColors['ai'];
-  root.style.setProperty('--orb1',c[0]);
-  root.style.setProperty('--orb2',c[1]);
-  root.style.setProperty('--orb3',c[2]);
-}
-setEra('1981');
-
-const eraObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting&&e.intersectionRatio>=.2){
-      const era=eraMap[e.target.id];
-      if(era)setEra(era);
-    }
-  });
-},{threshold:.2,rootMargin:'-10% 0px -30% 0px'});
-Object.keys(eraMap).forEach(id=>{
-  const el=document.getElementById(id);
-  if(el)eraObs.observe(el);
-});
-</script>
 </body>
 </html>
