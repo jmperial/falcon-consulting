@@ -330,13 +330,16 @@ nav a:hover{color:#e0e0e0}
 .s2{background:#0c0a08;color:#ffb300}
 .s2 .prompt .p-icon{color:#ffb300}
 .s2 .prompt .p-cursor{background:#ffb300}
-.s2 .out-title{color:#ffb300}
+.s2 .out-title{color:#ffb300;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
+.s2 .out-title.show{opacity:1;transform:translateY(0)}
 .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
 @media(max-width:600px){.pain-grid{grid-template-columns:1fr}}
 .pain-card{
   border:1px solid rgba(255,179,0,.2);padding:16px;border-radius:4px;
   background:rgba(255,179,0,.03);
+  opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease;
 }
+.pain-card.show{opacity:1;transform:translateY(0)}
 .pain-card h3{font-size:.95rem;margin-bottom:8px;color:#ff6b6b;text-shadow:0 0 8px rgba(255,107,107,.3)}
 .pain-card p{font-size:.8rem;color:#cc9933;line-height:1.5}
 .pain-card.solve{border-color:rgba(51,255,51,.25);background:rgba(51,255,51,.03)}
@@ -582,7 +585,7 @@ footer{
             <div class="pain-card"><h3>// ERROR: 定着率 0%</h3><p>ChatGPTを導入したが誰も使わない。全社効果が見えない。</p></div>
             <div class="pain-card solve"><h3>// FIX: 業務組み込み</h3><p>現場フローにAIを直接組み込み「使わざるを得ない」設計で定着。</p></div>
             <div class="pain-card"><h3>// ERROR: 稟議不通過</h3><p>見積もりが高額。ROI根拠が不明確で経営層を説得できない。</p></div>
-            <div class="pain-card solve"><h3>// FIX: 成果報酬型</h3><p>削減時間×単価の明快な計算。効果なければ費用ゼロ。</p></div>
+            <div class="pain-card solve"><h3>// FIX: 成果報酬型</h3><p>削減時間×単価の明快な計算。効果なければ<span style="color:#ffff00;font-weight:700;text-shadow:0 0 8px rgba(255,255,0,.4)">費用ゼロ</span>。</p></div>
           </div>
         </div>
       </div>
@@ -608,8 +611,8 @@ footer{
         <div class="content-area">
           <div class="out-title" style="color:#06b6d4">生成AIを武器に変える3つの支援</div>
           <div class="svc-list">
-            <div class="svc-item"><h3><span class="svc-num">01</span>業務プロセス自動化</h3><p>議事録・レポート・メール対応など定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。</p></div>
-            <div class="svc-item"><h3><span class="svc-num">02</span>セキュアAI導入設計</h3><p>情報漏洩リスク排除のポリシー策定から、安全な生成AI基盤構築まで対応。</p></div>
+            <div class="svc-item"><h3><span class="svc-num">01</span>業務プロセス自動化</h3><p>議事録・レポート・メール対応など定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築。</p></div>
+            <div class="svc-item"><h3><span class="svc-num">02</span>セキュアAI導入設計</h3><p>情報漏洩リスク排除のポリシー策定から、安全な生成AI基盤の構築まで対応。</p></div>
             <div class="svc-item"><h3><span class="svc-num">03</span>社内AI人材育成</h3><p>プロンプト研修・部門別ワークショップで、自走できるAI組織を実現。</p></div>
           </div>
         </div>
@@ -885,6 +888,8 @@ function resetAll(){
     var inner=el.closest('.inner');
     if(inner){var ca=inner.querySelector('.content-area');if(ca)ca.classList.remove('show');}
   });
+  // reset s2 sequential items
+  document.querySelectorAll('.s2 .out-title,.s2 .pain-card').forEach(function(el){el.classList.remove('show')});
 }
 
 // === Hero typing ===
@@ -953,6 +958,15 @@ function resetAll(){
         for(var i=0;i<cmd.length;i++){cmdEl.textContent+=cmd[i];await sleep(25);}
         await sleep(200);
         if(content)content.classList.add('show');
+        // s2: sequential fade-in for title + cards
+        var s2sec=el.closest('.s2');
+        if(s2sec){
+          var seqItems=s2sec.querySelectorAll('.out-title,.pain-card');
+          for(var j=0;j<seqItems.length;j++){
+            await sleep(250);
+            seqItems[j].classList.add('show');
+          }
+        }
         el.setAttribute('data-typing','done');
       })();
     });
