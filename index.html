@@ -402,6 +402,7 @@ nav a:hover{color:#e0e0e0}
 .s4 .prompt .p-icon{color:#06b6d4}
 .s4 .prompt .p-cursor{background:#a78bfa}
 .s4 .out-title{color:#b4a0fc}
+.s4-catch{text-align:center;font-size:1.5rem;color:#ffff00 !important;text-shadow:0 0 12px rgba(255,255,0,.4)}
 .price-box{
   border:1px solid rgba(167,139,250,.2);border-radius:12px;padding:24px;
   background:rgba(167,139,250,.03);margin-top:20px;
@@ -539,17 +540,19 @@ footer{
   border-top:1px solid rgba(51,255,0,.1);
 }
 
-/* === MOBILE === */
+/* === MOBILE (iPhone 17 base: ~393px) === */
 @media(max-width:600px){
   .sec{padding:80px 16px 40px}
   .s1 .hayabusa{font-size:4rem;top:70px;right:3%}
-  .out-title{font-size:1.2rem}
-  .s1 .glow-line{font-size:1.3rem}
+  .out-title{font-size:1.1rem}
+  .s1 .glow-line{font-size:1.2rem}
   .s1 .era-badge{top:60px;left:16px;font-size:.5rem}
   .s1 .stats{flex-direction:column;gap:10px}
-  .s7 .out-title{font-size:1.4rem}
-  .price-row{flex-direction:column;gap:2px}
+  .s2 .out-title{font-size:1.1rem}
+  .s4 .out-title{font-size:1.15rem !important}
+  .s7 .out-title{font-size:1.3rem}
   .price-formula{font-size:1rem}
+  .price-plans{flex-direction:column}
 }
 
 /* === REDUCED MOTION === */
@@ -671,7 +674,7 @@ footer{
           <span class="p-cursor" style="background:#eee"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="text-align:center;font-size:1.5rem;color:#ffff00;text-shadow:0 0 12px rgba(255,255,0,.4)">削減時間 × 時間単価。それだけ。</div>
+          <div class="out-title s4-catch">削減時間 × 時間単価。<br>それだけ。</div>
           <div class="price-box" style="border-color:rgba(240,208,96,.2);background:rgba(240,208,96,.03)">
             <div style="text-align:center;padding:16px 0 20px;margin-bottom:16px;border-bottom:1px solid rgba(240,208,96,.12)">
               <div style="font-size:1.1rem;font-weight:700;color:#f0d060;letter-spacing:1px;margin-bottom:8px">月額料金</div>
