@@ -1153,7 +1153,8 @@ function resetAll(){
   }
   var ccCmd=document.getElementById('s7-cc-cmd');
   var ccResponse=document.getElementById('s7-cc-response');
-  var ccPrompt='お問い合わせフォームを作って';
+  var ccPrompt='お問い合わせフォームて作れたりする？';
+  var ccCursor=document.getElementById('s7-cc-cursor');
 
   async function boot(){
     if(bootState==='booting')return;
@@ -1173,9 +1174,17 @@ function resetAll(){
     for(var i=0;i<ccPrompt.length;i++){
       if(bootState!=='booting')return;
       ccCmd.textContent+=ccPrompt[i];
-      await sleep(30);
+      await sleep(55);
     }
-    await sleep(500);
+    // Phase 3.5: Pause, then Enter
+    if(bootState!=='booting')return;
+    await sleep(800);
+    ccCursor.style.animation='none';ccCursor.style.opacity='1';
+    await sleep(120);
+    ccCursor.style.opacity='0';
+    await sleep(80);
+    ccCursor.style.display='none';
+    await sleep(400);
     // Phase 4: Response + form appears
     if(bootState!=='booting')return;
     ccResponse.style.opacity='1';
@@ -1186,6 +1195,7 @@ function resetAll(){
     while(dosOut.firstChild)dosOut.removeChild(dosOut.firstChild);
     ccCmd.textContent='';
     ccResponse.style.opacity='0';
+    ccCursor.style.display='';ccCursor.style.opacity='';ccCursor.style.animation='';
     ccPanel.style.transition='none';
     ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
     setTimeout(function(){ccPanel.style.transition='opacity .5s ease,transform .5s ease';},50);
