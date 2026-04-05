@@ -112,8 +112,9 @@ nav a:hover{color:#e0e0e0}
 
 /* === PROFILE BUTTON === */
 .profile-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  margin-top:24px;padding:12px 28px;
+  display:flex;width:fit-content;
+  align-items:center;gap:8px;
+  margin:24px auto 0;padding:12px 28px;
   font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:600;
   color:#33ff00;background:rgba(51,255,0,.06);
   border:1px solid #33ff00;border-radius:8px;
@@ -186,7 +187,11 @@ nav a:hover{color:#e0e0e0}
   text-transform:uppercase;margin-bottom:12px;
   padding-bottom:6px;border-bottom:1px solid rgba(168,85,247,.15);
 }
-.prof-section p{font-size:.85rem;color:rgba(235,225,255,.82);line-height:1.8;margin-bottom:8px}
+.prof-section p{font-size:.85rem;color:rgba(103,232,249,.72);line-height:1.9;margin-bottom:8px}
+.prof-overview-block{
+  border-left:2px solid rgba(103,232,249,.25);padding-left:14px;margin:4px 0 8px;
+}
+.prof-overview-block p{color:rgba(103,232,249,.75);margin-bottom:0}
 .prof-highlight{
   display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
 }
@@ -207,8 +212,8 @@ nav a:hover{color:#e0e0e0}
   width:10px;height:10px;border-radius:50%;
   background:#a855f7;border:2px solid #0c0816;
 }
-.prof-tl-item h4{font-size:.85rem;color:#ede6ff;margin-bottom:2px}
-.prof-tl-item p{font-size:.78rem;color:rgba(220,200,255,.68);line-height:1.6}
+.prof-tl-item h4{font-size:.85rem;color:#e0d4ff;margin-bottom:4px}
+.prof-tl-item p{font-size:.78rem;color:rgba(103,232,249,.65);line-height:1.7}
 
 /* === MODAL CATCHCOPY === */
 .prof-hero{
@@ -678,7 +683,10 @@ footer{
 
       <div class="prof-section">
         <h3>// Overview</h3>
-        <p>前職は、BIG4コンサルティングファームのマネージャーとして大手金融機関にアドバイザリー・コンサルティングサービスを提供。主に、システムリスクおよびサイバーセキュリティ監査、PMO（プログラムおよびプロジェクトマネジメント）業務を専門とする。</p>
+        <div class="prof-overview-block">
+          <p>BIG4コンサルティングファームのマネージャーとして大手金融機関にアドバイザリー・コンサルティングサービスを提供。</p>
+          <p style="margin-top:8px">主な専門領域: <span style="color:#c084fc">システムリスク監査</span> / <span style="color:#c084fc">サイバーセキュリティ監査</span> / <span style="color:#c084fc">PMO（プロジェクトマネジメント）</span></p>
+        </div>
       </div>
 
       <div class="prof-section">
@@ -701,7 +709,8 @@ footer{
 
       <div class="prof-section">
         <h3>// Strength</h3>
-        <p>企画・提案、要件定義、設計、構築、開発、テスト、移行、運用、監査まで——システムライフサイクルの全フェーズを実務で経験していることが最大の強み。</p>
+        <p style="color:rgba(103,232,249,.72)">企画・提案 → 要件定義 → 設計 → 構築 → 開発 → テスト → 移行 → 運用 → <span style="color:#33ff00;font-weight:600">監査</span><br>
+        <span style="font-size:.78rem;color:rgba(103,232,249,.5)">// システムライフサイクルの全フェーズを実務経験済み</span></p>
         <div class="prof-highlight">
           <div class="ph-item"><strong>上流</strong>企画・提案・要件定義</div>
           <div class="ph-item"><strong>構築</strong>設計・開発・テスト</div>
@@ -783,7 +792,7 @@ footer{
 <script>
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 
-// === Hero typing ===
+// === Hero typing (with scroll-back replay) ===
 (function(){
   var out=document.getElementById('terminal-output');
   var stats=document.getElementById('dos-stats');
@@ -798,23 +807,40 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
     {text:'削減できた時間に応じた完全成果報酬型。',color:'#33ff00',delay:30},
     {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:30},
   ];
+  var heroState='idle'; // idle | typing | done
   async function typeLine(c){
     if(!c.text){await sleep(c.pause||200);return}
     var d=document.createElement('div');
     d.className='out-line'+(c.cls?' '+c.cls:'');
     d.style.color=c.color||'#33ff00';
     out.appendChild(d);
-    for(var i=0;i<c.text.length;i++){d.textContent+=c.text[i];await sleep(c.delay||30)}
+    for(var i=0;i<c.text.length;i++){
+      if(heroState==='idle')return; // aborted by scroll-away
+      d.textContent+=c.text[i];await sleep(c.delay||30)
+    }
   }
   async function run(){
-    for(var l of lines)await typeLine(l);
+    heroState='typing';
+    out.innerHTML='';
+    stats.style.transition='none';stats.style.opacity='0';
+    for(var l of lines){if(heroState==='idle')return;await typeLine(l)}
+    if(heroState==='idle')return;
     await sleep(300);
     stats.style.transition='opacity .8s ease';
     stats.style.opacity='1';
+    heroState='done';
   }
   var io=new IntersectionObserver(function(e){
-    if(e[0].isIntersecting){io.disconnect();run()}
-  },{threshold:.3});
+    var entry=e[0];
+    if(!entry.isIntersecting && entry.intersectionRatio<0.05){
+      // nearly fully scrolled away → reset
+      if(heroState!=='idle'){heroState='idle';out.innerHTML='';stats.style.opacity='0';}
+      return;
+    }
+    if(entry.isIntersecting && entry.intersectionRatio>=0.25 && heroState==='idle'){
+      run();
+    }
+  },{threshold:[0.04,0.25]});
   io.observe(document.getElementById('s1'));
 })();
 
@@ -828,8 +854,8 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
       var cmdEl=el.querySelector('.p-cmd');
       var content=el.closest('.inner').querySelector('.content-area');
       if(!cmdEl||!cmd)return;
-      if(!entry.isIntersecting){
-        // reset when scrolled away
+      // Reset only when element is nearly fully out of view (<4% visible)
+      if(!entry.isIntersecting && entry.intersectionRatio<0.04){
         if(el.getAttribute('data-typing')==='done'){
           el.removeAttribute('data-typing');
           cmdEl.textContent='';
@@ -838,7 +864,9 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
         }
         return;
       }
-      if(el.getAttribute('data-typing'))return; // already typing or done
+      // Trigger when at least 18% visible
+      if(!entry.isIntersecting || entry.intersectionRatio<0.18)return;
+      if(el.getAttribute('data-typing'))return;
       el.setAttribute('data-typing','true');
       (async function(){
         cmdEl.style.opacity='1';
@@ -851,7 +879,7 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
         el.setAttribute('data-typing','done');
       })();
     });
-  },{threshold:.2});
+  },{threshold:[0.03,0.18,0.5]});
   prompts.forEach(function(p){io.observe(p)});
 })();
 
