@@ -12,7 +12,7 @@
 html{scroll-behavior:smooth}
 body{
   background:#0a0a0a;color:#e0e0e0;overflow-x:hidden;
-  font-family:'JetBrains Mono','Courier New',monospace;
+  font-family:'Meiryo UI','JetBrains Mono','Courier New',sans-serif;
   line-height:1.7;word-break:auto-phrase;overflow-wrap:anywhere;
 }
 a{color:inherit;text-decoration:none}
@@ -62,7 +62,8 @@ nav a:hover{color:#e0e0e0}
 /* === WINDOW FRAMES === */
 /* DOS frame */
 .dos-frame{border:1px solid;padding:2px;margin-bottom:24px}
-.dos-frame .dos-bar{display:flex;justify-content:space-between;padding:2px 6px;font-size:.6rem;margin-bottom:0}
+.dos-frame .dos-bar{display:flex;justify-content:space-between;padding:4px 8px;font-size:.65rem;margin-bottom:0}
+.dos-era{font-size:.55rem;letter-spacing:1.5px;opacity:.5;padding:2px 8px;border:1px solid rgba(255,179,0,.25);border-radius:3px;margin-left:8px}
 .dos-frame .dos-body{padding:12px 16px}
 
 /* CMD frame */
@@ -87,7 +88,7 @@ nav a:hover{color:#e0e0e0}
 .mac-dots span{width:12px;height:12px;border-radius:50%}
 .mac-dots .r{background:#ff5f57}.mac-dots .y{background:#febc2e}.mac-dots .g{background:#28c840}
 .mac-titlebar .title{flex:1;text-align:center;font-size:.7rem;color:#999}
-.mac-body{background:#1a1a2e;padding:16px}
+.mac-body{background:#0c1220;padding:16px}
 
 /* Warp frame */
 .warp-frame{border-radius:12px;overflow:hidden;margin-bottom:24px;border:1px solid rgba(168,85,247,.2);background:rgba(168,85,247,.03)}
@@ -112,16 +113,21 @@ nav a:hover{color:#e0e0e0}
 
 /* === PROFILE BUTTON === */
 .profile-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  margin-top:20px;padding:10px 24px;
-  font-family:'JetBrains Mono',monospace;font-size:.8rem;
-  color:#c084fc;background:rgba(168,85,247,.08);
-  border:1px solid rgba(168,85,247,.3);border-radius:8px;
+  display:flex;width:fit-content;
+  align-items:center;gap:8px;
+  margin:24px auto 0;padding:12px 28px;
+  font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-size:.85rem;font-weight:600;
+  color:#33ff00;background:rgba(51,255,0,.06);
+  border:1px solid #33ff00;border-radius:8px;
   cursor:pointer;transition:all .3s ease;
+  text-shadow:0 0 8px rgba(51,255,0,.4);
+  box-shadow:0 0 12px rgba(51,255,0,.1);
 }
 .profile-btn:hover{
-  background:rgba(168,85,247,.15);border-color:#c084fc;
-  transform:translateY(-1px);box-shadow:0 4px 16px rgba(168,85,247,.2);
+  background:rgba(51,255,0,.14);
+  transform:translateY(-2px);
+  box-shadow:0 0 24px rgba(51,255,0,.3),0 4px 20px rgba(51,255,0,.15);
+  text-shadow:0 0 12px rgba(51,255,0,.7);
 }
 .profile-btn svg{width:14px;height:14px}
 
@@ -155,7 +161,7 @@ nav a:hover{color:#e0e0e0}
 .modal-close{
   color:rgba(200,180,253,.4);cursor:pointer;font-size:1rem;
   padding:0 4px;transition:color .2s;background:none;border:none;
-  font-family:'JetBrains Mono',monospace;
+  font-family:'Meiryo UI','JetBrains Mono',sans-serif;
 }
 .modal-close:hover{color:#c084fc}
 .modal-cmd-line{
@@ -171,27 +177,52 @@ nav a:hover{color:#e0e0e0}
 
 /* Profile content */
 .prof-name{
-  font-size:1.5rem;font-weight:700;margin-bottom:4px;
+  font-size:1.2rem;font-weight:700;margin-bottom:4px;
   background:linear-gradient(135deg,#c084fc,#67e8f9);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.prof-role{font-size:.8rem;color:rgba(200,180,253,.5);margin-bottom:24px}
+.prof-role{font-size:.7rem;color:rgba(200,180,253,.5);margin-bottom:24px}
 .prof-section{margin-bottom:24px}
 .prof-section h3{
   font-size:.75rem;color:#c084fc;letter-spacing:1.5px;
   text-transform:uppercase;margin-bottom:12px;
   padding-bottom:6px;border-bottom:1px solid rgba(168,85,247,.15);
 }
-.prof-section p{font-size:.85rem;color:rgba(224,212,255,.7);line-height:1.8;margin-bottom:8px}
+.prof-section p{font-size:.85rem;color:rgba(103,232,249,.72);line-height:1.9;margin-bottom:8px}
+.prof-overview-block{
+  border-left:2px solid rgba(103,232,249,.25);padding-left:14px;margin:4px 0 12px;
+}
+.prof-overview-block p{color:rgba(103,232,249,.75);margin-bottom:0}
+.spec-label{font-size:.7rem;color:rgba(103,232,249,.4);letter-spacing:1px;margin-top:14px;margin-bottom:6px}
+/* Tooltip */
+.tip{position:relative;cursor:help;border-bottom:1px dashed rgba(255,255,0,.4)}
+.tip .tip-text{
+  visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 8px);left:0;
+  white-space:nowrap;
+  font-size:.65rem;font-weight:400;color:#0a0a0a;background:#ffff00;
+  padding:4px 10px;border-radius:4px;
+  transition:opacity .2s ease;z-index:10;pointer-events:none;
+}
+.tip .tip-text::after{
+  content:'';position:absolute;top:100%;left:16px;
+  border:5px solid transparent;border-top-color:#ffff00;
+}
+.tip:hover .tip-text,.tip:focus .tip-text{visibility:visible;opacity:1}
+.spec-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.spec-tag{
+  padding:4px 12px;font-size:.73rem;border-radius:4px;
+  border:1px solid rgba(255,179,0,.35);color:#ffb300;
+  background:rgba(255,179,0,.05);letter-spacing:.3px;
+}
 .prof-highlight{
   display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
 }
 .prof-highlight .ph-item{
   padding:10px 16px;border-radius:8px;font-size:.8rem;
-  border:1px solid rgba(168,85,247,.2);background:rgba(168,85,247,.04);
-  color:#c4b5fd;flex:1;min-width:140px;
+  border:1px solid rgba(168,85,247,.25);background:rgba(168,85,247,.06);
+  color:#d4c8ff;flex:1;min-width:140px;
 }
-.prof-highlight .ph-item strong{display:block;color:#e0d4ff;font-size:.9rem;margin-bottom:2px}
+.prof-highlight .ph-item strong{display:block;color:#ede6ff;font-size:.9rem;margin-bottom:2px}
 .prof-timeline{margin-top:8px}
 .prof-tl-item{
   position:relative;padding:0 0 20px 24px;
@@ -203,8 +234,79 @@ nav a:hover{color:#e0e0e0}
   width:10px;height:10px;border-radius:50%;
   background:#a855f7;border:2px solid #0c0816;
 }
-.prof-tl-item h4{font-size:.85rem;color:#e0d4ff;margin-bottom:2px}
-.prof-tl-item p{font-size:.78rem;color:rgba(200,180,253,.5);line-height:1.6}
+.prof-tl-item h4{font-size:.85rem;color:#e0d4ff;margin-bottom:4px}
+.prof-tl-item p{font-size:.78rem;color:rgba(103,232,249,.65);line-height:1.7}
+
+/* === MODAL CATCHCOPY === */
+.prof-hero{
+  min-height:52vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:20px 0 32px;
+}
+.prof-catchcopy{
+  font-size:1.3rem;font-weight:700;line-height:1.6;
+  color:rgba(224,212,255,.85);
+  opacity:0;transform:scale(.95);
+  transition:opacity .7s ease,transform .7s ease;
+  position:relative;padding:24px 0;
+}
+.prof-catchcopy .cc-accent{
+  color:#67e8f9;text-shadow:0 0 16px rgba(103,232,249,.5);
+}
+.prof-catchcopy::before,.prof-catchcopy::after{
+  content:'';display:block;width:60px;height:2px;margin:0 auto;
+  background:linear-gradient(90deg,transparent,#c084fc,transparent);
+}
+.prof-catchcopy::before{margin-bottom:20px}
+.prof-catchcopy::after{margin-top:20px}
+.prof-catchcopy.show{opacity:1;transform:scale(1)}
+.prof-scroll-hint{
+  margin-top:24px;font-size:.78rem;color:rgba(200,180,253,.45);
+  opacity:0;transition:opacity .6s ease;line-height:1.8;
+}
+.prof-scroll-hint .arrow{
+  display:inline-block;font-size:1.2rem;color:#c084fc;
+  animation:bounceDown 1.5s ease infinite;margin-top:8px;
+}
+@keyframes bounceDown{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.prof-scroll-hint.show{opacity:1}
+.prof-divider{
+  border:none;border-top:1px solid rgba(168,85,247,.15);
+  margin:8px 0 28px;
+}
+.modal-body .prof-section{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .45s ease,transform .45s ease;
+}
+.modal-body .prof-name,.modal-body .prof-role{
+  opacity:0;transform:translateY(10px);
+  transition:opacity .4s ease,transform .4s ease;
+}
+.modal-body .prof-name.show,.modal-body .prof-role.show,
+.modal-body .prof-section.show{opacity:1;transform:translateY(0)}
+
+/* === CONTACT FORM === */
+.s7 .content-area{text-align:center}
+.contact-form{margin-top:20px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto}
+.form-group{margin-bottom:14px}
+.form-group label{
+  display:block;font-size:.72rem;color:rgba(192,132,252,.65);
+  margin-bottom:6px;letter-spacing:.5px;
+}
+.form-group input,.form-group textarea{
+  width:100%;padding:10px 14px;
+  font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-size:.82rem;
+  color:#e0d4ff;background:rgba(192,132,252,.05);
+  border:1px solid rgba(192,132,252,.2);border-radius:8px;
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.form-group input:focus,.form-group textarea:focus{
+  border-color:#c084fc;
+  box-shadow:0 0 0 3px rgba(192,132,252,.08);
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(192,132,252,.3)}
+.form-group textarea{min-height:90px;resize:vertical}
+.form-submit-wrap{text-align:center;margin-top:20px}
 
 /* === ANIMATIONS === */
 @keyframes blink{50%{opacity:0}}
@@ -223,29 +325,54 @@ nav a:hover{color:#e0e0e0}
 }
 .s1 .out-title{color:#33ff00;text-shadow:0 0 8px rgba(51,255,51,.4)}
 .s1 .glow-line{color:#ffff00;font-size:1.6rem;font-weight:700;text-shadow:0 0 12px #ffff00,0 0 24px #ffb300;margin:16px 0}
-.s1 .stats{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
-.s1 .stats div{
-  border:1px solid rgba(51,255,51,.3);padding:8px 16px;font-size:.8rem;
-  text-align:center;flex:1;min-width:100px;
+.s1 .stats{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.s1 .stat-card{
+  border:1px solid rgba(51,255,51,.2);padding:14px 16px;
+  text-align:center;flex:1;min-width:100px;border-radius:4px;
+  background:rgba(51,255,0,.02);
 }
-.s1 .yr{font-size:.6rem;opacity:.3;margin-left:12px}
+.s1 .stat-card .stat-val{
+  font-size:1.6rem;font-weight:700;color:#33ff00;
+  text-shadow:0 0 10px rgba(51,255,0,.4);line-height:1.2;
+}
+.s1 .stat-card .stat-label{
+  font-size:.7rem;color:rgba(51,255,0,.5);margin-top:6px;letter-spacing:.5px;
+}
+.s1 .stat-card .stat-sub{
+  font-size:.55rem;color:rgba(51,255,0,.3);margin-top:2px;
+}
+.s1 .stat-card.highlight{
+  border-color:rgba(255,255,0,.3);background:rgba(255,255,0,.03);
+}
+.s1 .stat-card.highlight .stat-val{
+  font-size:2rem;
+  color:#ffff00;text-shadow:0 0 12px rgba(255,255,0,.5);
+}
+.s1 .era-badge{
+  position:absolute;top:80px;left:20px;font-size:.6rem;
+  color:rgba(51,255,0,.35);letter-spacing:1.5px;
+  border:1px solid rgba(51,255,0,.15);padding:3px 10px;border-radius:3px;
+}
 
 /* === SECTION 2: PROBLEM (AMBER) === */
 .s2{background:#0c0a08;color:#ffb300}
 .s2 .prompt .p-icon{color:#ffb300}
 .s2 .prompt .p-cursor{background:#ffb300}
-.s2 .out-title{color:#ffb300}
+.s2 .out-title{color:#ffb300;text-align:center;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
+.s2 .out-title.show{opacity:1;transform:translateY(0)}
 .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
 @media(max-width:600px){.pain-grid{grid-template-columns:1fr}}
 .pain-card{
   border:1px solid rgba(255,179,0,.2);padding:16px;border-radius:4px;
   background:rgba(255,179,0,.03);
+  opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease;
 }
-.pain-card h3{font-size:.95rem;margin-bottom:8px;color:#ffb300}
+.pain-card.show{opacity:1;transform:translateY(0)}
+.pain-card h3{font-size:.95rem;margin-bottom:8px;color:#ff6b6b;text-shadow:0 0 8px rgba(255,107,107,.3)}
 .pain-card p{font-size:.8rem;color:#cc9933;line-height:1.5}
 .pain-card.solve{border-color:rgba(51,255,51,.25);background:rgba(51,255,51,.03)}
-.pain-card.solve h3{color:#33ff00}
-.pain-card.solve p{color:#66cc66}
+.pain-card.solve h3{color:#33ff00;text-shadow:0 0 8px rgba(51,255,0,.3)}
+.pain-card.solve p{color:#cc9933}
 
 /* === SECTION 3: SERVICES (CYAN) === */
 .s3{background:#080c0e;color:#06b6d4}
@@ -256,18 +383,26 @@ nav a:hover{color:#e0e0e0}
 .svc-item{
   border-left:3px solid #06b6d4;padding:16px 16px 16px 20px;margin-bottom:16px;
   background:rgba(6,182,212,.03);border-radius:0 8px 8px 0;
+  transition:background .2s ease;
 }
-.svc-item h3{font-size:1rem;margin-bottom:6px;color:#22d3ee}
-.svc-item p{font-size:.85rem;color:#67e8f9;opacity:.7;line-height:1.5}
+.svc-item:hover{background:rgba(6,182,212,.06)}
+.svc-item h3{font-size:1rem;margin-bottom:6px;color:#fff}
+.svc-item h3 .svc-num{
+  display:inline-block;font-size:.7rem;color:#0a0a0a;font-weight:700;
+  background:#06b6d4;padding:2px 8px;border-radius:3px;margin-right:8px;
+  vertical-align:middle;
+}
+.svc-item p{font-size:.85rem;color:#67e8f9;opacity:.75;line-height:1.6}
 
 /* === SECTION 4: PRICING (CYAN → PURPLE TRANSITION) === */
 .s4{
   background:linear-gradient(180deg,#080c0e 0%,#0d0a14 100%);
-  color:#a78bfa;
+  color:#b4a0fc;
 }
 .s4 .prompt .p-icon{color:#06b6d4}
 .s4 .prompt .p-cursor{background:#a78bfa}
-.s4 .out-title{color:#a78bfa}
+.s4 .out-title{color:#b4a0fc}
+.s4-catch{text-align:center;font-size:1.8rem;color:#ffff00 !important;text-shadow:0 0 16px rgba(255,255,0,.5);letter-spacing:1px}
 .price-box{
   border:1px solid rgba(167,139,250,.2);border-radius:12px;padding:24px;
   background:rgba(167,139,250,.03);margin-top:20px;
@@ -276,37 +411,43 @@ nav a:hover{color:#e0e0e0}
   text-align:center;font-size:1.2rem;font-weight:700;color:#c4b5fd;
   margin-bottom:20px;letter-spacing:1px;
 }
-.price-row{
-  display:flex;justify-content:space-between;padding:10px 0;
-  border-bottom:1px solid rgba(167,139,250,.1);font-size:.85rem;
+.price-plans{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.price-plan{
+  flex:1;min-width:200px;padding:16px;border-radius:8px;
+  border:1px solid rgba(240,208,96,.15);background:rgba(240,208,96,.03);
 }
-.price-row:last-of-type{border-bottom:none}
-.price-row .label{color:#a78bfa}
-.price-row .val{color:#c4b5fd;text-align:right}
+.price-plan .plan-name{
+  font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(240,208,96,.5);margin-bottom:8px;
+}
+.price-plan .plan-rate{font-size:1.4rem;font-weight:700;color:#33ff00;margin-bottom:4px}
+.price-plan .plan-est{font-size:.75rem;color:rgba(240,208,96,.5)}
+.price-plan.featured{border-color:rgba(240,208,96,.35);background:rgba(240,208,96,.06)}
+.price-plan.featured .plan-name{color:#f0d060}
 .guarantee{
   margin-top:16px;padding:12px;border-radius:8px;
   background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.15);
-  text-align:center;font-size:.8rem;color:#c4b5fd;
+  text-align:center;font-size:.8rem;color:#d4c8ff;
 }
 
-/* === SECTION 5: FLOW (PURPLE) === */
-.s5{background:#0d0a14;color:#a855f7}
-.s5 .prompt .p-icon{color:#a855f7}
-.s5 .prompt .p-cursor{background:#a855f7}
-.s5 .out-title{color:#a855f7}
+/* === SECTION 5: FLOW (DEEP NAVY) === */
+.s5{background:#080d18;color:#60a5fa}
+.s5 .prompt .p-icon{color:#60a5fa}
+.s5 .prompt .p-cursor{background:#60a5fa}
+.s5 .out-title{color:#93bbfd}
 .flow-steps{margin-top:20px;position:relative;padding-left:28px}
 .flow-steps::before{
   content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;
-  background:linear-gradient(180deg,#a855f7,#06b6d4);border-radius:1px;
+  background:linear-gradient(180deg,#60a5fa,#3b82f6);border-radius:1px;
 }
 .flow-step{position:relative;margin-bottom:24px}
 .flow-step::before{
   content:'';position:absolute;left:-24px;top:6px;
   width:12px;height:12px;border-radius:50%;
-  background:#a855f7;border:2px solid #0d0a14;
+  background:#60a5fa;border:2px solid #080d18;
 }
-.flow-step h3{font-size:.95rem;color:#c4b5fd;margin-bottom:4px}
-.flow-step p{font-size:.8rem;color:#8b5cf6;opacity:.7}
+.flow-step h3{font-size:.95rem;color:#bdd4ff;margin-bottom:4px}
+.flow-step p{font-size:.8rem;color:#7da8e8;opacity:.85}
 
 /* === SECTION 6: CREDENTIALS (DEEP PURPLE + GLOW) === */
 .s6{
@@ -320,6 +461,7 @@ nav a:hover{color:#e0e0e0}
 .s6 .out-title{
   background:linear-gradient(135deg,#a855f7,#06b6d4);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-align:center;
 }
 .cred-card{
   border:1px solid rgba(168,85,247,.2);border-radius:16px;padding:28px;
@@ -332,78 +474,131 @@ nav a:hover{color:#e0e0e0}
   pointer-events:none;
 }
 .cred-card h3{color:#c4b5fd;font-size:1.1rem;margin-bottom:12px}
-.cred-card p{color:rgba(200,180,253,.6);font-size:.85rem;line-height:1.6;margin-bottom:16px}
-.tags{display:flex;flex-wrap:wrap;gap:8px}
+.cred-card p{color:rgba(220,200,255,.75);font-size:.85rem;line-height:1.6;margin-bottom:16px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start}
 .tag{
   padding:5px 14px;border-radius:20px;font-size:.75rem;
-  border:1px solid rgba(168,85,247,.3);color:#c4b5fd;
-  background:rgba(168,85,247,.06);
+  border:1px solid rgba(168,85,247,.4);color:#d4c8ff;
+  background:rgba(168,85,247,.08);
 }
 
-/* === SECTION 7: CONTACT (CLAUDE CODE STYLE) === */
+/* === SECTION 7: CONTACT (DOS → Claude Code boot) === */
 .s7{
-  background:#0a0510;color:#e0d4ff;
+  background:#0a0a0a;color:#e0e0e0;
   min-height:60vh;
 }
-.s7 .prompt .p-icon{
-  color:#c084fc;font-size:1rem;
+/* DOS top */
+.s7-dos{
+  background:#0a0a0a;padding:16px 20px;
+  border:1px solid rgba(51,255,0,.15);border-bottom:none;
+  border-radius:4px 4px 0 0;
 }
-.s7 .prompt .p-cursor{background:#c084fc}
-.s7 .claude-prompt{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:24px;font-size:1rem;
+.s7-dos .dos-line{color:#33ff00;font-size:.8rem;line-height:1.8}
+.s7-dos .dos-boot{color:rgba(51,255,0,.5);font-size:.7rem;margin-top:4px}
+/* Claude Code bottom */
+.s7-cc{
+  background:#12091e;
+  border:1px solid rgba(192,132,252,.2);border-top:none;
+  border-radius:0 0 8px 8px;overflow:hidden;
 }
-.s7 .claude-prompt .chevron{
-  color:#c084fc;font-size:1.2rem;font-weight:700;
+.s7-cc .cc-bar{
+  padding:6px 14px;display:flex;align-items:center;gap:8px;
+  background:rgba(192,132,252,.08);border-bottom:1px solid rgba(192,132,252,.15);
+  border-top:1px solid rgba(192,132,252,.15);
+  font-size:.6rem;color:rgba(192,132,252,.6);
 }
-.s7 .claude-prompt .cmd{
-  color:rgba(255,255,255,.5);
+.s7-cc .cc-bar svg{width:12px;height:12px}
+.s7-cc .cc-bar .cc-p{flex:1;color:rgba(192,132,252,.7)}
+.s7-cc .cc-bar .cc-tokens{color:rgba(192,132,252,.4);font-size:.55rem}
+.s7-cc .cc-form-body{padding:20px 24px;position:relative;z-index:1}
+.invader-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.25}
+.s7-cc .cc-input-line{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-size:.8rem}
+.s7-cc .cc-input-line .chevron{color:#c084fc;font-weight:700}
+.s7-cc .cc-input-line .p-cmd{color:#67e8f9}
+.s7-cc .cc-msg{
+  color:rgba(192,132,252,.5);font-size:.78rem;line-height:1.7;
+  margin-bottom:20px;padding-left:18px;
+  border-left:2px solid rgba(192,132,252,.15);
 }
-.s7 .out-title{
-  font-size:1.8rem;
-  background:linear-gradient(135deg,#c084fc,#67e8f9);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+.s7 .contact-form{text-align:left;max-width:100%}
+.s7 .form-group label{color:rgba(192,132,252,.7);font-size:.7rem}
+.s7 .form-group input,.s7 .form-group textarea{
+  color:#e0d4ff;background:rgba(192,132,252,.08);
+  border:1px solid rgba(192,132,252,.25);border-radius:6px;
 }
-.s7 .contact-text{
-  color:rgba(255,255,255,.6);font-size:.95rem;line-height:1.8;margin-bottom:28px;
+.s7 .form-group input:focus,.s7 .form-group textarea:focus{
+  border-color:#c084fc;box-shadow:0 0 0 3px rgba(192,132,252,.1);
 }
+.s7 .form-group input::placeholder,.s7 .form-group textarea::placeholder{color:rgba(192,132,252,.3)}
 .cta-btn{
-  display:inline-block;padding:14px 36px;font-size:.95rem;
-  font-family:'JetBrains Mono',monospace;font-weight:600;
-  color:#fff;border-radius:8px;letter-spacing:.5px;
-  background:linear-gradient(135deg,#7c3aed,#0891b2);
-  box-shadow:0 4px 24px rgba(124,58,237,.3);
+  display:inline-block;padding:12px 32px;font-size:.9rem;
+  font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-weight:600;
+  color:#0a0a0a;border-radius:4px;letter-spacing:.5px;
+  background:#22cc00;border:none;
+  box-shadow:0 0 14px rgba(34,204,0,.25);
   transition:all .3s ease;position:relative;overflow:hidden;
 }
 .cta-btn:hover{
   transform:translateY(-2px);
-  box-shadow:0 8px 32px rgba(124,58,237,.4);
+  box-shadow:0 0 24px rgba(34,204,0,.4);
 }
 .cta-btn::after{
   content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
   animation:shimmer 3s linear infinite;
 }
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
-
-.s7 .meta{margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.3)}
+@media(max-width:600px){
+  .s7-dos{padding:14px 16px}
+  .s7-cc .cc-form-body{padding:16px}
+}
 
 footer{
   text-align:center;padding:40px 20px;font-size:.7rem;
-  color:rgba(255,255,255,.2);background:#0a0510;
-  border-top:1px solid rgba(168,85,247,.1);
+  color:rgba(51,255,0,.15);background:#0a0a0a;
+  border-top:1px solid rgba(51,255,0,.08);
 }
 
-/* === MOBILE === */
+/* === MOBILE (iPhone 17 base: ~393px) === */
 @media(max-width:600px){
-  .sec{padding:80px 16px 40px}
-  .s1 .hayabusa{font-size:4rem;top:70px;right:3%}
-  .out-title{font-size:1.2rem}
-  .s1 .glow-line{font-size:1.3rem}
-  .s1 .stats{flex-direction:column}
-  .s7 .out-title{font-size:1.4rem}
-  .price-row{flex-direction:column;gap:2px}
-  .price-formula{font-size:1rem}
+  .sec{padding:80px 14px 40px}
+  .inner{max-width:100%}
+  body{font-size:.85rem}
+  .s1 .hayabusa{font-size:3.5rem;top:65px;right:3%}
+  .out-title{font-size:1rem}
+  .s1 .glow-line{font-size:1.1rem}
+  .s1 .era-badge{top:58px;left:14px;font-size:.45rem}
+  .s1 .stats{flex-direction:column;gap:8px}
+  .s1 .stat-card .stat-val{font-size:1.3rem}
+  .s1 .stat-card.highlight .stat-val{font-size:1.6rem}
+  .s2 .out-title{font-size:1rem}
+  .s4-catch{font-size:1.2rem !important}
+  .price-formula{font-size:.9rem}
+  .price-plans{flex-direction:column}
+  .price-plan .plan-rate{font-size:1.2rem}
+  .svc-item h3{font-size:.9rem}
+  .svc-item p{font-size:.78rem}
+  .flow-step h3{font-size:.85rem}
+  .flow-step p{font-size:.75rem}
+  .cred-card p{font-size:.78rem}
+  .tag{font-size:.65rem;padding:4px 10px}
+  .profile-btn{font-size:.75rem;padding:10px 20px}
+  /* Modal */
+  .modal-window{max-width:95vw}
+  .prof-catchcopy{font-size:1.1rem !important}
+  .prof-name{font-size:1.1rem !important}
+  .prof-role{font-size:.65rem !important}
+  .prof-section h3{font-size:.68rem}
+  .prof-section p{font-size:.78rem}
+  .ph-item{font-size:.72rem;min-width:120px;padding:8px 12px}
+  .ph-item strong{font-size:.8rem}
+  .spec-tag{font-size:.65rem;padding:3px 8px}
+  /* Contact */
+  .s7-dos{padding:12px 14px}
+  .s7-dos .dos-line div{font-size:.7rem !important}
+  .s7-cc .cc-form-body{padding:14px 16px}
+  .s7-cc .cc-msg{font-size:.72rem}
+  .form-group input,.form-group textarea{font-size:.78rem;padding:8px 10px}
 }
 
 /* === REDUCED MOTION === */
@@ -428,19 +623,29 @@ footer{
 
 <!-- ===== 1. HERO ===== -->
 <section class="sec s1" id="s1">
+  <div class="era-badge">MS-DOS — 1981</div>
   <div class="hayabusa" aria-hidden="true">隼</div>
   <div class="inner">
     <div class="prompt">
       <span class="p-icon">C:\&gt;</span>
       <span class="p-cmd">falcon.exe</span>
-      <span class="yr">[1981]</span>
       <span class="p-cursor"></span>
     </div>
     <div id="terminal-output"></div>
     <div class="stats" id="dos-stats" style="opacity:0">
-      <div>0円<br><small>初期費用</small></div>
-      <div>40%<br><small>平均削減率</small></div>
-      <div>3日<br><small>最短導入</small></div>
+      <div class="stat-card highlight">
+        <div class="stat-val">¥0</div>
+        <div class="stat-label">初期費用・解約金</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">100%</div>
+        <div class="stat-label">業務削減率</div>
+        <div class="stat-sub">※ 1日1分以上の削減達成率</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0日</div>
+        <div class="stat-label">最短導入</div>
+      </div>
     </div>
   </div>
 </section>
@@ -449,7 +654,7 @@ footer{
 <section class="sec s2" id="s2">
   <div class="inner">
     <div class="dos-frame" style="border-color:#ffb300">
-      <div class="dos-bar" style="color:#ffb300"><span>C:\FALCON</span><span>DOS 5.0</span></div>
+      <div class="dos-bar" style="color:#ffb300"><span>C:\FALCON</span><span>DOS 5.0 <span class="dos-era">1991</span></span></div>
       <div class="dos-body">
         <div class="prompt" data-cmd="diagnose --problems">
           <span class="p-icon" style="color:#ffb300">C:\FALCON&gt;</span>
@@ -457,12 +662,12 @@ footer{
           <span class="p-cursor" style="background:#ffb300;width:10px;height:3px"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="color:#ffb300">「AI、何から始めれば？」を解決します</div>
+          <div class="out-title" style="color:#ffb300">「AI、<span style="color:#ffff00;text-shadow:0 0 8px rgba(255,255,0,.4)">何から始めれば？</span>」を解決します</div>
           <div class="pain-grid">
             <div class="pain-card"><h3>// ERROR: 定着率 0%</h3><p>ChatGPTを導入したが誰も使わない。全社効果が見えない。</p></div>
             <div class="pain-card solve"><h3>// FIX: 業務組み込み</h3><p>現場フローにAIを直接組み込み「使わざるを得ない」設計で定着。</p></div>
             <div class="pain-card"><h3>// ERROR: 稟議不通過</h3><p>見積もりが高額。ROI根拠が不明確で経営層を説得できない。</p></div>
-            <div class="pain-card solve"><h3>// FIX: 成果報酬型</h3><p>削減時間×単価の明快な計算。効果なければ費用ゼロ。</p></div>
+            <div class="pain-card solve"><h3>// FIX: 成果報酬型</h3><p>削減時間×単価の明快な計算。効果なければ<span style="color:#ffff00;font-weight:700;text-shadow:0 0 8px rgba(255,255,0,.4)">費用ゼロ</span>。</p></div>
           </div>
         </div>
       </div>
@@ -486,11 +691,11 @@ footer{
           <span class="p-cursor" style="background:#ccc"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="color:#06b6d4">生成AIを武器に変える3つの支援</div>
+          <div class="out-title" style="color:#06b6d4">生成AIを<span style="color:#ffff00;text-shadow:0 0 8px rgba(255,255,0,.4)">武器</span>に変える3つの支援</div>
           <div class="svc-list">
-            <div class="svc-item"><h3>[1] 業務プロセス自動化</h3><p>議事録・レポート・メール対応など定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。</p></div>
-            <div class="svc-item"><h3>[2] セキュアAI導入設計</h3><p>情報漏洩リスク排除のポリシー策定から、安全な生成AI基盤構築まで対応。</p></div>
-            <div class="svc-item"><h3>[3] 社内AI人材育成</h3><p>プロンプト研修・部門別ワークショップで、自走できるAI組織を実現。</p></div>
+            <div class="svc-item"><h3><span class="svc-num">01</span>業務プロセス自動化</h3><p>図面から必要部材の特定・数量算出、それをもとにした見積書の自動生成や自動発注など、専門業務をAIで自動化。</p></div>
+            <div class="svc-item"><h3><span class="svc-num">02</span>セキュアAI導入設計</h3><p>情報漏洩リスク排除のポリシー策定から、安全な生成AI基盤の構築まで対応。</p></div>
+            <div class="svc-item"><h3><span class="svc-num">03</span>社内AI人材育成</h3><p>プロンプト研修・部門別ワークショップで、自走できるAI組織を実現。</p></div>
           </div>
         </div>
       </div>
@@ -515,12 +720,31 @@ footer{
           <span class="p-cursor" style="background:#eee"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="color:#f0d060">削減した時間 × 単価。それだけ。</div>
+          <div class="out-title s4-catch">削減時間 × 時間単価。<br><span style="color:#33ff00;text-shadow:0 0 10px rgba(51,255,0,.4)">それだけ。</span></div>
           <div class="price-box" style="border-color:rgba(240,208,96,.2);background:rgba(240,208,96,.03)">
-            <div class="price-formula" style="color:#f0d060">月額 ＝ 削減時間(h) × 単価(円)</div>
-            <div class="price-row"><span class="label" style="color:#eee">スタンダード（5〜30名）</span><span class="val" style="color:#f0d060">¥3,000/h → 月額¥150,000〜</span></div>
-            <div class="price-row"><span class="label" style="color:#eee">エンタープライズ（50名〜）</span><span class="val" style="color:#f0d060">¥2,000/h → 個別見積</span></div>
-            <div class="guarantee" style="border-color:rgba(240,208,96,.15);background:rgba(240,208,96,.05);color:#f0d060">成果保証：3ヶ月で効果なし → 費用ゼロ。初期費用・解約金なし。</div>
+            <div style="text-align:center;padding:16px 0 20px;margin-bottom:16px;border-bottom:1px solid rgba(240,208,96,.12)">
+              <div style="font-size:1.1rem;font-weight:700;color:#f0d060;letter-spacing:1px;margin-bottom:8px">月額料金</div>
+              <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">
+                <span style="padding:6px 14px;border:1px solid rgba(240,208,96,.25);border-radius:6px;font-size:1rem;font-weight:700;color:#f0d060">削減できた時間</span>
+                <span style="font-size:1.2rem;color:rgba(240,208,96,.5)">×</span>
+                <span style="padding:6px 14px;border:1px solid rgba(240,208,96,.25);border-radius:6px;font-size:1rem;font-weight:700;color:#f0d060">その業務の時間単価</span>
+              </div>
+            </div>
+            <p style="text-align:center;font-size:.78rem;color:rgba(240,208,96,.5);margin-bottom:16px">実際にAIで実現した削減時間をもとに費用を算出</p>
+            <div class="price-plans">
+              <div class="price-plan">
+                <div class="plan-name">例: 一般業務</div>
+                <div class="plan-rate">¥3,000<span style="font-size:.7rem;font-weight:400">/h</span></div>
+                <div class="plan-est">月20h削減 → ¥60,000</div>
+              </div>
+              <div class="price-plan featured">
+                <div class="plan-name">例: 専門・技術領域</div>
+                <div class="plan-rate">¥10,000〜<span style="font-size:.7rem;font-weight:400">/h</span></div>
+                <div class="plan-est">月20h削減 → ¥200,000〜</div>
+              </div>
+            </div>
+            <p style="text-align:center;font-size:.7rem;color:rgba(240,208,96,.35);margin-top:12px">※ 時間単価は業務内容・専門性に応じて個別設定</p>
+            <div class="guarantee" style="border-color:rgba(240,208,96,.15);background:rgba(240,208,96,.05);color:#f0d060">成果保証：効果なければ<span style="color:#33ff00;font-weight:700;font-size:.95rem;text-shadow:0 0 8px rgba(51,255,0,.3)">費用ゼロ</span>。初期費用・解約金なし。</div>
           </div>
         </div>
       </div>
@@ -543,7 +767,7 @@ footer{
           <span class="p-cursor" style="background:#a855f7"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="color:#a855f7">最短3日で導入開始</div>
+          <div class="out-title">最短<span style="font-size:2.2rem;color:#ffff00;text-shadow:0 0 16px rgba(255,255,0,.5);font-weight:700">0日</span>で導入開始</div>
           <div class="flow-steps">
             <div class="flow-step"><h3>01 — 無料ヒアリング</h3><p>30分で課題と削減見込みを把握</p></div>
             <div class="flow-step"><h3>02 — 業務分析</h3><p>シミュレーションを無料でご提出</p></div>
@@ -575,14 +799,15 @@ footer{
         </div>
         <div class="content-area warp-output">
           <div class="out-title" style="background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">大手コンサル × エンジニアの実務力</div>
+          <p style="font-size:1rem;color:#e0d4ff;text-align:center;margin-bottom:20px">戦略も実装も、<span style="color:#ffff00;font-weight:700;font-size:1.6rem;text-shadow:0 0 16px rgba(255,255,0,.5)">ワンストップ。</span></p>
           <div class="cred-card">
-            <p>Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を併せ持つプロフェッショナルが、戦略と実装の両面から支援します。</p>
+            <p><span class="tip" style="color:#ffff00;font-weight:700;font-size:1.1rem;text-shadow:0 0 8px rgba(255,255,0,.4)" tabindex="0">Big4<span class="tip-text">Deloitte / PwC / <strong style="color:#ff69b4;font-size:.8rem">EY</strong> / KPMG</span></span>コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を活かし、戦略と実装の両面から支援。</p>
             <div class="tags">
-              <span class="tag">プロジェクトマネージャー</span><span class="tag">システムアーキテクト</span><span class="tag">情報処理安全確保支援士</span><span class="tag">ネットワークスペシャリスト</span><span class="tag">データベーススペシャリスト</span><span class="tag">PMP</span><span class="tag">Big4 Manager</span><span class="tag">金融機関システム部門</span>
+              <span class="tag">情報処理安全確保支援士</span><span class="tag">PMP</span><span class="tag">プロジェクトマネージャー</span><span class="tag">システムアーキテクト</span><span class="tag">ネットワークスペシャリスト</span><span class="tag">データベーススペシャリスト</span><span class="tag">Big4 Manager</span><span class="tag">金融機関システム部門</span>
             </div>
           </div>
           <button class="profile-btn" id="open-profile" type="button">
-            <svg viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="#33ff00" stroke-width="1.5" stroke-linecap="round"/></svg>
             コンサルタント詳細を見る
           </button>
         </div>
@@ -603,36 +828,56 @@ footer{
     <div class="modal-cmd-line">
       <span style="color:rgba(192,132,252,.5)">falcon ~/credentials ❯ </span><span class="typed" id="modal-typed-cmd"></span><span class="p-cursor" style="background:#c084fc;width:7px;height:14px;display:inline-block;vertical-align:middle;animation:blink 1s step-end infinite"></span>
     </div>
-    <div class="modal-body" id="modal-body" style="opacity:0;transition:opacity .5s ease">
-      <div class="prof-name">Consultant Profile</div>
-      <div class="prof-role">ファルコンサルティング — Principal Consultant</div>
+    <div class="modal-body" id="modal-body" style="opacity:0;transition:opacity .3s ease">
+      <!-- Catchcopy hero -->
+      <div class="prof-hero">
+        <div class="prof-catchcopy" id="prof-catchcopy">細かい事はどうでもいい。<br><span class="cc-accent">結果を出す。</span><br>それがコンサルタントだ。</div>
+        <div class="prof-scroll-hint" id="prof-scroll-hint">細かいことが気になる方は<br><span class="arrow">↓</span></div>
+      </div>
+      <hr class="prof-divider">
+
+      <!-- Detail profile -->
+      <div class="prof-name" id="prof-name">福田 隼平<br><span style="font-size:.7rem;color:rgba(200,180,253,.5);font-weight:400">JUMPEI FUKUDA</span></div>
+      <div class="prof-role" id="prof-role" style="margin-bottom:24px">ファルコンサルティング — Principal Consultant</div>
 
       <div class="prof-section">
-        <h3>// Overview</h3>
-        <p>前職は、BIG4コンサルティングファームのマネージャーとして大手金融機関にアドバイザリー・コンサルティングサービスを提供。主に、システムリスクおよびサイバーセキュリティ監査、PMO（プログラムおよびプロジェクトマネジメント）業務を専門とする。</p>
+        <h3>// Background</h3>
+        <div class="prof-overview-block">
+          <p>前職にて<span class="tip" style="color:#ffff00;font-weight:600" tabindex="0">BIG4<span class="tip-text">Deloitte / PwC / <strong style="color:#ff69b4;font-size:.8rem">EY</strong> / KPMG</span></span>コンサルティングファームのマネージャーとして、大手金融機関向けにアドバイザリー・コンサルティングサービスを提供。以下はその経験実績。</p>
+        </div>
+        <div class="spec-label">// SPECIALIZATION</div>
+        <div class="spec-tags">
+          <span class="spec-tag">システムリスク監査</span>
+          <span class="spec-tag">サイバーセキュリティ監査</span>
+          <span class="spec-tag">PMO・プロジェクトマネジメント</span>
+          <span class="spec-tag">業務アプリケーション設計・開発</span>
+          <span class="spec-tag">インフラ基盤・NW構築</span>
+        </div>
       </div>
 
       <div class="prof-section">
-        <h3>// Key Engagements</h3>
+        <h3>// Past Engagements</h3>
+        <p style="font-size:.75rem;color:rgba(103,232,249,.4);margin-bottom:12px">関与プロジェクト — <span style="color:#67e8f9;font-weight:700;font-size:.9rem">100+</span> projects（主要案件を抜粋）</p>
         <div class="prof-timeline">
           <div class="prof-tl-item">
             <h4>メガバンク — クラウド監査・サイバーセキュリティ監査</h4>
-            <p>クラウド環境およびサイバーセキュリティ領域のアドバイザリー業務を担当。リスク評価から改善提言まで一貫して対応。</p>
+            <p>クラウド環境およびサイバーセキュリティ領域のアドバイザリー業務を担当。リスク評価から改善提言まで一貫して対応した。</p>
           </div>
           <div class="prof-tl-item">
             <h4>メガ損保 — 中期経営計画策定・実行支援</h4>
-            <p>中期経営計画の作成を支援し、実行計画の策定からハンズオンの実行支援コンサルティングまで従事。</p>
+            <p>中期経営計画の作成支援および、実行計画の策定からハンズオンの実行支援コンサルティングまで従事した。</p>
           </div>
           <div class="prof-tl-item">
             <h4>メガ生保 — ホールディングス＆事業会社 出向</h4>
-            <p>持株会社および生命保険事業会社へマネージャ職（兼務）として出向。経営層に近い立場でIT戦略・ガバナンス強化を推進。</p>
+            <p>持株会社および生命保険事業会社へマネージャ職（兼務）として出向。経営層に近い立場でIT戦略・ガバナンス強化を推進した。</p>
           </div>
         </div>
       </div>
 
       <div class="prof-section">
         <h3>// Strength</h3>
-        <p>企画・提案、要件定義、設計、構築、開発、テスト、移行、運用、監査まで——システムライフサイクルの全フェーズを実務で経験していることが最大の強み。</p>
+        <p>企画・提案 → 要件定義 → 設計 → 構築 → 開発 → テスト → 移行 → 運用 → 監査</p>
+        <p style="font-size:.78rem;margin-top:6px">// システムライフサイクルの<span style="color:#33ff00;font-weight:600">全9フェーズ</span>を実務経験済み</p>
         <div class="prof-highlight">
           <div class="ph-item"><strong>上流</strong>企画・提案・要件定義</div>
           <div class="ph-item"><strong>構築</strong>設計・開発・テスト</div>
@@ -643,42 +888,71 @@ footer{
 
       <div class="prof-section">
         <h3>// Certifications</h3>
+        <p style="font-size:.75rem;color:rgba(103,232,249,.4);margin-bottom:12px">保有資格 — <span style="color:#ffff00;font-weight:700;font-size:.9rem">8</span> credentials</p>
         <div class="prof-highlight">
           <div class="ph-item"><strong>PMP</strong>Project Management Professional</div>
-          <div class="ph-item"><strong>情報処理安全確保支援士</strong>登録セキスペ (RISS)</div>
+          <div class="ph-item"><strong>プロジェクトマネージャー</strong>PM高度専門資格</div>
+          <div class="ph-item"><strong>システムアーキテクト</strong>SA高度専門資格</div>
+          <div class="ph-item"><strong>情報処理安全確保支援士</strong>登録セキスペ (RISS)<br><span style="white-space:nowrap">第002262号</span></div>
           <div class="ph-item"><strong>ネットワークスペシャリスト</strong>NW高度専門資格</div>
           <div class="ph-item"><strong>データベーススペシャリスト</strong>DB高度専門資格</div>
+          <div class="ph-item"><strong>応用情報技術者</strong>AP</div>
+          <div class="ph-item"><strong>基本情報技術者</strong>FE</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ===== 7. CONTACT — Claude Code ===== -->
+<!-- ===== 7. CONTACT — DOS boots Claude Code ===== -->
 <section class="sec s7" id="s7">
   <div class="inner">
-    <div class="cc-frame">
-      <div class="cc-statusbar">
-        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#c084fc" stroke-width="1.5" fill="none"/><path d="M5 8.5a3.5 3.5 0 0 1 6 0" stroke="#c084fc" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="6" cy="6" r=".8" fill="#c084fc"/><circle cx="10" cy="6" r=".8" fill="#c084fc"/></svg>
-        <span class="cc-path">~/falcon-consulting</span>
-        <span class="cc-branch">main</span>
-        <span class="cc-model">Claude Code</span>
+    <!-- DOS top: command to launch Claude Code -->
+    <div class="s7-dos" id="s7-dos">
+      <div class="dos-line" id="s7-dos-lines"></div>
+    </div>
+    <!-- Claude Code bottom: form -->
+    <div class="s7-cc" id="s7-cc" style="opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;position:relative;overflow:hidden">
+      <canvas class="invader-canvas" id="invader-canvas"></canvas>
+      <div class="cc-bar">
+        <svg viewBox="0 0 16 16" fill="#c084fc" style="width:14px;height:14px"><rect x="2" y="1" width="2" height="2"/><rect x="12" y="1" width="2" height="2"/><rect x="4" y="3" width="2" height="2"/><rect x="10" y="3" width="2" height="2"/><rect x="2" y="5" width="12" height="2"/><rect x="0" y="7" width="2" height="2"/><rect x="4" y="7" width="2" height="2"/><rect x="10" y="7" width="2" height="2"/><rect x="14" y="7" width="2" height="2"/><rect x="0" y="9" width="16" height="2"/><rect x="0" y="11" width="2" height="2"/><rect x="6" y="11" width="4" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="2" y="13" width="4" height="2"/><rect x="10" y="13" width="4" height="2"/></svg>
+        <span class="cc-p">~/falcon-consulting</span>
+        <span class="cc-tokens">opus · 1M</span>
+        <span style="color:#c084fc">Claude Code</span>
       </div>
-      <div class="cc-body">
-        <div class="cc-prompt" data-cmd="まずは相談から始めましょう">
+      <div class="cc-form-body">
+        <div class="cc-input-line">
           <span class="chevron">❯</span>
-          <span class="p-cmd"></span>
-          <span class="p-cursor" style="background:#c084fc"></span>
+          <span class="p-cmd" id="s7-cc-cmd"></span>
+          <span class="p-cursor" id="s7-cc-cursor" style="background:#c084fc;width:7px;height:14px;display:inline-block;vertical-align:middle;animation:blink 1s step-end infinite"></span>
         </div>
-        <div class="content-area">
-          <div class="out-title" style="font-size:1.8rem;background:linear-gradient(135deg,#c084fc,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Contact</div>
-          <p class="contact-text" style="color:rgba(255,255,255,.6);font-size:.95rem;line-height:1.8;margin-bottom:28px">
-            「この業務、AIでどれくらい削減できる？」<br>
-            その疑問に、具体的な数字でお答えします。<br>
-            まずは30分の無料相談から。
-          </p>
-          <a href="mailto:jmperial@gmail.com" class="cta-btn">無料相談を予約する</a>
-          <p style="margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.3)">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
+        <div id="s7-cc-response" style="opacity:0;transition:opacity .4s ease">
+          <div class="cc-msg">
+            お問い合わせフォームを作成しました。<br>
+            以下にご記入ください。
+          </div>
+          <form action="https://formspree.io/f/xaqllvea" method="POST" class="contact-form">
+            <div class="form-group">
+              <label>お名前 *</label>
+              <input type="text" name="name" required placeholder="山田 太郎" lang="ja">
+            </div>
+            <div class="form-group">
+              <label>会社名</label>
+              <input type="text" name="company" placeholder="未記入でOK" lang="ja">
+            </div>
+            <div class="form-group">
+              <label>メールアドレス *</label>
+              <input type="email" name="email" required placeholder="taro@example.com">
+            </div>
+            <div class="form-group">
+              <label>ご相談内容</label>
+              <textarea name="message" lang="ja" placeholder="例：&#10;・図面→見積の自動化&#10;・社内AI活用の推進&#10;・セキュアなAI導入"></textarea>
+            </div>
+            <div class="form-submit-wrap" style="text-align:center">
+              <button type="submit" class="cta-btn">無料相談を予約する</button>
+            </div>
+          </form>
+          <p style="margin-top:16px;font-size:.65rem;color:rgba(192,132,252,.35);text-align:center">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
         </div>
       </div>
     </div>
@@ -690,19 +964,48 @@ footer{
 <script>
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 
+// === Scroll direction tracker ===
+var scrollDir='down';
+var lastScrollY=window.scrollY;
+window.addEventListener('scroll',function(){
+  scrollDir=window.scrollY>lastScrollY?'down':'up';
+  lastScrollY=window.scrollY;
+},{passive:true});
+
+// === Global reset: clears all section typing + hero ===
+var heroState='idle';
+var heroOut,heroStats;
+function resetAll(){
+  // hero
+  heroState='idle';
+  if(heroOut){heroOut.innerHTML='';}
+  if(heroStats){heroStats.style.transition='none';heroStats.style.opacity='0';}
+  // all sections
+  document.querySelectorAll('[data-cmd]').forEach(function(el){
+    el.removeAttribute('data-typing');
+    var cmdEl=el.querySelector('.p-cmd');
+    if(cmdEl){cmdEl.textContent='';cmdEl.style.opacity='0';}
+    var inner=el.closest('.inner');
+    if(inner){var ca=inner.querySelector('.content-area');if(ca)ca.classList.remove('show');}
+  });
+  // reset s2 sequential items
+  document.querySelectorAll('.s2 .out-title,.s2 .pain-card').forEach(function(el){el.classList.remove('show')});
+}
+
 // === Hero typing ===
 (function(){
-  var out=document.getElementById('terminal-output');
-  var stats=document.getElementById('dos-stats');
+  heroOut=document.getElementById('terminal-output');
+  heroStats=document.getElementById('dos-stats');
   var lines=[
     {text:'FALCON CONSULTING v2.0',color:'#33ff00',delay:30},
     {text:'PERFORMANCE-BASED AI CONSULTING',color:'#33ff00',delay:25},
     {text:'',pause:300},
     {text:'生成AIで、時間を取り戻す。',color:'#33ff00',delay:40},
+    {text:'隼(Falcon)のように、速く、確実に。',color:'#33ff00',delay:35},
     {text:'成果が出なければ ──',color:'#33ff00',delay:40},
     {text:'費用ゼロ。',color:'#ffff00',delay:70,cls:'glow-line'},
     {text:'',pause:400},
-    {text:'削減できた時間に応じた完全成果報酬型。',color:'#33ff00',delay:30},
+    {text:'完全成果報酬型。',color:'#33ff00',delay:30},
     {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:30},
   ];
   async function typeLine(c){
@@ -710,45 +1013,66 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
     var d=document.createElement('div');
     d.className='out-line'+(c.cls?' '+c.cls:'');
     d.style.color=c.color||'#33ff00';
-    out.appendChild(d);
-    for(var i=0;i<c.text.length;i++){d.textContent+=c.text[i];await sleep(c.delay||30)}
+    heroOut.appendChild(d);
+    for(var i=0;i<c.text.length;i++){
+      if(heroState!=='typing')return;
+      d.textContent+=c.text[i];await sleep(c.delay||30);
+    }
   }
-  async function run(){
-    for(var l of lines)await typeLine(l);
+  async function runHero(){
+    heroState='typing';
+    for(var l of lines){if(heroState!=='typing')return;await typeLine(l);}
+    if(heroState!=='typing')return;
     await sleep(300);
-    stats.style.transition='opacity .8s ease';
-    stats.style.opacity='1';
+    heroStats.style.transition='opacity .8s ease';
+    heroStats.style.opacity='1';
+    heroState='done';
   }
-  var io=new IntersectionObserver(function(e){
-    if(e[0].isIntersecting){io.disconnect();run()}
-  },{threshold:.3});
-  io.observe(document.getElementById('s1'));
+  new IntersectionObserver(function(e){
+    var entry=e[0];
+    if(!entry.isIntersecting||entry.intersectionRatio<0.25)return;
+    if(heroState==='typing')return; // already running
+    if(heroState==='done'&&scrollDir==='up'){
+      // scrolled back to top → reset everything and replay
+      resetAll();
+    }
+    if(heroState==='idle')runHero();
+  },{threshold:[0.25]}).observe(document.getElementById('s1'));
 })();
 
-// === Scroll-triggered typing for all sections ===
+// === Scroll-triggered typing (DOWN only — no reset on scroll-away) ===
 (function(){
   var prompts=document.querySelectorAll('[data-cmd]');
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
-      if(!entry.isIntersecting)return;
-      io.unobserve(entry.target);
+      if(!entry.isIntersecting||entry.intersectionRatio<0.18)return;
       var el=entry.target;
+      if(el.getAttribute('data-typing'))return;
       var cmd=el.getAttribute('data-cmd');
       var cmdEl=el.querySelector('.p-cmd');
-      var content=el.closest('.inner').querySelector('.content-area');
+      var inner=el.closest('.inner');
+      var content=inner?inner.querySelector('.content-area'):null;
       if(!cmdEl||!cmd)return;
+      el.setAttribute('data-typing','true');
       (async function(){
         cmdEl.style.opacity='1';
-        for(var i=0;i<cmd.length;i++){
-          cmdEl.textContent+=cmd[i];
-          await sleep(25);
-        }
+        for(var i=0;i<cmd.length;i++){cmdEl.textContent+=cmd[i];await sleep(25);}
         await sleep(200);
         if(content)content.classList.add('show');
+        // s2: sequential fade-in for title + cards
+        var s2sec=el.closest('.s2');
+        if(s2sec){
+          var seqItems=s2sec.querySelectorAll('.out-title,.pain-card');
+          for(var j=0;j<seqItems.length;j++){
+            await sleep(500);
+            seqItems[j].classList.add('show');
+          }
+        }
+        el.setAttribute('data-typing','done');
       })();
     });
-  },{threshold:.2});
-  prompts.forEach(function(p){io.observe(p)});
+  },{threshold:[0.18]});
+  prompts.forEach(function(p){io.observe(p);});
 })();
 
 // === Profile modal ===
@@ -761,24 +1085,58 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
   var cmd='cat consultant_profile.md';
   var isOpen=false;
 
+  // Modal-internal scroll observer for prof-sections
+  var sectionObs=null;
+
   async function openModal(){
     if(isOpen)return;
     isOpen=true;
+    // reset state
     typedCmd.textContent='';
     body.style.opacity='0';
+    var catchcopy=document.getElementById('prof-catchcopy');
+    var scrollHint=document.getElementById('prof-scroll-hint');
+    var profName=document.getElementById('prof-name');
+    var profRole=document.getElementById('prof-role');
+    var sections=body.querySelectorAll('.prof-section');
+    catchcopy.classList.remove('show');
+    scrollHint.classList.remove('show');
+    profName.classList.remove('show');
+    profRole.classList.remove('show');
+    sections.forEach(function(s){s.classList.remove('show')});
+
     modal.classList.add('open');
     // type command
     for(var i=0;i<cmd.length;i++){
       typedCmd.textContent+=cmd[i];
-      await sleep(30);
+      await sleep(28);
     }
-    await sleep(300);
+    await sleep(250);
     body.style.opacity='1';
+    await sleep(100);
+    // show catchcopy
+    catchcopy.classList.add('show');
+    await sleep(400);
+    scrollHint.classList.add('show');
+
+    // Set up IntersectionObserver inside modal-body for detail sections
+    if(sectionObs)sectionObs.disconnect();
+    var allItems=[profName,profRole].concat(Array.from(sections));
+    sectionObs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('show');
+          sectionObs.unobserve(e.target);
+        }
+      });
+    },{root:body,threshold:.15,rootMargin:'0px 0px -20px 0px'});
+    allItems.forEach(function(el){sectionObs.observe(el)});
   }
 
   function closeModal(){
     modal.classList.remove('open');
     isOpen=false;
+    if(sectionObs){sectionObs.disconnect();sectionObs=null;}
   }
 
   btn.addEventListener('click',openModal);
@@ -789,6 +1147,124 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
   document.addEventListener('keydown',function(e){
     if(e.key==='Escape'&&isOpen)closeModal();
   });
+})();
+
+// === S7: DOS boots Claude Code animation (scroll-triggered) ===
+(function(){
+  var dosEl=document.getElementById('s7-dos');
+  var dosOut=document.getElementById('s7-dos-lines');
+  var ccPanel=document.getElementById('s7-cc');
+  var bootState='idle'; // idle | booting | done
+  var lines=[
+    {text:'C:\\falcon> claude-code',color:'#33ff00',delay:30},
+    {text:'',pause:200},
+    {text:'Loading Claude Code v4.6 ...',color:'rgba(51,255,0,.5)',delay:15},
+    {text:'Model: claude-opus-4-6 (1M context) ... OK',color:'rgba(51,255,0,.5)',delay:12},
+    {text:'',pause:400},
+  ];
+  async function typeBootLine(c){
+    if(!c.text){await sleep(c.pause||200);return}
+    var d=document.createElement('div');
+    d.style.color=c.color||'#33ff00';d.style.fontSize='.78rem';d.style.lineHeight='1.7';
+    dosOut.appendChild(d);
+    for(var i=0;i<c.text.length;i++){
+      if(bootState!=='booting')return;
+      d.textContent+=c.text[i];await sleep(c.delay||25);
+    }
+  }
+  var ccCmd=document.getElementById('s7-cc-cmd');
+  var ccResponse=document.getElementById('s7-cc-response');
+  var ccPrompt='お問い合わせフォームを作って';
+
+  async function boot(){
+    if(bootState==='booting')return;
+    bootState='booting';
+    dosOut.innerHTML='';
+    ccCmd.textContent='';
+    ccResponse.style.opacity='0';
+    ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
+    // Phase 1: DOS boot
+    for(var l of lines){if(bootState!=='booting')return;await typeBootLine(l);}
+    if(bootState!=='booting')return;
+    // Phase 2: Claude Code appears
+    ccPanel.style.opacity='1';ccPanel.style.transform='translateY(0)';
+    await sleep(400);
+    // Phase 3: Type command in Claude Code
+    if(bootState!=='booting')return;
+    for(var i=0;i<ccPrompt.length;i++){
+      if(bootState!=='booting')return;
+      ccCmd.textContent+=ccPrompt[i];
+      await sleep(30);
+    }
+    await sleep(500);
+    // Phase 4: Response + form appears
+    if(bootState!=='booting')return;
+    ccResponse.style.opacity='1';
+    bootState='done';
+  }
+  function resetBoot(){
+    bootState='idle';
+    dosOut.innerHTML='';
+    ccCmd.textContent='';
+    ccResponse.style.opacity='0';
+    ccPanel.style.transition='none';
+    ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
+    setTimeout(function(){ccPanel.style.transition='opacity .5s ease,transform .5s ease';},50);
+  }
+  new IntersectionObserver(function(e){
+    var entry=e[0];
+    if(entry.isIntersecting&&entry.intersectionRatio>=0.3){
+      if(bootState==='idle')boot();
+    }
+  },{threshold:[0.3]}).observe(dosEl);
+  // Reset when hero is reached (scrolling back up)
+  var origReset=window._resetAllOrig||resetAll;
+  var oldResetAll=resetAll;
+  resetAll=function(){oldResetAll();resetBoot();};
+})();
+
+// === Invader animation on Claude Code panel ===
+(function(){
+  var canvas=document.getElementById('invader-canvas');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  // Invader pixel patterns (8x8)
+  var patterns=[
+    [0,0,1,0,0,1,0,0, 0,0,0,1,1,0,0,0, 0,0,1,1,1,1,0,0, 0,1,1,0,0,1,1,0, 1,1,1,1,1,1,1,1, 1,0,1,1,1,1,0,1, 1,0,1,0,0,1,0,1, 0,0,0,1,1,0,0,0],
+    [0,0,0,1,1,0,0,0, 0,0,1,1,1,1,0,0, 0,1,1,1,1,1,1,0, 1,1,0,1,1,0,1,1, 1,1,1,1,1,1,1,1, 0,1,0,1,1,0,1,0, 1,0,0,0,0,0,0,1, 0,1,0,0,0,0,1,0],
+    [0,0,1,0,0,0,1,0, 0,0,0,1,0,1,0,0, 0,0,1,1,1,1,0,0, 0,1,0,1,1,0,1,0, 1,1,1,1,1,1,1,1, 1,0,1,1,1,1,0,1, 1,0,1,0,0,1,0,1, 0,1,0,0,0,0,1,0],
+  ];
+  var invaders=[];
+  var w,h,px=3;
+  function resize(){
+    var r=canvas.parentElement.getBoundingClientRect();
+    w=canvas.width=r.width;h=canvas.height=r.height;
+  }
+  function spawn(){
+    invaders.push({
+      x:Math.random()*w,y:-30,
+      vx:(Math.random()-.5)*0.5,vy:0.3+Math.random()*0.4,
+      p:patterns[Math.floor(Math.random()*patterns.length)],
+      color:Math.random()>.5?'#c084fc':'#67e8f9'
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(var i=invaders.length-1;i>=0;i--){
+      var inv=invaders[i];
+      inv.x+=inv.vx;inv.y+=inv.vy;
+      if(inv.y>h+30){invaders.splice(i,1);continue;}
+      ctx.fillStyle=inv.color;
+      for(var r=0;r<8;r++)for(var c=0;c<8;c++){
+        if(inv.p[r*8+c])ctx.fillRect(inv.x+c*px,inv.y+r*px,px-1,px-1);
+      }
+    }
+    if(Math.random()<0.02&&invaders.length<8)spawn();
+    requestAnimationFrame(draw);
+  }
+  resize();window.addEventListener('resize',resize);
+  for(var i=0;i<3;i++){spawn();invaders[i].y=Math.random()*h;}
+  draw();
 })();
 </script>
 
