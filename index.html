@@ -178,43 +178,47 @@
   .glass-win .body { padding: 20px; color: #222; line-height: 1.6; }
   .glass-win .body h3 { margin-bottom: 8px; }
 
-  /* -- Liquid Glass window (final evolution) -- */
+  /* -- Dark Neon window (final evolution → bridges to GenAI purple) -- */
   .liquid-win {
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(48px) brightness(1.08) saturate(2.2) contrast(1.04);
-    -webkit-backdrop-filter: blur(48px) brightness(1.08) saturate(2.2) contrast(1.04);
-    border: 1px solid rgba(255,255,255,0.18); border-radius: 24px; overflow: hidden;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.18), 0 16px 48px rgba(0,0,0,0.3);
-    margin-bottom: 24px;
+    background: linear-gradient(135deg, rgba(15,5,30,0.95), rgba(10,10,25,0.95));
+    border: 1px solid rgba(168,85,247,0.4); border-radius: 20px; overflow: hidden;
+    box-shadow: 0 0 30px rgba(168,85,247,0.2), 0 0 60px rgba(6,182,212,0.1),
+                inset 0 1px 0 rgba(168,85,247,0.2);
+    margin-bottom: 24px; position: relative;
+  }
+  .liquid-win::after {
+    content: ''; position: absolute; inset: 0; border-radius: 20px; pointer-events: none;
+    background: linear-gradient(135deg, rgba(168,85,247,0.08), transparent 50%, rgba(6,182,212,0.08));
   }
   .liquid-win .titlebar {
-    background: rgba(255,255,255,0.06); padding: 12px 16px;
-    display: flex; align-items: center; gap: 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: linear-gradient(90deg, rgba(168,85,247,0.3), rgba(6,182,212,0.2));
+    padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid rgba(168,85,247,0.3);
   }
   .liquid-win .titlebar .dots { display: flex; gap: 6px; }
   .liquid-win .titlebar .dots span { width: 12px; height: 12px; border-radius: 50%; }
-  .liquid-win .titlebar .dots .d-red { background: rgba(255,95,87,0.6); }
-  .liquid-win .titlebar .dots .d-yel { background: rgba(254,188,46,0.6); }
-  .liquid-win .titlebar .dots .d-grn { background: rgba(40,200,64,0.6); }
+  .liquid-win .titlebar .dots .d-red { background: #a855f7; }
+  .liquid-win .titlebar .dots .d-yel { background: #06b6d4; }
+  .liquid-win .titlebar .dots .d-grn { background: #f0abfc; }
   .liquid-win .titlebar .title-text {
-    flex: 1; text-align: center; font-size: .85rem;
-    background: linear-gradient(90deg, rgba(168,85,247,0.8), rgba(6,182,212,0.8));
+    flex: 1; text-align: center; font-size: .85rem; font-weight: 600;
+    background: linear-gradient(90deg, #c4b5fd, #67e8f9);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .liquid-win .body {
-    padding: 24px; color: rgba(255,255,255,0.85); line-height: 1.7;
+    padding: 24px; color: rgba(255,255,255,0.85); line-height: 1.7; position: relative; z-index: 1;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   }
   .liquid-win .body h3 {
-    margin-bottom: 10px; font-size: 1.15rem;
-    background: linear-gradient(135deg, #c4b5fd, #67e8f9);
+    margin-bottom: 10px; font-size: 1.2rem; font-weight: 700;
+    background: linear-gradient(135deg, #a855f7, #06b6d4);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
+  .liquid-win .body p { color: rgba(200,180,253,0.7); }
 
   /* === 3. COMPACT: Services + Pricing + Flow (Glassmorphism) === */
   .sec-compact {
-    background: linear-gradient(180deg, #4a5568 0%, #553c9a 30%, #6b46c1 60%, #805ad5 100%);
+    background: linear-gradient(180deg, #1a1a2e 0%, #2d1b69 35%, #4c1d95 65%, #6d28d9 100%);
     padding: 80px 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   .compact-container { max-width: 960px; margin: 0 auto; }
@@ -223,9 +227,10 @@
   .compact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
   @media(max-width:768px){ .compact-grid { grid-template-columns: 1fr; } }
   .compact-card {
-    background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 24px;
+    background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168,85,247,0.3); border-radius: 16px; padding: 24px;
     color: #fff; transition: transform .2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   }
   .compact-card:hover { transform: translateY(-4px); }
   .compact-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
@@ -270,33 +275,18 @@
       radial-gradient(ellipse 500px 500px at 80% 70%, rgba(0,200,255,0.2), transparent),
       radial-gradient(ellipse 300px 300px at 50% 50%, rgba(255,0,200,0.15), transparent);
   }
-  /* floating orbs */
+  /* static orbs (no animation to prevent flickering on mobile) */
   .genai-orb {
-    position: absolute; border-radius: 50%; filter: blur(80px); opacity: .4; z-index: 0;
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: .3; z-index: 0;
   }
-  .genai-orb-1 { width: 400px; height: 400px; top: -100px; left: -100px; background: #a855f7; animation: floatOrb 8s ease-in-out infinite; }
-  .genai-orb-2 { width: 300px; height: 300px; bottom: -50px; right: -50px; background: #06b6d4; animation: floatOrb 10s ease-in-out infinite reverse; }
-  .genai-orb-3 { width: 200px; height: 200px; top: 40%; left: 60%; background: #f0abfc; animation: floatOrb 12s ease-in-out infinite; }
-
-  /* light beam scanning effect */
-  .light-beam {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent 0%, rgba(168,85,247,0.08) 45%, rgba(6,182,212,0.12) 50%, rgba(168,85,247,0.08) 55%, transparent 100%);
-    width: 40%; animation: lightBeam 6s linear infinite; z-index: 1; pointer-events: none;
-  }
-
-  /* horizontal scan line */
-  .scan-line {
-    position: absolute; left: 0; width: 100%; height: 2px; z-index: 1; pointer-events: none;
-    background: linear-gradient(90deg, transparent, rgba(168,85,247,0.6), rgba(6,182,212,0.6), transparent);
-    animation: scanLine 4s linear infinite;
-  }
+  .genai-orb-1 { width: 400px; height: 400px; top: -100px; left: -100px; background: #a855f7; }
+  .genai-orb-2 { width: 300px; height: 300px; bottom: -50px; right: -50px; background: #06b6d4; }
+  .genai-orb-3 { width: 200px; height: 200px; top: 40%; left: 60%; background: #f0abfc; }
 
   .genai-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
   .genai-title {
     text-align: center; font-size: 2.8rem; margin-bottom: 16px; font-weight: 700;
-    background: linear-gradient(135deg, #a855f7, #06b6d4, #f0abfc, #a855f7);
-    background-size: 300% 300%; animation: gradientBG 4s ease infinite;
+    background: linear-gradient(135deg, #a855f7, #06b6d4, #f0abfc);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .genai-subtitle { text-align: center; color: rgba(255,255,255,0.5); margin-bottom: 50px; font-size: 1rem; letter-spacing: 2px; }
@@ -308,10 +298,8 @@
   }
   .genai-card::before {
     content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
-    background: linear-gradient(45deg, #a855f7, #06b6d4, #f0abfc, #a855f7);
-    background-size: 300% 300%; animation: gradientBG 6s ease infinite;
-    z-index: -1; border-radius: 22px; filter: blur(12px); opacity: .4;
-    animation: pulseGlow 4s infinite alternate, gradientBG 6s ease infinite;
+    background: linear-gradient(135deg, #a855f7, #06b6d4, #f0abfc);
+    z-index: -1; border-radius: 22px; filter: blur(12px); opacity: .35;
   }
   .genai-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: #c4b5fd; }
   .genai-card p { color: rgba(255,255,255,0.6); line-height: 1.7; }
@@ -367,11 +355,11 @@
   }
   .sec-evolution::after {
     content: ''; display: block; height: 120px;
-    background: linear-gradient(180deg, #dde7f3 0%, #4a5568 100%);
+    background: linear-gradient(180deg, #dde7f3 0%, #1a1a2e 100%);
   }
   .sec-compact::after {
     content: ''; display: block; height: 120px;
-    background: linear-gradient(180deg, #805ad5 0%, #050508 100%);
+    background: linear-gradient(180deg, #6d28d9 0%, #050508 100%);
   }
 
   /* === MOBILE === */
@@ -395,10 +383,10 @@
 <body>
 
   <header>
-    <div class="logo"><span class="logo-hayabusa">隼</span> FalCon_</div>
+    <div class="logo"><span class="logo-hayabusa">隼</span>FalCon_</div>
     <nav>
       <ul>
-        <li><a href="#problem">Problem</a></li>
+        <li><a href="#problem">課題と解決</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#credentials">Credentials</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -538,8 +526,6 @@
     <div class="genai-orb genai-orb-1"></div>
     <div class="genai-orb genai-orb-2"></div>
     <div class="genai-orb genai-orb-3"></div>
-    <div class="light-beam"></div>
-    <div class="scan-line"></div>
 
     <div class="genai-inner">
       <h2 class="genai-title">Credentials</h2>
