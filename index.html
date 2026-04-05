@@ -43,25 +43,77 @@ nav a:hover{color:#e0e0e0}
 }
 .inner{max-width:720px;width:100%}
 
-/* === PROMPT LINE === */
+/* === PROMPT COMMON === */
 .prompt{margin-bottom:24px;font-size:.85rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .prompt .p-icon{font-weight:700;white-space:nowrap}
-.prompt .p-cmd{opacity:.7}
+.prompt .p-cmd{opacity:0}
 .prompt .p-cursor{display:inline-block;width:8px;height:16px;animation:blink 1s step-end infinite;vertical-align:middle}
+.era-label{font-size:.6rem;opacity:.35;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.era-label svg{width:14px;height:14px;flex-shrink:0}
+
+/* === CONTENT AREA (hidden until typed) === */
+.content-area{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.content-area.show{opacity:1;transform:translateY(0)}
 
 /* === OUTPUT BLOCKS === */
 .out-line{margin-bottom:6px}
 .out-title{font-size:1.4rem;font-weight:700;margin-bottom:16px;line-height:1.3}
-.out-sub{font-size:1rem;margin-bottom:20px;opacity:.7;line-height:1.6}
-.out-separator{border:none;border-top:1px dashed;margin:32px 0;opacity:.2}
+
+/* === WINDOW FRAMES === */
+/* DOS frame */
+.dos-frame{border:1px solid;padding:2px;margin-bottom:24px}
+.dos-frame .dos-bar{display:flex;justify-content:space-between;padding:2px 6px;font-size:.6rem;margin-bottom:0}
+.dos-frame .dos-body{padding:12px 16px}
+
+/* CMD frame */
+.cmd-frame{border-radius:8px 8px 0 0;overflow:hidden;margin-bottom:24px;border:1px solid #333}
+.cmd-titlebar{background:#f0f0f0;padding:6px 12px;display:flex;align-items:center;gap:8px;font-size:.7rem;color:#333}
+.cmd-titlebar svg{width:12px;height:12px}
+.cmd-titlebar .title{flex:1}
+.cmd-titlebar .btns{display:flex;gap:8px;color:#888;font-size:.75rem}
+.cmd-body{background:#0c0c0c;padding:16px;color:#ccc}
+
+/* PS frame */
+.ps-frame{border-radius:8px 8px 0 0;overflow:hidden;margin-bottom:24px;border:1px solid #333}
+.ps-tabs{background:#2d2d2d;padding:0;display:flex}
+.ps-tab{padding:8px 16px;font-size:.7rem;color:#ccc;border-bottom:2px solid transparent}
+.ps-tab.active{background:#012456;color:#fff;border-bottom-color:#0078d4}
+.ps-body{background:#012456;padding:16px;color:#eee}
+
+/* macOS Terminal frame */
+.mac-frame{border-radius:10px;overflow:hidden;margin-bottom:24px;border:1px solid #3a3a3a;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.mac-titlebar{background:linear-gradient(180deg,#3a3a3a,#2a2a2a);padding:8px 12px;display:flex;align-items:center;gap:8px}
+.mac-dots{display:flex;gap:6px}
+.mac-dots span{width:12px;height:12px;border-radius:50%}
+.mac-dots .r{background:#ff5f57}.mac-dots .y{background:#febc2e}.mac-dots .g{background:#28c840}
+.mac-titlebar .title{flex:1;text-align:center;font-size:.7rem;color:#999}
+.mac-body{background:#1a1a2e;padding:16px}
+
+/* Warp frame */
+.warp-frame{border-radius:12px;overflow:hidden;margin-bottom:24px;border:1px solid rgba(168,85,247,.2);background:rgba(168,85,247,.03)}
+.warp-bar{padding:8px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(168,85,247,.1);font-size:.65rem;color:rgba(200,180,253,.5)}
+.warp-bar svg{width:14px;height:14px}
+.warp-bar .path{flex:1}
+.warp-body{padding:16px}
+.warp-input{background:rgba(168,85,247,.06);border-radius:8px;padding:10px 14px;margin-bottom:12px;border:1px solid rgba(168,85,247,.15)}
+.warp-output{padding:4px 0}
+
+/* Claude Code frame */
+.cc-frame{border-radius:12px;overflow:hidden;margin-bottom:24px;border:1px solid rgba(192,132,252,.15);background:rgba(10,5,16,.8)}
+.cc-statusbar{padding:6px 14px;display:flex;align-items:center;gap:10px;background:rgba(192,132,252,.06);border-bottom:1px solid rgba(192,132,252,.1);font-size:.6rem;color:rgba(192,132,252,.5)}
+.cc-statusbar svg{width:14px;height:14px}
+.cc-statusbar .cc-path{flex:1;color:rgba(192,132,252,.6)}
+.cc-statusbar .cc-branch{color:#67e8f9}
+.cc-statusbar .cc-model{color:rgba(192,132,252,.4)}
+.cc-body{padding:20px}
+.cc-prompt{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.cc-prompt .chevron{color:#c084fc;font-size:1.1rem;font-weight:700}
+.cc-prompt .p-cmd{color:rgba(255,255,255,.5)}
 
 /* === ANIMATIONS === */
 @keyframes blink{50%{opacity:0}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes glowPulse{0%,100%{text-shadow:0 0 8px currentColor}50%{text-shadow:0 0 20px currentColor,0 0 40px currentColor}}
-
-.reveal{opacity:0;transform:translateY(20px)}
-.reveal.visible{animation:fadeUp .6s ease forwards}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
 
 /* === SECTION 1: HERO (DOS GREEN) === */
 .s1{background:#0a0a0a;color:#33ff00}
@@ -297,215 +349,243 @@ footer{
   </div>
 </section>
 
-<!-- ===== 2. PROBLEM ===== -->
+<!-- ===== 2. PROBLEM — DOS 5.0 (amber CRT) ===== -->
 <section class="sec s2" id="s2">
-  <div class="inner reveal">
-    <div class="prompt">
-      <span class="p-icon">C:\falcon&gt;</span>
-      <span class="p-cmd">diagnose --problems</span>
-      <span class="p-cursor"></span>
-    </div>
-    <div class="out-title">「AI、何から始めれば？」を解決します</div>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <h3>// ERROR: 定着率 0%</h3>
-        <p>ChatGPTを導入したが誰も使わない。全社効果が見えない。</p>
-      </div>
-      <div class="pain-card solve">
-        <h3>// FIX: 業務組み込み</h3>
-        <p>現場フローにAIを直接組み込み「使わざるを得ない」設計で定着。</p>
-      </div>
-      <div class="pain-card">
-        <h3>// ERROR: 稟議不通過</h3>
-        <p>見積もりが高額。ROI根拠が不明確で経営層を説得できない。</p>
-      </div>
-      <div class="pain-card solve">
-        <h3>// FIX: 成果報酬型</h3>
-        <p>削減時間×単価の明快な計算。効果なければ費用ゼロ。</p>
+  <div class="inner">
+    <div class="dos-frame" style="border-color:#ffb300">
+      <div class="dos-bar" style="color:#ffb300"><span>C:\FALCON</span><span>DOS 5.0</span></div>
+      <div class="dos-body">
+        <div class="prompt" data-cmd="diagnose --problems">
+          <span class="p-icon" style="color:#ffb300">C:\FALCON&gt;</span>
+          <span class="p-cmd"></span>
+          <span class="p-cursor" style="background:#ffb300;width:10px;height:3px"></span>
+        </div>
+        <div class="content-area">
+          <div class="out-title" style="color:#ffb300">「AI、何から始めれば？」を解決します</div>
+          <div class="pain-grid">
+            <div class="pain-card"><h3>// ERROR: 定着率 0%</h3><p>ChatGPTを導入したが誰も使わない。全社効果が見えない。</p></div>
+            <div class="pain-card solve"><h3>// FIX: 業務組み込み</h3><p>現場フローにAIを直接組み込み「使わざるを得ない」設計で定着。</p></div>
+            <div class="pain-card"><h3>// ERROR: 稟議不通過</h3><p>見積もりが高額。ROI根拠が不明確で経営層を説得できない。</p></div>
+            <div class="pain-card solve"><h3>// FIX: 成果報酬型</h3><p>削減時間×単価の明快な計算。効果なければ費用ゼロ。</p></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 3. SERVICES ===== -->
+<!-- ===== 3. SERVICES — Windows CMD ===== -->
 <section class="sec s3" id="s3">
-  <div class="inner reveal">
-    <div class="prompt">
-      <span class="p-icon">falcon$</span>
-      <span class="p-cmd">list --services</span>
-      <span class="p-cursor"></span>
-    </div>
-    <div class="out-title">生成AIを武器に変える3つの支援</div>
-    <div class="svc-list">
-      <div class="svc-item">
-        <h3>[1] 業務プロセス自動化</h3>
-        <p>議事録・レポート・メール対応など定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。</p>
+  <div class="inner">
+    <div class="cmd-frame">
+      <div class="cmd-titlebar">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="6" height="6" fill="#f25022"/><rect x="9" y="2" width="6" height="6" fill="#7fba00"/><rect x="1" y="9" width="6" height="6" fill="#00a4ef"/><rect x="9" y="9" width="6" height="6" fill="#ffb900"/></svg>
+        <span class="title">コマンド プロンプト — cmd.exe</span>
+        <div class="btns">— □ ✕</div>
       </div>
-      <div class="svc-item">
-        <h3>[2] セキュアAI導入設計</h3>
-        <p>情報漏洩リスク排除のポリシー策定から、安全な生成AI基盤構築まで対応。</p>
-      </div>
-      <div class="svc-item">
-        <h3>[3] 社内AI人材育成</h3>
-        <p>プロンプト研修・部門別ワークショップで、自走できるAI組織を実現。</p>
+      <div class="cmd-body">
+        <div class="prompt" data-cmd="falcon list --services">
+          <span class="p-icon" style="color:#ccc">C:\Users\falcon&gt;</span>
+          <span class="p-cmd"></span>
+          <span class="p-cursor" style="background:#ccc"></span>
+        </div>
+        <div class="content-area">
+          <div class="out-title" style="color:#06b6d4">生成AIを武器に変える3つの支援</div>
+          <div class="svc-list">
+            <div class="svc-item"><h3>[1] 業務プロセス自動化</h3><p>議事録・レポート・メール対応など定型業務をAIで自動化。人がやるべき仕事に集中できる環境を構築します。</p></div>
+            <div class="svc-item"><h3>[2] セキュアAI導入設計</h3><p>情報漏洩リスク排除のポリシー策定から、安全な生成AI基盤構築まで対応。</p></div>
+            <div class="svc-item"><h3>[3] 社内AI人材育成</h3><p>プロンプト研修・部門別ワークショップで、自走できるAI組織を実現。</p></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 4. PRICING ===== -->
+<!-- ===== 4. PRICING — PowerShell ===== -->
 <section class="sec s4" id="s4">
-  <div class="inner reveal">
-    <div class="prompt">
-      <span class="p-icon">falcon$</span>
-      <span class="p-cmd">pricing --show</span>
-      <span class="p-cursor"></span>
-    </div>
-    <div class="out-title">削減した時間 × 単価。それだけ。</div>
-    <div class="price-box">
-      <div class="price-formula">月額 ＝ 削減時間(h) × 単価(円)</div>
-      <div class="price-row">
-        <span class="label">スタンダード（5〜30名）</span>
-        <span class="val">¥3,000/h → 月額¥150,000〜</span>
+  <div class="inner">
+    <div class="ps-frame">
+      <div class="ps-tabs">
+        <div class="ps-tab active">
+          <svg viewBox="0 0 16 16" fill="none" style="width:12px;height:12px;vertical-align:middle;margin-right:4px"><rect rx="2" width="16" height="16" fill="#012456"/><path d="M4 11l4-3.5L4 4" stroke="#fff" stroke-width="1.5" fill="none"/><line x1="9" y1="11" x2="13" y2="11" stroke="#fff" stroke-width="1.5"/></svg>
+          PowerShell
+        </div>
       </div>
-      <div class="price-row">
-        <span class="label">エンタープライズ（50名〜）</span>
-        <span class="val">¥2,000/h → 個別見積</span>
+      <div class="ps-body">
+        <div class="prompt" data-cmd="Get-Pricing -Plan All">
+          <span class="p-icon" style="color:#eee">PS C:\falcon&gt;</span>
+          <span class="p-cmd"></span>
+          <span class="p-cursor" style="background:#eee"></span>
+        </div>
+        <div class="content-area">
+          <div class="out-title" style="color:#f0d060">削減した時間 × 単価。それだけ。</div>
+          <div class="price-box" style="border-color:rgba(240,208,96,.2);background:rgba(240,208,96,.03)">
+            <div class="price-formula" style="color:#f0d060">月額 ＝ 削減時間(h) × 単価(円)</div>
+            <div class="price-row"><span class="label" style="color:#eee">スタンダード（5〜30名）</span><span class="val" style="color:#f0d060">¥3,000/h → 月額¥150,000〜</span></div>
+            <div class="price-row"><span class="label" style="color:#eee">エンタープライズ（50名〜）</span><span class="val" style="color:#f0d060">¥2,000/h → 個別見積</span></div>
+            <div class="guarantee" style="border-color:rgba(240,208,96,.15);background:rgba(240,208,96,.05);color:#f0d060">成果保証：3ヶ月で効果なし → 費用ゼロ。初期費用・解約金なし。</div>
+          </div>
+        </div>
       </div>
-      <div class="guarantee">成果保証：3ヶ月で効果なし → 費用ゼロ。初期費用・解約金なし。</div>
     </div>
   </div>
 </section>
 
-<!-- ===== 5. FLOW ===== -->
+<!-- ===== 5. FLOW — macOS Terminal ===== -->
 <section class="sec s5" id="s5">
-  <div class="inner reveal">
-    <div class="prompt">
-      <span class="p-icon">falcon$</span>
-      <span class="p-cmd">run --onboarding</span>
-      <span class="p-cursor"></span>
-    </div>
-    <div class="out-title">最短3日で導入開始</div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <h3>01 — 無料ヒアリング</h3>
-        <p>30分で課題と削減見込みを把握</p>
+  <div class="inner">
+    <div class="mac-frame">
+      <div class="mac-titlebar">
+        <div class="mac-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <span class="title">Terminal — falcon@server</span>
       </div>
-      <div class="flow-step">
-        <h3>02 — 業務分析</h3>
-        <p>シミュレーションを無料でご提出</p>
-      </div>
-      <div class="flow-step">
-        <h3>03 — AI導入・定着</h3>
-        <p>業務フローに組み込み、定着まで伴走</p>
-      </div>
-      <div class="flow-step">
-        <h3>04 — 効果測定</h3>
-        <p>月次レポートで透明性のある請求</p>
+      <div class="mac-body">
+        <div class="prompt" data-cmd="./onboarding.sh --start">
+          <span class="p-icon" style="color:#a855f7">falcon@server:~$</span>
+          <span class="p-cmd"></span>
+          <span class="p-cursor" style="background:#a855f7"></span>
+        </div>
+        <div class="content-area">
+          <div class="out-title" style="color:#a855f7">最短3日で導入開始</div>
+          <div class="flow-steps">
+            <div class="flow-step"><h3>01 — 無料ヒアリング</h3><p>30分で課題と削減見込みを把握</p></div>
+            <div class="flow-step"><h3>02 — 業務分析</h3><p>シミュレーションを無料でご提出</p></div>
+            <div class="flow-step"><h3>03 — AI導入・定着</h3><p>業務フローに組み込み、定着まで伴走</p></div>
+            <div class="flow-step"><h3>04 — 効果測定</h3><p>月次レポートで透明性のある請求</p></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 6. CREDENTIALS ===== -->
+<!-- ===== 6. CREDENTIALS — Warp / AI Terminal ===== -->
 <section class="sec s6" id="s6">
-  <div class="inner reveal">
-    <div class="prompt">
-      <span class="p-icon">falcon@ai ~$</span>
-      <span class="p-cmd">cat credentials.md</span>
-      <span class="p-cursor"></span>
-    </div>
-    <div class="out-title">大手コンサル × エンジニアの実務力</div>
-    <div class="cred-card">
-      <p>Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を併せ持つプロフェッショナルが、戦略と実装の両面から支援します。</p>
-      <div class="tags">
-        <span class="tag">プロジェクトマネージャー</span>
-        <span class="tag">システムアーキテクト</span>
-        <span class="tag">情報処理安全確保支援士</span>
-        <span class="tag">ネットワークスペシャリスト</span>
-        <span class="tag">データベーススペシャリスト</span>
-        <span class="tag">PMP</span>
-        <span class="tag">Big4 Manager</span>
-        <span class="tag">金融機関システム部門</span>
+  <div class="inner">
+    <div class="warp-frame">
+      <div class="warp-bar">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1l2 4 4.5.5-3.2 3.2.8 4.3L8 11l-4.1 2 .8-4.3L1.5 5.5 6 5z" fill="#c084fc" opacity=".7"/><path d="M12 6l1 2 2 .2-1.4 1.5.4 2L12 10.5l-2.1 1.2.4-2L8.9 8.2l2-.2z" fill="#67e8f9" opacity=".5"/></svg>
+        <span class="path">~/falcon/credentials</span>
+        <span style="color:#c084fc">AI Terminal</span>
+      </div>
+      <div class="warp-body">
+        <div class="warp-input">
+          <div class="prompt" data-cmd="cat credentials.md">
+            <span class="p-icon" style="color:#c084fc">falcon ~/credentials ❯</span>
+            <span class="p-cmd"></span>
+            <span class="p-cursor" style="background:#c084fc"></span>
+          </div>
+        </div>
+        <div class="content-area warp-output">
+          <div class="out-title" style="background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">大手コンサル × エンジニアの実務力</div>
+          <div class="cred-card">
+            <p>Big4コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を併せ持つプロフェッショナルが、戦略と実装の両面から支援します。</p>
+            <div class="tags">
+              <span class="tag">プロジェクトマネージャー</span><span class="tag">システムアーキテクト</span><span class="tag">情報処理安全確保支援士</span><span class="tag">ネットワークスペシャリスト</span><span class="tag">データベーススペシャリスト</span><span class="tag">PMP</span><span class="tag">Big4 Manager</span><span class="tag">金融機関システム部門</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 7. CONTACT (Claude Code style) ===== -->
+<!-- ===== 7. CONTACT — Claude Code ===== -->
 <section class="sec s7" id="s7">
-  <div class="inner reveal">
-    <div class="claude-prompt">
-      <span class="chevron">❯</span>
-      <span class="cmd">まずは相談から始めましょう</span>
-      <span class="p-cursor" style="background:#c084fc"></span>
+  <div class="inner">
+    <div class="cc-frame">
+      <div class="cc-statusbar">
+        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#c084fc" stroke-width="1.5" fill="none"/><path d="M5 8.5a3.5 3.5 0 0 1 6 0" stroke="#c084fc" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="6" cy="6" r=".8" fill="#c084fc"/><circle cx="10" cy="6" r=".8" fill="#c084fc"/></svg>
+        <span class="cc-path">~/falcon-consulting</span>
+        <span class="cc-branch">main</span>
+        <span class="cc-model">Claude Code</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-prompt" data-cmd="まずは相談から始めましょう">
+          <span class="chevron">❯</span>
+          <span class="p-cmd"></span>
+          <span class="p-cursor" style="background:#c084fc"></span>
+        </div>
+        <div class="content-area">
+          <div class="out-title" style="font-size:1.8rem;background:linear-gradient(135deg,#c084fc,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Contact</div>
+          <p class="contact-text" style="color:rgba(255,255,255,.6);font-size:.95rem;line-height:1.8;margin-bottom:28px">
+            「この業務、AIでどれくらい削減できる？」<br>
+            その疑問に、具体的な数字でお答えします。<br>
+            まずは30分の無料相談から。
+          </p>
+          <a href="mailto:jmperial@gmail.com" class="cta-btn">無料相談を予約する</a>
+          <p style="margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.3)">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
+        </div>
+      </div>
     </div>
-    <div class="out-title">Contact</div>
-    <p class="contact-text">
-      「この業務、AIでどれくらい削減できる？」<br>
-      その疑問に、具体的な数字でお答えします。<br>
-      まずは30分の無料相談から。
-    </p>
-    <a href="mailto:jmperial@gmail.com" class="cta-btn">無料相談を予約する</a>
-    <p class="meta">初期費用なし ・ 契約の縛りなし ・ 成果が出なければ費用ゼロ</p>
   </div>
 </section>
 
 <footer>© 2026 ファルコンサルティング — 隼のように速く、確実に。</footer>
 
 <script>
-// === Terminal typing (Hero) ===
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+
+// === Hero typing ===
 (function(){
-  const out = document.getElementById('terminal-output');
-  const stats = document.getElementById('dos-stats');
-  const lines = [
-    {text:'FALCON CONSULTING v2.0', color:'#33ff00', delay:30},
-    {text:'PERFORMANCE-BASED AI CONSULTING', color:'#33ff00', delay:25},
-    {text:'', pause:300},
-    {text:'生成AIで、時間を取り戻す。', color:'#33ff00', delay:40},
-    {text:'成果が出なければ ──', color:'#33ff00', delay:40},
-    {text:'費用ゼロ。', color:'#ffff00', delay:70, cls:'glow-line'},
-    {text:'', pause:400},
-    {text:'削減できた時間に応じた完全成果報酬型。', color:'#33ff00', delay:30},
-    {text:'リスクなく、確実な業務改革を。', color:'#33ff00', delay:30},
+  var out=document.getElementById('terminal-output');
+  var stats=document.getElementById('dos-stats');
+  var lines=[
+    {text:'FALCON CONSULTING v2.0',color:'#33ff00',delay:30},
+    {text:'PERFORMANCE-BASED AI CONSULTING',color:'#33ff00',delay:25},
+    {text:'',pause:300},
+    {text:'生成AIで、時間を取り戻す。',color:'#33ff00',delay:40},
+    {text:'成果が出なければ ──',color:'#33ff00',delay:40},
+    {text:'費用ゼロ。',color:'#ffff00',delay:70,cls:'glow-line'},
+    {text:'',pause:400},
+    {text:'削減できた時間に応じた完全成果報酬型。',color:'#33ff00',delay:30},
+    {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:30},
   ];
-
-  function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
-
-  async function typeLine(cfg){
-    if(!cfg.text){await sleep(cfg.pause||200);return}
+  async function typeLine(c){
+    if(!c.text){await sleep(c.pause||200);return}
     var d=document.createElement('div');
-    d.className='out-line'+(cfg.cls?' '+cfg.cls:'');
-    d.style.color=cfg.color||'#33ff00';
+    d.className='out-line'+(c.cls?' '+c.cls:'');
+    d.style.color=c.color||'#33ff00';
     out.appendChild(d);
-    for(var i=0;i<cfg.text.length;i++){
-      d.textContent+=cfg.text[i];
-      await sleep(cfg.delay||30);
-    }
+    for(var i=0;i<c.text.length;i++){d.textContent+=c.text[i];await sleep(c.delay||30)}
   }
-
   async function run(){
-    for(var l of lines) await typeLine(l);
+    for(var l of lines)await typeLine(l);
     await sleep(300);
     stats.style.transition='opacity .8s ease';
     stats.style.opacity='1';
   }
-
   var io=new IntersectionObserver(function(e){
     if(e[0].isIntersecting){io.disconnect();run()}
   },{threshold:.3});
   io.observe(document.getElementById('s1'));
 })();
 
-// === Scroll reveal ===
+// === Scroll-triggered typing for all sections ===
 (function(){
-  var els=document.querySelectorAll('.reveal');
+  var prompts=document.querySelectorAll('[data-cmd]');
   var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting)return;
+      io.unobserve(entry.target);
+      var el=entry.target;
+      var cmd=el.getAttribute('data-cmd');
+      var cmdEl=el.querySelector('.p-cmd');
+      var content=el.closest('.inner').querySelector('.content-area');
+      if(!cmdEl||!cmd)return;
+      (async function(){
+        cmdEl.style.opacity='1';
+        for(var i=0;i<cmd.length;i++){
+          cmdEl.textContent+=cmd[i];
+          await sleep(25);
+        }
+        await sleep(200);
+        if(content)content.classList.add('show');
+      })();
     });
-  },{threshold:.15});
-  els.forEach(function(el){io.observe(el)});
+  },{threshold:.2});
+  prompts.forEach(function(p){io.observe(p)});
 })();
 </script>
 
