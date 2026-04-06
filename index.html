@@ -1040,19 +1040,20 @@ function resetAll(){
     {text:'FALCON CONSULTING v2.0',color:'#33ff00',delay:30},
     {text:'PERFORMANCE-BASED AI CONSULTING',color:'#33ff00',delay:25},
     {text:'',pause:300},
-    {text:'生成AIで、時間を取り戻す。',color:'#33ff00',delay:40},
-    {text:'隼(Falcon)のように、速く、確実に。',color:'#33ff00',delay:35},
-    {text:'成果が出なければ ──',color:'#33ff00',delay:40},
+    {text:'生成AIで、時間を取り戻す。',color:'#67e8f9',delay:40,big:true},
+    {text:'隼(Falcon)のように、速く、確実に。',color:'#67e8f9',delay:35,big:true},
+    {text:'成果が出なければ ──',color:'#67e8f9',delay:40,big:true},
     {text:'費用ゼロ。',color:'#ffff00',delay:70,cls:'glow-line'},
     {text:'',pause:400},
-    {text:'完全成果報酬型。',color:'#33ff00',delay:30},
-    {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:30},
+    {text:'完全成果報酬型。',color:'#67e8f9',delay:30,big:true},
+    {text:'リスクなく、確実な業務改革を。',color:'#67e8f9',delay:30,big:true},
   ];
   async function typeLine(c){
     if(!c.text){await sleep(c.pause||200);return}
     var d=document.createElement('div');
     d.className='out-line'+(c.cls?' '+c.cls:'');
     d.style.color=c.color||'#33ff00';
+    if(c.big)d.style.fontSize='1.05rem';
     heroOut.appendChild(d);
     for(var i=0;i<c.text.length;i++){
       if(heroState!=='typing')return;
