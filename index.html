@@ -1008,12 +1008,12 @@ function resetAll(){
     {text:'PERFORMANCE-BASED AI CONSULTING',color:'#33ff00',delay:25},
     {text:'',pause:300},
     {text:'生成AIで、時間を取り戻す。',color:'#33ff00',delay:40},
-    {text:'隼(Falcon)のように、速く、確実に。',color:'#33ff00',delay:35,size:'1.05rem'},
-    {text:'成果が出なければ ──',color:'#33ff00',delay:40,size:'1.15rem'},
-    {text:'費用ゼロ。',color:'#ffff00',delay:70,cls:'glow-line'},
-    {text:'',pause:400},
-    {text:'完全成果報酬型。',color:'#33ff00',delay:30,size:'.95rem',shrinkTo:'.85rem'},
-    {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:30,size:'.85rem'},
+    {text:'隼(Falcon)のように、速く、確実に。',color:'#33ff00',delay:35,size:'1.1rem'},
+    {text:'成果が出なければ ──',color:'#33ff00',delay:45,size:'1.3rem'},
+    {text:'費用ゼロ。',color:'#ffff00',delay:80,cls:'glow-line',size:'2rem',boom:'2.8rem',boomBack:'1.8rem'},
+    {text:'',pause:300},
+    {text:'完全成果報酬型。',color:'#33ff00',delay:25,size:'1rem',shrinkTo:'.85rem'},
+    {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:25},
   ];
   async function typeLine(c){
     if(!c.text){await sleep(c.pause||200);return}
@@ -1021,11 +1021,18 @@ function resetAll(){
     d.className='out-line'+(c.cls?' '+c.cls:'');
     d.style.color=c.color||'#33ff00';
     if(c.size)d.style.fontSize=c.size;
-    d.style.transition='font-size .6s ease';
+    d.style.transition='font-size .5s cubic-bezier(.16,1,.3,1)';
     heroOut.appendChild(d);
     for(var i=0;i<c.text.length;i++){
       if(heroState!=='typing')return;
       d.textContent+=c.text[i];await sleep(c.delay||30);
+    }
+    if(c.boom){
+      // 費用ゼロ: タイプ完了後にドカンと拡大→戻す
+      await sleep(150);
+      d.style.fontSize=c.boom;
+      await sleep(800);
+      d.style.fontSize=c.boomBack;
     }
     if(c.shrinkTo){
       await sleep(100);
