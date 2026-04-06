@@ -811,13 +811,13 @@ footer{
               <span class="tag">情報処理安全確保支援士</span><span class="tag">PMP</span><span class="tag">プロジェクトマネージャー</span><span class="tag">システムアーキテクト</span><span class="tag">ネットワークスペシャリスト</span><span class="tag">データベーススペシャリスト</span><span class="tag">Big4 Manager</span><span class="tag">金融機関システム部門</span>
             </div>
           </div>
-          <button class="profile-btn" id="open-profile" type="button">
-            <svg viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="#33ff00" stroke-width="1.5" stroke-linecap="round"/></svg>
-            コンサルタント詳細を見る
-          </button>
         </div>
       </div>
     </div>
+    <button class="profile-btn" id="open-profile" type="button" style="opacity:0;transition:opacity .6s ease;margin:20px auto 0">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="#33ff00" stroke-width="1.5" stroke-linecap="round"/></svg>
+      コンサルタント詳細を見る
+    </button>
   </div>
 </section>
 
@@ -1070,6 +1070,7 @@ function resetAll(){
           }
           await sleep(200);
           if(content)content.classList.add('show');
+          if(el.closest('.s6')){var pb=document.getElementById('open-profile');if(pb)pb.style.opacity='1';}
           var s2sec=el.closest('.s2');
           if(s2sec){
             var seqItems=s2sec.querySelectorAll('.out-title,.pain-card');
@@ -1098,7 +1099,6 @@ function resetAll(){
     entries.forEach(function(entry){
       if(entry.isIntersecting)return;
       var sec=entry.target;
-      if(sec.classList.contains('s6'))return; // keep s6
       var els=sec.querySelectorAll('[data-cmd]');
       els.forEach(function(el){
         el.removeAttribute('data-typing');
