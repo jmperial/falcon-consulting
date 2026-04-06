@@ -263,11 +263,13 @@ nav a:hover{color:#e0e0e0}
 .prof-catchcopy::before{margin-bottom:20px}
 .prof-catchcopy::after{margin-top:20px}
 .prof-catchcopy.show{opacity:1;transform:scale(1)}
-.cc-cursor{display:inline-block;width:2px;height:1em;background:#c084fc;vertical-align:middle;margin-left:2px;animation:blink 1s step-end infinite}
-.cc-flash{animation:ccFlash .6s ease-out}
-@keyframes ccFlash{0%{text-shadow:0 0 40px rgba(103,232,249,1),0 0 80px rgba(103,232,249,.6)}100%{text-shadow:0 0 16px rgba(103,232,249,.5)}}
-.cc-final-glow{animation:ccFinalGlow 1.2s ease-out}
-@keyframes ccFinalGlow{0%{filter:brightness(1)}30%{filter:brightness(1.8)}100%{filter:brightness(1)}}
+.cc-line{display:block;opacity:0;transform:translateY(18px) scale(.96);filter:blur(8px);transition:opacity 1s ease,transform 1s ease,filter 1s ease}
+.cc-line.reveal{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+.cc-line.accent-line{color:#67e8f9;text-shadow:0 0 16px rgba(103,232,249,.5)}
+.cc-line.accent-line.reveal{animation:ccAccentPulse 1.4s ease-out .3s both}
+@keyframes ccAccentPulse{0%{text-shadow:0 0 16px rgba(103,232,249,.5)}35%{text-shadow:0 0 50px rgba(103,232,249,1),0 0 100px rgba(103,232,249,.4),0 0 4px #fff}100%{text-shadow:0 0 20px rgba(103,232,249,.6)}}
+.cc-line.final-line.reveal{animation:ccFinalReveal 1.6s ease-out .2s both}
+@keyframes ccFinalReveal{0%{filter:brightness(1)}20%{filter:brightness(1.5)}50%{filter:brightness(1)}70%{text-shadow:0 0 20px rgba(192,132,252,.6)}100%{text-shadow:none;filter:brightness(1)}}
 .prof-scroll-hint{
   margin-top:24px;font-size:.78rem;color:rgba(200,180,253,.45);
   opacity:0;transition:opacity .6s ease;line-height:1.8;
@@ -1146,7 +1148,7 @@ function resetAll(){
     var profName=document.getElementById('prof-name');
     var profRole=document.getElementById('prof-role');
     var sections=body.querySelectorAll('.prof-section');
-    catchcopy.classList.remove('show');catchcopy.classList.remove('cc-final-glow');catchcopy.innerHTML='';
+    catchcopy.classList.remove('show');catchcopy.innerHTML='';
     scrollHint.classList.remove('show');
     profName.classList.remove('show');
     profRole.classList.remove('show');
@@ -1162,38 +1164,35 @@ function resetAll(){
     await sleep(250);
     body.style.opacity='1';
     await sleep(100);
-    // typing catchcopy
+    // line-by-line reveal catchcopy
     catchcopy.innerHTML='';
-    catchcopy.classList.add('show');
-    var ccLines=[
-      {text:'細かい事はどうでもいい。',delay:65},
-      {text:'結果を出す。',delay:90,accent:true},
-      {text:'それがコンサルタントだ。',delay:55}
+    var ccData=[
+      {text:'細かい事はどうでもいい。',cls:'cc-line'},
+      {text:'結果を出す。',cls:'cc-line accent-line'},
+      {text:'それがコンサルタントだ。',cls:'cc-line final-line'}
     ];
-    var ccCur=document.createElement('span');
-    ccCur.className='cc-cursor';
-    for(var cl=0;cl<ccLines.length;cl++){
-      if(!isOpen)return;
-      if(cl>0)catchcopy.appendChild(document.createElement('br'));
-      var ccSpan=document.createElement('span');
-      if(ccLines[cl].accent)ccSpan.className='cc-accent';
-      catchcopy.appendChild(ccSpan);
-      catchcopy.appendChild(ccCur);
-      for(var ci=0;ci<ccLines[cl].text.length;ci++){
-        if(!isOpen)return;
-        ccSpan.textContent+=ccLines[cl].text[ci];
-        await sleep(ccLines[cl].delay);
-      }
-      if(ccLines[cl].accent){
-        ccSpan.classList.add('cc-flash');
-        await sleep(500);
-      } else {
-        await sleep(350);
-      }
+    var ccEls=[];
+    for(var cl=0;cl<ccData.length;cl++){
+      var span=document.createElement('span');
+      span.className=ccData[cl].cls;
+      span.textContent=ccData[cl].text;
+      catchcopy.appendChild(span);
+      ccEls.push(span);
     }
-    ccCur.remove();
-    catchcopy.classList.add('cc-final-glow');
-    await sleep(600);
+    catchcopy.classList.add('show');
+    await sleep(300);
+    // reveal line 1
+    if(!isOpen)return;
+    ccEls[0].classList.add('reveal');
+    await sleep(1100);
+    // reveal line 2 (accent)
+    if(!isOpen)return;
+    ccEls[1].classList.add('reveal');
+    await sleep(1400);
+    // reveal line 3 (final)
+    if(!isOpen)return;
+    ccEls[2].classList.add('reveal');
+    await sleep(1200);
     scrollHint.classList.add('show');
 
     // Set up IntersectionObserver inside modal-body for detail sections
