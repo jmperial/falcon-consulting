@@ -1276,6 +1276,94 @@ function resetAll(){
     return function(){if(animId)cancelAnimationFrame(animId);};
   }
 
+  // Mini Dragon Quest battle (runs briefly then gets interrupted)
+  function runMiniDQ(container){
+    var cvs=document.createElement('canvas');
+    cvs.width=container.offsetWidth||280;cvs.height=120;
+    cvs.style.cssText='width:100%;height:100%;display:block';
+    container.appendChild(cvs);
+    var cx=cvs.getContext('2d');
+    var W=cvs.width,H=cvs.height;
+    var frame=0,animId=null;
+    var slimeY=0,slimeBounce=0;
+    var hp={hero:120,max:120,slime:45,slimeMax:45};
+    var msgs=['スライムが あらわれた！','',''];
+    var msgTimer=0,phase=0; // 0=appear,1=fight
+    var blink=0;
+    // Draw slime (pixel art style)
+    function drawSlime(x,y){
+      var s=2.5;
+      cx.fillStyle='#44bbff';
+      // Body
+      cx.beginPath();
+      cx.ellipse(x,y+2*s,8*s,6*s,0,Math.PI,0);
+      cx.fill();
+      // Bottom
+      cx.fillRect(x-8*s,y+2*s,16*s,4*s);
+      // Wavy bottom
+      for(var i=0;i<4;i++){
+        cx.beginPath();
+        cx.arc(x-6*s+i*4*s,y+6*s,2*s,0,Math.PI);
+        cx.fill();
+      }
+      // Eyes
+      cx.fillStyle='#000';
+      cx.beginPath();cx.arc(x-3*s,y-1*s,1.5*s,0,Math.PI*2);cx.fill();
+      cx.beginPath();cx.arc(x+3*s,y-1*s,1.5*s,0,Math.PI*2);cx.fill();
+      // Mouth
+      cx.beginPath();
+      cx.arc(x,y+2*s,2*s,0.2,Math.PI-0.2);
+      cx.strokeStyle='#000';cx.lineWidth=1;cx.stroke();
+    }
+    function drawHPBar(x,y,cur,max,color,label){
+      cx.fillStyle='rgba(255,255,255,.6)';cx.font='9px monospace';
+      cx.fillText(label,x,y-3);
+      cx.fillStyle='#333';cx.fillRect(x,y,80,8);
+      cx.fillStyle=color;cx.fillRect(x,y,80*(cur/max),8);
+      cx.fillStyle='rgba(255,255,255,.7)';cx.font='8px monospace';
+      cx.fillText(cur+'/'+max,x+30,y+7);
+    }
+    function tick(){
+      cx.clearRect(0,0,W,H);
+      // Background - dark gradient
+      cx.fillStyle='#1a0a2e';cx.fillRect(0,0,W,H);
+      // Ground
+      cx.fillStyle='#2a4a1a';cx.fillRect(0,H-20,W,20);
+      cx.fillStyle='#3a5a2a';
+      for(var i=0;i<W;i+=12)cx.fillRect(i,H-20,6,2);
+      // Slime bounce
+      slimeBounce=Math.sin(frame*0.08)*4;
+      drawSlime(W/2,H/2-15+slimeBounce);
+      // HP Bars
+      drawHPBar(8,8,hp.hero,hp.max,'#22cc00','勇者');
+      drawHPBar(8,24,hp.slime,hp.slimeMax,'#44bbff','スライム');
+      // Message window
+      cx.fillStyle='rgba(0,0,0,.7)';
+      cx.strokeStyle='#fff';cx.lineWidth=1;
+      cx.fillRect(10,H-38,W-20,30);
+      cx.strokeRect(10,H-38,W-20,30);
+      cx.fillStyle='#fff';cx.font='11px monospace';
+      msgTimer++;
+      if(phase===0&&msgTimer>60){phase=1;msgTimer=0;msgs[0]='コマンド？ ▶たたかう';}
+      if(phase===1&&msgTimer>50){phase=2;msgTimer=0;msgs[0]='勇者のこうげき！';hp.slime=Math.max(0,hp.slime-12);}
+      if(phase===2&&msgTimer>50){phase=3;msgTimer=0;msgs[0]='スライムのこうげき！';hp.hero=Math.max(0,hp.hero-5);}
+      if(phase===3&&msgTimer>50){phase=1;msgTimer=0;msgs[0]='コマンド？ ▶たたかう';}
+      // Blinking cursor
+      blink=Math.floor(frame/15)%2;
+      var displayMsg=msgs[0]+(blink?'▌':'');
+      cx.fillText(displayMsg,20,H-20);
+      frame++;
+      animId=requestAnimationFrame(tick);
+    }
+    tick();
+    return function(){if(animId)cancelAnimationFrame(animId);};
+  }
+
+  // Pick random game
+  function runRandomGame(container){
+    return Math.random()<0.5?runMiniPacman(container):runMiniDQ(container);
+  }
+
   async function boot(){
     if(bootState==='booting')return;
     bootState='booting';
@@ -1347,7 +1435,7 @@ function resetAll(){
       var gameBox=document.createElement('div');
       gameBox.className='cc-game';
       ccDrama.appendChild(gameBox);
-      var stopGame=runMiniPacman(gameBox);
+      var stopGame=runRandomGame(gameBox);
       // Let game run for ~3 seconds
       await sleep(3000);
       if(bootState!=='booting'){stopGame();return;}
