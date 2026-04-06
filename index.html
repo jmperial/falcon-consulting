@@ -518,9 +518,24 @@ nav a:hover{color:#e0e0e0}
 .s7-cc .cc-input-line .chevron{color:#c084fc;font-weight:700}
 .s7-cc .cc-input-line .p-cmd{color:#67e8f9}
 .s7-cc .cc-msg{
-  color:rgba(192,132,252,.5);font-size:.78rem;line-height:1.7;
+  color:#67e8f9;font-size:.78rem;line-height:1.7;
   margin-bottom:20px;padding-left:18px;
-  border-left:2px solid rgba(192,132,252,.15);
+  border-left:2px solid rgba(103,232,249,.25);
+}
+.s7-cc .cc-err{
+  color:#ff6b6b;font-size:.75rem;line-height:1.7;
+  margin-bottom:12px;padding-left:18px;
+  border-left:2px solid rgba(255,107,107,.3);
+}
+.s7-cc .cc-retry{
+  color:#ffff00;font-size:.75rem;line-height:1.7;
+  margin-bottom:12px;padding-left:18px;
+  border-left:2px solid rgba(255,255,0,.25);
+}
+.s7-cc .cc-ok{
+  color:#33ff00;font-size:.75rem;line-height:1.7;
+  margin-bottom:20px;padding-left:18px;
+  border-left:2px solid rgba(51,255,0,.25);
 }
 .s7 .contact-form{text-align:left;max-width:100%}
 .s7 .form-group label{color:rgba(192,132,252,.7);font-size:.7rem}
@@ -913,7 +928,8 @@ footer{
           <span class="p-cursor" id="s7-cc-cursor" style="background:#c084fc;width:7px;height:14px;display:inline-block;vertical-align:middle;animation:blink 1s step-end infinite"></span>
         </div>
         <div id="s7-cc-response" style="opacity:0;transition:opacity .4s ease">
-          <div class="cc-msg">
+          <div id="s7-cc-drama"></div>
+          <div class="cc-msg" id="s7-cc-msg">
             お問い合わせフォームを作成しました。<br>
             以下にご記入ください。
           </div>
@@ -1162,30 +1178,23 @@ function resetAll(){
   }
   var ccCmd=document.getElementById('s7-cc-cmd');
   var ccResponse=document.getElementById('s7-cc-response');
-  var ccPrompt='お問い合わせフォームって作れたりする？';
   var ccCursor=document.getElementById('s7-cc-cursor');
+  var ccDrama=document.getElementById('s7-cc-drama');
+  var ccMsg=document.getElementById('s7-cc-msg');
+  var prompts=[
+    {text:'お問い合わせフォームって作れたりする？',mode:'normal'},
+    {text:'お客様からの問い合わせ先はどうすればよい？',mode:'normal'},
+    {text:'お問い合わせフォーム作りやがれ！',mode:'fail'},
+  ];
 
-  async function boot(){
-    if(bootState==='booting')return;
-    bootState='booting';
-    while(dosOut.firstChild)dosOut.removeChild(dosOut.firstChild);
-    ccCmd.textContent='';
-    ccResponse.style.opacity='0';
-    ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
-    // Phase 1: DOS boot
-    for(var l of lines){if(bootState!=='booting')return;await typeBootLine(l);}
-    if(bootState!=='booting')return;
-    // Phase 2: Claude Code appears
-    ccPanel.style.opacity='1';ccPanel.style.transform='translateY(0)';
-    await sleep(400);
-    // Phase 3: Type command in Claude Code
-    if(bootState!=='booting')return;
-    for(var i=0;i<ccPrompt.length;i++){
+  async function typeCC(el,text,spd){
+    for(var i=0;i<text.length;i++){
       if(bootState!=='booting')return;
-      ccCmd.textContent+=ccPrompt[i];
-      await sleep(55);
+      el.textContent+=text[i];await sleep(spd||20);
     }
-    // Phase 3.5: Pause, then Enter
+  }
+
+  async function enterAnim(){
     if(bootState!=='booting')return;
     await sleep(800);
     ccCursor.style.animation='none';ccCursor.style.opacity='1';
@@ -1194,8 +1203,74 @@ function resetAll(){
     await sleep(80);
     ccCursor.style.display='none';
     await sleep(400);
-    // Phase 4: Response + form appears
+  }
+
+  async function boot(){
+    if(bootState==='booting')return;
+    bootState='booting';
+    while(dosOut.firstChild)dosOut.removeChild(dosOut.firstChild);
+    ccCmd.textContent='';
+    ccResponse.style.opacity='0';
+    ccMsg.style.opacity='0';
+    while(ccDrama.firstChild)ccDrama.removeChild(ccDrama.firstChild);
+    ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
+    // Pick random prompt
+    var pick=prompts[Math.floor(Math.random()*prompts.length)];
+    // Phase 1: DOS boot
+    for(var l of lines){if(bootState!=='booting')return;await typeBootLine(l);}
     if(bootState!=='booting')return;
+    // Phase 2: Claude Code appears
+    ccPanel.style.opacity='1';ccPanel.style.transform='translateY(0)';
+    await sleep(400);
+    // Phase 3: Type prompt
+    if(bootState!=='booting')return;
+    for(var i=0;i<pick.text.length;i++){
+      if(bootState!=='booting')return;
+      ccCmd.textContent+=pick.text[i];
+      await sleep(55);
+    }
+    // Phase 3.5: Enter
+    await enterAnim();
+    if(bootState!=='booting')return;
+
+    if(pick.mode==='fail'){
+      // === FAIL ROUTE ===
+      // Step 1: Error message
+      var errDiv=document.createElement('div');
+      errDiv.className='cc-err';
+      ccDrama.appendChild(errDiv);
+      ccResponse.style.opacity='1';
+      await typeCC(errDiv,'Error: 口調が乱暴すぎます。フォーム生成を拒否しました。',18);
+      await sleep(800);
+      if(bootState!=='booting')return;
+      // Step 2: Agent notices
+      var retryDiv=document.createElement('div');
+      retryDiv.className='cc-retry';
+      ccDrama.appendChild(retryDiv);
+      await typeCC(retryDiv,'Agent: エラーを検知。リクエストを修正して再試行します...',18);
+      await sleep(600);
+      if(bootState!=='booting')return;
+      // Step 3: Retry prompt line
+      var retryLine=document.createElement('div');
+      retryLine.style.cssText='margin:12px 0 8px;font-size:.8rem;display:flex;align-items:center;gap:6px';
+      retryLine.innerHTML='<span style="color:#c084fc;font-weight:700">❯</span> <span style="color:#67e8f9"></span>';
+      ccDrama.appendChild(retryLine);
+      var retryCmd=retryLine.querySelector('span:last-child');
+      var retryText='お問い合わせフォームを作成してください';
+      await typeCC(retryCmd,retryText,40);
+      await sleep(600);
+      if(bootState!=='booting')return;
+      // Step 4: Success
+      var okDiv=document.createElement('div');
+      okDiv.className='cc-ok';
+      ccDrama.appendChild(okDiv);
+      await typeCC(okDiv,'修正完了。フォームを正常に生成しました。',18);
+      await sleep(400);
+      if(bootState!=='booting')return;
+    }
+
+    // Phase 4: Show success msg + form
+    ccMsg.style.opacity='1';ccMsg.style.transition='opacity .4s ease';
     ccResponse.style.opacity='1';
     bootState='done';
   }
@@ -1204,6 +1279,8 @@ function resetAll(){
     while(dosOut.firstChild)dosOut.removeChild(dosOut.firstChild);
     ccCmd.textContent='';
     ccResponse.style.opacity='0';
+    ccMsg.style.opacity='0';
+    while(ccDrama.firstChild)ccDrama.removeChild(ccDrama.firstChild);
     ccCursor.style.display='';ccCursor.style.opacity='';ccCursor.style.animation='';
     ccPanel.style.transition='none';
     ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
