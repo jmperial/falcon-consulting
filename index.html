@@ -1288,9 +1288,9 @@ function resetAll(){
       var frame=0,animId=null,stopped=false;
       var isKing=Math.random()<0.4;
       var enemy={
-        name:isKing?'キングメタルスライム':'メタルスライム',
+        name:isKing?'メタルキング':'メタルスライム',
         hp:isKing?3:2, max:isKing?3:2,
-        exp:isKing?30010:1350, scale:isKing?3.2:2.5
+        exp:isKing?30010:1350, scale:isKing?3.5:2.5
       };
       var heroHp=180,heroMax=180;
       var msg=enemy.name+'が あらわれた！';
@@ -1301,15 +1301,18 @@ function resetAll(){
         x+=shakeX;
         // === Teardrop / onion shape (DQ metal slime) ===
         // Shadow on ground
+        var wm=king?1.3:1; // king is wider & flatter
         cx.fillStyle='rgba(0,0,0,.18)';
-        cx.beginPath();cx.ellipse(x,y+8*s,7*s,1.8*s,0,0,Math.PI*2);cx.fill();
+        cx.beginPath();cx.ellipse(x,y+8*s,7*s*wm,1.8*s,0,0,Math.PI*2);cx.fill();
         // Main body path (teardrop: pointed top, round bottom)
         cx.save();
         cx.beginPath();
-        cx.moveTo(x,y-8*s); // top point
-        cx.bezierCurveTo(x+3*s,y-7*s, x+9*s,y-2*s, x+9*s,y+2*s); // right curve
-        cx.bezierCurveTo(x+9*s,y+6*s, x+5*s,y+8*s, x,y+8*s);     // bottom right
-        cx.bezierCurveTo(x-5*s,y+8*s, x-9*s,y+6*s, x-9*s,y+2*s); // bottom left
+        var topY=king?y-6*s:y-8*s; // king has flatter top
+        cx.moveTo(x,topY);
+        cx.bezierCurveTo(x+3*s*wm,topY+1*s, x+9*s*wm,y-2*s, x+9*s*wm,y+2*s);
+        cx.bezierCurveTo(x+9*s*wm,y+6*s, x+5*s*wm,y+8*s, x,y+8*s);
+        cx.bezierCurveTo(x-5*s*wm,y+8*s, x-9*s*wm,y+6*s, x-9*s*wm,y+2*s);
+        cx.bezierCurveTo(x-9*s*wm,y-2*s, x-3*s*wm,topY+1*s, x,topY);
         cx.bezierCurveTo(x-9*s,y-2*s, x-3*s,y-7*s, x,y-8*s);     // left curve back to top
         cx.closePath();
         // Metallic gradient fill
@@ -1357,22 +1360,52 @@ function resetAll(){
         cx.fillStyle='#ff4444';
         cx.beginPath();cx.ellipse(x,y+3.8*s,1.2*s,.6*s,0,0,Math.PI*2);cx.fill();
         if(king){
-          // === Crown ===
-          var crownY=y-8*s;
+          // === Crown (dome type: purple/pink dome + gold rim + spike) ===
+          var cy2=y-8*s;
+          // Gold base band (wavy scalloped edge)
+          cx.fillStyle='#daa520';
           cx.beginPath();
-          cx.moveTo(x-5.5*s,crownY+1*s);cx.lineTo(x-6*s,crownY+5*s);
-          cx.lineTo(x+6*s,crownY+5*s);cx.lineTo(x+5.5*s,crownY+1*s);
-          cx.lineTo(x+3*s,crownY+3*s);cx.lineTo(x,crownY-2*s);
-          cx.lineTo(x-3*s,crownY+3*s);cx.closePath();
-          var cg=cx.createLinearGradient(x,crownY-2*s,x,crownY+5*s);
-          cg.addColorStop(0,'#ffe44d');cg.addColorStop(0.5,'#ffd700');cg.addColorStop(1,'#cc9900');
-          cx.fillStyle=cg;cx.fill();
-          cx.strokeStyle='#a07000';cx.lineWidth=1;cx.stroke();
-          // Jewels
-          cx.fillStyle='#ff1a1a';cx.beginPath();cx.arc(x,crownY+1.5*s,1.2*s,0,Math.PI*2);cx.fill();
-          cx.fillStyle='rgba(255,180,180,.5)';cx.beginPath();cx.arc(x-.3*s,crownY+1*s,.35*s,0,Math.PI*2);cx.fill();
-          cx.fillStyle='#22bb55';cx.beginPath();cx.arc(x-3.5*s,crownY+3*s,.7*s,0,Math.PI*2);cx.fill();
-          cx.fillStyle='#3355ee';cx.beginPath();cx.arc(x+3.5*s,crownY+3*s,.7*s,0,Math.PI*2);cx.fill();
+          cx.moveTo(x-7*s,cy2+4*s);
+          for(var ci=0;ci<7;ci++){
+            var cx1=x-7*s+ci*2*s,cx2=x-7*s+(ci+1)*2*s;
+            cx.quadraticCurveTo((cx1+cx2)/2,cy2+5.5*s,cx2,cy2+4*s);
+          }
+          cx.lineTo(x+7*s,cy2+2*s);cx.lineTo(x-7*s,cy2+2*s);cx.closePath();
+          var gb=cx.createLinearGradient(x,cy2+2*s,x,cy2+5.5*s);
+          gb.addColorStop(0,'#ffe066');gb.addColorStop(0.4,'#daa520');gb.addColorStop(1,'#b8860b');
+          cx.fillStyle=gb;cx.fill();
+          cx.strokeStyle='#8B6914';cx.lineWidth=.8;cx.stroke();
+          // Purple/pink dome
+          cx.beginPath();
+          cx.ellipse(x,cy2+2*s,6.5*s,4.5*s,0,Math.PI,0);cx.closePath();
+          var dg=cx.createRadialGradient(x-1*s,cy2-1*s,0,x,cy2+1*s,6*s);
+          dg.addColorStop(0,'#c8a0d8');dg.addColorStop(0.3,'#9070b8');
+          dg.addColorStop(0.6,'#7858a8');dg.addColorStop(1,'#5a3888');
+          cx.fillStyle=dg;cx.fill();
+          cx.strokeStyle='#daa520';cx.lineWidth=1.5;cx.stroke();
+          // Pink stripes on dome
+          cx.strokeStyle='rgba(220,140,180,.5)';cx.lineWidth=1.5;
+          cx.beginPath();cx.ellipse(x-2.5*s,cy2+.5*s,1.5*s,3*s,.15,Math.PI*1.15,Math.PI*1.85);cx.stroke();
+          cx.beginPath();cx.ellipse(x+2.5*s,cy2+.5*s,1.5*s,3*s,-.15,Math.PI*1.15,Math.PI*1.85);cx.stroke();
+          // Dome highlight
+          var dh=cx.createRadialGradient(x-2*s,cy2-1*s,0,x,cy2,4*s);
+          dh.addColorStop(0,'rgba(255,255,255,.35)');dh.addColorStop(1,'transparent');
+          cx.fillStyle=dh;
+          cx.beginPath();cx.ellipse(x-1*s,cy2,4*s,2.5*s,-.2,Math.PI,0);cx.fill();
+          // Gold spike on top
+          cx.beginPath();
+          cx.moveTo(x,cy2-4*s);cx.lineTo(x-1*s,cy2-2*s);cx.lineTo(x+1*s,cy2-2*s);cx.closePath();
+          var sg=cx.createLinearGradient(x,cy2-4*s,x,cy2-2*s);
+          sg.addColorStop(0,'#ffe44d');sg.addColorStop(1,'#daa520');
+          cx.fillStyle=sg;cx.fill();
+          cx.strokeStyle='#b8860b';cx.lineWidth=.8;cx.stroke();
+          // Small gold balls at crown rim
+          cx.fillStyle='#ffd700';
+          for(var bi=0;bi<5;bi++){
+            var ba=Math.PI+Math.PI*bi/4;
+            var bx=x+Math.cos(ba)*6*s,by=cy2+2*s+Math.sin(ba)*1*s;
+            cx.beginPath();cx.arc(bx,by,1*s,0,Math.PI*2);cx.fill();
+          }
         }
         // Hit flash
         if(hitFlash>0){
