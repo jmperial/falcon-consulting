@@ -1082,7 +1082,8 @@ function resetAll(){
           el.setAttribute('data-typing','done');
         })();
       } else if(!entry.isIntersecting){
-        // Left viewport — reset for replay
+        // Left viewport — reset for replay (except s6 credentials)
+        if(el.closest('.s6'))return;
         el.removeAttribute('data-typing');
         var cmdEl=el.querySelector('.p-cmd');
         if(cmdEl){cmdEl.textContent='';cmdEl.style.opacity='0';}
@@ -1672,8 +1673,10 @@ function resetAll(){
     var entry=e[0];
     if(entry.isIntersecting&&entry.intersectionRatio>=0.3){
       if(bootState==='idle')boot();
+    } else if(!entry.isIntersecting&&bootState==='done'){
+      resetBoot();
     }
-  },{threshold:[0.3]}).observe(dosEl);
+  },{threshold:[0,0.3]}).observe(dosEl);
   // Reset when hero is reached (scrolling back up)
   var origReset=window._resetAllOrig||resetAll;
   var oldResetAll=resetAll;
