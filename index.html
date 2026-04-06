@@ -210,14 +210,14 @@ nav a:hover{color:#e0e0e0}
 /* Tooltip */
 .tip{position:relative;cursor:help;border-bottom:1px dashed rgba(255,255,0,.4)}
 .tip .tip-text{
-  visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 8px);left:0;
-  white-space:nowrap;
+  visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  white-space:normal;width:max-content;max-width:280px;
   font-size:.65rem;font-weight:400;color:#0a0a0a;background:#ffff00;
-  padding:4px 10px;border-radius:4px;
+  padding:6px 12px;border-radius:4px;line-height:1.5;
   transition:opacity .2s ease;z-index:10;pointer-events:none;
 }
 .tip .tip-text::after{
-  content:'';position:absolute;top:100%;left:16px;
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
   border:5px solid transparent;border-top-color:#ffff00;
 }
 .tip:hover .tip-text,.tip:focus .tip-text{visibility:visible;opacity:1}
