@@ -1299,64 +1299,85 @@ function resetAll(){
       // Metallic gradient slime
       function drawSlime(x,y,s,king){
         x+=shakeX;
-        var grad=cx.createLinearGradient(x-8*s,y-6*s,x+8*s,y+6*s);
-        grad.addColorStop(0,'#e8e8f0');grad.addColorStop(0.3,'#a8a8b8');
-        grad.addColorStop(0.5,'#d8d8e0');grad.addColorStop(0.7,'#808898');
-        grad.addColorStop(1,'#606878');
-        cx.fillStyle=grad;
-        // Body - smooth dome
-        cx.beginPath();cx.ellipse(x,y+1*s,8*s,7*s,0,Math.PI,0);cx.fill();
-        // Bottom body
-        cx.beginPath();cx.moveTo(x-8*s,y+1*s);
-        cx.quadraticCurveTo(x-7*s,y+7*s,x-4*s,y+7.5*s);
-        cx.quadraticCurveTo(x-2*s,y+8*s,x,y+7*s);
-        cx.quadraticCurveTo(x+2*s,y+8*s,x+4*s,y+7.5*s);
-        cx.quadraticCurveTo(x+7*s,y+7*s,x+8*s,y+1*s);
-        cx.fill();
-        // Specular highlight (top)
-        var hl=cx.createRadialGradient(x-2*s,y-4*s,0,x-2*s,y-3*s,5*s);
-        hl.addColorStop(0,'rgba(255,255,255,.7)');hl.addColorStop(0.4,'rgba(255,255,255,.15)');hl.addColorStop(1,'transparent');
-        cx.fillStyle=hl;cx.beginPath();cx.ellipse(x-1*s,y-3*s,5*s,3.5*s,-.2,0,Math.PI*2);cx.fill();
-        // Secondary highlight
-        var hl2=cx.createRadialGradient(x+3*s,y+2*s,0,x+3*s,y+2*s,3*s);
-        hl2.addColorStop(0,'rgba(255,255,255,.25)');hl2.addColorStop(1,'transparent');
-        cx.fillStyle=hl2;cx.beginPath();cx.ellipse(x+3*s,y+2*s,2.5*s,2*s,0,0,Math.PI*2);cx.fill();
-        // Eyes
-        cx.fillStyle='#1a1a2e';
-        cx.beginPath();cx.ellipse(x-2.8*s,y-0.5*s,1.4*s,1.8*s,0,0,Math.PI*2);cx.fill();
-        cx.beginPath();cx.ellipse(x+2.8*s,y-0.5*s,1.4*s,1.8*s,0,0,Math.PI*2);cx.fill();
-        // Eye shine
+        // === Teardrop / onion shape (DQ metal slime) ===
+        // Shadow on ground
+        cx.fillStyle='rgba(0,0,0,.18)';
+        cx.beginPath();cx.ellipse(x,y+8*s,7*s,1.8*s,0,0,Math.PI*2);cx.fill();
+        // Main body path (teardrop: pointed top, round bottom)
+        cx.save();
+        cx.beginPath();
+        cx.moveTo(x,y-8*s); // top point
+        cx.bezierCurveTo(x+3*s,y-7*s, x+9*s,y-2*s, x+9*s,y+2*s); // right curve
+        cx.bezierCurveTo(x+9*s,y+6*s, x+5*s,y+8*s, x,y+8*s);     // bottom right
+        cx.bezierCurveTo(x-5*s,y+8*s, x-9*s,y+6*s, x-9*s,y+2*s); // bottom left
+        cx.bezierCurveTo(x-9*s,y-2*s, x-3*s,y-7*s, x,y-8*s);     // left curve back to top
+        cx.closePath();
+        // Metallic gradient fill
+        var grad=cx.createLinearGradient(x-9*s,y-8*s,x+5*s,y+8*s);
+        grad.addColorStop(0,'#e0e0e8');
+        grad.addColorStop(0.25,'#c8c8d4');
+        grad.addColorStop(0.45,'#b0b0c0');
+        grad.addColorStop(0.6,'#d0d0d8');
+        grad.addColorStop(0.8,'#909098');
+        grad.addColorStop(1,'#707078');
+        cx.fillStyle=grad;cx.fill();
+        // Outline
+        cx.strokeStyle='rgba(80,80,100,.4)';cx.lineWidth=1;cx.stroke();
+        // Big specular highlight (upper left)
+        var hl=cx.createRadialGradient(x-2*s,y-3*s,0,x-1*s,y-1*s,7*s);
+        hl.addColorStop(0,'rgba(255,255,255,.75)');
+        hl.addColorStop(0.3,'rgba(255,255,255,.2)');
+        hl.addColorStop(1,'transparent');
+        cx.fillStyle=hl;cx.fill();
+        // Small bright spot (top)
+        var hl2=cx.createRadialGradient(x-1.5*s,y-5*s,0,x-1*s,y-4*s,3*s);
+        hl2.addColorStop(0,'rgba(255,255,255,.6)');
+        hl2.addColorStop(1,'transparent');
+        cx.fillStyle=hl2;cx.fill();
+        cx.restore();
+        // === Eyes (large, round, black with white highlight) ===
+        // Left eye
+        cx.fillStyle='#111';
+        cx.beginPath();cx.ellipse(x-3*s,y,1.6*s,2*s,0,0,Math.PI*2);cx.fill();
         cx.fillStyle='#fff';
-        cx.beginPath();cx.arc(x-3.3*s,y-1.2*s,.6*s,0,Math.PI*2);cx.fill();
-        cx.beginPath();cx.arc(x+2.3*s,y-1.2*s,.6*s,0,Math.PI*2);cx.fill();
-        // Mouth
-        cx.strokeStyle='#2a2a3e';cx.lineWidth=1.2;
-        cx.beginPath();cx.arc(x,y+2.5*s,1.8*s,0.15,Math.PI-0.15);cx.stroke();
-        // Shadow
-        cx.fillStyle='rgba(0,0,0,.15)';
-        cx.beginPath();cx.ellipse(x,y+8.5*s,7*s,1.5*s,0,0,Math.PI*2);cx.fill();
+        cx.beginPath();cx.arc(x-3.6*s,y-1*s,.7*s,0,Math.PI*2);cx.fill();
+        // Right eye
+        cx.fillStyle='#111';
+        cx.beginPath();cx.ellipse(x+3*s,y,1.6*s,2*s,0,0,Math.PI*2);cx.fill();
+        cx.fillStyle='#fff';
+        cx.beginPath();cx.arc(x+2.4*s,y-1*s,.7*s,0,Math.PI*2);cx.fill();
+        // === Mouth (red, big smile) ===
+        cx.fillStyle='#cc2200';
+        cx.beginPath();
+        cx.moveTo(x-2.5*s,y+2.5*s);
+        cx.quadraticCurveTo(x,y+5.5*s,x+2.5*s,y+2.5*s);
+        cx.quadraticCurveTo(x,y+3.5*s,x-2.5*s,y+2.5*s);
+        cx.fill();
+        // Tongue hint
+        cx.fillStyle='#ff4444';
+        cx.beginPath();cx.ellipse(x,y+3.8*s,1.2*s,.6*s,0,0,Math.PI*2);cx.fill();
         if(king){
-          // Crown
-          cx.fillStyle='#ffd700';
+          // === Crown ===
+          var crownY=y-8*s;
           cx.beginPath();
-          cx.moveTo(x-5*s,y-7*s);cx.lineTo(x-6.5*s,y-3.5*s);cx.lineTo(x+6.5*s,y-3.5*s);cx.lineTo(x+5*s,y-7*s);
-          cx.lineTo(x+3*s,y-5*s);cx.lineTo(x,y-8.5*s);cx.lineTo(x-3*s,y-5*s);cx.closePath();cx.fill();
-          // Crown gradient
-          var cg=cx.createLinearGradient(x-6*s,y-8*s,x+6*s,y-3*s);
-          cg.addColorStop(0,'rgba(255,240,100,.4)');cg.addColorStop(0.5,'rgba(255,215,0,.1)');cg.addColorStop(1,'rgba(180,140,0,.3)');
+          cx.moveTo(x-5.5*s,crownY+1*s);cx.lineTo(x-6*s,crownY+5*s);
+          cx.lineTo(x+6*s,crownY+5*s);cx.lineTo(x+5.5*s,crownY+1*s);
+          cx.lineTo(x+3*s,crownY+3*s);cx.lineTo(x,crownY-2*s);
+          cx.lineTo(x-3*s,crownY+3*s);cx.closePath();
+          var cg=cx.createLinearGradient(x,crownY-2*s,x,crownY+5*s);
+          cg.addColorStop(0,'#ffe44d');cg.addColorStop(0.5,'#ffd700');cg.addColorStop(1,'#cc9900');
           cx.fillStyle=cg;cx.fill();
-          // Crown outline
-          cx.strokeStyle='#b8860b';cx.lineWidth=1;cx.stroke();
+          cx.strokeStyle='#a07000';cx.lineWidth=1;cx.stroke();
           // Jewels
-          cx.fillStyle='#ff1a1a';cx.beginPath();cx.arc(x,y-5.8*s,1.2*s,0,Math.PI*2);cx.fill();
-          cx.fillStyle='rgba(255,150,150,.5)';cx.beginPath();cx.arc(x-.4*s,y-6.2*s,.4*s,0,Math.PI*2);cx.fill();
-          cx.fillStyle='#00cc44';cx.beginPath();cx.arc(x-3.5*s,y-5*s,.8*s,0,Math.PI*2);cx.fill();
-          cx.fillStyle='#3366ff';cx.beginPath();cx.arc(x+3.5*s,y-5*s,.8*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#ff1a1a';cx.beginPath();cx.arc(x,crownY+1.5*s,1.2*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='rgba(255,180,180,.5)';cx.beginPath();cx.arc(x-.3*s,crownY+1*s,.35*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#22bb55';cx.beginPath();cx.arc(x-3.5*s,crownY+3*s,.7*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#3355ee';cx.beginPath();cx.arc(x+3.5*s,crownY+3*s,.7*s,0,Math.PI*2);cx.fill();
         }
-        // Hit flash overlay
+        // Hit flash
         if(hitFlash>0){
           cx.fillStyle='rgba(255,255,255,'+hitFlash+')';
-          cx.beginPath();cx.ellipse(x,y,8*s,8*s,0,0,Math.PI*2);cx.fill();
+          cx.beginPath();cx.ellipse(x,y,9*s,10*s,0,0,Math.PI*2);cx.fill();
         }
       }
       function drawChest(x,y,openPct){
