@@ -1047,38 +1047,52 @@ function resetAll(){
   },{threshold:[0.25]}).observe(document.getElementById('s1'));
 })();
 
-// === Scroll-triggered typing (DOWN only — no reset on scroll-away) ===
+// === Scroll-triggered typing (replay on re-enter) ===
 (function(){
   var prompts=document.querySelectorAll('[data-cmd]');
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
-      if(!entry.isIntersecting||entry.intersectionRatio<0.18)return;
       var el=entry.target;
-      if(el.getAttribute('data-typing'))return;
-      var cmd=el.getAttribute('data-cmd');
-      var cmdEl=el.querySelector('.p-cmd');
-      var inner=el.closest('.inner');
-      var content=inner?inner.querySelector('.content-area'):null;
-      if(!cmdEl||!cmd)return;
-      el.setAttribute('data-typing','true');
-      (async function(){
-        cmdEl.style.opacity='1';
-        for(var i=0;i<cmd.length;i++){cmdEl.textContent+=cmd[i];await sleep(25);}
-        await sleep(200);
-        if(content)content.classList.add('show');
-        // s2: sequential fade-in for title + cards
-        var s2sec=el.closest('.s2');
-        if(s2sec){
-          var seqItems=s2sec.querySelectorAll('.out-title,.pain-card');
-          for(var j=0;j<seqItems.length;j++){
-            await sleep(500);
-            seqItems[j].classList.add('show');
+      if(entry.isIntersecting&&entry.intersectionRatio>=0.18){
+        // Entering viewport — start typing if not already
+        if(el.getAttribute('data-typing'))return;
+        var cmd=el.getAttribute('data-cmd');
+        var cmdEl=el.querySelector('.p-cmd');
+        var inner=el.closest('.inner');
+        var content=inner?inner.querySelector('.content-area'):null;
+        if(!cmdEl||!cmd)return;
+        el.setAttribute('data-typing','true');
+        (async function(){
+          cmdEl.style.opacity='1';
+          for(var i=0;i<cmd.length;i++){
+            if(el.getAttribute('data-typing')!=='true')return;
+            cmdEl.textContent+=cmd[i];await sleep(25);
           }
-        }
-        el.setAttribute('data-typing','done');
-      })();
+          await sleep(200);
+          if(content)content.classList.add('show');
+          var s2sec=el.closest('.s2');
+          if(s2sec){
+            var seqItems=s2sec.querySelectorAll('.out-title,.pain-card');
+            for(var j=0;j<seqItems.length;j++){
+              if(el.getAttribute('data-typing')!=='true')return;
+              await sleep(500);
+              seqItems[j].classList.add('show');
+            }
+          }
+          el.setAttribute('data-typing','done');
+        })();
+      } else if(!entry.isIntersecting){
+        // Left viewport — reset for replay
+        el.removeAttribute('data-typing');
+        var cmdEl=el.querySelector('.p-cmd');
+        if(cmdEl){cmdEl.textContent='';cmdEl.style.opacity='0';}
+        var inner=el.closest('.inner');
+        if(inner){var ca=inner.querySelector('.content-area');if(ca)ca.classList.remove('show');}
+        var s2sec=el.closest('.s2');
+        if(s2sec){s2sec.querySelectorAll('.out-title,.pain-card').forEach(function(e){e.classList.remove('show')});}
+      }
     });
-  },{threshold:[0.18]});
+  },{threshold:[0,0.18]});
   prompts.forEach(function(p){io.observe(p);});
 })();
 
