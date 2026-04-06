@@ -1190,6 +1190,7 @@ function resetAll(){
     {text:'お問い合わせフォームって作れたりする？',mode:'normal'},
     {text:'お問い合わせフォーム作りやがれ！',mode:'fail'},
     {text:'なんか面白いゲームだして',mode:'game'},
+    {text:'なんか面白いゲームだして',mode:'game'},
   ];
 
   async function typeCC(el,text,spd){
@@ -1455,7 +1456,7 @@ function resetAll(){
 
   // Pick random game
   function runRandomGame(container){
-    return Math.random()<0.5?'pacman':'dq';
+    return Math.random()<0.3?'pacman':'dq';
   }
 
   async function boot(){
