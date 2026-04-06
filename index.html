@@ -266,20 +266,31 @@ nav a:hover{color:#e0e0e0}
 .prof-catchcopy::before{margin-bottom:20px}
 .prof-catchcopy::after{margin-top:20px}
 .prof-catchcopy.show{opacity:1;transform:scale(1)}
-/* line 1: horizontal slice wipe */
-.cc-line{display:block;opacity:0}
-.cc-line.reveal{animation:ccSlice .35s cubic-bezier(.22,1,.36,1) both}
+/* === Pattern A: typing === */
+.cc-cursor{display:inline-block;width:2px;height:1em;background:#c084fc;vertical-align:middle;margin-left:2px;animation:blink 1s step-end infinite}
+.cc-flash{animation:ccFlash .6s ease-out}
+@keyframes ccFlash{0%{text-shadow:0 0 40px rgba(103,232,249,1),0 0 80px rgba(103,232,249,.6)}100%{text-shadow:0 0 16px rgba(103,232,249,.5)}}
+.cc-final-glow{animation:ccFinalGlow 1.2s ease-out}
+@keyframes ccFinalGlow{0%{filter:brightness(1)}30%{filter:brightness(1.8)}100%{filter:brightness(1)}}
+/* === Pattern B: float reveal === */
+.cc-line-float{display:block;opacity:0;transform:translateY(18px) scale(.96);filter:blur(8px);transition:opacity 1s ease,transform 1s ease,filter 1s ease}
+.cc-line-float.reveal{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+.cc-line-float.accent-line{color:#67e8f9;text-shadow:0 0 16px rgba(103,232,249,.5)}
+.cc-line-float.accent-line.reveal{animation:ccAccentPulse 1.4s ease-out .3s both}
+@keyframes ccAccentPulse{0%{text-shadow:0 0 16px rgba(103,232,249,.5)}35%{text-shadow:0 0 50px rgba(103,232,249,1),0 0 100px rgba(103,232,249,.4),0 0 4px #fff}100%{text-shadow:0 0 20px rgba(103,232,249,.6)}}
+.cc-line-float.final-line.reveal{animation:ccFinalReveal 1.6s ease-out .2s both}
+@keyframes ccFinalReveal{0%{filter:brightness(1)}20%{filter:brightness(1.5)}50%{filter:brightness(1)}70%{text-shadow:0 0 20px rgba(192,132,252,.6)}100%{text-shadow:none;filter:brightness(1)}}
+/* === Pattern C: hard impact === */
+.cc-line-hard{display:block;opacity:0}
+.cc-line-hard.reveal{animation:ccSlice .35s cubic-bezier(.22,1,.36,1) both}
 @keyframes ccSlice{0%{opacity:0;clip-path:inset(0 100% 0 0)}100%{opacity:1;clip-path:inset(0 0 0 0)}}
-/* line 2: slam from scale with overshoot */
-.cc-line.accent-line{color:#67e8f9}
-.cc-line.accent-line.reveal{animation:ccSlam .3s cubic-bezier(.13,.76,.15,1.18) both}
+.cc-line-hard.accent-line{color:#67e8f9}
+.cc-line-hard.accent-line.reveal{animation:ccSlam .3s cubic-bezier(.13,.76,.15,1.18) both}
 @keyframes ccSlam{0%{opacity:0;transform:scale(1.6);text-shadow:0 0 60px rgba(103,232,249,1)}50%{opacity:1;transform:scale(.96);text-shadow:0 0 40px rgba(103,232,249,.8)}100%{opacity:1;transform:scale(1);text-shadow:0 0 20px rgba(103,232,249,.5)}}
-/* line 3: hard cut + shake */
-.cc-line.final-line.reveal{animation:ccHardCut .08s step-end both}
+.cc-line-hard.final-line.reveal{animation:ccHardCut .08s step-end both}
 @keyframes ccHardCut{from{opacity:0}to{opacity:1}}
 .prof-catchcopy.cc-shake{animation:ccShake .25s ease-out}
 @keyframes ccShake{0%{transform:scale(1) translateX(0)}20%{transform:scale(1) translateX(-4px)}40%{transform:scale(1.02) translateX(4px)}60%{transform:scale(1) translateX(-2px)}80%{transform:scale(1) translateX(2px)}100%{transform:scale(1) translateX(0)}}
-/* impact flash overlay */
 .cc-impact{position:absolute;inset:0;background:rgba(103,232,249,.15);pointer-events:none;opacity:0;border-radius:8px}
 .cc-impact.fire{animation:ccImpactFlash .3s ease-out both}
 @keyframes ccImpactFlash{0%{opacity:1}100%{opacity:0}}
@@ -1161,7 +1172,7 @@ function resetAll(){
     var profName=document.getElementById('prof-name');
     var profRole=document.getElementById('prof-role');
     var sections=body.querySelectorAll('.prof-section');
-    catchcopy.classList.remove('show');catchcopy.innerHTML='';
+    catchcopy.classList.remove('show');catchcopy.classList.remove('cc-final-glow');catchcopy.classList.remove('cc-shake');catchcopy.innerHTML='';
     scrollHint.classList.remove('show');
     profName.classList.remove('show');
     profRole.classList.remove('show');
@@ -1177,47 +1188,92 @@ function resetAll(){
     await sleep(250);
     body.style.opacity='1';
     await sleep(100);
-    // hard impact catchcopy
+    // random catchcopy animation (3 patterns)
     catchcopy.innerHTML='';
     catchcopy.style.position='relative';
-    var ccData=[
-      {text:'細かい事はどうでもいい。',cls:'cc-line'},
-      {text:'結果を出す。',cls:'cc-line accent-line'},
-      {text:'それがコンサルタントだ。',cls:'cc-line final-line'}
-    ];
-    var ccEls=[];
-    for(var cl=0;cl<ccData.length;cl++){
-      var span=document.createElement('span');
-      span.className=ccData[cl].cls;
-      span.textContent=ccData[cl].text;
-      catchcopy.appendChild(span);
-      ccEls.push(span);
-    }
-    // impact flash element
-    var impactEl=document.createElement('div');
-    impactEl.className='cc-impact';
-    catchcopy.appendChild(impactEl);
-
+    var ccPattern=Math.floor(Math.random()*3); // 0=typing, 1=float, 2=hard
     catchcopy.classList.add('show');
-    await sleep(400);
-    // line 1: slice wipe — sharp horizontal reveal
-    if(!isOpen)return;
-    ccEls[0].classList.add('reveal');
-    await sleep(700);
-    // line 2: slam in with cyan flash
-    if(!isOpen)return;
-    impactEl.classList.add('fire');
-    ccEls[1].classList.add('reveal');
-    await sleep(400);
-    impactEl.classList.remove('fire');
-    await sleep(400);
-    // line 3: instant hard cut + shake
-    if(!isOpen)return;
-    ccEls[2].classList.add('reveal');
-    catchcopy.classList.add('cc-shake');
-    await sleep(350);
-    catchcopy.classList.remove('cc-shake');
-    await sleep(600);
+
+    if(ccPattern===0){
+      // === Pattern A: typing ===
+      var ccLines=[
+        {text:'細かい事はどうでもいい。',delay:65},
+        {text:'結果を出す。',delay:90,accent:true},
+        {text:'それがコンサルタントだ。',delay:55}
+      ];
+      var ccCur=document.createElement('span');
+      ccCur.className='cc-cursor';
+      for(var cl=0;cl<ccLines.length;cl++){
+        if(!isOpen)return;
+        if(cl>0)catchcopy.appendChild(document.createElement('br'));
+        var ccSpan=document.createElement('span');
+        if(ccLines[cl].accent)ccSpan.className='cc-accent';
+        catchcopy.appendChild(ccSpan);
+        catchcopy.appendChild(ccCur);
+        for(var ci=0;ci<ccLines[cl].text.length;ci++){
+          if(!isOpen)return;
+          ccSpan.textContent+=ccLines[cl].text[ci];
+          await sleep(ccLines[cl].delay);
+        }
+        if(ccLines[cl].accent){ccSpan.classList.add('cc-flash');await sleep(500);}
+        else{await sleep(350);}
+      }
+      ccCur.remove();
+      catchcopy.classList.add('cc-final-glow');
+      await sleep(600);
+
+    } else if(ccPattern===1){
+      // === Pattern B: float reveal ===
+      var ccData=[
+        {text:'細かい事はどうでもいい。',cls:'cc-line-float'},
+        {text:'結果を出す。',cls:'cc-line-float accent-line'},
+        {text:'それがコンサルタントだ。',cls:'cc-line-float final-line'}
+      ];
+      var ccEls=[];
+      for(var cl=0;cl<ccData.length;cl++){
+        var span=document.createElement('span');
+        span.className=ccData[cl].cls;
+        span.textContent=ccData[cl].text;
+        catchcopy.appendChild(span);
+        ccEls.push(span);
+      }
+      await sleep(300);
+      if(!isOpen)return;ccEls[0].classList.add('reveal');
+      await sleep(1100);
+      if(!isOpen)return;ccEls[1].classList.add('reveal');
+      await sleep(1400);
+      if(!isOpen)return;ccEls[2].classList.add('reveal');
+      await sleep(1200);
+
+    } else {
+      // === Pattern C: hard impact ===
+      var ccData=[
+        {text:'細かい事はどうでもいい。',cls:'cc-line-hard'},
+        {text:'結果を出す。',cls:'cc-line-hard accent-line'},
+        {text:'それがコンサルタントだ。',cls:'cc-line-hard final-line'}
+      ];
+      var ccEls=[];
+      for(var cl=0;cl<ccData.length;cl++){
+        var span=document.createElement('span');
+        span.className=ccData[cl].cls;
+        span.textContent=ccData[cl].text;
+        catchcopy.appendChild(span);
+        ccEls.push(span);
+      }
+      var impactEl=document.createElement('div');
+      impactEl.className='cc-impact';
+      catchcopy.appendChild(impactEl);
+      await sleep(400);
+      if(!isOpen)return;ccEls[0].classList.add('reveal');
+      await sleep(700);
+      if(!isOpen)return;impactEl.classList.add('fire');ccEls[1].classList.add('reveal');
+      await sleep(400);impactEl.classList.remove('fire');
+      await sleep(400);
+      if(!isOpen)return;ccEls[2].classList.add('reveal');
+      catchcopy.classList.add('cc-shake');
+      await sleep(350);catchcopy.classList.remove('cc-shake');
+      await sleep(600);
+    }
     scrollHint.classList.add('show');
 
     // Set up IntersectionObserver inside modal-body for detail sections
@@ -1807,9 +1863,22 @@ function resetAll(){
   profileBtn.style.position='relative';
   profileBtn.style.zIndex='10';
 
-  var gG=[0x33,0xff,0x00]; // #33ff00 green
-  var gP=[0xff,0x00,0xff]; // #ff00ff neon pink
+  var cGreen=[0x33,0xff,0x00];  // #33ff00
+  var cPink=[0xff,0x00,0xff];   // #ff00ff
+  var cYellow=[0xff,0xff,0x00]; // #ffff00
   function lerp(a,b,t){return Math.round(a+(b-a)*Math.max(0,Math.min(1,t)));}
+  function colorAt(t){
+    // 0→0.7: green→pink, 0.7→1.0: pink→yellow
+    var r,g,b;
+    if(t<=0.7){
+      var p=t/0.7;
+      r=lerp(cGreen[0],cPink[0],p);g=lerp(cGreen[1],cPink[1],p);b=lerp(cGreen[2],cPink[2],p);
+    } else {
+      var p=(t-0.7)/0.3;
+      r=lerp(cPink[0],cYellow[0],p);g=lerp(cPink[1],cYellow[1],p);b=lerp(cPink[2],cYellow[2],p);
+    }
+    return [r,g,b];
+  }
 
   function update(){
     var rect=s6.getBoundingClientRect();
@@ -1823,14 +1892,12 @@ function resetAll(){
     }
     overlay.style.opacity=progress;
     if(parseFloat(profileBtn.style.opacity||0)>0){
-      var r=lerp(gG[0],gP[0],progress);
-      var g=lerp(gG[1],gP[1],progress);
-      var b=lerp(gG[2],gP[2],progress);
-      var col='rgb('+r+','+g+','+b+')';
+      var c=colorAt(progress);
+      var col='rgb('+c[0]+','+c[1]+','+c[2]+')';
       profileBtn.style.color=col;
       profileBtn.style.borderColor=col;
-      profileBtn.style.textShadow='0 0 8px rgba('+r+','+g+','+b+',.5)';
-      profileBtn.style.boxShadow='0 0 12px rgba('+r+','+g+','+b+',.2)';
+      profileBtn.style.textShadow='0 0 8px rgba('+c[0]+','+c[1]+','+c[2]+',.5)';
+      profileBtn.style.boxShadow='0 0 12px rgba('+c[0]+','+c[1]+','+c[2]+',.2)';
       var svgPath=profileBtn.querySelector('svg path');
       if(svgPath)svgPath.setAttribute('stroke',col);
     }
