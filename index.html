@@ -932,8 +932,8 @@ footer{
           <span class="p-cmd" id="s7-cc-cmd"></span>
           <span class="p-cursor" id="s7-cc-cursor" style="background:#c084fc;width:7px;height:14px;display:inline-block;vertical-align:middle;animation:blink 1s step-end infinite"></span>
         </div>
+        <div id="s7-cc-drama"></div>
         <div id="s7-cc-response" style="opacity:0;transition:opacity .4s ease">
-          <div id="s7-cc-drama"></div>
           <div class="cc-msg" id="s7-cc-msg">
             お問い合わせフォームを作成しました。<br>
             以下にご記入ください。
@@ -1306,7 +1306,6 @@ function resetAll(){
 
     if(pick.mode==='fail'){
       // === FAIL ROUTE ===
-      ccResponse.style.opacity='1';
       var errDiv=document.createElement('div');
       errDiv.className='cc-err';
       ccDrama.appendChild(errDiv);
@@ -1337,7 +1336,6 @@ function resetAll(){
 
     if(pick.mode==='game'){
       // === GAME ROUTE ===
-      ccResponse.style.opacity='1';
       // Step 1: Show "了解！" msg
       var okMsg=document.createElement('div');
       okMsg.className='cc-ok';
