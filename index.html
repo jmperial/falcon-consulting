@@ -1731,6 +1731,54 @@ function resetAll(){
   resetAll=function(){oldResetAll();resetBoot();};
 })();
 
+// === s6 scroll fade + button color shift ===
+(function(){
+  var s6=document.getElementById('s6');
+  var s6inner=s6.querySelector('.inner');
+  var profileBtn=document.getElementById('open-profile');
+
+  // gradient overlay over warp-frame area
+  var overlay=document.createElement('div');
+  overlay.style.cssText='position:absolute;top:30%;left:0;right:0;bottom:0;background:linear-gradient(to bottom,transparent 0%,#0a0510 80%);pointer-events:none;z-index:4;opacity:0';
+  s6inner.style.position='relative';
+  s6inner.appendChild(overlay);
+
+  // button above overlay
+  profileBtn.style.position='relative';
+  profileBtn.style.zIndex='10';
+
+  var gG=[0x33,0xff,0x00]; // #33ff00 green
+  var gP=[0xff,0x00,0xff]; // #ff00ff neon pink
+  function lerp(a,b,t){return Math.round(a+(b-a)*Math.max(0,Math.min(1,t)));}
+
+  function update(){
+    var rect=s6.getBoundingClientRect();
+    var progress=0;
+    if(rect.top<0){
+      var off=-rect.top;
+      var start=rect.height*0.38;
+      var end=rect.height*0.85;
+      if(off>start) progress=(off-start)/(end-start);
+      progress=Math.max(0,Math.min(1,progress));
+    }
+    overlay.style.opacity=progress;
+    if(parseFloat(profileBtn.style.opacity||0)>0){
+      var r=lerp(gG[0],gP[0],progress);
+      var g=lerp(gG[1],gP[1],progress);
+      var b=lerp(gG[2],gP[2],progress);
+      var col='rgb('+r+','+g+','+b+')';
+      profileBtn.style.color=col;
+      profileBtn.style.borderColor=col;
+      profileBtn.style.textShadow='0 0 8px rgba('+r+','+g+','+b+',.5)';
+      profileBtn.style.boxShadow='0 0 12px rgba('+r+','+g+','+b+',.2)';
+      var svgPath=profileBtn.querySelector('svg path');
+      if(svgPath)svgPath.setAttribute('stroke',col);
+    }
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+
 // === Invader animation on Claude Code panel ===
 (function(){
   var canvas=document.getElementById('invader-canvas');
