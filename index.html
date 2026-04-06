@@ -1083,7 +1083,8 @@ function resetAll(){
         })();
       } else if(!entry.isIntersecting){
         // Left viewport — cancel typing if in progress
-        if(el.getAttribute('data-typing')==='true'){
+        // s6 is persistent, so don't cancel its typing
+        if(el.getAttribute('data-typing')==='true'&&!el.closest('.s6')){
           el.setAttribute('data-typing','cancelled');
         }
       }
