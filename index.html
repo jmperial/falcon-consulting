@@ -540,7 +540,7 @@ nav a:hover{color:#e0e0e0}
 .s7-cc .cc-game{
   margin:12px 0;border-radius:8px;overflow:hidden;
   border:1px solid rgba(255,255,0,.25);background:#000;
-  position:relative;height:120px;
+  position:relative;height:140px;
 }
 .s7 .contact-form{text-align:left;max-width:100%}
 .s7 .form-group label{color:rgba(192,132,252,.7);font-size:.7rem}
@@ -1276,92 +1276,156 @@ function resetAll(){
     return function(){if(animId)cancelAnimationFrame(animId);};
   }
 
-  // Mini Dragon Quest battle (runs briefly then gets interrupted)
+  // Mini DQ battle: Metal Slime / King Metal Slime → defeat → treasure chest → form
   function runMiniDQ(container){
-    var cvs=document.createElement('canvas');
-    cvs.width=container.offsetWidth||280;cvs.height=120;
-    cvs.style.cssText='width:100%;height:100%;display:block';
-    container.appendChild(cvs);
-    var cx=cvs.getContext('2d');
-    var W=cvs.width,H=cvs.height;
-    var frame=0,animId=null;
-    var slimeY=0,slimeBounce=0;
-    var hp={hero:120,max:120,slime:45,slimeMax:45};
-    var msgs=['スライムが あらわれた！','',''];
-    var msgTimer=0,phase=0; // 0=appear,1=fight
-    var blink=0;
-    // Draw slime (pixel art style)
-    function drawSlime(x,y){
-      var s=2.5;
-      cx.fillStyle='#44bbff';
-      // Body
-      cx.beginPath();
-      cx.ellipse(x,y+2*s,8*s,6*s,0,Math.PI,0);
-      cx.fill();
-      // Bottom
-      cx.fillRect(x-8*s,y+2*s,16*s,4*s);
-      // Wavy bottom
-      for(var i=0;i<4;i++){
-        cx.beginPath();
-        cx.arc(x-6*s+i*4*s,y+6*s,2*s,0,Math.PI);
-        cx.fill();
+    return new Promise(function(resolve){
+      var cvs=document.createElement('canvas');
+      cvs.width=container.offsetWidth||280;cvs.height=140;
+      cvs.style.cssText='width:100%;height:100%;display:block';
+      container.appendChild(cvs);
+      var cx=cvs.getContext('2d');
+      var W=cvs.width,H=cvs.height;
+      var frame=0,animId=null,stopped=false;
+      // Random enemy
+      var isKing=Math.random()<0.4;
+      var enemy={
+        name:isKing?'キングメタルスライム':'メタルスライム',
+        hp:isKing?30:8, max:isKing?30:8,
+        color:'#c0c0c0', highlight:'#e8e8e8',
+        exp:isKing?30010:1350, scale:isKing?3.2:2.5,
+        miss:isKing?0.5:0.6
+      };
+      var heroHp=180,heroMax=180;
+      var msg=enemy.name+'が あらわれた！';
+      var msgTimer=0,phase=0;
+      // phases: 0=appear 1=cmd 2=attack 3=enemyTurn 4=victory 5=exp 6=chest 7=open 8=done
+      var chestOpen=0,flashAlpha=0;
+      function drawSlime(x,y,s,king){
+        // Metal body
+        cx.fillStyle=enemy.color;
+        cx.beginPath();cx.ellipse(x,y+2*s,8*s,6*s,0,Math.PI,0);cx.fill();
+        cx.fillRect(x-8*s,y+2*s,16*s,4*s);
+        for(var i=0;i<4;i++){cx.beginPath();cx.arc(x-6*s+i*4*s,y+6*s,2*s,0,Math.PI);cx.fill();}
+        // Shine
+        cx.fillStyle=enemy.highlight;
+        cx.beginPath();cx.ellipse(x-3*s,y-2*s,2*s,1.5*s,-.3,0,Math.PI*2);cx.fill();
+        // Eyes
+        cx.fillStyle='#222';
+        cx.beginPath();cx.arc(x-3*s,y-1*s,1.3*s,0,Math.PI*2);cx.fill();
+        cx.beginPath();cx.arc(x+3*s,y-1*s,1.3*s,0,Math.PI*2);cx.fill();
+        cx.fillStyle='#fff';
+        cx.beginPath();cx.arc(x-3.5*s,y-1.5*s,.5*s,0,Math.PI*2);cx.fill();
+        cx.beginPath();cx.arc(x+2.5*s,y-1.5*s,.5*s,0,Math.PI*2);cx.fill();
+        if(king){
+          // Crown
+          cx.fillStyle='#ffd700';
+          cx.beginPath();
+          cx.moveTo(x-5*s,y-6*s);cx.lineTo(x-6*s,y-3*s);cx.lineTo(x+6*s,y-3*s);cx.lineTo(x+5*s,y-6*s);
+          cx.lineTo(x+3*s,y-4.5*s);cx.lineTo(x,y-7*s);cx.lineTo(x-3*s,y-4.5*s);cx.closePath();cx.fill();
+          // Jewels
+          cx.fillStyle='#ff0000';cx.beginPath();cx.arc(x,y-5*s,1*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#00ff00';cx.beginPath();cx.arc(x-3.5*s,y-4.5*s,.7*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#4444ff';cx.beginPath();cx.arc(x+3.5*s,y-4.5*s,.7*s,0,Math.PI*2);cx.fill();
+        }
       }
-      // Eyes
-      cx.fillStyle='#000';
-      cx.beginPath();cx.arc(x-3*s,y-1*s,1.5*s,0,Math.PI*2);cx.fill();
-      cx.beginPath();cx.arc(x+3*s,y-1*s,1.5*s,0,Math.PI*2);cx.fill();
-      // Mouth
-      cx.beginPath();
-      cx.arc(x,y+2*s,2*s,0.2,Math.PI-0.2);
-      cx.strokeStyle='#000';cx.lineWidth=1;cx.stroke();
-    }
-    function drawHPBar(x,y,cur,max,color,label){
-      cx.fillStyle='rgba(255,255,255,.6)';cx.font='9px monospace';
-      cx.fillText(label,x,y-3);
-      cx.fillStyle='#333';cx.fillRect(x,y,80,8);
-      cx.fillStyle=color;cx.fillRect(x,y,80*(cur/max),8);
-      cx.fillStyle='rgba(255,255,255,.7)';cx.font='8px monospace';
-      cx.fillText(cur+'/'+max,x+30,y+7);
-    }
-    function tick(){
-      cx.clearRect(0,0,W,H);
-      // Background - dark gradient
-      cx.fillStyle='#1a0a2e';cx.fillRect(0,0,W,H);
-      // Ground
-      cx.fillStyle='#2a4a1a';cx.fillRect(0,H-20,W,20);
-      cx.fillStyle='#3a5a2a';
-      for(var i=0;i<W;i+=12)cx.fillRect(i,H-20,6,2);
-      // Slime bounce
-      slimeBounce=Math.sin(frame*0.08)*4;
-      drawSlime(W/2,H/2-15+slimeBounce);
-      // HP Bars
-      drawHPBar(8,8,hp.hero,hp.max,'#22cc00','勇者');
-      drawHPBar(8,24,hp.slime,hp.slimeMax,'#44bbff','スライム');
-      // Message window
-      cx.fillStyle='rgba(0,0,0,.7)';
-      cx.strokeStyle='#fff';cx.lineWidth=1;
-      cx.fillRect(10,H-38,W-20,30);
-      cx.strokeRect(10,H-38,W-20,30);
-      cx.fillStyle='#fff';cx.font='11px monospace';
-      msgTimer++;
-      if(phase===0&&msgTimer>60){phase=1;msgTimer=0;msgs[0]='コマンド？ ▶たたかう';}
-      if(phase===1&&msgTimer>50){phase=2;msgTimer=0;msgs[0]='勇者のこうげき！';hp.slime=Math.max(0,hp.slime-12);}
-      if(phase===2&&msgTimer>50){phase=3;msgTimer=0;msgs[0]='スライムのこうげき！';hp.hero=Math.max(0,hp.hero-5);}
-      if(phase===3&&msgTimer>50){phase=1;msgTimer=0;msgs[0]='コマンド？ ▶たたかう';}
-      // Blinking cursor
-      blink=Math.floor(frame/15)%2;
-      var displayMsg=msgs[0]+(blink?'▌':'');
-      cx.fillText(displayMsg,20,H-20);
-      frame++;
-      animId=requestAnimationFrame(tick);
-    }
-    tick();
-    return function(){if(animId)cancelAnimationFrame(animId);};
+      function drawChest(x,y,openPct){
+        var w=40,h=28;
+        // Body
+        cx.fillStyle='#8B4513';cx.fillRect(x-w/2,y-h/2,w,h);
+        cx.strokeStyle='#DAA520';cx.lineWidth=2;cx.strokeRect(x-w/2,y-h/2,w,h);
+        // Band
+        cx.fillStyle='#DAA520';cx.fillRect(x-2,y-h/2,4,h);
+        // Lock
+        cx.fillStyle='#FFD700';cx.beginPath();cx.arc(x,y,3,0,Math.PI*2);cx.fill();
+        // Lid
+        var lidAngle=openPct*0.8;
+        cx.save();cx.translate(x-w/2,y-h/2);cx.rotate(-lidAngle);
+        cx.fillStyle='#A0522D';cx.fillRect(0,-6,w,6);
+        cx.strokeStyle='#DAA520';cx.lineWidth=1;cx.strokeRect(0,-6,w,6);
+        cx.fillStyle='#DAA520';cx.fillRect(w/2-2,-6,4,6);
+        cx.restore();
+        // Glow when opening
+        if(openPct>0.3){
+          cx.fillStyle='rgba(255,215,0,'+(openPct*0.6)+')';
+          cx.beginPath();cx.ellipse(x,y-h/2-4,w*openPct*0.6,12*openPct,0,0,Math.PI*2);cx.fill();
+        }
+      }
+      function drawHPBar(x,y,cur,max,color,label){
+        cx.fillStyle='rgba(255,255,255,.6)';cx.font='9px monospace';
+        cx.fillText(label,x,y-3);
+        cx.fillStyle='#333';cx.fillRect(x,y,80,8);
+        cx.fillStyle=color;cx.fillRect(x,y,Math.max(0,80*(cur/max)),8);
+        cx.fillStyle='rgba(255,255,255,.7)';cx.font='8px monospace';
+        cx.fillText(Math.max(0,cur)+'/'+max,x+28,y+7);
+      }
+      function drawMsgBox(text){
+        cx.fillStyle='rgba(0,0,0,.75)';cx.strokeStyle='#fff';cx.lineWidth=1;
+        cx.fillRect(10,H-38,W-20,30);cx.strokeRect(10,H-38,W-20,30);
+        cx.fillStyle='#fff';cx.font='11px monospace';
+        var blink=Math.floor(frame/15)%2;
+        cx.fillText(text+(blink?'▌':''),18,H-19);
+      }
+      function tick(){
+        if(stopped)return;
+        cx.clearRect(0,0,W,H);
+        cx.fillStyle='#1a0a2e';cx.fillRect(0,0,W,H);
+        cx.fillStyle='#2a4a1a';cx.fillRect(0,H-20,W,20);
+        cx.fillStyle='#3a5a2a';
+        for(var i=0;i<W;i+=12)cx.fillRect(i,H-20,6,2);
+        msgTimer++;
+        var bounce=Math.sin(frame*0.08)*3;
+        if(phase<=3){
+          drawSlime(W/2,H/2-18+bounce,enemy.scale,isKing);
+          drawHPBar(8,8,heroHp,heroMax,'#22cc00','勇者');
+          drawHPBar(8,24,enemy.hp,enemy.max,'#c0c0c0',enemy.name.substring(0,6));
+        }
+        if(phase===0&&msgTimer>60){phase=1;msgTimer=0;msg='コマンド？ ▶たたかう';}
+        if(phase===1&&msgTimer>40){
+          phase=2;msgTimer=0;
+          if(Math.random()<enemy.miss){msg='ミス！ '+enemy.name+'にかわされた！';}
+          else{var dmg=isKing?Math.floor(Math.random()*3)+1:Math.floor(Math.random()*2)+1;enemy.hp-=dmg;msg='会心の一撃！ '+dmg+'のダメージ！';}
+        }
+        if(phase===2&&msgTimer>50){
+          if(enemy.hp<=0){phase=4;msgTimer=0;msg=enemy.name+'をたおした！';}
+          else{phase=3;msgTimer=0;msg=enemy.name+'のこうげき！ 1のダメージ';heroHp=Math.max(0,heroHp-1);}
+        }
+        if(phase===3&&msgTimer>45){phase=1;msgTimer=0;msg='コマンド？ ▶たたかう';}
+        // Victory
+        if(phase===4&&msgTimer>70){phase=5;msgTimer=0;msg='経験値 '+enemy.exp+' を獲得！';}
+        if(phase===5){
+          // Flash
+          if(msgTimer<30){flashAlpha=Math.sin(msgTimer*0.3)*0.3;cx.fillStyle='rgba(255,255,200,'+Math.abs(flashAlpha)+')';cx.fillRect(0,0,W,H);}
+          if(msgTimer>60){phase=6;msgTimer=0;msg='宝箱を発見した！';}
+        }
+        // Chest
+        if(phase===6){
+          drawChest(W/2,H/2-5,0);
+          if(msgTimer>60){phase=7;msgTimer=0;msg='▶ あける';}
+        }
+        if(phase===7){
+          chestOpen=Math.min(1,msgTimer/40);
+          drawChest(W/2,H/2-5,chestOpen);
+          if(chestOpen>=1&&msgTimer>60){phase=8;msgTimer=0;msg='お問い合わせフォームを手に入れた！';}
+        }
+        if(phase===8){
+          drawChest(W/2,H/2-5,1);
+          // Golden glow
+          cx.fillStyle='rgba(255,215,0,'+(0.15+Math.sin(frame*0.1)*0.1)+')';cx.fillRect(0,0,W,H);
+          if(msgTimer>70){stopped=true;cancelAnimationFrame(animId);resolve();return;}
+        }
+        drawMsgBox(msg);
+        frame++;
+        animId=requestAnimationFrame(tick);
+      }
+      tick();
+      // Return stop function (for interrupted case)
+      resolve._stop=function(){stopped=true;if(animId)cancelAnimationFrame(animId);};
+    });
   }
 
   // Pick random game
   function runRandomGame(container){
-    return Math.random()<0.5?runMiniPacman(container):runMiniDQ(container);
+    return Math.random()<0.5?'pacman':'dq';
   }
 
   async function boot(){
@@ -1424,58 +1488,68 @@ function resetAll(){
 
     if(pick.mode==='game'){
       // === GAME ROUTE ===
-      // Step 1: Show "了解！" msg
-      var okMsg=document.createElement('div');
-      okMsg.className='cc-ok';
-      ccDrama.appendChild(okMsg);
-      await typeCC(okMsg,'了解！ゲームを起動します...',18);
-      await sleep(500);
-      if(bootState!=='booting')return;
-      // Step 2: Pac-Man game
+      var gameType=runRandomGame();
       var gameBox=document.createElement('div');
       gameBox.className='cc-game';
+      if(gameType==='dq')gameBox.style.height='140px';
       ccDrama.appendChild(gameBox);
-      var stopGame=runRandomGame(gameBox);
-      // Let game run for ~3 seconds
-      await sleep(3000);
-      if(bootState!=='booting'){stopGame();return;}
-      stopGame();
-      // Step 3: Agent interrupts
-      var alertDiv=document.createElement('div');
-      alertDiv.className='cc-err';
-      ccDrama.appendChild(alertDiv);
-      await typeCC(alertDiv,'⚠ Agent: サボり検知。業務外タスクを中断します。',18);
-      await sleep(800);
-      if(bootState!=='booting')return;
-      // Fade out game
-      gameBox.style.transition='opacity .5s ease';
-      gameBox.style.opacity='0';
-      await sleep(600);
-      gameBox.style.display='none';
-      if(bootState!=='booting')return;
-      // Step 4: Agent redirects
-      var retryDiv=document.createElement('div');
-      retryDiv.className='cc-retry';
-      ccDrama.appendChild(retryDiv);
-      await typeCC(retryDiv,'Agent: 本来のタスクに戻ります。',18);
-      await sleep(500);
-      if(bootState!=='booting')return;
-      // Step 5: Retry prompt
-      var retryLine=document.createElement('div');
-      retryLine.style.cssText='margin:12px 0 8px;font-size:.8rem;display:flex;align-items:center;gap:6px';
-      retryLine.innerHTML='<span style="color:#c084fc;font-weight:700">\u276F</span> <span style="color:#67e8f9"></span>';
-      ccDrama.appendChild(retryLine);
-      var retryCmd=retryLine.querySelector('span:last-child');
-      await typeCC(retryCmd,'お問い合わせフォームを作成してください',40);
-      await sleep(600);
-      if(bootState!=='booting')return;
-      // Step 6: Success
-      var doneDiv=document.createElement('div');
-      doneDiv.className='cc-ok';
-      ccDrama.appendChild(doneDiv);
-      await typeCC(doneDiv,'フォームを生成しました。',18);
-      await sleep(400);
-      if(bootState!=='booting')return;
+
+      if(gameType==='pacman'){
+        // Pac-Man → sabori route
+        var okMsg=document.createElement('div');
+        okMsg.className='cc-ok';
+        ccDrama.insertBefore(okMsg,gameBox);
+        await typeCC(okMsg,'了解！ゲームを起動します...',18);
+        await sleep(500);
+        if(bootState!=='booting')return;
+        var stopGame=runMiniPacman(gameBox);
+        await sleep(3000);
+        if(bootState!=='booting'){stopGame();return;}
+        stopGame();
+        var alertDiv=document.createElement('div');
+        alertDiv.className='cc-err';
+        ccDrama.appendChild(alertDiv);
+        await typeCC(alertDiv,'⚠ Agent: サボり検知。業務外タスクを中断します。',18);
+        await sleep(800);
+        if(bootState!=='booting')return;
+        gameBox.style.transition='opacity .5s ease';gameBox.style.opacity='0';
+        await sleep(600);gameBox.style.display='none';
+        if(bootState!=='booting')return;
+        var retryDiv=document.createElement('div');
+        retryDiv.className='cc-retry';
+        ccDrama.appendChild(retryDiv);
+        await typeCC(retryDiv,'Agent: 本来のタスクに戻ります。',18);
+        await sleep(500);
+        if(bootState!=='booting')return;
+        var retryLine=document.createElement('div');
+        retryLine.style.cssText='margin:12px 0 8px;font-size:.8rem;display:flex;align-items:center;gap:6px';
+        retryLine.innerHTML='<span style="color:#c084fc;font-weight:700">\u276F</span> <span style="color:#67e8f9"></span>';
+        ccDrama.appendChild(retryLine);
+        await typeCC(retryLine.querySelector('span:last-child'),'お問い合わせフォームを作成してください',40);
+        await sleep(600);
+        if(bootState!=='booting')return;
+        var doneDiv=document.createElement('div');
+        doneDiv.className='cc-ok';
+        ccDrama.appendChild(doneDiv);
+        await typeCC(doneDiv,'フォームを生成しました。',18);
+        await sleep(400);
+        if(bootState!=='booting')return;
+      } else {
+        // DQ → battle → chest → form
+        var dqMsg=document.createElement('div');
+        dqMsg.className='cc-ok';
+        ccDrama.insertBefore(dqMsg,gameBox);
+        await typeCC(dqMsg,'了解！起動中...',18);
+        await sleep(300);
+        if(bootState!=='booting')return;
+        await runMiniDQ(gameBox);
+        if(bootState!=='booting')return;
+        // Fade out game
+        await sleep(300);
+        gameBox.style.transition='opacity .8s ease';gameBox.style.opacity='0';
+        await sleep(900);gameBox.style.display='none';
+        if(bootState!=='booting')return;
+      }
     }
 
     // Phase 4: Show success msg + form
