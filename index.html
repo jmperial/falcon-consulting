@@ -54,6 +54,7 @@ nav a:hover{color:#e0e0e0}
 
 /* === CONTENT AREA (hidden until typed) === */
 .content-area{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.s6 .content-area{transition:opacity 1.2s ease,transform 1.2s ease}
 .content-area.show{opacity:1;transform:translateY(0)}
 
 /* === OUTPUT BLOCKS === */
@@ -1064,11 +1065,12 @@ function resetAll(){
         el.setAttribute('data-typing','true');
         (async function(){
           cmdEl.style.opacity='1';
+          var spd=el.closest('.s6')?50:25;
           for(var i=0;i<cmd.length;i++){
             if(el.getAttribute('data-typing')!=='true')return;
-            cmdEl.textContent+=cmd[i];await sleep(25);
+            cmdEl.textContent+=cmd[i];await sleep(spd);
           }
-          await sleep(200);
+          await sleep(el.closest('.s6')?500:200);
           if(content)content.classList.add('show');
           if(el.closest('.s6')){var pb=document.getElementById('open-profile');if(pb)pb.style.opacity='1';}
           var s2sec=el.closest('.s2');
