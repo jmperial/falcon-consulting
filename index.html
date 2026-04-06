@@ -426,8 +426,10 @@ nav a:hover{color:#e0e0e0}
 .svc-item{
   border-left:3px solid #06b6d4;padding:16px 16px 16px 20px;margin-bottom:16px;
   background:rgba(6,182,212,.03);border-radius:0 8px 8px 0;
-  transition:background .2s ease;
+  transition:background .2s ease,opacity .8s ease,transform .8s ease;
+  opacity:0;transform:translateY(14px);
 }
+.svc-item.show{opacity:1;transform:translateY(0)}
 .svc-item:hover{background:rgba(6,182,212,.06)}
 .svc-item h3{font-size:1rem;margin-bottom:6px;color:#fff}
 .svc-item h3 .svc-num{
@@ -1145,6 +1147,15 @@ function resetAll(){
               seqItems[j].classList.add('show');
             }
           }
+          var s3sec=el.closest('.s3');
+          if(s3sec){
+            var svcItems=s3sec.querySelectorAll('.svc-item');
+            for(var si=0;si<svcItems.length;si++){
+              if(el.getAttribute('data-typing')!=='true')return;
+              await sleep(400);
+              svcItems[si].classList.add('show');
+            }
+          }
           el.setAttribute('data-typing','done');
         })();
       } else if(!entry.isIntersecting){
@@ -1176,6 +1187,7 @@ function resetAll(){
         sec.querySelectorAll('.out-title,.pain-card').forEach(function(e){e.classList.remove('show')});
       }
       sec.querySelectorAll('.s6-kw').forEach(function(e){e.classList.remove('on')});
+      sec.querySelectorAll('.svc-item').forEach(function(e){e.classList.remove('show')});
     });
   },{threshold:0});
   document.querySelectorAll('.sec:not(.s1):not(.s7)').forEach(function(s){resetObs.observe(s);});
