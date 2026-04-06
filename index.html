@@ -1712,14 +1712,18 @@ function resetAll(){
     ccPanel.style.opacity='0';ccPanel.style.transform='translateY(10px)';
     setTimeout(function(){ccPanel.style.transition='opacity .5s ease,transform .5s ease';},50);
   }
+  // Boot trigger: dosElが30%見えたら起動
   new IntersectionObserver(function(e){
-    var entry=e[0];
-    if(entry.isIntersecting&&entry.intersectionRatio>=0.3){
+    if(e[0].isIntersecting&&e[0].intersectionRatio>=0.3){
       if(bootState==='idle')boot();
-    } else if(!entry.isIntersecting&&bootState==='done'){
+    }
+  },{threshold:[0.3]}).observe(dosEl);
+  // Reset trigger: s7全体が完全に画面外になった時だけリセット
+  new IntersectionObserver(function(e){
+    if(!e[0].isIntersecting&&bootState==='done'){
       resetBoot();
     }
-  },{threshold:[0,0.3]}).observe(dosEl);
+  },{threshold:0}).observe(document.getElementById('s7'));
   // Reset when hero is reached (scrolling back up)
   var origReset=window._resetAllOrig||resetAll;
   var oldResetAll=resetAll;
