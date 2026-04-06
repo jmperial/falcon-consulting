@@ -1064,7 +1064,7 @@ function resetAll(){
     var d=document.createElement('div');
     d.className='out-line'+(c.cls?' '+c.cls:'');
     d.style.color=c.color||'#33ff00';
-    if(c.big){d.style.fontSize='1.2rem';d.style.fontFamily='"Noto Serif JP",serif';d.style.fontWeight='700';d.style.letterSpacing='1px';}
+    if(c.big){d.style.fontSize='clamp(0.95rem, 3.2vw, 1.2rem)';d.style.fontFamily='"Noto Serif JP",serif';d.style.fontWeight='700';d.style.letterSpacing='1px';}
     heroOut.appendChild(d);
     for(var i=0;i<c.text.length;i++){
       if(heroState!=='typing')return;
