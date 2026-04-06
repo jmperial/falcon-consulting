@@ -1649,6 +1649,8 @@ function resetAll(){
         gameBox.style.transition='opacity .8s ease';gameBox.style.opacity='0';
         await sleep(900);gameBox.style.display='none';
         if(bootState!=='booting')return;
+        // DQ route: change msg text
+        ccMsg.innerHTML='お問い合わせフォームを手に入れた！<br>以下にご記入ください。';
       }
     }
 
@@ -1663,6 +1665,7 @@ function resetAll(){
     ccCmd.textContent='';
     ccResponse.style.opacity='0';
     ccMsg.style.opacity='0';
+    ccMsg.innerHTML='お問い合わせフォームを作成しました。<br>以下にご記入ください。';
     while(ccDrama.firstChild)ccDrama.removeChild(ccDrama.firstChild);
     ccCursor.style.display='';ccCursor.style.opacity='';ccCursor.style.animation='';
     ccPanel.style.transition='none';
