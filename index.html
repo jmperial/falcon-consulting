@@ -1189,6 +1189,7 @@ function resetAll(){
   var prompts=[
     {text:'お問い合わせフォームって作れたりする？',mode:'normal'},
     {text:'お客様からの問い合わせ先はどうすればよい？',mode:'normal'},
+    {text:'お問い合わせフォーム作りやがれ！',mode:'fail'},
     {text:'なんか面白いゲームだして',mode:'game'},
   ];
 
@@ -1302,6 +1303,37 @@ function resetAll(){
     // Phase 3.5: Enter
     await enterAnim();
     if(bootState!=='booting')return;
+
+    if(pick.mode==='fail'){
+      // === FAIL ROUTE ===
+      ccResponse.style.opacity='1';
+      var errDiv=document.createElement('div');
+      errDiv.className='cc-err';
+      ccDrama.appendChild(errDiv);
+      await typeCC(errDiv,'Error: 口調が乱暴すぎます。フォーム生成を拒否しました。',18);
+      await sleep(800);
+      if(bootState!=='booting')return;
+      var retryDiv=document.createElement('div');
+      retryDiv.className='cc-retry';
+      ccDrama.appendChild(retryDiv);
+      await typeCC(retryDiv,'Agent: エラーを検知。リクエストを修正して再試行します...',18);
+      await sleep(600);
+      if(bootState!=='booting')return;
+      var retryLine=document.createElement('div');
+      retryLine.style.cssText='margin:12px 0 8px;font-size:.8rem;display:flex;align-items:center;gap:6px';
+      retryLine.innerHTML='<span style="color:#c084fc;font-weight:700">\u276F</span> <span style="color:#67e8f9"></span>';
+      ccDrama.appendChild(retryLine);
+      var retryCmd=retryLine.querySelector('span:last-child');
+      await typeCC(retryCmd,'お問い合わせフォームを作成してください',40);
+      await sleep(600);
+      if(bootState!=='booting')return;
+      var okDiv=document.createElement('div');
+      okDiv.className='cc-ok';
+      ccDrama.appendChild(okDiv);
+      await typeCC(okDiv,'修正完了。フォームを正常に生成しました。',18);
+      await sleep(400);
+      if(bootState!=='booting')return;
+    }
 
     if(pick.mode==='game'){
       // === GAME ROUTE ===
