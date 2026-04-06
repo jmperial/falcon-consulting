@@ -266,13 +266,23 @@ nav a:hover{color:#e0e0e0}
 .prof-catchcopy::before{margin-bottom:20px}
 .prof-catchcopy::after{margin-top:20px}
 .prof-catchcopy.show{opacity:1;transform:scale(1)}
-.cc-line{display:block;opacity:0;transform:translateY(18px) scale(.96);filter:blur(8px);transition:opacity 1s ease,transform 1s ease,filter 1s ease}
-.cc-line.reveal{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
-.cc-line.accent-line{color:#67e8f9;text-shadow:0 0 16px rgba(103,232,249,.5)}
-.cc-line.accent-line.reveal{animation:ccAccentPulse 1.4s ease-out .3s both}
-@keyframes ccAccentPulse{0%{text-shadow:0 0 16px rgba(103,232,249,.5)}35%{text-shadow:0 0 50px rgba(103,232,249,1),0 0 100px rgba(103,232,249,.4),0 0 4px #fff}100%{text-shadow:0 0 20px rgba(103,232,249,.6)}}
-.cc-line.final-line.reveal{animation:ccFinalReveal 1.6s ease-out .2s both}
-@keyframes ccFinalReveal{0%{filter:brightness(1)}20%{filter:brightness(1.5)}50%{filter:brightness(1)}70%{text-shadow:0 0 20px rgba(192,132,252,.6)}100%{text-shadow:none;filter:brightness(1)}}
+/* line 1: horizontal slice wipe */
+.cc-line{display:block;opacity:0}
+.cc-line.reveal{animation:ccSlice .35s cubic-bezier(.22,1,.36,1) both}
+@keyframes ccSlice{0%{opacity:0;clip-path:inset(0 100% 0 0)}100%{opacity:1;clip-path:inset(0 0 0 0)}}
+/* line 2: slam from scale with overshoot */
+.cc-line.accent-line{color:#67e8f9}
+.cc-line.accent-line.reveal{animation:ccSlam .3s cubic-bezier(.13,.76,.15,1.18) both}
+@keyframes ccSlam{0%{opacity:0;transform:scale(1.6);text-shadow:0 0 60px rgba(103,232,249,1)}50%{opacity:1;transform:scale(.96);text-shadow:0 0 40px rgba(103,232,249,.8)}100%{opacity:1;transform:scale(1);text-shadow:0 0 20px rgba(103,232,249,.5)}}
+/* line 3: hard cut + shake */
+.cc-line.final-line.reveal{animation:ccHardCut .08s step-end both}
+@keyframes ccHardCut{from{opacity:0}to{opacity:1}}
+.prof-catchcopy.cc-shake{animation:ccShake .25s ease-out}
+@keyframes ccShake{0%{transform:scale(1) translateX(0)}20%{transform:scale(1) translateX(-4px)}40%{transform:scale(1.02) translateX(4px)}60%{transform:scale(1) translateX(-2px)}80%{transform:scale(1) translateX(2px)}100%{transform:scale(1) translateX(0)}}
+/* impact flash overlay */
+.cc-impact{position:absolute;inset:0;background:rgba(103,232,249,.15);pointer-events:none;opacity:0;border-radius:8px}
+.cc-impact.fire{animation:ccImpactFlash .3s ease-out both}
+@keyframes ccImpactFlash{0%{opacity:1}100%{opacity:0}}
 .prof-scroll-hint{
   margin-top:24px;font-size:.78rem;color:rgba(200,180,253,.45);
   opacity:0;transition:opacity .6s ease;line-height:1.8;
@@ -1167,8 +1177,9 @@ function resetAll(){
     await sleep(250);
     body.style.opacity='1';
     await sleep(100);
-    // line-by-line reveal catchcopy
+    // hard impact catchcopy
     catchcopy.innerHTML='';
+    catchcopy.style.position='relative';
     var ccData=[
       {text:'細かい事はどうでもいい。',cls:'cc-line'},
       {text:'結果を出す。',cls:'cc-line accent-line'},
@@ -1182,20 +1193,31 @@ function resetAll(){
       catchcopy.appendChild(span);
       ccEls.push(span);
     }
+    // impact flash element
+    var impactEl=document.createElement('div');
+    impactEl.className='cc-impact';
+    catchcopy.appendChild(impactEl);
+
     catchcopy.classList.add('show');
-    await sleep(300);
-    // reveal line 1
+    await sleep(400);
+    // line 1: slice wipe — sharp horizontal reveal
     if(!isOpen)return;
     ccEls[0].classList.add('reveal');
-    await sleep(1100);
-    // reveal line 2 (accent)
+    await sleep(700);
+    // line 2: slam in with cyan flash
     if(!isOpen)return;
+    impactEl.classList.add('fire');
     ccEls[1].classList.add('reveal');
-    await sleep(1400);
-    // reveal line 3 (final)
+    await sleep(400);
+    impactEl.classList.remove('fire');
+    await sleep(400);
+    // line 3: instant hard cut + shake
     if(!isOpen)return;
     ccEls[2].classList.add('reveal');
-    await sleep(1200);
+    catchcopy.classList.add('cc-shake');
+    await sleep(350);
+    catchcopy.classList.remove('cc-shake');
+    await sleep(600);
     scrollHint.classList.add('show');
 
     // Set up IntersectionObserver inside modal-body for detail sections
