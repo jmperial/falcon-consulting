@@ -537,6 +537,11 @@ nav a:hover{color:#e0e0e0}
   margin-bottom:20px;padding-left:18px;
   border-left:2px solid rgba(51,255,0,.25);
 }
+.s7-cc .cc-game{
+  margin:12px 0;border-radius:8px;overflow:hidden;
+  border:1px solid rgba(255,255,0,.25);background:#000;
+  position:relative;height:120px;
+}
 .s7 .contact-form{text-align:left;max-width:100%}
 .s7 .form-group label{color:rgba(192,132,252,.7);font-size:.7rem}
 .s7 .form-group input,.s7 .form-group textarea{
@@ -1184,7 +1189,7 @@ function resetAll(){
   var prompts=[
     {text:'お問い合わせフォームって作れたりする？',mode:'normal'},
     {text:'お客様からの問い合わせ先はどうすればよい？',mode:'normal'},
-    {text:'お問い合わせフォーム作りやがれ！',mode:'fail'},
+    {text:'なんか面白いゲームだして',mode:'game'},
   ];
 
   async function typeCC(el,text,spd){
@@ -1203,6 +1208,71 @@ function resetAll(){
     await sleep(80);
     ccCursor.style.display='none';
     await sleep(400);
+  }
+
+  // Mini Pac-Man game (runs briefly then gets interrupted)
+  function runMiniPacman(container){
+    var cvs=document.createElement('canvas');
+    cvs.width=container.offsetWidth||280;cvs.height=120;
+    cvs.style.cssText='width:100%;height:100%;display:block';
+    container.appendChild(cvs);
+    var cx=cvs.getContext('2d');
+    var W=cvs.width,H=cvs.height;
+    // Pac-Man
+    var pac={x:30,y:H/2,r:12,mouth:0,dir:1};
+    // Dots
+    var dots=[];for(var i=0;i<12;i++)dots.push({x:60+i*18,y:H/2,alive:true});
+    // Ghosts
+    var ghosts=[
+      {x:W-40,y:H/2-20,color:'#ff0000',vx:-0.8,vy:0.3},
+      {x:W-60,y:H/2+15,color:'#ffb8ff',vx:-0.6,vy:-0.4},
+    ];
+    var frame=0,animId=null;
+    function drawPac(){
+      var a=Math.abs(Math.sin(frame*0.15))*0.8;
+      cx.fillStyle='#ffff00';
+      cx.beginPath();
+      cx.arc(pac.x,pac.y,pac.r,a,Math.PI*2-a);
+      cx.lineTo(pac.x,pac.y);
+      cx.fill();
+    }
+    function drawGhost(g){
+      cx.fillStyle=g.color;
+      cx.beginPath();
+      cx.arc(g.x,g.y-4,10,Math.PI,0);
+      cx.lineTo(g.x+10,g.y+8);
+      for(var i=0;i<4;i++){
+        cx.lineTo(g.x+10-5*i-2.5,g.y+4);
+        cx.lineTo(g.x+10-5*(i+1),g.y+8);
+      }
+      cx.fill();
+      // Eyes
+      cx.fillStyle='#fff';
+      cx.beginPath();cx.arc(g.x-3,g.y-5,3,0,Math.PI*2);cx.fill();
+      cx.beginPath();cx.arc(g.x+3,g.y-5,3,0,Math.PI*2);cx.fill();
+      cx.fillStyle='#00f';
+      cx.beginPath();cx.arc(g.x-2,g.y-5,1.5,0,Math.PI*2);cx.fill();
+      cx.beginPath();cx.arc(g.x+4,g.y-5,1.5,0,Math.PI*2);cx.fill();
+    }
+    function tick(){
+      cx.clearRect(0,0,W,H);
+      // Dots
+      cx.fillStyle='#ffb8ae';
+      dots.forEach(function(d){if(d.alive){cx.beginPath();cx.arc(d.x,d.y,3,0,Math.PI*2);cx.fill();}});
+      // Pac-Man move & eat
+      pac.x+=1.2;
+      dots.forEach(function(d){if(d.alive&&Math.abs(pac.x-d.x)<8)d.alive=false;});
+      drawPac();
+      // Ghosts
+      ghosts.forEach(function(g){g.x+=g.vx;g.y+=g.vy;if(g.y<15||g.y>H-15)g.vy*=-1;drawGhost(g);});
+      // Score
+      cx.fillStyle='rgba(255,255,255,.5)';cx.font='10px monospace';
+      cx.fillText('SCORE: '+(dots.filter(function(d){return!d.alive}).length*100),8,14);
+      frame++;
+      animId=requestAnimationFrame(tick);
+    }
+    tick();
+    return function(){if(animId)cancelAnimationFrame(animId);};
   }
 
   async function boot(){
@@ -1233,38 +1303,59 @@ function resetAll(){
     await enterAnim();
     if(bootState!=='booting')return;
 
-    if(pick.mode==='fail'){
-      // === FAIL ROUTE ===
-      // Step 1: Error message
-      var errDiv=document.createElement('div');
-      errDiv.className='cc-err';
-      ccDrama.appendChild(errDiv);
+    if(pick.mode==='game'){
+      // === GAME ROUTE ===
       ccResponse.style.opacity='1';
-      await typeCC(errDiv,'Error: 口調が乱暴すぎます。フォーム生成を拒否しました。',18);
+      // Step 1: Show "了解！" msg
+      var okMsg=document.createElement('div');
+      okMsg.className='cc-ok';
+      ccDrama.appendChild(okMsg);
+      await typeCC(okMsg,'了解！ゲームを起動します...',18);
+      await sleep(500);
+      if(bootState!=='booting')return;
+      // Step 2: Pac-Man game
+      var gameBox=document.createElement('div');
+      gameBox.className='cc-game';
+      ccDrama.appendChild(gameBox);
+      var stopGame=runMiniPacman(gameBox);
+      // Let game run for ~3 seconds
+      await sleep(3000);
+      if(bootState!=='booting'){stopGame();return;}
+      stopGame();
+      // Step 3: Agent interrupts
+      var alertDiv=document.createElement('div');
+      alertDiv.className='cc-err';
+      ccDrama.appendChild(alertDiv);
+      await typeCC(alertDiv,'⚠ Agent: サボり検知。業務外タスクを中断します。',18);
       await sleep(800);
       if(bootState!=='booting')return;
-      // Step 2: Agent notices
+      // Fade out game
+      gameBox.style.transition='opacity .5s ease';
+      gameBox.style.opacity='0';
+      await sleep(600);
+      gameBox.style.display='none';
+      if(bootState!=='booting')return;
+      // Step 4: Agent redirects
       var retryDiv=document.createElement('div');
       retryDiv.className='cc-retry';
       ccDrama.appendChild(retryDiv);
-      await typeCC(retryDiv,'Agent: エラーを検知。リクエストを修正して再試行します...',18);
-      await sleep(600);
+      await typeCC(retryDiv,'Agent: 本来のタスクに戻ります。',18);
+      await sleep(500);
       if(bootState!=='booting')return;
-      // Step 3: Retry prompt line
+      // Step 5: Retry prompt
       var retryLine=document.createElement('div');
       retryLine.style.cssText='margin:12px 0 8px;font-size:.8rem;display:flex;align-items:center;gap:6px';
-      retryLine.innerHTML='<span style="color:#c084fc;font-weight:700">❯</span> <span style="color:#67e8f9"></span>';
+      retryLine.innerHTML='<span style="color:#c084fc;font-weight:700">\u276F</span> <span style="color:#67e8f9"></span>';
       ccDrama.appendChild(retryLine);
       var retryCmd=retryLine.querySelector('span:last-child');
-      var retryText='お問い合わせフォームを作成してください';
-      await typeCC(retryCmd,retryText,40);
+      await typeCC(retryCmd,'お問い合わせフォームを作成してください',40);
       await sleep(600);
       if(bootState!=='booting')return;
-      // Step 4: Success
-      var okDiv=document.createElement('div');
-      okDiv.className='cc-ok';
-      ccDrama.appendChild(okDiv);
-      await typeCC(okDiv,'修正完了。フォームを正常に生成しました。',18);
+      // Step 6: Success
+      var doneDiv=document.createElement('div');
+      doneDiv.className='cc-ok';
+      ccDrama.appendChild(doneDiv);
+      await typeCC(doneDiv,'フォームを生成しました。',18);
       await sleep(400);
       if(bootState!=='booting')return;
     }
