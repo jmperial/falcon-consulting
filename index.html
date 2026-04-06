@@ -263,6 +263,11 @@ nav a:hover{color:#e0e0e0}
 .prof-catchcopy::before{margin-bottom:20px}
 .prof-catchcopy::after{margin-top:20px}
 .prof-catchcopy.show{opacity:1;transform:scale(1)}
+.cc-cursor{display:inline-block;width:2px;height:1em;background:#c084fc;vertical-align:middle;margin-left:2px;animation:blink 1s step-end infinite}
+.cc-flash{animation:ccFlash .6s ease-out}
+@keyframes ccFlash{0%{text-shadow:0 0 40px rgba(103,232,249,1),0 0 80px rgba(103,232,249,.6)}100%{text-shadow:0 0 16px rgba(103,232,249,.5)}}
+.cc-final-glow{animation:ccFinalGlow 1.2s ease-out}
+@keyframes ccFinalGlow{0%{filter:brightness(1)}30%{filter:brightness(1.8)}100%{filter:brightness(1)}}
 .prof-scroll-hint{
   margin-top:24px;font-size:.78rem;color:rgba(200,180,253,.45);
   opacity:0;transition:opacity .6s ease;line-height:1.8;
@@ -837,7 +842,7 @@ footer{
     <div class="modal-body" id="modal-body" style="opacity:0;transition:opacity .3s ease">
       <!-- Catchcopy hero -->
       <div class="prof-hero">
-        <div class="prof-catchcopy" id="prof-catchcopy">細かい事はどうでもいい。<br><span class="cc-accent">結果を出す。</span><br>それがコンサルタントだ。</div>
+        <div class="prof-catchcopy" id="prof-catchcopy"></div>
         <div class="prof-scroll-hint" id="prof-scroll-hint">ただし、細かいことが気になる方は<br><span class="arrow">↓</span><br>下にスクロールをどうぞ</div>
       </div>
       <hr class="prof-divider">
@@ -1141,7 +1146,7 @@ function resetAll(){
     var profName=document.getElementById('prof-name');
     var profRole=document.getElementById('prof-role');
     var sections=body.querySelectorAll('.prof-section');
-    catchcopy.classList.remove('show');
+    catchcopy.classList.remove('show');catchcopy.classList.remove('cc-final-glow');catchcopy.innerHTML='';
     scrollHint.classList.remove('show');
     profName.classList.remove('show');
     profRole.classList.remove('show');
@@ -1157,9 +1162,38 @@ function resetAll(){
     await sleep(250);
     body.style.opacity='1';
     await sleep(100);
-    // show catchcopy
+    // typing catchcopy
+    catchcopy.innerHTML='';
     catchcopy.classList.add('show');
-    await sleep(400);
+    var ccLines=[
+      {text:'細かい事はどうでもいい。',delay:65},
+      {text:'結果を出す。',delay:90,accent:true},
+      {text:'それがコンサルタントだ。',delay:55}
+    ];
+    var ccCur=document.createElement('span');
+    ccCur.className='cc-cursor';
+    for(var cl=0;cl<ccLines.length;cl++){
+      if(!isOpen)return;
+      if(cl>0)catchcopy.appendChild(document.createElement('br'));
+      var ccSpan=document.createElement('span');
+      if(ccLines[cl].accent)ccSpan.className='cc-accent';
+      catchcopy.appendChild(ccSpan);
+      catchcopy.appendChild(ccCur);
+      for(var ci=0;ci<ccLines[cl].text.length;ci++){
+        if(!isOpen)return;
+        ccSpan.textContent+=ccLines[cl].text[ci];
+        await sleep(ccLines[cl].delay);
+      }
+      if(ccLines[cl].accent){
+        ccSpan.classList.add('cc-flash');
+        await sleep(500);
+      } else {
+        await sleep(350);
+      }
+    }
+    ccCur.remove();
+    catchcopy.classList.add('cc-final-glow');
+    await sleep(600);
     scrollHint.classList.add('show');
 
     // Set up IntersectionObserver inside modal-body for detail sections
