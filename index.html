@@ -1286,69 +1286,102 @@ function resetAll(){
       var cx=cvs.getContext('2d');
       var W=cvs.width,H=cvs.height;
       var frame=0,animId=null,stopped=false;
-      // Random enemy
       var isKing=Math.random()<0.4;
       var enemy={
         name:isKing?'キングメタルスライム':'メタルスライム',
-        hp:isKing?30:8, max:isKing?30:8,
-        color:'#c0c0c0', highlight:'#e8e8e8',
-        exp:isKing?30010:1350, scale:isKing?3.2:2.5,
-        miss:isKing?0.5:0.6
+        hp:isKing?3:2, max:isKing?3:2,
+        exp:isKing?30010:1350, scale:isKing?3.2:2.5
       };
       var heroHp=180,heroMax=180;
       var msg=enemy.name+'が あらわれた！';
       var msgTimer=0,phase=0;
-      // phases: 0=appear 1=cmd 2=attack 3=enemyTurn 4=victory 5=exp 6=chest 7=open 8=done
-      var chestOpen=0,flashAlpha=0;
+      var chestOpen=0,flashAlpha=0,shakeX=0,hitFlash=0;
+      // Metallic gradient slime
       function drawSlime(x,y,s,king){
-        // Metal body
-        cx.fillStyle=enemy.color;
-        cx.beginPath();cx.ellipse(x,y+2*s,8*s,6*s,0,Math.PI,0);cx.fill();
-        cx.fillRect(x-8*s,y+2*s,16*s,4*s);
-        for(var i=0;i<4;i++){cx.beginPath();cx.arc(x-6*s+i*4*s,y+6*s,2*s,0,Math.PI);cx.fill();}
-        // Shine
-        cx.fillStyle=enemy.highlight;
-        cx.beginPath();cx.ellipse(x-3*s,y-2*s,2*s,1.5*s,-.3,0,Math.PI*2);cx.fill();
+        x+=shakeX;
+        var grad=cx.createLinearGradient(x-8*s,y-6*s,x+8*s,y+6*s);
+        grad.addColorStop(0,'#e8e8f0');grad.addColorStop(0.3,'#a8a8b8');
+        grad.addColorStop(0.5,'#d8d8e0');grad.addColorStop(0.7,'#808898');
+        grad.addColorStop(1,'#606878');
+        cx.fillStyle=grad;
+        // Body - smooth dome
+        cx.beginPath();cx.ellipse(x,y+1*s,8*s,7*s,0,Math.PI,0);cx.fill();
+        // Bottom body
+        cx.beginPath();cx.moveTo(x-8*s,y+1*s);
+        cx.quadraticCurveTo(x-7*s,y+7*s,x-4*s,y+7.5*s);
+        cx.quadraticCurveTo(x-2*s,y+8*s,x,y+7*s);
+        cx.quadraticCurveTo(x+2*s,y+8*s,x+4*s,y+7.5*s);
+        cx.quadraticCurveTo(x+7*s,y+7*s,x+8*s,y+1*s);
+        cx.fill();
+        // Specular highlight (top)
+        var hl=cx.createRadialGradient(x-2*s,y-4*s,0,x-2*s,y-3*s,5*s);
+        hl.addColorStop(0,'rgba(255,255,255,.7)');hl.addColorStop(0.4,'rgba(255,255,255,.15)');hl.addColorStop(1,'transparent');
+        cx.fillStyle=hl;cx.beginPath();cx.ellipse(x-1*s,y-3*s,5*s,3.5*s,-.2,0,Math.PI*2);cx.fill();
+        // Secondary highlight
+        var hl2=cx.createRadialGradient(x+3*s,y+2*s,0,x+3*s,y+2*s,3*s);
+        hl2.addColorStop(0,'rgba(255,255,255,.25)');hl2.addColorStop(1,'transparent');
+        cx.fillStyle=hl2;cx.beginPath();cx.ellipse(x+3*s,y+2*s,2.5*s,2*s,0,0,Math.PI*2);cx.fill();
         // Eyes
-        cx.fillStyle='#222';
-        cx.beginPath();cx.arc(x-3*s,y-1*s,1.3*s,0,Math.PI*2);cx.fill();
-        cx.beginPath();cx.arc(x+3*s,y-1*s,1.3*s,0,Math.PI*2);cx.fill();
+        cx.fillStyle='#1a1a2e';
+        cx.beginPath();cx.ellipse(x-2.8*s,y-0.5*s,1.4*s,1.8*s,0,0,Math.PI*2);cx.fill();
+        cx.beginPath();cx.ellipse(x+2.8*s,y-0.5*s,1.4*s,1.8*s,0,0,Math.PI*2);cx.fill();
+        // Eye shine
         cx.fillStyle='#fff';
-        cx.beginPath();cx.arc(x-3.5*s,y-1.5*s,.5*s,0,Math.PI*2);cx.fill();
-        cx.beginPath();cx.arc(x+2.5*s,y-1.5*s,.5*s,0,Math.PI*2);cx.fill();
+        cx.beginPath();cx.arc(x-3.3*s,y-1.2*s,.6*s,0,Math.PI*2);cx.fill();
+        cx.beginPath();cx.arc(x+2.3*s,y-1.2*s,.6*s,0,Math.PI*2);cx.fill();
+        // Mouth
+        cx.strokeStyle='#2a2a3e';cx.lineWidth=1.2;
+        cx.beginPath();cx.arc(x,y+2.5*s,1.8*s,0.15,Math.PI-0.15);cx.stroke();
+        // Shadow
+        cx.fillStyle='rgba(0,0,0,.15)';
+        cx.beginPath();cx.ellipse(x,y+8.5*s,7*s,1.5*s,0,0,Math.PI*2);cx.fill();
         if(king){
           // Crown
           cx.fillStyle='#ffd700';
           cx.beginPath();
-          cx.moveTo(x-5*s,y-6*s);cx.lineTo(x-6*s,y-3*s);cx.lineTo(x+6*s,y-3*s);cx.lineTo(x+5*s,y-6*s);
-          cx.lineTo(x+3*s,y-4.5*s);cx.lineTo(x,y-7*s);cx.lineTo(x-3*s,y-4.5*s);cx.closePath();cx.fill();
+          cx.moveTo(x-5*s,y-7*s);cx.lineTo(x-6.5*s,y-3.5*s);cx.lineTo(x+6.5*s,y-3.5*s);cx.lineTo(x+5*s,y-7*s);
+          cx.lineTo(x+3*s,y-5*s);cx.lineTo(x,y-8.5*s);cx.lineTo(x-3*s,y-5*s);cx.closePath();cx.fill();
+          // Crown gradient
+          var cg=cx.createLinearGradient(x-6*s,y-8*s,x+6*s,y-3*s);
+          cg.addColorStop(0,'rgba(255,240,100,.4)');cg.addColorStop(0.5,'rgba(255,215,0,.1)');cg.addColorStop(1,'rgba(180,140,0,.3)');
+          cx.fillStyle=cg;cx.fill();
+          // Crown outline
+          cx.strokeStyle='#b8860b';cx.lineWidth=1;cx.stroke();
           // Jewels
-          cx.fillStyle='#ff0000';cx.beginPath();cx.arc(x,y-5*s,1*s,0,Math.PI*2);cx.fill();
-          cx.fillStyle='#00ff00';cx.beginPath();cx.arc(x-3.5*s,y-4.5*s,.7*s,0,Math.PI*2);cx.fill();
-          cx.fillStyle='#4444ff';cx.beginPath();cx.arc(x+3.5*s,y-4.5*s,.7*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#ff1a1a';cx.beginPath();cx.arc(x,y-5.8*s,1.2*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='rgba(255,150,150,.5)';cx.beginPath();cx.arc(x-.4*s,y-6.2*s,.4*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#00cc44';cx.beginPath();cx.arc(x-3.5*s,y-5*s,.8*s,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#3366ff';cx.beginPath();cx.arc(x+3.5*s,y-5*s,.8*s,0,Math.PI*2);cx.fill();
+        }
+        // Hit flash overlay
+        if(hitFlash>0){
+          cx.fillStyle='rgba(255,255,255,'+hitFlash+')';
+          cx.beginPath();cx.ellipse(x,y,8*s,8*s,0,0,Math.PI*2);cx.fill();
         }
       }
       function drawChest(x,y,openPct){
-        var w=40,h=28;
-        // Body
-        cx.fillStyle='#8B4513';cx.fillRect(x-w/2,y-h/2,w,h);
+        var w=44,h=30;
+        cx.fillStyle='#6B3410';cx.fillRect(x-w/2,y-h/2,w,h);
+        var bg=cx.createLinearGradient(x-w/2,y-h/2,x-w/2,y+h/2);
+        bg.addColorStop(0,'#A0522D');bg.addColorStop(1,'#6B3410');
+        cx.fillStyle=bg;cx.fillRect(x-w/2,y-h/2,w,h);
         cx.strokeStyle='#DAA520';cx.lineWidth=2;cx.strokeRect(x-w/2,y-h/2,w,h);
-        // Band
         cx.fillStyle='#DAA520';cx.fillRect(x-2,y-h/2,4,h);
-        // Lock
-        cx.fillStyle='#FFD700';cx.beginPath();cx.arc(x,y,3,0,Math.PI*2);cx.fill();
-        // Lid
-        var lidAngle=openPct*0.8;
+        cx.fillStyle='#FFD700';cx.beginPath();cx.arc(x,y+2,4,0,Math.PI*2);cx.fill();
+        cx.fillStyle='#B8860B';cx.beginPath();cx.arc(x,y+2,2,0,Math.PI*2);cx.fill();
+        var lidAngle=openPct*0.9;
         cx.save();cx.translate(x-w/2,y-h/2);cx.rotate(-lidAngle);
-        cx.fillStyle='#A0522D';cx.fillRect(0,-6,w,6);
-        cx.strokeStyle='#DAA520';cx.lineWidth=1;cx.strokeRect(0,-6,w,6);
-        cx.fillStyle='#DAA520';cx.fillRect(w/2-2,-6,4,6);
+        var lg=cx.createLinearGradient(0,-8,0,0);
+        lg.addColorStop(0,'#8B6914');lg.addColorStop(1,'#A0522D');
+        cx.fillStyle=lg;cx.fillRect(0,-8,w,8);
+        cx.strokeStyle='#DAA520';cx.lineWidth=1;cx.strokeRect(0,-8,w,8);
+        cx.fillStyle='#DAA520';cx.fillRect(w/2-2,-8,4,8);
         cx.restore();
-        // Glow when opening
-        if(openPct>0.3){
-          cx.fillStyle='rgba(255,215,0,'+(openPct*0.6)+')';
-          cx.beginPath();cx.ellipse(x,y-h/2-4,w*openPct*0.6,12*openPct,0,0,Math.PI*2);cx.fill();
+        if(openPct>0.2){
+          cx.fillStyle='rgba(255,215,0,'+(openPct*0.7)+')';
+          cx.beginPath();cx.ellipse(x,y-h/2-6,w*openPct*0.7,15*openPct,0,0,Math.PI*2);cx.fill();
         }
+        cx.fillStyle='rgba(0,0,0,.12)';cx.beginPath();cx.ellipse(x,y+h/2+3,w/2+4,3,0,0,Math.PI*2);cx.fill();
       }
       function drawHPBar(x,y,cur,max,color,label){
         cx.fillStyle='rgba(255,255,255,.6)';cx.font='9px monospace';
@@ -1359,66 +1392,64 @@ function resetAll(){
         cx.fillText(Math.max(0,cur)+'/'+max,x+28,y+7);
       }
       function drawMsgBox(text){
-        cx.fillStyle='rgba(0,0,0,.75)';cx.strokeStyle='#fff';cx.lineWidth=1;
-        cx.fillRect(10,H-38,W-20,30);cx.strokeRect(10,H-38,W-20,30);
+        cx.fillStyle='rgba(0,0,20,.8)';cx.strokeStyle='#fff';cx.lineWidth=1.5;
+        var bh=32,by=H-bh-6;
+        cx.fillRect(8,by,W-16,bh);cx.strokeRect(8,by,W-16,bh);
         cx.fillStyle='#fff';cx.font='11px monospace';
         var blink=Math.floor(frame/15)%2;
-        cx.fillText(text+(blink?'▌':''),18,H-19);
+        cx.fillText(text+(blink?'▌':''),16,by+20);
       }
       function tick(){
         if(stopped)return;
         cx.clearRect(0,0,W,H);
-        cx.fillStyle='#1a0a2e';cx.fillRect(0,0,W,H);
-        cx.fillStyle='#2a4a1a';cx.fillRect(0,H-20,W,20);
-        cx.fillStyle='#3a5a2a';
-        for(var i=0;i<W;i+=12)cx.fillRect(i,H-20,6,2);
+        cx.fillStyle='#0a0a1e';cx.fillRect(0,0,W,H);
+        // Grass with variation
+        cx.fillStyle='#1a3a10';cx.fillRect(0,H-22,W,22);
+        cx.fillStyle='#2a4a1a';
+        for(var i=0;i<W;i+=8){var gh=2+Math.sin(i*0.5)*1;cx.fillRect(i,H-22,4,gh);}
         msgTimer++;
+        if(hitFlash>0)hitFlash-=0.05;
+        if(shakeX!==0)shakeX*=0.85;if(Math.abs(shakeX)<0.5)shakeX=0;
         var bounce=Math.sin(frame*0.08)*3;
         if(phase<=3){
-          drawSlime(W/2,H/2-18+bounce,enemy.scale,isKing);
+          drawSlime(W/2,H/2-20+bounce,enemy.scale,isKing);
           drawHPBar(8,8,heroHp,heroMax,'#22cc00','勇者');
-          drawHPBar(8,24,enemy.hp,enemy.max,'#c0c0c0',enemy.name.substring(0,6));
+          drawHPBar(8,24,enemy.hp,enemy.max,'#c0c0c0',enemy.name.substr(0,6));
         }
-        if(phase===0&&msgTimer>60){phase=1;msgTimer=0;msg='コマンド？ ▶たたかう';}
-        if(phase===1&&msgTimer>40){
+        // Fast battle: appear → cmd → hit → victory
+        if(phase===0&&msgTimer>40){phase=1;msgTimer=0;msg='▶ たたかう';}
+        if(phase===1&&msgTimer>25){
           phase=2;msgTimer=0;
-          if(Math.random()<enemy.miss){msg='ミス！ '+enemy.name+'にかわされた！';}
-          else{var dmg=isKing?Math.floor(Math.random()*3)+1:Math.floor(Math.random()*2)+1;enemy.hp-=dmg;msg='会心の一撃！ '+dmg+'のダメージ！';}
+          var dmg=isKing?Math.floor(Math.random()*2)+1:enemy.hp;
+          enemy.hp=Math.max(0,enemy.hp-dmg);
+          msg='会心の一撃！ '+dmg+'のダメージ！';
+          hitFlash=0.8;shakeX=(Math.random()-.5)*12;
         }
-        if(phase===2&&msgTimer>50){
+        if(phase===2&&msgTimer>35){
           if(enemy.hp<=0){phase=4;msgTimer=0;msg=enemy.name+'をたおした！';}
-          else{phase=3;msgTimer=0;msg=enemy.name+'のこうげき！ 1のダメージ';heroHp=Math.max(0,heroHp-1);}
+          else{phase=1;msgTimer=0;msg='▶ たたかう';}
         }
-        if(phase===3&&msgTimer>45){phase=1;msgTimer=0;msg='コマンド？ ▶たたかう';}
-        // Victory
-        if(phase===4&&msgTimer>70){phase=5;msgTimer=0;msg='経験値 '+enemy.exp+' を獲得！';}
+        if(phase===4&&msgTimer>50){phase=5;msgTimer=0;msg='経験値 '+enemy.exp+' を獲得！';}
         if(phase===5){
-          // Flash
-          if(msgTimer<30){flashAlpha=Math.sin(msgTimer*0.3)*0.3;cx.fillStyle='rgba(255,255,200,'+Math.abs(flashAlpha)+')';cx.fillRect(0,0,W,H);}
-          if(msgTimer>60){phase=6;msgTimer=0;msg='宝箱を発見した！';}
+          if(msgTimer<20){flashAlpha=Math.sin(msgTimer*0.4)*0.35;cx.fillStyle='rgba(255,255,200,'+Math.abs(flashAlpha)+')';cx.fillRect(0,0,W,H);}
+          if(msgTimer>40){phase=6;msgTimer=0;msg='宝箱を発見した！';}
         }
-        // Chest
-        if(phase===6){
-          drawChest(W/2,H/2-5,0);
-          if(msgTimer>60){phase=7;msgTimer=0;msg='▶ あける';}
-        }
+        if(phase===6){drawChest(W/2,H/2-8,0);if(msgTimer>40){phase=7;msgTimer=0;msg='▶ あける';}}
         if(phase===7){
-          chestOpen=Math.min(1,msgTimer/40);
-          drawChest(W/2,H/2-5,chestOpen);
-          if(chestOpen>=1&&msgTimer>60){phase=8;msgTimer=0;msg='お問い合わせフォームを手に入れた！';}
+          chestOpen=Math.min(1,msgTimer/30);
+          drawChest(W/2,H/2-8,chestOpen);
+          if(chestOpen>=1&&msgTimer>45){phase=8;msgTimer=0;msg='お問い合わせフォームを手に入れた！';}
         }
         if(phase===8){
-          drawChest(W/2,H/2-5,1);
-          // Golden glow
+          drawChest(W/2,H/2-8,1);
           cx.fillStyle='rgba(255,215,0,'+(0.15+Math.sin(frame*0.1)*0.1)+')';cx.fillRect(0,0,W,H);
-          if(msgTimer>70){stopped=true;cancelAnimationFrame(animId);resolve();return;}
+          if(msgTimer>50){stopped=true;cancelAnimationFrame(animId);resolve();return;}
         }
         drawMsgBox(msg);
         frame++;
         animId=requestAnimationFrame(tick);
       }
       tick();
-      // Return stop function (for interrupted case)
       resolve._stop=function(){stopped=true;if(animId)cancelAnimationFrame(animId);};
     });
   }
