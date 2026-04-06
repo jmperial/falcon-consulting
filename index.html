@@ -1082,19 +1082,36 @@ function resetAll(){
           el.setAttribute('data-typing','done');
         })();
       } else if(!entry.isIntersecting){
-        // Left viewport — reset for replay (except s6 credentials)
-        if(el.closest('.s6'))return;
+        // Left viewport — cancel typing if in progress
+        if(el.getAttribute('data-typing')==='true'){
+          el.setAttribute('data-typing','cancelled');
+        }
+      }
+    });
+  },{threshold:[0,0.18]});
+  prompts.forEach(function(p){io.observe(p);});
+
+  // Separate observer for resetting: watches the parent .sec
+  // Only resets when the entire section leaves the viewport
+  var resetObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting)return;
+      var sec=entry.target;
+      if(sec.classList.contains('s6'))return; // keep s6
+      var els=sec.querySelectorAll('[data-cmd]');
+      els.forEach(function(el){
         el.removeAttribute('data-typing');
         var cmdEl=el.querySelector('.p-cmd');
         if(cmdEl){cmdEl.textContent='';cmdEl.style.opacity='0';}
         var inner=el.closest('.inner');
         if(inner){var ca=inner.querySelector('.content-area');if(ca)ca.classList.remove('show');}
-        var s2sec=el.closest('.s2');
-        if(s2sec){s2sec.querySelectorAll('.out-title,.pain-card').forEach(function(e){e.classList.remove('show')});}
+      });
+      if(sec.classList.contains('s2')){
+        sec.querySelectorAll('.out-title,.pain-card').forEach(function(e){e.classList.remove('show')});
       }
     });
-  },{threshold:[0,0.18]});
-  prompts.forEach(function(p){io.observe(p);});
+  },{threshold:0});
+  document.querySelectorAll('.sec:not(.s1):not(.s7)').forEach(function(s){resetObs.observe(s);});
 })();
 
 // === Profile modal ===
