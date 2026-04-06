@@ -55,6 +55,14 @@ nav a:hover{color:#e0e0e0}
 /* === CONTENT AREA (hidden until typed) === */
 .content-area{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
 .s6 .content-area{transition:opacity 1.2s ease,transform 1.2s ease}
+/* s6 keyword animations */
+.s6-kw{font-weight:700;display:inline-block;opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease}
+.s6-kw.on{opacity:1;transform:translateY(0)}
+.s6-kw-senryaku{color:#c084fc;text-shadow:0 0 12px rgba(192,132,252,.6)}
+.s6-kw-jissou{color:#67e8f9;text-shadow:0 0 12px rgba(103,232,249,.6)}
+.s6-kw-onestop{color:#ffff00;font-size:1.6rem;text-shadow:0 0 16px rgba(255,255,0,.5)}
+.s6-kw-onestop.on{animation:kwPulse 1.5s ease-out .3s both}
+@keyframes kwPulse{0%{transform:translateY(0) scale(1)}30%{transform:translateY(0) scale(1.12);text-shadow:0 0 30px rgba(255,255,0,.8),0 0 60px rgba(255,255,0,.3)}100%{transform:translateY(0) scale(1);text-shadow:0 0 16px rgba(255,255,0,.5)}}
 .content-area.show{opacity:1;transform:translateY(0)}
 
 /* === OUTPUT BLOCKS === */
@@ -702,7 +710,7 @@ footer{
           <div class="out-title" style="color:#ffb300">「AI、<span style="color:#ffff00;text-shadow:0 0 8px rgba(255,255,0,.4)">何から始めれば？</span>」を解決します</div>
           <div class="pain-grid">
             <div class="pain-card"><h3>// ERROR: 定着率 0%</h3><p>ChatGPTを導入したが誰も使わない。全社効果が見えない。</p></div>
-            <div class="pain-card solve"><h3>// FIX: 業務組み込み</h3><p>現場フローにAIを直接組み込み「使わざるを得ない」設計で定着。</p></div>
+            <div class="pain-card solve"><h3>// FIX: 業務組み込み</h3><p>現場フローにAIを直接組み込み<span style="color:#ffff00;font-weight:700;text-shadow:0 0 10px rgba(255,255,0,.5)">「使わざるを得ない」</span>設計で定着。</p></div>
             <div class="pain-card"><h3>// ERROR: 稟議不通過</h3><p>見積もりが高額。ROI根拠が不明確で経営層を説得できない。</p></div>
             <div class="pain-card solve"><h3>// FIX: 成果報酬型</h3><p>削減時間×単価の明快な計算。効果なければ<span style="color:#ffff00;font-weight:700;text-shadow:0 0 8px rgba(255,255,0,.4);white-space:nowrap">費用ゼロ</span>。</p></div>
           </div>
@@ -836,7 +844,7 @@ footer{
         </div>
         <div class="content-area warp-output">
           <div class="out-title" style="background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">大手コンサル × エンジニアの実務力</div>
-          <p style="font-size:1rem;color:#e0d4ff;text-align:center;margin-bottom:20px">戦略も実装も、<span style="color:#ffff00;font-weight:700;font-size:1.6rem;text-shadow:0 0 16px rgba(255,255,0,.5)">ワンストップ。</span></p>
+          <p class="s6-tagline" style="font-size:1rem;color:#e0d4ff;text-align:center;margin-bottom:20px"><span class="s6-kw s6-kw-senryaku">戦略</span>も<span class="s6-kw s6-kw-jissou">実装</span>も、<span class="s6-kw s6-kw-onestop">ワンストップ。</span></p>
           <div class="cred-card">
             <p><span class="tip" style="color:#ffff00;font-weight:700;font-size:1.1rem;text-shadow:0 0 8px rgba(255,255,0,.4)" tabindex="0">Big4<span class="tip-text">Deloitte / PwC / <strong style="color:#ff69b4;font-size:.8rem">EY</strong> / KPMG</span></span>コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を活かし、戦略と実装の両面から支援。</p>
             <div class="tags">
@@ -1115,7 +1123,15 @@ function resetAll(){
           }
           await sleep(el.closest('.s6')?500:200);
           if(content)content.classList.add('show');
-          if(el.closest('.s6')){var pb=document.getElementById('open-profile');if(pb)pb.style.opacity='1';}
+          if(el.closest('.s6')){
+            var pb=document.getElementById('open-profile');if(pb)pb.style.opacity='1';
+            // sequential keyword reveal
+            var kws=el.closest('.inner').querySelectorAll('.s6-kw');
+            for(var ki=0;ki<kws.length;ki++){
+              await sleep(400);
+              kws[ki].classList.add('on');
+            }
+          }
           var s2sec=el.closest('.s2');
           if(s2sec){
             var seqItems=s2sec.querySelectorAll('.out-title,.pain-card');
@@ -1155,6 +1171,7 @@ function resetAll(){
       if(sec.classList.contains('s2')){
         sec.querySelectorAll('.out-title,.pain-card').forEach(function(e){e.classList.remove('show')});
       }
+      sec.querySelectorAll('.s6-kw').forEach(function(e){e.classList.remove('on')});
     });
   },{threshold:0});
   document.querySelectorAll('.sec:not(.s1):not(.s7)').forEach(function(s){resetObs.observe(s);});
