@@ -1008,22 +1008,28 @@ function resetAll(){
     {text:'PERFORMANCE-BASED AI CONSULTING',color:'#33ff00',delay:25},
     {text:'',pause:300},
     {text:'生成AIで、時間を取り戻す。',color:'#33ff00',delay:40},
-    {text:'隼(Falcon)のように、速く、確実に。',color:'#33ff00',delay:35},
-    {text:'成果が出なければ ──',color:'#33ff00',delay:40},
+    {text:'隼(Falcon)のように、速く、確実に。',color:'#33ff00',delay:35,size:'1.05rem'},
+    {text:'成果が出なければ ──',color:'#33ff00',delay:40,size:'1.15rem'},
     {text:'費用ゼロ。',color:'#ffff00',delay:70,cls:'glow-line'},
     {text:'',pause:400},
-    {text:'完全成果報酬型。',color:'#33ff00',delay:30},
-    {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:30},
+    {text:'完全成果報酬型。',color:'#33ff00',delay:30,size:'.95rem',shrinkTo:'.85rem'},
+    {text:'リスクなく、確実な業務改革を。',color:'#33ff00',delay:30,size:'.85rem'},
   ];
   async function typeLine(c){
     if(!c.text){await sleep(c.pause||200);return}
     var d=document.createElement('div');
     d.className='out-line'+(c.cls?' '+c.cls:'');
     d.style.color=c.color||'#33ff00';
+    if(c.size)d.style.fontSize=c.size;
+    d.style.transition='font-size .6s ease';
     heroOut.appendChild(d);
     for(var i=0;i<c.text.length;i++){
       if(heroState!=='typing')return;
       d.textContent+=c.text[i];await sleep(c.delay||30);
+    }
+    if(c.shrinkTo){
+      await sleep(100);
+      d.style.fontSize=c.shrinkTo;
     }
   }
   async function runHero(){
