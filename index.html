@@ -1384,7 +1384,7 @@ function resetAll(){
     {text:'お問い合わせフォームって作れたりする？',mode:'normal'},
     {text:'お問い合わせフォーム作りやがれ！',mode:'fail'},
     {text:'なんか面白いゲームだして',mode:'game'},
-    {text:'なんか面白いゲームだして',mode:'game'},
+    {text:'暇だからゲームやらせて',mode:'game'},
   ];
 
   async function typeCC(el,text,spd){
@@ -1463,6 +1463,122 @@ function resetAll(){
       // Score
       cx.fillStyle='rgba(255,255,255,.5)';cx.font='10px monospace';
       cx.fillText('SCORE: '+(dots.filter(function(d){return!d.alive}).length*100),8,14);
+      frame++;
+      animId=requestAnimationFrame(tick);
+    }
+    tick();
+    return function(){if(animId)cancelAnimationFrame(animId);};
+  }
+
+  // Mini Mario Bros: colleague agent + director agent drama
+  function runMiniMario(container){
+    var cvs=document.createElement('canvas');
+    cvs.width=container.offsetWidth||280;cvs.height=120;
+    cvs.style.cssText='width:100%;height:100%;display:block';
+    container.appendChild(cvs);
+    var cx=cvs.getContext('2d');
+    var W=cvs.width,H=cvs.height;
+    var ground=H-16;
+    var frame=0,animId=null;
+    // Player (you)
+    var p1={x:30,y:ground,vy:0,jump:false,color:'#33ff00',label:'You'};
+    // Colleague agent
+    var p2={x:70,y:ground,vy:0,jump:false,color:'#67e8f9',label:'同僚Agent'};
+    // Coins
+    var coins=[];for(var i=0;i<8;i++)coins.push({x:100+i*22,y:ground-28-Math.random()*16,alive:true});
+    // Blocks
+    var blocks=[
+      {x:90,y:ground-36,w:24,h:12},
+      {x:140,y:ground-48,w:24,h:12},
+      {x:200,y:ground-36,w:24,h:12},
+    ];
+    // Pipes
+    var pipes=[{x:W-50,y:ground-28,w:20,h:28}];
+
+    function drawChar(ch,f){
+      var bob=Math.sin(f*0.15)*2;
+      // Body
+      cx.fillStyle=ch.color;
+      cx.fillRect(ch.x-5,ch.y-18+bob,10,12);
+      // Head
+      cx.beginPath();cx.arc(ch.x,ch.y-22+bob,6,0,Math.PI*2);cx.fill();
+      // Hat
+      cx.fillStyle=ch===p1?'#ff0000':'#0066ff';
+      cx.fillRect(ch.x-7,ch.y-28+bob,14,4);
+      cx.fillRect(ch.x-4,ch.y-31+bob,8,4);
+      // Eyes
+      cx.fillStyle='#fff';
+      cx.fillRect(ch.x-3,ch.y-23+bob,2,2);
+      cx.fillRect(ch.x+1,ch.y-23+bob,2,2);
+      // Legs
+      cx.fillStyle='#4a3728';
+      var legOff=Math.sin(f*0.2)*3;
+      cx.fillRect(ch.x-4,ch.y-6+bob,3,6);
+      cx.fillRect(ch.x+1,ch.y-6+bob+legOff*0.5,3,6);
+      // Label
+      cx.fillStyle='rgba(255,255,255,.5)';cx.font='7px monospace';
+      cx.fillText(ch.label,ch.x-12,ch.y-33+bob);
+    }
+    function drawBlock(b){
+      cx.fillStyle='#c8820a';cx.fillRect(b.x,b.y,b.w,b.h);
+      cx.strokeStyle='#a06800';cx.lineWidth=1;cx.strokeRect(b.x,b.y,b.w,b.h);
+      // ? mark
+      cx.fillStyle='#fff';cx.font='bold 8px monospace';cx.fillText('?',b.x+b.w/2-3,b.y+b.h-2);
+    }
+    function drawPipe(pp){
+      cx.fillStyle='#33aa33';
+      cx.fillRect(pp.x,pp.y,pp.w,pp.h);
+      cx.fillRect(pp.x-3,pp.y,pp.w+6,6);
+      cx.fillStyle='#22882288';
+      cx.fillRect(pp.x+2,pp.y+6,pp.w-4,pp.h-6);
+    }
+
+    function tick(){
+      cx.clearRect(0,0,W,H);
+      // Sky
+      cx.fillStyle='#1a1a3e';cx.fillRect(0,0,W,H);
+      // Ground
+      cx.fillStyle='#8b5e3c';cx.fillRect(0,ground,W,H-ground);
+      cx.fillStyle='#4caf50';cx.fillRect(0,ground-3,W,3);
+
+      // Blocks
+      blocks.forEach(drawBlock);
+      // Pipes
+      pipes.forEach(drawPipe);
+      // Coins
+      cx.fillStyle='#ffd700';
+      coins.forEach(function(c){
+        if(c.alive){
+          var cy=c.y+Math.sin(frame*0.08+c.x)*3;
+          cx.beginPath();cx.arc(c.x,cy,4,0,Math.PI*2);cx.fill();
+          cx.fillStyle='#fff';cx.font='6px monospace';
+          cx.fillText('$',c.x-2,cy+2);cx.fillStyle='#ffd700';
+        }
+      });
+
+      // Move players
+      p1.x+=1.0;
+      p2.x+=0.85;
+      // Jump p1
+      if(!p1.jump&&frame%45===0){p1.vy=-4.5;p1.jump=true;}
+      if(p1.jump){p1.y+=p1.vy;p1.vy+=0.35;if(p1.y>=ground){p1.y=ground;p1.jump=false;p1.vy=0;}}
+      // Jump p2
+      if(!p2.jump&&(frame+20)%50===0){p2.vy=-4;p2.jump=true;}
+      if(p2.jump){p2.y+=p2.vy;p2.vy+=0.35;if(p2.y>=ground){p2.y=ground;p2.jump=false;p2.vy=0;}}
+      // Coin collect
+      coins.forEach(function(c){
+        if(c.alive&&(Math.abs(p1.x-c.x)<10||Math.abs(p2.x-c.x)<10))c.alive=false;
+      });
+
+      drawChar(p1,frame);
+      drawChar(p2,frame);
+
+      // Score
+      cx.fillStyle='rgba(255,255,255,.6)';cx.font='9px monospace';
+      var sc=coins.filter(function(c){return!c.alive}).length;
+      cx.fillText('COIN x '+sc,8,12);
+      cx.fillText('WORLD 1-1',W-70,12);
+
       frame++;
       animId=requestAnimationFrame(tick);
     }
@@ -1727,7 +1843,8 @@ function resetAll(){
 
   // Pick random game
   function runRandomGame(container){
-    return Math.random()<0.3?'pacman':'dq';
+    var r=Math.random();
+    return r<0.25?'pacman':r<0.55?'mario':'dq';
   }
 
   async function boot(){
@@ -1834,6 +1951,55 @@ function resetAll(){
         doneDiv.className='cc-ok';
         ccDrama.appendChild(doneDiv);
         await typeCC(doneDiv,'フォームを生成しました。',18);
+        await sleep(400);
+        if(bootState!=='booting')return;
+      } else if(gameType==='mario'){
+        // Mario → colleague agent → director agent scolds → form
+        var mOk=document.createElement('div');
+        mOk.className='cc-ok';
+        ccDrama.insertBefore(mOk,gameBox);
+        await typeCC(mOk,'了解！同僚Agentとマリオ起動します...',18);
+        await sleep(500);
+        if(bootState!=='booting')return;
+        var stopMario=runMiniMario(gameBox);
+        await sleep(3500);
+        if(bootState!=='booting'){stopMario();return;}
+        stopMario();
+        // Director agent appears
+        var bossDiv=document.createElement('div');
+        bossDiv.className='cc-err';
+        ccDrama.appendChild(bossDiv);
+        await typeCC(bossDiv,'👔 部長Agent: おい、何サボってんだ！業務中だぞ！',18);
+        await sleep(1000);
+        if(bootState!=='booting')return;
+        // Colleague panics
+        var colDiv=document.createElement('div');
+        colDiv.className='cc-retry';
+        ccDrama.appendChild(colDiv);
+        await typeCC(colDiv,'同僚Agent: す、すみません！すぐ戻ります！',18);
+        await sleep(600);
+        if(bootState!=='booting')return;
+        gameBox.style.transition='opacity .5s ease';gameBox.style.opacity='0';
+        await sleep(600);gameBox.style.display='none';
+        if(bootState!=='booting')return;
+        // Proper agent fixes
+        var fixDiv=document.createElement('div');
+        fixDiv.className='cc-ok';
+        ccDrama.appendChild(fixDiv);
+        await typeCC(fixDiv,'部長Agent: ったく...代わりにフォーム作っといてやる。',18);
+        await sleep(500);
+        if(bootState!=='booting')return;
+        var retryLine=document.createElement('div');
+        retryLine.style.cssText='margin:12px 0 8px;font-size:.8rem;display:flex;align-items:center;gap:6px';
+        retryLine.innerHTML='<span style="color:#c084fc;font-weight:700">\u276F</span> <span style="color:#67e8f9"></span>';
+        ccDrama.appendChild(retryLine);
+        await typeCC(retryLine.querySelector('span:last-child'),'お問い合わせフォームを作成してください --priority=high',40);
+        await sleep(600);
+        if(bootState!=='booting')return;
+        var doneDiv2=document.createElement('div');
+        doneDiv2.className='cc-ok';
+        ccDrama.appendChild(doneDiv2);
+        await typeCC(doneDiv2,'部長Agent: ほら、できたぞ。次はサボるなよ。',18);
         await sleep(400);
         if(bootState!=='booting')return;
       } else {
