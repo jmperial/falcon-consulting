@@ -74,7 +74,8 @@
 ```bash
 npm install
 npx playwright install chromium
-npm run screenshot   # 6機種のフルページPNG → screenshots/
+npm run screenshot   # 7機種のフルページPNG → screenshots/
+# iPhone SE / iPhone 15 / iPhone 15 Pro Max / Pixel 10 Pro XL / iPad Mini / iPad Pro 11 / MacBook Air 13
 open screenshots/
 ```
 

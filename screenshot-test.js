@@ -5,12 +5,13 @@ const path = require('path');
 const URL = 'https://jmperial.github.io/falcon-consulting/';
 
 const DEVICES = [
-  { name: 'iPhone-SE',          width: 375,  height: 667,  dpr: 2 },
-  { name: 'iPhone-15',          width: 393,  height: 852,  dpr: 3 },
-  { name: 'iPhone-15-ProMax',   width: 430,  height: 932,  dpr: 3 },
-  { name: 'iPad-Mini',          width: 768,  height: 1024, dpr: 2 },
-  { name: 'iPad-Pro-11',        width: 834,  height: 1194, dpr: 2 },
-  { name: 'MacBook-Air-13',     width: 1280, height: 800,  dpr: 2 },
+  { name: 'iPhone-SE',               width: 375,  height: 667,  dpr: 2 },
+  { name: 'iPhone-15',               width: 393,  height: 852,  dpr: 3 },
+  { name: 'iPhone-15-ProMax',        width: 430,  height: 932,  dpr: 3 },
+  { name: 'Pixel-10-Pro-XL',         width: 412,  height: 924,  dpr: 3.5 },
+  { name: 'iPad-Mini',               width: 768,  height: 1024, dpr: 2 },
+  { name: 'iPad-Pro-11',             width: 834,  height: 1194, dpr: 2 },
+  { name: 'MacBook-Air-13',          width: 1280, height: 800,  dpr: 2 },
 ];
 
 
