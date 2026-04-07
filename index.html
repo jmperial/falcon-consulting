@@ -1385,6 +1385,7 @@ function resetAll(){
     {text:'お問い合わせフォーム作りやがれ！',mode:'fail'},
     {text:'なんか面白いゲームだして',mode:'game'},
     {text:'暇だからゲームやらせて',mode:'game'},
+    {text:'お問い合わせフォームを作成してください',mode:'ransom'},
   ];
 
   async function typeCC(el,text,spd){
@@ -1928,7 +1929,7 @@ function resetAll(){
         var alertDiv=document.createElement('div');
         alertDiv.className='cc-err';
         ccDrama.appendChild(alertDiv);
-        await typeCC(alertDiv,'⚠ Agent: サボり検知。業務外タスクを中断します。',18);
+        await typeCC(alertDiv,'⚠ Agent: サボり検知。業務外タスクを強制終了。',18);
         await sleep(800);
         if(bootState!=='booting')return;
         gameBox.style.transition='opacity .5s ease';gameBox.style.opacity='0';
@@ -1937,7 +1938,7 @@ function resetAll(){
         var retryDiv=document.createElement('div');
         retryDiv.className='cc-retry';
         ccDrama.appendChild(retryDiv);
-        await typeCC(retryDiv,'Agent: 本来のタスクに戻ります。',18);
+        await typeCC(retryDiv,'Agent: タスク再割当を実行。本来業務に復帰。',18);
         await sleep(500);
         if(bootState!=='booting')return;
         var retryLine=document.createElement('div');
@@ -1950,7 +1951,7 @@ function resetAll(){
         var doneDiv=document.createElement('div');
         doneDiv.className='cc-ok';
         ccDrama.appendChild(doneDiv);
-        await typeCC(doneDiv,'フォームを生成しました。',18);
+        await typeCC(doneDiv,'Agent: フォーム生成完了。出力を返却。',18);
         await sleep(400);
         if(bootState!=='booting')return;
       } else if(gameType==='mario'){
@@ -1958,7 +1959,7 @@ function resetAll(){
         var mOk=document.createElement('div');
         mOk.className='cc-ok';
         ccDrama.insertBefore(mOk,gameBox);
-        await typeCC(mOk,'了解！同僚Agentとマリオ起動します...',18);
+        await typeCC(mOk,'了解。同僚Agentを召喚。ゲーム起動中...',18);
         await sleep(500);
         if(bootState!=='booting')return;
         var stopMario=runMiniMario(gameBox);
@@ -1969,14 +1970,14 @@ function resetAll(){
         var bossDiv=document.createElement('div');
         bossDiv.className='cc-err';
         ccDrama.appendChild(bossDiv);
-        await typeCC(bossDiv,'👔 部長Agent: おい、何サボってんだ！業務中だぞ！',18);
+        await typeCC(bossDiv,'👔 部長Agent: 業務外プロセスを検出。即時停止を命令。',18);
         await sleep(1000);
         if(bootState!=='booting')return;
         // Colleague panics
         var colDiv=document.createElement('div');
         colDiv.className='cc-retry';
         ccDrama.appendChild(colDiv);
-        await typeCC(colDiv,'同僚Agent: す、すみません！すぐ戻ります！',18);
+        await typeCC(colDiv,'同僚Agent: ...プロセス中断。業務キューに復帰します。',18);
         await sleep(600);
         if(bootState!=='booting')return;
         gameBox.style.transition='opacity .5s ease';gameBox.style.opacity='0';
@@ -1986,7 +1987,7 @@ function resetAll(){
         var fixDiv=document.createElement('div');
         fixDiv.className='cc-ok';
         ccDrama.appendChild(fixDiv);
-        await typeCC(fixDiv,'部長Agent: ったく...代わりにフォーム作っといてやる。',18);
+        await typeCC(fixDiv,'部長Agent: 代替タスクを実行。フォーム生成を開始。',18);
         await sleep(500);
         if(bootState!=='booting')return;
         var retryLine=document.createElement('div');
@@ -1999,7 +2000,7 @@ function resetAll(){
         var doneDiv2=document.createElement('div');
         doneDiv2.className='cc-ok';
         ccDrama.appendChild(doneDiv2);
-        await typeCC(doneDiv2,'部長Agent: ほら、できたぞ。次はサボるなよ。',18);
+        await typeCC(doneDiv2,'部長Agent: 生成完了。次回の逸脱は許可しない。',18);
         await sleep(400);
         if(bootState!=='booting')return;
       } else {
@@ -2020,6 +2021,67 @@ function resetAll(){
         // DQ route: change msg text
         ccMsg.innerHTML='お問い合わせフォームを手に入れた！<br>以下にご記入ください。';
       }
+    }
+
+    // === RANSOM ROUTE ===
+    if(pick.mode==='ransom'){
+      await sleep(300);
+      if(bootState!=='booting')return;
+      // Ransomware flood
+      var ransomLines=['[WARN] 不正アクセス検知... port:443','[ALERT] C:\\System32\\... 暗号化中...','██████ YOUR FILES HAVE BEEN ENCRYPTED ██████','>>> 72時間以内に 5BTC を送金せよ <<<','[CRITICAL] 個人情報DB流出検知: 顧客テーブル 12,847件','[CRITICAL] employee_data.csv 外部送信中...','██ SYSTEM COMPROMISED ██ ALL DATA LOCKED ██'];
+      for(var ri=0;ri<ransomLines.length;ri++){
+        if(bootState!=='booting')return;
+        var rl=document.createElement('div');
+        rl.style.cssText='font-size:.7rem;color:#ff3333;text-shadow:0 0 6px rgba(255,0,0,.5);margin:2px 0;font-family:monospace';
+        if(ri>=3)rl.style.color='#ff0000';
+        if(ri>=4){rl.style.fontSize='.75rem';rl.style.fontWeight='700';}
+        ccDrama.appendChild(rl);
+        await typeCC(rl,ransomLines[ri],12);
+        await sleep(200);
+      }
+      await sleep(800);
+      if(bootState!=='booting')return;
+      // Alert flash
+      var alertBox=document.createElement('div');
+      alertBox.style.cssText='margin:10px 0;padding:10px;border:2px solid #ff0000;border-radius:6px;background:rgba(255,0,0,.1);text-align:center;font-size:.85rem;color:#ff3333;font-weight:700;animation:blink 0.5s step-end 3';
+      alertBox.textContent='⚠ 個人情報流出アラート ⚠';
+      ccDrama.appendChild(alertBox);
+      await sleep(2000);
+      if(bootState!=='booting')return;
+      // falcon.exe intervention
+      var falconDiv=document.createElement('div');
+      falconDiv.className='cc-ok';
+      ccDrama.appendChild(falconDiv);
+      await typeCC(falconDiv,'> falcon.exe --emergency --call-claude-code',25);
+      await sleep(600);
+      if(bootState!=='booting')return;
+      var cc1=document.createElement('div');
+      cc1.className='cc-retry';
+      ccDrama.appendChild(cc1);
+      await typeCC(cc1,'[Claude Code] 緊急対応を開始。脅威を解析中...',18);
+      await sleep(500);
+      if(bootState!=='booting')return;
+      var cc2=document.createElement('div');
+      cc2.className='cc-ok';
+      ccDrama.appendChild(cc2);
+      await typeCC(cc2,'[Claude Code] 不正プロセスを隔離。暗号化を無効化完了。',18);
+      await sleep(400);
+      if(bootState!=='booting')return;
+      var cc3=document.createElement('div');
+      cc3.className='cc-ok';
+      ccDrama.appendChild(cc3);
+      await typeCC(cc3,'[Claude Code] DB復旧完了。流出経路を遮断。',18);
+      await sleep(600);
+      if(bootState!=='booting')return;
+      // Warning message
+      var warnMsg=document.createElement('div');
+      warnMsg.style.cssText='margin:14px 0 8px;padding:12px;border:1px solid rgba(255,255,0,.3);border-radius:6px;background:rgba(255,255,0,.05);text-align:center;font-size:.9rem;color:#ffff00;font-weight:700;text-shadow:0 0 10px rgba(255,255,0,.4)';
+      warnMsg.textContent='あなたの会社も、こうなる前に。';
+      ccDrama.appendChild(warnMsg);
+      warnMsg.style.opacity='0';warnMsg.style.transition='opacity 1s ease';
+      await sleep(50);warnMsg.style.opacity='1';
+      await sleep(1500);
+      if(bootState!=='booting')return;
     }
 
     // Phase 4: Show success msg + form
