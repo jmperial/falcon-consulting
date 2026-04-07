@@ -13,16 +13,6 @@ const DEVICES = [
   { name: 'MacBook-Air-13',     width: 1280, height: 800,  dpr: 2 },
 ];
 
-// Sections to capture (scroll positions as % of page height)
-const SECTIONS = [
-  { name: '01-hero',        scroll: 0.00 },
-  { name: '02-problem',     scroll: 0.14 },
-  { name: '03-services',    scroll: 0.28 },
-  { name: '04-pricing',     scroll: 0.42 },
-  { name: '05-flow',        scroll: 0.56 },
-  { name: '06-credentials', scroll: 0.70 },
-  { name: '07-contact',     scroll: 0.85 },
-];
 
 const outDir = path.join(__dirname, 'screenshots');
 if (!fs.existsSync(outDir)) fs.mkdirSync(outDir);
@@ -44,25 +34,14 @@ fs.readdirSync(outDir).forEach(f => fs.unlinkSync(path.join(outDir, f)));
     await page.goto(URL, { waitUntil: 'networkidle' });
     await page.waitForTimeout(2000); // アニメーション待機
 
-    // フルページスクリーンショット
+    // フルページのみ
     await page.screenshot({
-      path: path.join(outDir, `${device.name}--full.png`),
+      path: path.join(outDir, `${device.name}.png`),
       fullPage: true,
     });
 
-    // セクションごと
-    const pageH = await page.evaluate(() => document.body.scrollHeight);
-    for (const sec of SECTIONS) {
-      const scrollY = Math.floor(pageH * sec.scroll);
-      await page.evaluate((y) => window.scrollTo(0, y), scrollY);
-      await page.waitForTimeout(1200); // アニメーション待機
-      await page.screenshot({
-        path: path.join(outDir, `${device.name}--${sec.name}.png`),
-      });
-    }
-
     await ctx.close();
-    console.log(`   ✅ ${SECTIONS.length + 1} 枚保存完了`);
+    console.log(`   ✅ 保存完了`);
   }
 
   await browser.close();
