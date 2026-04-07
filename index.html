@@ -626,18 +626,80 @@ footer{
   border-top:1px solid rgba(51,255,0,.08);
 }
 
+/* === NEW CLASSES: hero big line + s5 zero day === */
+.hero-big-line{font-size:clamp(0.95rem, 3.2vw, 1.2rem);font-family:'Noto Serif JP',serif;font-weight:700;letter-spacing:1px}
+.s5-zero-day{font-size:clamp(2.4rem, 7vw, 4rem);color:#ffff00;text-shadow:0 0 16px rgba(255,255,0,.5);font-weight:700}
+
+/* === S4 CATCH VERTICAL === */
+.s4-catch{display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.4}
+.s4-catch .s4-line{display:block}
+.s4-catch .s4-price{font-size:clamp(2.4rem, 8vw, 4.5rem);color:#33ff00;text-shadow:0 0 16px rgba(51,255,0,.5),0 0 32px rgba(51,255,0,.2);font-weight:700;letter-spacing:2px}
+
+/* === S4 PRICING TABLE === */
+.s4-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+@media(max-width:600px){.s4-plans{grid-template-columns:1fr}}
+.s4-plan{padding:20px;border-radius:12px;border:1px solid rgba(240,208,96,.15);background:rgba(240,208,96,.03);text-align:center;position:relative}
+.s4-plan.featured{border-color:rgba(51,255,0,.3);background:rgba(51,255,0,.04)}
+.s4-plan.featured::before{content:'★ おすすめ';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#33ff00;color:#0a0a0a;font-size:.6rem;font-weight:700;padding:2px 10px;border-radius:10px}
+.s4-plan-name{font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,208,96,.6);margin-bottom:8px}
+.s4-plan-price{font-size:1.8rem;font-weight:700;color:#33ff00;margin-bottom:4px}
+.s4-plan-price span{font-size:.7rem;font-weight:400;color:rgba(240,208,96,.5)}
+.s4-plan-desc{font-size:.78rem;color:rgba(240,208,96,.5);line-height:1.5}
+.s4-compare{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+.s4-compare-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;font-size:.8rem}
+.s4-compare-row.lose{border:1px solid rgba(255,107,107,.2);background:rgba(255,107,107,.03);color:#ff6b6b}
+.s4-compare-row.win{border:1px solid rgba(51,255,0,.25);background:rgba(51,255,0,.04);color:#33ff00}
+.s4-compare-row .label{flex:1}
+.s4-compare-row .price{font-weight:700;white-space:nowrap}
+.s4-points{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.s4-point{padding:5px 14px;border-radius:20px;font-size:.72rem;border:1px solid rgba(51,255,0,.3);color:#33ff00;background:rgba(51,255,0,.04)}
+.s4-biz-btn{display:block;margin:20px auto 0;padding:8px 20px;font-size:.7rem;color:rgba(240,208,96,.5);background:transparent;border:1px solid rgba(240,208,96,.15);border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.s4-biz-btn:hover{color:#f0d060;border-color:rgba(240,208,96,.4)}
+
+/* === FLOW HIGHLIGHTS & BUTTONS === */
+.flow-hl{padding:1px 6px;border-radius:3px;font-weight:600}
+.flow-hl-yellow{color:#ffff00;background:rgba(255,255,0,.08);text-shadow:0 0 8px rgba(255,255,0,.3)}
+.flow-hl-cyan{color:#67e8f9;background:rgba(103,232,249,.08);text-shadow:0 0 8px rgba(103,232,249,.3)}
+.flow-hl-green{color:#33ff00;background:rgba(51,255,0,.08);text-shadow:0 0 8px rgba(51,255,0,.3)}
+.flow-hl-pink{color:#ff69b4;background:rgba(255,105,180,.08);text-shadow:0 0 8px rgba(255,105,180,.3)}
+.flow-detail-btn{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:5px 14px;font-size:.7rem;color:#60a5fa;background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.25);border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.flow-detail-btn:hover{background:rgba(96,165,250,.14);border-color:#60a5fa}
+
+/* === FLOW MODAL === */
+.flow-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:flex-start;justify-content:center;padding:max(env(safe-area-inset-top,12px),12px) 12px 12px;overflow-y:auto;-webkit-overflow-scrolling:touch;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.flow-overlay.open{opacity:1;pointer-events:auto}
+.flow-overlay.open .flow-modal{transform:translateY(0);opacity:1}
+.flow-modal{width:100%;max-width:640px;margin:auto 0;border-radius:12px;overflow:hidden;border:1px solid rgba(96,165,250,.25);background:#080d18;transform:translateY(30px);opacity:0;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s ease;display:flex;flex-direction:column;flex-shrink:0}
+.flow-modal-bar{padding:8px 14px;display:flex;align-items:center;gap:8px;background:rgba(96,165,250,.06);border-bottom:1px solid rgba(96,165,250,.15);font-size:.65rem;color:rgba(96,165,250,.6)}
+.flow-modal-bar .title{flex:1}
+.flow-modal-close{color:rgba(96,165,250,.6);cursor:pointer;font-size:1.2rem;padding:6px 10px;background:none;border:none;font-family:'JetBrains Mono',monospace;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;transition:color .2s}
+.flow-modal-close:hover{color:#60a5fa}
+.flow-modal-body{padding:24px;overflow-y:auto;flex:1;max-height:70vh}
+.flow-modal-body svg{width:100%;height:auto;margin-bottom:16px}
+.flow-modal-body h4{font-size:1rem;color:#bdd4ff;margin-bottom:8px}
+.flow-modal-body p{font-size:.82rem;color:#7da8e8;line-height:1.7}
+
 /* === MOBILE (iPhone 17 base: ~393px) === */
 @media(max-width:600px){
   .sec{padding:80px 14px 40px}
   .s1 .hayabusa{font-size:4rem;top:70px;right:3%}
   .s1 .era-badge{top:60px;left:14px;font-size:.5rem}
   .s1 .stats{flex-direction:column;gap:10px}
-  .s4-catch{font-size:2rem !important}
+  /* vw統一: 全スマホで同一比率表示 */
+  .out-title{font-size:4.5vw}
+  .s1 .glow-line{font-size:7vw}
+  .s4-catch{font-size:5.6vw !important}
+  .s4-catch .s4-price{font-size:10vw}
+  .svc-item h3{font-size:3vw}
+  .flow-step h3{font-size:2.8vw}
+  .s6-kw-onestop{font-size:5vw}
+  .hero-big-line{font-size:3.2vw}
+  .s5-zero-day{font-size:7vw}
   .price-formula{font-size:1rem}
   .price-plans{flex-direction:column}
   /* Modal */
   .modal-window{max-width:95vw}
-  .prof-catchcopy{font-size:1.7rem !important}
+  .prof-catchcopy{font-size:4.5vw !important}
   .prof-highlight{gap:6px}
   .prof-highlight .ph-item{min-width:calc(50% - 6px);padding:8px 10px;font-size:.72rem}
   .prof-highlight .ph-item strong{font-size:.8rem}
@@ -651,7 +713,7 @@ footer{
 
 /* === TABLET (iPad Mini / iPad Pro 11) === */
 @media(min-width:601px) and (max-width:900px){
-  .s4-catch{font-size:clamp(2.4rem, 5vw, 2.8rem) !important}
+  .s4-catch .s4-price{font-size:clamp(3rem, 6vw, 4rem)}
   .s1 .stats{flex-wrap:wrap}
 }
 
@@ -715,12 +777,12 @@ footer{
           <span class="p-cursor" style="background:#ffb300;width:10px;height:3px"></span>
         </div>
         <div class="content-area">
-          <div class="out-title" style="color:#ffb300">「AI、<span style="color:#ffff00;text-shadow:0 0 8px rgba(255,255,0,.4)">何から始めれば？</span>」を解決します</div>
+          <div class="out-title" style="color:#ffb300">そのAI、<span style="color:#ffff00;text-shadow:0 0 8px rgba(255,255,0,.4)">使われてる？</span></div>
           <div class="pain-grid">
             <div class="pain-card"><h3>// ERROR: 定着率 0%</h3><p>ChatGPTを導入したが誰も使わない。全社効果が見えない。</p></div>
             <div class="pain-card solve"><h3>// FIX: 業務組み込み</h3><p>現場フローにAIを直接組み込み<span style="color:#ffff00;font-weight:700;text-shadow:0 0 10px rgba(255,255,0,.5);white-space:nowrap">「使わざるを得ない」</span>設計で定着。</p></div>
             <div class="pain-card"><h3>// ERROR: 稟議不通過</h3><p>見積もりが高額。ROI根拠が不明確で経営層を説得できない。</p></div>
-            <div class="pain-card solve"><h3>// FIX: 成果報酬型</h3><p>削減時間×単価の明快な計算。<span style="white-space:nowrap;color:#ffff00;font-weight:700;text-shadow:0 0 8px rgba(255,255,0,.4)">効果なければ費用ゼロ。</span></p></div>
+            <div class="pain-card solve"><h3>// FIX: まるごとAI化</h3><p>月¥5万〜、API費用込み。<span style="white-space:nowrap;color:#ffff00;font-weight:700;text-shadow:0 0 8px rgba(255,255,0,.4)">効果なければ費用ゼロ。</span></p></div>
           </div>
         </div>
       </div>
@@ -773,32 +835,41 @@ footer{
           <span class="p-cursor" style="background:#eee"></span>
         </div>
         <div class="content-area">
-          <div class="out-title s4-catch">削減時間 × 時間単価。<br><span style="color:#33ff00;text-shadow:0 0 10px rgba(51,255,0,.4)">それだけ。</span></div>
-          <div class="price-box" style="border-color:rgba(240,208,96,.2);background:rgba(240,208,96,.03)">
-            <div style="text-align:center;padding:16px 0 20px;margin-bottom:16px;border-bottom:1px solid rgba(240,208,96,.12)">
-              <div style="font-size:1.1rem;font-weight:700;color:#f0d060;letter-spacing:1px;margin-bottom:8px">月額料金</div>
-              <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">
-                <span style="padding:6px 14px;border:1px solid rgba(240,208,96,.25);border-radius:6px;font-size:1rem;font-weight:700;color:#f0d060">削減できた時間</span>
-                <span style="font-size:1.2rem;color:rgba(240,208,96,.5)">×</span>
-                <span style="padding:6px 14px;border:1px solid rgba(240,208,96,.25);border-radius:6px;font-size:1rem;font-weight:700;color:#f0d060">その業務の時間単価</span>
-              </div>
-            </div>
-            <p style="text-align:center;font-size:.78rem;color:rgba(240,208,96,.5);margin-bottom:16px">実際にAIで実現した削減時間をもとに費用を算出</p>
-            <div class="price-plans">
-              <div class="price-plan">
-                <div class="plan-name">例: 一般業務</div>
-                <div class="plan-rate">¥3,000<span style="font-size:.7rem;font-weight:400">/h</span></div>
-                <div class="plan-est">月20h削減 → ¥60,000</div>
-              </div>
-              <div class="price-plan featured">
-                <div class="plan-name">例: 専門・技術領域</div>
-                <div class="plan-rate">¥10,000〜<span style="font-size:.7rem;font-weight:400">/h</span></div>
-                <div class="plan-est">月20h削減 → ¥200,000〜</div>
-              </div>
-            </div>
-            <p style="text-align:center;font-size:.7rem;color:rgba(240,208,96,.35);margin-top:12px">※ 時間単価は業務内容・専門性に応じて個別設定</p>
-            <div class="guarantee" style="border-color:rgba(240,208,96,.15);background:rgba(240,208,96,.05);color:#f0d060"><span style="white-space:nowrap">成果保証：効果なければ<span style="color:#33ff00;font-weight:700;font-size:.95rem;text-shadow:0 0 8px rgba(51,255,0,.3)">費用ゼロ</span>。</span><span style="white-space:nowrap">初期費用・解約金なし。</span></div>
+          <div class="out-title s4-catch">
+            <span class="s4-line" style="color:#ffff00">人が足りない。</span>
+            <span class="s4-line" style="color:#67e8f9">AIがいる。</span>
+            <span class="s4-line s4-price">月5万から。</span>
           </div>
+          <p style="text-align:center;font-size:.8rem;color:rgba(240,208,96,.6);margin:12px 0 20px">中小企業向け まるごとAI化サブスクリプション — API費用込み</p>
+          <div class="s4-plans">
+            <div class="s4-plan">
+              <div class="s4-plan-name">ライト</div>
+              <div class="s4-plan-price">¥5万<span>/月</span></div>
+              <div class="s4-plan-desc">1業務のAI化<br>API費用込み</div>
+            </div>
+            <div class="s4-plan featured">
+              <div class="s4-plan-name">スタンダード</div>
+              <div class="s4-plan-price">¥10万<span>/月</span></div>
+              <div class="s4-plan-desc">3業務まで<br>API費用込み・専任担当</div>
+            </div>
+            <div class="s4-plan">
+              <div class="s4-plan-name">プレミアム</div>
+              <div class="s4-plan-price">¥30万〜<span>/月</span></div>
+              <div class="s4-plan-desc">全社AI化支援<br>API費用込み・24/7サポート</div>
+            </div>
+          </div>
+          <div class="s4-compare">
+            <div class="s4-compare-row lose"><span class="label">大手コンサル</span><span class="price">¥300万〜/月</span><span style="font-size:.7rem;opacity:.7">→ 稟議がとおらない</span></div>
+            <div class="s4-compare-row lose"><span class="label">AI人材を採用</span><span class="price">¥80万〜/月</span><span style="font-size:.7rem;opacity:.7">→ 採用困難&高コスト</span></div>
+            <div class="s4-compare-row win"><span class="label">ファルコン</span><span class="price">¥5万/月〜</span><span style="font-size:.7rem;opacity:.7">→ 300名のAI専門チームが伴走</span></div>
+          </div>
+          <div class="s4-points">
+            <span class="s4-point">初期費用 ¥0</span>
+            <span class="s4-point">API費用込み</span>
+            <span class="s4-point">効果なければ費用ゼロ</span>
+            <span class="s4-point">IT導入補助金対応</span>
+          </div>
+          <button class="s4-biz-btn" id="open-biz-calc" type="button">📊 事業計画シミュレーション</button>
         </div>
       </div>
     </div>
@@ -820,12 +891,12 @@ footer{
           <span class="p-cursor" style="background:#a855f7"></span>
         </div>
         <div class="content-area">
-          <div class="out-title">最短<span style="font-size:clamp(2.4rem, 7vw, 4rem);color:#ffff00;text-shadow:0 0 16px rgba(255,255,0,.5);font-weight:700">0日</span>で導入開始</div>
+          <div class="out-title">最短<span class="s5-zero-day">0日</span>で導入開始</div>
           <div class="flow-steps">
-            <div class="flow-step"><h3>01 — 無料ヒアリング</h3><p>30分で課題と削減見込みを把握</p></div>
-            <div class="flow-step"><h3>02 — 業務分析</h3><p>シミュレーションを無料でご提出</p></div>
-            <div class="flow-step"><h3>03 — AI導入・定着</h3><p>業務フローに組み込み、定着まで伴走</p></div>
-            <div class="flow-step"><h3>04 — 効果測定</h3><p>月次レポートで透明性のある請求</p></div>
+            <div class="flow-step"><h3>01 — 無料ヒアリング</h3><p>現場観察+ワークショップで<span class="flow-hl flow-hl-yellow">課題と削減見込みを可視化</span></p><button class="flow-detail-btn" data-step="1" type="button">▶ 詳細を見る</button></div>
+            <div class="flow-step"><h3>02 — 業務分析</h3><p><span class="flow-hl flow-hl-cyan">Before/Afterシミュレーション</span>を無料でご提出</p><button class="flow-detail-btn" data-step="2" type="button">▶ 詳細を見る</button></div>
+            <div class="flow-step"><h3>03 — AI導入・定着</h3><p>業務フローに<span class="flow-hl flow-hl-green">AIエージェントを組み込み</span>、定着まで伴走</p><button class="flow-detail-btn" data-step="3" type="button">▶ 詳細を見る</button></div>
+            <div class="flow-step"><h3>04 — 効果測定</h3><p><span class="flow-hl flow-hl-pink">月次ダッシュボード</span>で透明性のある請求</p><button class="flow-detail-btn" data-step="4" type="button">▶ 詳細を見る</button></div>
           </div>
         </div>
       </div>
@@ -958,6 +1029,18 @@ footer{
   </div>
 </div>
 
+<!-- ===== FLOW DETAIL MODAL ===== -->
+<div class="flow-overlay" id="flow-modal">
+  <div class="flow-modal">
+    <div class="flow-modal-bar">
+      <span>📋</span>
+      <span class="title" id="flow-modal-title">ステップ詳細</span>
+      <button class="flow-modal-close" id="close-flow" aria-label="Close">✕</button>
+    </div>
+    <div class="flow-modal-body" id="flow-modal-body"></div>
+  </div>
+</div>
+
 <!-- ===== 7. CONTACT — DOS boots Claude Code ===== -->
 <section class="sec s7" id="s7">
   <div class="inner">
@@ -1070,7 +1153,7 @@ function resetAll(){
     var d=document.createElement('div');
     d.className='out-line'+(c.cls?' '+c.cls:'');
     d.style.color=c.color||'#33ff00';
-    if(c.big){d.style.fontSize='clamp(0.95rem, 3.2vw, 1.2rem)';d.style.fontFamily='"Noto Serif JP",serif';d.style.fontWeight='700';d.style.letterSpacing='1px';}
+    if(c.big){d.className+=' hero-big-line';}
     heroOut.appendChild(d);
     for(var i=0;i<c.text.length;i++){
       if(heroState!=='typing')return;
@@ -2224,6 +2307,80 @@ function resetAll(){
     if(e[0].isIntersecting){if(!animId)draw();}
     else{if(animId){cancelAnimationFrame(animId);animId=null;}}
   },{threshold:0}).observe(s7El);
+})();
+
+// === Flow Detail Modal ===
+(function(){
+  var overlay=document.getElementById('flow-modal');
+  var body=document.getElementById('flow-modal-body');
+  var titleEl=document.getElementById('flow-modal-title');
+  var closeBtn=document.getElementById('close-flow');
+  var isFlowOpen=false;
+
+  var steps={
+    1:{
+      title:'01 — 無料ヒアリング',
+      html:'<svg viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="558" height="258" rx="12" fill="#0c1220" stroke="#60a5fa" stroke-opacity=".2"/><circle cx="80" cy="100" r="28" fill="#1e3a5f"/><text x="80" y="105" text-anchor="middle" fill="#60a5fa" font-size="24">👤</text><text x="80" y="145" text-anchor="middle" fill="#7da8e8" font-size="10">クライアント</text><circle cx="180" cy="100" r="28" fill="#1a3520"/><text x="180" y="105" text-anchor="middle" fill="#33ff00" font-size="24">🦅</text><text x="180" y="145" text-anchor="middle" fill="#33ff00" font-size="10">コンサルタント</text><rect x="240" y="40" width="140" height="130" rx="6" fill="#111827" stroke="#60a5fa" stroke-opacity=".3"/><text x="310" y="60" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">課題マッピング</text><rect x="252" y="72" width="116" height="16" rx="3" fill="rgba(255,107,107,.15)" stroke="rgba(255,107,107,.3)"/><text x="260" y="84" fill="#ff6b6b" font-size="9">❌ 手作業の書類処理</text><rect x="252" y="94" width="116" height="16" rx="3" fill="rgba(255,107,107,.15)" stroke="rgba(255,107,107,.3)"/><text x="260" y="106" fill="#ff6b6b" font-size="9">❌ 発注ミス多発</text><rect x="252" y="116" width="116" height="16" rx="3" fill="rgba(255,255,0,.1)" stroke="rgba(255,255,0,.25)"/><text x="260" y="128" fill="#ffff00" font-size="9">⚡ 月80h削減可能</text><rect x="252" y="138" width="116" height="16" rx="3" fill="rgba(51,255,0,.1)" stroke="rgba(51,255,0,.25)"/><text x="260" y="150" fill="#33ff00" font-size="9">✅ ROI: 年間960万</text><rect x="410" y="40" width="130" height="130" rx="6" fill="#111827" stroke="#33ff00" stroke-opacity=".3"/><text x="475" y="60" text-anchor="middle" fill="#33ff00" font-size="10" font-weight="bold">削減見込みレポート</text><rect x="422" y="72" width="30" height="40" rx="2" fill="rgba(51,255,0,.15)"/><rect x="422" y="72" width="30" height="30" rx="2" fill="rgba(51,255,0,.25)"/><rect x="458" y="82" width="30" height="30" rx="2" fill="rgba(255,255,0,.15)"/><rect x="458" y="92" width="30" height="20" rx="2" fill="rgba(255,255,0,.25)"/><rect x="494" y="72" width="30" height="40" rx="2" fill="rgba(103,232,249,.15)"/><rect x="494" y="82" width="30" height="30" rx="2" fill="rgba(103,232,249,.25)"/><text x="475" y="130" text-anchor="middle" fill="#7da8e8" font-size="8">優先度付き</text><text x="475" y="142" text-anchor="middle" fill="#7da8e8" font-size="8">タスクリスト</text><text x="475" y="156" text-anchor="middle" fill="#33ff00" font-size="9" font-weight="bold">年間960万の改善</text><text x="280" y="210" text-anchor="middle" fill="#7da8e8" font-size="11">現場観察で業務フローを把握 → AI化できる領域を特定 → 削減見込みを金額で提示</text><line x1="130" y1="100" x2="230" y2="80" stroke="#60a5fa" stroke-opacity=".3" stroke-dasharray="4"/><line x1="390" y1="105" x2="405" y2="105" stroke="#33ff00" stroke-opacity=".4" stroke-dasharray="4"/></svg><h4>何をするのか</h4><p>コンサルタントが実際に現場を訪問。業務フローを観察し、ワークショップ形式で課題を洗い出します。AI化できる領域を特定し、<strong style="color:#33ff00">削減見込みを金額で可視化</strong>したレポートをお渡しします。</p>'
+    },
+    2:{
+      title:'02 — 業務分析',
+      html:'<svg viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="558" height="258" rx="12" fill="#0c1220" stroke="#60a5fa" stroke-opacity=".2"/><rect x="30" y="40" width="120" height="80" rx="6" fill="#111827" stroke="rgba(255,179,0,.3)"/><text x="90" y="60" text-anchor="middle" fill="#ffb300" font-size="10" font-weight="bold">Before</text><text x="90" y="80" text-anchor="middle" fill="#ff6b6b" font-size="20">月120h</text><text x="90" y="100" text-anchor="middle" fill="rgba(255,179,0,.5)" font-size="9">手作業での書類処理</text><path d="M160 80 L200 80" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowB)"/><defs><marker id="arrowB" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#60a5fa"/></marker></defs><rect x="210" y="30" width="140" height="100" rx="8" fill="rgba(103,232,249,.05)" stroke="#67e8f9" stroke-opacity=".3"/><text x="280" y="52" text-anchor="middle" fill="#67e8f9" font-size="11" font-weight="bold">🤖 AI分析エンジン</text><rect x="222" y="62" width="116" height="14" rx="3" fill="rgba(103,232,249,.1)"/><text x="280" y="73" text-anchor="middle" fill="#67e8f9" font-size="8">業務フロー解析</text><rect x="222" y="82" width="116" height="14" rx="3" fill="rgba(103,232,249,.1)"/><text x="280" y="93" text-anchor="middle" fill="#67e8f9" font-size="8">ボトルネック検出</text><rect x="222" y="102" width="116" height="14" rx="3" fill="rgba(103,232,249,.1)"/><text x="280" y="113" text-anchor="middle" fill="#67e8f9" font-size="8">AI化ROIシミュレーション</text><path d="M360 80 L400 80" stroke="#33ff00" stroke-width="2" marker-end="url(#arrowG)"/><defs><marker id="arrowG" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#33ff00"/></marker></defs><rect x="410" y="40" width="120" height="80" rx="6" fill="#111827" stroke="rgba(51,255,0,.3)"/><text x="470" y="60" text-anchor="middle" fill="#33ff00" font-size="10" font-weight="bold">After</text><text x="470" y="80" text-anchor="middle" fill="#33ff00" font-size="20">月40h</text><text x="470" y="100" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="9">AI+人間の協働</text><rect x="30" y="150" width="500" height="70" rx="6" fill="#111827" stroke="rgba(255,255,0,.2)"/><text x="280" y="170" text-anchor="middle" fill="#ffff00" font-size="11" font-weight="bold">📊 シミュレーション結果レポート（無料）</text><text x="110" y="195" text-anchor="middle" fill="#7da8e8" font-size="9">削減時間: 80h/月</text><text x="280" y="195" text-anchor="middle" fill="#33ff00" font-size="9">コスト削減: 年間960万</text><text x="450" y="195" text-anchor="middle" fill="#ffff00" font-size="9">ROI: 320%</text></svg><h4>何が届くのか</h4><p>業務フローを詳細分析し、<strong style="color:#67e8f9">Before/Afterのシミュレーション結果</strong>をレポートでお届けします。削減時間・コスト削減額・ROIを数値で明示。<strong style="color:#33ff00">この分析は完全無料</strong>です。</p>'
+    },
+    3:{
+      title:'03 — AI導入・定着',
+      html:'<svg viewBox="0 0 560 280" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="558" height="278" rx="12" fill="#0c1220" stroke="#60a5fa" stroke-opacity=".2"/><text x="280" y="30" text-anchor="middle" fill="#7da8e8" font-size="11" font-weight="bold">例: 建設現場の発注自動化フロー</text><rect x="20" y="50" width="90" height="70" rx="8" fill="rgba(255,255,0,.06)" stroke="rgba(255,255,0,.3)"/><text x="65" y="72" text-anchor="middle" fill="#ffff00" font-size="20">📐</text><text x="65" y="92" text-anchor="middle" fill="#ffff00" font-size="9" font-weight="bold">図面撮影</text><text x="65" y="106" text-anchor="middle" fill="rgba(255,255,0,.5)" font-size="7">スマホで撮るだけ</text><path d="M115 85 L135 85" stroke="#67e8f9" stroke-width="2" marker-end="url(#arrowC)"/><defs><marker id="arrowC" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#67e8f9"/></marker></defs><rect x="140" y="50" width="90" height="70" rx="8" fill="rgba(103,232,249,.06)" stroke="rgba(103,232,249,.3)"/><text x="185" y="72" text-anchor="middle" fill="#67e8f9" font-size="20">🤖</text><text x="185" y="92" text-anchor="middle" fill="#67e8f9" font-size="9" font-weight="bold">AI読取</text><text x="185" y="106" text-anchor="middle" fill="rgba(103,232,249,.5)" font-size="7">部材・数量を自動認識</text><path d="M235 85 L255 85" stroke="#67e8f9" stroke-width="2" marker-end="url(#arrowC)"/><rect x="260" y="50" width="90" height="70" rx="8" fill="rgba(168,85,247,.06)" stroke="rgba(168,85,247,.3)"/><text x="305" y="72" text-anchor="middle" fill="#c084fc" font-size="20">🗄️</text><text x="305" y="92" text-anchor="middle" fill="#c084fc" font-size="9" font-weight="bold">在庫照合</text><text x="305" y="106" text-anchor="middle" fill="rgba(168,85,247,.5)" font-size="7">社内在庫DBと自動照合</text><path d="M355 85 L375 85" stroke="#67e8f9" stroke-width="2" marker-end="url(#arrowC)"/><rect x="380" y="50" width="90" height="70" rx="8" fill="rgba(51,255,0,.06)" stroke="rgba(51,255,0,.3)"/><text x="425" y="72" text-anchor="middle" fill="#33ff00" font-size="20">📄</text><text x="425" y="92" text-anchor="middle" fill="#33ff00" font-size="9" font-weight="bold">発注書生成</text><text x="425" y="106" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="7">AIが自動で作成</text><path d="M475 85 L495 85" stroke="#33ff00" stroke-width="2" marker-end="url(#arrowG2)"/><defs><marker id="arrowG2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#33ff00"/></marker></defs><rect x="500" y="50" width="50" height="70" rx="8" fill="rgba(51,255,0,.12)" stroke="rgba(51,255,0,.5)"/><text x="525" y="72" text-anchor="middle" fill="#33ff00" font-size="20">📤</text><text x="525" y="92" text-anchor="middle" fill="#33ff00" font-size="8" font-weight="bold">自動</text><text x="525" y="104" text-anchor="middle" fill="#33ff00" font-size="8" font-weight="bold">発注</text><rect x="30" y="150" width="500" height="50" rx="6" fill="rgba(255,255,0,.04)" stroke="rgba(255,255,0,.15)"/><text x="280" y="170" text-anchor="middle" fill="#ffff00" font-size="10">⏱ 従来: 1件あたり2時間 → AI導入後: 5分（96%削減）</text><text x="280" y="188" text-anchor="middle" fill="rgba(255,255,0,.5)" font-size="8">人間は最終確認ボタンを押すだけ。ヒューマン・イン・ザ・ループで安全性を担保。</text><rect x="30" y="220" width="240" height="40" rx="6" fill="rgba(51,255,0,.04)" stroke="rgba(51,255,0,.15)"/><text x="150" y="245" text-anchor="middle" fill="#33ff00" font-size="9">✅ 定着サポート: 操作研修 + マニュアル作成</text><rect x="290" y="220" width="240" height="40" rx="6" fill="rgba(103,232,249,.04)" stroke="rgba(103,232,249,.15)"/><text x="410" y="245" text-anchor="middle" fill="#67e8f9" font-size="9">🔧 保守: 精度改善 + 業務変更対応</text></svg><h4>具体例: 建設現場の発注自動化</h4><p>図面をスマホで撮影するだけで、AIが部材・数量を自動認識。社内在庫と照合し、<strong style="color:#33ff00">発注書を自動生成、そのまま自動発注</strong>まで完了。従来2時間かかっていた作業が5分に。人間は最終確認ボタンを押すだけです。</p>'
+    },
+    4:{
+      title:'04 — 効果測定',
+      html:'<svg viewBox="0 0 560 280" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="558" height="278" rx="12" fill="#0c1220" stroke="#60a5fa" stroke-opacity=".2"/><rect x="20" y="16" width="520" height="24" rx="4" fill="#111827" stroke="rgba(96,165,250,.2)"/><circle cx="34" cy="28" r="5" fill="#ff5f57"/><circle cx="50" cy="28" r="5" fill="#febc2e"/><circle cx="66" cy="28" r="5" fill="#28c840"/><text x="280" y="32" text-anchor="middle" fill="rgba(96,165,250,.6)" font-size="9">月次レポート — 2026年4月</text><rect x="30" y="52" width="250" height="120" rx="6" fill="#111827" stroke="rgba(96,165,250,.15)"/><text x="155" y="70" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">📊 削減時間推移</text><rect x="55" y="130" width="24" height="30" rx="2" fill="rgba(96,165,250,.3)"/><rect x="90" y="115" width="24" height="45" rx="2" fill="rgba(96,165,250,.4)"/><rect x="125" y="100" width="24" height="60" rx="2" fill="rgba(96,165,250,.5)"/><rect x="160" y="90" width="24" height="70" rx="2" fill="rgba(51,255,0,.4)"/><rect x="195" y="82" width="24" height="78" rx="2" fill="rgba(51,255,0,.5)"/><rect x="230" y="78" width="24" height="82" rx="2" fill="rgba(51,255,0,.6)"/><text x="67" y="155" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="7">1月</text><text x="102" y="155" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="7">2月</text><text x="137" y="155" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="7">3月</text><text x="172" y="155" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="7">4月</text><text x="207" y="155" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="7">5月</text><text x="242" y="155" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="7">6月</text><rect x="300" y="52" width="230" height="120" rx="6" fill="#111827" stroke="rgba(51,255,0,.15)"/><text x="415" y="70" text-anchor="middle" fill="#33ff00" font-size="10" font-weight="bold">📈 コスト削減累計</text><polyline points="320,150 350,140 380,125 410,108 440,95 470,80 500,68" stroke="#33ff00" stroke-width="2" fill="none"/><circle cx="500" cy="68" r="4" fill="#33ff00"/><text x="510" y="72" fill="#33ff00" font-size="8">480万</text><polyline points="320,150 350,148 380,142 410,135 440,128 470,120 500,112" stroke="#ffff00" stroke-width="1.5" fill="none" stroke-dasharray="4"/><text x="510" y="116" fill="#ffff00" font-size="7">目標</text><rect x="30" y="190" width="160" height="60" rx="8" fill="rgba(96,165,250,.06)" stroke="rgba(96,165,250,.2)"/><text x="110" y="212" text-anchor="middle" fill="#60a5fa" font-size="9">削減時間</text><text x="110" y="234" text-anchor="middle" fill="#bdd4ff" font-size="18" font-weight="bold">80h/月</text><rect x="205" y="190" width="160" height="60" rx="8" fill="rgba(51,255,0,.06)" stroke="rgba(51,255,0,.2)"/><text x="285" y="212" text-anchor="middle" fill="#33ff00" font-size="9">コスト削減</text><text x="285" y="234" text-anchor="middle" fill="#33ff00" font-size="18" font-weight="bold">240万/月</text><rect x="380" y="190" width="150" height="60" rx="8" fill="rgba(255,255,0,.06)" stroke="rgba(255,255,0,.2)"/><text x="455" y="212" text-anchor="middle" fill="#ffff00" font-size="9">ROI</text><text x="455" y="234" text-anchor="middle" fill="#ffff00" font-size="18" font-weight="bold">320%</text><text x="280" y="270" text-anchor="middle" fill="rgba(96,165,250,.5)" font-size="9">毎月のレポートで効果を可視化。請求の根拠もここから。</text></svg><h4>何が届くのか</h4><p>毎月、<strong style="color:#60a5fa">ダッシュボード形式の月次レポート</strong>をお届け。削減時間・コスト削減額・ROIをグラフで可視化。<strong style="color:#33ff00">請求金額の根拠もこのレポートから確認</strong>でき、完全な透明性を保ちます。</p>'
+    }
+  };
+
+  function openFlow(n){
+    var s=steps[n];if(!s)return;
+    titleEl.textContent=s.title;
+    body.innerHTML=s.html;
+    overlay.classList.add('open');
+    isFlowOpen=true;
+    document.body.style.overflow='hidden';
+  }
+  function closeFlow(){
+    overlay.classList.remove('open');
+    isFlowOpen=false;
+    document.body.style.overflow='';
+  }
+
+  document.querySelectorAll('.flow-detail-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){openFlow(+this.dataset.step);});
+  });
+  closeBtn.addEventListener('click',closeFlow);
+  overlay.addEventListener('click',function(e){if(e.target===overlay)closeFlow();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isFlowOpen)closeFlow();});
+})();
+
+// === Business Calculation Window ===
+(function(){
+  var btn=document.getElementById('open-biz-calc');
+  if(!btn)return;
+  btn.addEventListener('click',function(){
+    var w=window.open('','bizCalc','width=800,height=700,scrollbars=yes');
+    w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>事業計画シミュレーション</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;color:#e0e0e0;font-family:"Meiryo UI","JetBrains Mono",sans-serif;padding:32px;line-height:1.8}h1{color:#33ff00;font-size:1.4rem;margin-bottom:8px}h2{color:#67e8f9;font-size:1rem;margin:24px 0 8px;border-bottom:1px solid #333;padding-bottom:4px}.sub{color:#999;font-size:.8rem;margin-bottom:24px}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{padding:8px 12px;text-align:center;border:1px solid #333;font-size:.85rem}th{background:#1a1a1a;color:#67e8f9}td{color:#e0e0e0}.hi{color:#33ff00;font-weight:700}.note{color:#999;font-size:.78rem;margin-top:8px;line-height:1.7}ul{padding-left:20px;margin:8px 0}.tag{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.72rem;margin:2px;border:1px solid #333;color:#ccc}</style></head><body>');
+    w.document.write('<h1>📊 ファルコンコンサルティング — 事業計画シミュレーション</h1>');
+    w.document.write('<p class="sub">300名SES → 中小企業向けAI事業への5年移行計画</p>');
+    w.document.write('<h2>前提条件</h2><ul><li>エンジニア1名あたり <strong style="color:#ffff00">5社</strong> 担当</li><li>5年かけてSES → AI事業に段階移行</li><li>平均単価は顧客のアップセルで自然上昇</li></ul>');
+    w.document.write('<h2>5年移行テーブル</h2>');
+    w.document.write('<table><tr><th>年</th><th>AI担当人数</th><th>クライアント数</th><th>平均単価/月</th><th>AI年商</th><th>SES年商</th><th>合計</th></tr>');
+    w.document.write('<tr><td>1年目</td><td>50名</td><td>250社</td><td>¥10万</td><td>3億</td><td>37億</td><td class="hi">40億</td></tr>');
+    w.document.write('<tr><td>2年目</td><td>100名</td><td>500社</td><td>¥12万</td><td>7.2億</td><td>33億</td><td class="hi">40億</td></tr>');
+    w.document.write('<tr><td>3年目</td><td>180名</td><td>900社</td><td>¥15万</td><td>16億</td><td>24億</td><td class="hi">40億</td></tr>');
+    w.document.write('<tr><td>4年目</td><td>250名</td><td>1,250社</td><td>¥20万</td><td>30億</td><td>10億</td><td class="hi">40億</td></tr>');
+    w.document.write('<tr><td>5年目</td><td>300名</td><td>1,500社</td><td>¥22万</td><td class="hi">40億</td><td>0億</td><td class="hi">40億</td></tr></table>');
+    w.document.write('<h2>平均単価が上がる理由</h2><p class="note">クライアントがライト(¥5万) → スタンダード(¥10万) → プレミアム(¥30万+)にアップセル。<br>AI化の成果が出るほど対象業務が増え、上位プランへ自然移行する。</p>');
+    w.document.write('<h2>API原価と粗利率</h2><table><tr><th>年</th><th>API原価(対売上)</th><th>粗利率</th><th>備考</th></tr><tr><td>1年目</td><td>20-25%</td><td>40-50%</td><td>初期投資期</td></tr><tr><td>3年目</td><td>15-20%</td><td>50-60%</td><td>スケールメリット発生</td></tr><tr><td>5年目</td><td>5-10%</td><td class="hi">70%+</td><td>AI処理コスト1/10に低下</td></tr></table>');
+    w.document.write('<p class="note">※ IDC予測: 2028年までにAI処理コストは2025年の1/10に低下<br>※ API費用は月額に込み（業界標準: 3-5倍マークアップ）<br>※ 日本の中小企業AI導入率: 約10% → 巨大な未開拓市場<br>※ 2026年「デジタル化・AI導入補助金」で中小企業のAI導入に追い風</p>');
+    w.document.write('</body></html>');
+    w.document.close();
+  });
 })();
 </script>
 
