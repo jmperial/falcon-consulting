@@ -1997,12 +1997,6 @@ function resetAll(){
         await typeCC(retryLine.querySelector('span:last-child'),'お問い合わせフォームを作成してください --priority=high',40);
         await sleep(600);
         if(bootState!=='booting')return;
-        var doneDiv2=document.createElement('div');
-        doneDiv2.className='cc-ok';
-        ccDrama.appendChild(doneDiv2);
-        await typeCC(doneDiv2,'部長Agent: お待たせいたしました。お問い合わせフォーム、完成しました。',18);
-        await sleep(400);
-        if(bootState!=='booting')return;
       } else {
         // DQ → battle → chest → form
         var dqMsg=document.createElement('div');
