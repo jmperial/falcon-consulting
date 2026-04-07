@@ -361,8 +361,13 @@ nav a:hover{color:#e0e0e0}
 .s1 .hayabusa{
   position:absolute;top:80px;right:5%;
   font-size:6rem;font-family:"Yu Mincho",serif;
-  color:rgba(51,255,51,.06);user-select:none;pointer-events:none;
-  text-shadow:0 0 40px rgba(51,255,51,.1);
+  color:rgba(255,105,180,.18);user-select:none;pointer-events:none;
+  text-shadow:0 0 40px rgba(255,105,180,.5),0 0 80px rgba(255,105,180,.25),0 0 160px rgba(255,105,180,.12);
+  animation:hayabusaPulse 3s ease-in-out infinite;
+}
+@keyframes hayabusaPulse{
+  0%,100%{color:rgba(255,105,180,.14);text-shadow:0 0 30px rgba(255,105,180,.4),0 0 70px rgba(255,105,180,.2)}
+  50%{color:rgba(255,105,180,.26);text-shadow:0 0 60px rgba(255,105,180,.7),0 0 120px rgba(255,105,180,.4),0 0 200px rgba(255,105,180,.15)}
 }
 .s1 .out-title{color:#33ff00;text-shadow:0 0 8px rgba(51,255,51,.4)}
 .s1 .glow-line{color:#ffff00;font-size:clamp(3rem, 7vw, 5rem);font-weight:700;text-shadow:0 0 12px #ffff00,0 0 24px #ffb300;margin:16px 0}
@@ -645,12 +650,14 @@ footer{
 .s4-plan-price{font-size:2.2rem;font-weight:700;color:#33ff00;margin-bottom:4px}
 .s4-plan-price span{font-size:.85rem;font-weight:400;color:rgba(240,208,96,.5)}
 .s4-plan-desc{font-size:.95rem;color:rgba(240,208,96,.5);line-height:1.5}
-.s4-compare{margin-top:20px;display:flex;flex-direction:column;gap:8px}
-.s4-compare-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;font-size:1rem}
-.s4-compare-row.lose{border:1px solid rgba(255,107,107,.2);background:rgba(255,107,107,.03);color:#ff6b6b}
-.s4-compare-row.win{border:1px solid rgba(51,255,0,.25);background:rgba(51,255,0,.04);color:#33ff00}
-.s4-compare-row .label{flex:1}
-.s4-compare-row .price{font-weight:700;white-space:nowrap}
+.s4-compare{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.s4-compare-row{padding:16px 20px;border-radius:10px;display:flex;flex-direction:column;gap:4px}
+.s4-compare-row.lose{border:1px solid rgba(255,107,107,.25);background:rgba(255,107,107,.04);color:#ff6b6b}
+.s4-compare-row.win{border:1px solid rgba(51,255,0,.3);background:rgba(51,255,0,.06);color:#33ff00}
+.s4-cr-name{font-size:.88rem;font-weight:600;opacity:.7;letter-spacing:.5px}
+.s4-cr-price{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;line-height:1.1}
+.s4-cr-note{font-size:1rem;opacity:.8;margin-top:2px}
+@media(max-width:600px){.s4-cr-price{font-size:8vw}}
 .s4-points{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .s4-point{padding:6px 16px;border-radius:20px;font-size:.9rem;border:1px solid rgba(51,255,0,.3);color:#33ff00;background:rgba(51,255,0,.04)}
 .s4-biz-btn{display:block;margin:20px auto 0;padding:10px 24px;font-size:.85rem;color:rgba(240,208,96,.5);background:transparent;border:1px solid rgba(240,208,96,.15);border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s}
@@ -741,10 +748,13 @@ footer{
   .flow-viz-desc{font-size:1rem}
 }
 
+.s4-sub-catch{text-align:center;font-size:clamp(.95rem,3.5vw,1.3rem);color:rgba(255,179,0,.65);font-style:italic;margin:8px 0 4px;letter-spacing:.5px}
+@media(max-width:600px){.s4-sub-catch{font-size:4.2vw}}
+
 /* === MOBILE (iPhone 17 base: ~393px) === */
 @media(max-width:600px){
   .sec{padding:80px 14px 40px}
-  .s1 .hayabusa{font-size:4rem;top:70px;right:3%}
+  .s1 .hayabusa{font-size:4rem;top:70px;right:3%;color:rgba(255,105,180,.22)}
   .s1 .era-badge{top:60px;left:14px;font-size:.5rem}
   .s1 .stats{flex-direction:column;gap:10px}
   /* vw統一: 全スマホで同一比率表示（LINEブラウザ基準に拡大）*/
@@ -794,6 +804,59 @@ footer{
 /* per-section overrides */
 @media(max-width:600px){
   .sec-big-kw{font-size:10vw}
+}
+
+/* === DEVICE FRAME SLIDESHOW === */
+.dev-wrap{background:linear-gradient(180deg,#2c2c2e,#1e1e20);border-radius:16px 16px 0 0;border:2px solid #3c3c3e;border-bottom:none;padding:10px 10px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 -4px 16px rgba(0,0,0,.4);position:relative}
+.dev-camera{width:7px;height:7px;border-radius:50%;background:#3a3a3c;margin:0 auto 8px;box-shadow:inset 0 0 2px rgba(0,0,0,.5)}
+.dev-screen{background:#0c1220;border-radius:6px 6px 0 0;border:1px solid #2a2a2c;overflow:hidden;position:relative;min-height:240px}
+.dev-stand-wrap{background:linear-gradient(180deg,#2a2a2c,#1c1c1e);height:18px;border:2px solid #3c3c3e;border-top:none}
+.dev-foot{width:120px;height:7px;background:linear-gradient(180deg,#2a2a2c,#222);border:1px solid #3a3a3a;border-top:none;border-radius:0 0 8px 8px;margin:0 auto}
+.dev-slide-inner{padding:28px 24px 20px;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-top:3px solid rgba(96,165,250,.4)}
+.dev-slide-inner.c-green{border-top-color:#33ff00}
+.dev-slide-inner.c-yellow{border-top-color:#ffff00}
+.dev-slide-inner.c-cyan{border-top-color:#67e8f9}
+.dev-slide-inner.c-red{border-top-color:#ff6b6b}
+.dev-slide-inner.c-purple{border-top-color:#c084fc}
+.dev-slide-inner.c-blue{border-top-color:#60a5fa}
+.dev-slide-icon{font-size:3.2rem;margin-bottom:10px;line-height:1}
+.dev-slide-title{font-size:1.5rem;font-weight:700;margin-bottom:10px}
+.dev-slide-title.c-green{color:#33ff00}.dev-slide-title.c-yellow{color:#ffff00}.dev-slide-title.c-cyan{color:#67e8f9}.dev-slide-title.c-red{color:#ff6b6b}.dev-slide-title.c-purple{color:#c084fc}.dev-slide-title.c-blue{color:#60a5fa}
+.dev-slide-desc{font-size:.95rem;color:#9ab0c8;line-height:1.75;max-width:500px}
+.dev-slide-metric{margin-top:12px;font-size:1rem;font-weight:700;padding:6px 18px;border-radius:20px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1)}
+.dev-slide-kpi{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.dev-slide-kpi-item{text-align:center;padding:10px 14px;border-radius:8px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.07);min-width:80px}
+.dev-slide-kpi-val{font-size:1.6rem;font-weight:700;line-height:1.1}
+.dev-slide-kpi-label{font-size:.72rem;opacity:.55;margin-top:3px}
+.dev-slide-minisvg{margin-top:14px;width:100%;max-width:240px}
+.dev-slide-minisvg svg{width:100%;height:auto;display:block}
+/* Arrow transition overlay */
+.dev-arrow-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:10;opacity:0}
+.dev-arrow-fly{font-size:3rem;color:#60a5fa;text-shadow:0 0 20px rgba(96,165,250,.9),0 0 40px rgba(96,165,250,.4);animation:devArrowFly .55s ease forwards}
+@keyframes devArrowFly{0%{opacity:0;transform:translateX(-50px) scale(.5)}35%{opacity:1;transform:translateX(0) scale(1.15)}70%{opacity:.7;transform:translateX(35px) scale(.95)}100%{opacity:0;transform:translateX(80px) scale(.7)}}
+/* Slide in animations */
+@keyframes devSlideRight{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:translateX(0)}}
+@keyframes devSlideLeft{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:translateX(0)}}
+/* Navigation */
+.dev-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 2px 4px;gap:8px;flex-wrap:wrap}
+.dev-nav-btn{padding:8px 18px;background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.22);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace}
+.dev-nav-btn:hover{background:rgba(96,165,250,.18);border-color:#60a5fa}
+.dev-nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.dev-nav-dots{display:flex;gap:6px;align-items:center}
+.dev-nav-dot{width:9px;height:9px;border-radius:50%;background:rgba(96,165,250,.2);cursor:pointer;transition:all .25s}
+.dev-nav-dot.on{background:#60a5fa;transform:scale(1.35)}
+.dev-nav-ctr{font-size:.78rem;color:rgba(96,165,250,.4);font-family:'JetBrains Mono',monospace;white-space:nowrap}
+/* Mini SVG animations shared */
+.msb{transform-box:fill-box;transform-origin:bottom center;animation:msbGrow .65s ease both}
+@keyframes msbGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.msl{stroke-dasharray:300;stroke-dashoffset:300;animation:mslDraw 1.4s ease .4s forwards}
+@keyframes mslDraw{to{stroke-dashoffset:0}}
+@media(max-width:600px){
+  .dev-slide-icon{font-size:2.5rem}
+  .dev-slide-title{font-size:1.25rem}
+  .dev-slide-desc{font-size:.88rem}
+  .dev-slide-kpi-val{font-size:1.3rem}
+  .dev-nav-btn{padding:7px 13px;font-size:.8rem}
 }
 </style>
 </head>
@@ -913,7 +976,8 @@ footer{
             <span class="s4-line" style="color:#67e8f9">AIがいる。</span>
             <span class="s4-line s4-price">月5万から。</span>
           </div>
-          <p style="text-align:center;font-size:1rem;color:rgba(240,208,96,.6);margin:12px 0 20px">中小企業向け まるごとAI化サブスクリプション — API費用込み</p>
+          <p class="s4-sub-catch">団块世代が去り、人手不足の本番が来た。</p>
+          <p style="text-align:center;font-size:1rem;color:rgba(240,208,96,.6);margin:4px 0 20px">中小企業向け まるごとAI化サブスクリプション — API費用込み</p>
           <div class="s4-plans">
             <div class="s4-plan">
               <div class="s4-plan-name">ライト</div>
@@ -932,9 +996,21 @@ footer{
             </div>
           </div>
           <div class="s4-compare">
-            <div class="s4-compare-row lose"><span class="label">大手コンサル</span><span class="price">¥300万〜/月</span><span style="font-size:.7rem;opacity:.7">→ 稟議がとおらない</span></div>
-            <div class="s4-compare-row lose"><span class="label">AI人材を採用</span><span class="price">¥80万〜/月</span><span style="font-size:.7rem;opacity:.7">→ 採用困難&高コスト</span></div>
-            <div class="s4-compare-row win"><span class="label">ファルコン</span><span class="price">¥5万/月〜</span><span style="font-size:.7rem;opacity:.7">→ 300名のAI専門チームが伴走</span></div>
+            <div class="s4-compare-row lose">
+              <div class="s4-cr-name">大手コンサル</div>
+              <div class="s4-cr-price">¥300万〜/月</div>
+              <div class="s4-cr-note">稟議がとおらない</div>
+            </div>
+            <div class="s4-compare-row lose">
+              <div class="s4-cr-name">AI人材を採用</div>
+              <div class="s4-cr-price">¥80万〜/月</div>
+              <div class="s4-cr-note">採用困難 &amp; 高コスト</div>
+            </div>
+            <div class="s4-compare-row win">
+              <div class="s4-cr-name">ファルコン</div>
+              <div class="s4-cr-price">¥5万〜/月</div>
+              <div class="s4-cr-note">300名のAI専門チームが伴走</div>
+            </div>
           </div>
           <div class="s4-points">
             <span class="s4-point">初期費用 ¥0</span>
@@ -2382,122 +2458,220 @@ function resetAll(){
   },{threshold:0}).observe(s7El);
 })();
 
-// === Flow Detail Modal (SVGアニメ ↔ 縦カード 交互表示) ===
+// === Flow Detail Modal (デバイスフレーム ↔ 縦カード 交互表示) ===
 (function(){
   var overlay=document.getElementById('flow-modal');
   var body=document.getElementById('flow-modal-body');
   var titleEl=document.getElementById('flow-modal-title');
   var closeBtn=document.getElementById('close-flow');
   var isFlowOpen=false;
-  var flowModeNext=0; // 0=SVGアニメ(横), 1=縦カード
+  var flowModeNext=0; // 0=デバイスフレーム, 1=縦カード
 
-  /* ---- Step data ---- */
+  /* --- mini bar chart SVG --- */
+  function miniBarSvg(delays){
+    var bars='';var colors=['rgba(96,165,250,.4)','rgba(96,165,250,.45)','rgba(96,165,250,.55)','rgba(51,255,0,.45)','rgba(51,255,0,.6)','rgba(51,255,0,.75)'];
+    var heights=[20,28,36,44,50,54];var xs=[8,36,64,92,120,148];
+    for(var i=0;i<6;i++){
+      var d=delays[i]||(.3+i*.15);
+      bars+='<rect class="msb" x="'+xs[i]+'" y="'+(58-heights[i])+'" width="22" height="'+heights[i]+'" rx="2" fill="'+colors[i]+'" style="animation-delay:'+d+'s"/>';
+    }
+    return '<div class="dev-slide-minisvg"><svg viewBox="0 0 180 62" xmlns="http://www.w3.org/2000/svg"><line x1="4" y1="58" x2="176" y2="58" stroke="rgba(255,255,255,.08)"/>'+ bars+'</svg></div>';
+  }
+  function miniLineSvg(){
+    return '<div class="dev-slide-minisvg"><svg viewBox="0 0 180 62" xmlns="http://www.w3.org/2000/svg"><polyline class="msl" points="8,56 36,48 64,38 92,26 120,16 148,9 172,5" stroke="#33ff00" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="172" cy="5" r="4" fill="#33ff00" style="opacity:0;animation:devSlideRight .3s ease 1.8s forwards"/><line x1="4" y1="58" x2="176" y2="58" stroke="rgba(255,255,255,.08)"/></svg></div>';
+  }
+
+  /* --- Step data --- */
   var steps={
     1:{
       title:'01 — 無料ヒアリング',
-      svgHtml:function(){return '<div class="fsvg-label">📍 SVGアニメ — 現場観察から削減レポートまで</div><svg viewBox="0 0 600 245" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block"><style>.s1n1{animation:s1ni .5s ease .2s both}.s1n2{animation:s1ni .5s ease .9s both}.s1n3{animation:s1ni .5s ease 1.6s both}.s1a1{animation:s1ai .4s ease .65s both}.s1a2{animation:s1ai .4s ease 1.35s both}.s1m1{animation:s1ni .4s ease 2.1s both}.s1m2{animation:s1ni .4s ease 2.4s both}@keyframes s1ni{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes s1ai{from{opacity:0}to{opacity:1}}</style><g class="s1n1"><rect x="10" y="30" width="140" height="105" rx="10" fill="#0a1a0a" stroke="#33ff00" stroke-opacity=".35"/><text x="80" y="66" text-anchor="middle" font-size="30" font-family="sans-serif">🦅</text><text x="80" y="90" text-anchor="middle" fill="#33ff00" font-size="13" font-weight="bold" font-family="sans-serif">現場訪問</text><text x="80" y="107" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="10" font-family="sans-serif">業務フローを観察</text><text x="80" y="124" text-anchor="middle" fill="rgba(51,255,0,.4)" font-size="9" font-family="sans-serif">当日中に完了</text></g><g class="s1a1"><line x1="153" y1="82" x2="194" y2="82" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3"/><polygon points="194,78 202,82 194,86" fill="#60a5fa"/></g><g class="s1n2"><rect x="205" y="20" width="155" height="160" rx="10" fill="#111308" stroke="#ffff00" stroke-opacity=".3"/><text x="282" y="46" text-anchor="middle" fill="#ffff00" font-size="12" font-weight="bold" font-family="sans-serif">📋 課題マッピング</text><rect x="217" y="56" width="131" height="17" rx="3" fill="rgba(255,107,107,.15)"/><text x="225" y="68" fill="#ff6b6b" font-size="10" font-family="sans-serif">❌ 手作業の書類処理</text><rect x="217" y="78" width="131" height="17" rx="3" fill="rgba(255,107,107,.15)"/><text x="225" y="90" fill="#ff6b6b" font-size="10" font-family="sans-serif">❌ 発注ミス多発</text><rect x="217" y="100" width="131" height="17" rx="3" fill="rgba(255,255,0,.08)"/><text x="225" y="112" fill="#ffff00" font-size="10" font-family="sans-serif">⚡ 月80h削減チャンス</text><rect x="217" y="122" width="131" height="17" rx="3" fill="rgba(51,255,0,.08)"/><text x="225" y="134" fill="#33ff00" font-size="10" font-family="sans-serif">✅ ROI 年間960万円</text><text x="282" y="166" text-anchor="middle" fill="rgba(255,255,0,.4)" font-size="9" font-family="sans-serif">ワークショップで洗い出し</text></g><g class="s1a2"><line x1="363" y1="82" x2="404" y2="82" stroke="#33ff00" stroke-width="1.5" stroke-dasharray="3"/><polygon points="404,78 412,82 404,86" fill="#33ff00"/></g><g class="s1n3"><rect x="415" y="25" width="175" height="150" rx="10" fill="#0a1a0e" stroke="#33ff00" stroke-opacity=".5"/><text x="502" y="50" text-anchor="middle" fill="#33ff00" font-size="12" font-weight="bold" font-family="sans-serif">📊 削減見込みレポート</text><text x="502" y="88" text-anchor="middle" fill="#33ff00" font-size="34" font-weight="bold" font-family="sans-serif">80h</text><text x="502" y="107" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="10" font-family="sans-serif">削減/月</text><line x1="428" y1="116" x2="578" y2="116" stroke="rgba(51,255,0,.15)"/><text x="502" y="142" text-anchor="middle" fill="#ffff00" font-size="26" font-weight="bold" font-family="sans-serif">960万</text><text x="502" y="160" text-anchor="middle" fill="rgba(255,255,0,.5)" font-size="10" font-family="sans-serif">年間削減額 / ROI 320%</text></g><g class="s1m1"><text x="300" y="218" text-anchor="middle" fill="rgba(51,255,0,.35)" font-size="10" font-family="sans-serif">訪問当日にレポートをお渡しします。費用：¥0</text></g></svg>';}
-      ,
       intro:'コンサルタントが実際に現場を訪問。業務フローを観察し、削減見込みを金額で可視化します。',
       nodes:[
-        {icon:'🦅',color:'c-green',title:'現場訪問',desc:'コンサルタントが御社へ伺います。現場の方々と一緒に業務フローを観察し、どこに時間が奪われているかを把握します。',metric:''},
-        {icon:'📋',color:'c-yellow',title:'課題マッピング',desc:'ワークショップ形式で課題を洗い出し。手作業書類処理・発注ミス・情報共有の遅延など、AI化できる領域を優先度付きで整理します。',metric:''},
-        {icon:'📊',color:'c-cyan',title:'削減見込みレポート',desc:'AI化によって削減できる時間・コストを金額で可視化。当日中にレポートをお渡しします。費用は¥0です。',kpi:[{val:'80h/月',label:'削減時間'},{val:'960万',label:'年間削減額'},{val:'ROI 320%',label:'投資対効果'}]}
+        {icon:'🦅',color:'c-green',title:'現場訪問',desc:'コンサルタントが御社へ伺います。現場の方々と一緒に業務フローを観察し、どこに時間が奪われているかを把握します。費用は¥0です。',metric:''},
+        {icon:'📋',color:'c-yellow',title:'課題マッピング',desc:'ワークショップ形式で課題を洗い出し。手作業の書類処理・発注ミス・情報共有の遅延など、AI化できる領域を優先度付きで整理します。',metric:''},
+        {icon:'📊',color:'c-cyan',title:'削減見込みレポート',desc:'AI化によって削減できる時間・コストを金額で可視化。当日中にレポートをお渡しします。',kpi:[{val:'80h/月',label:'削減時間'},{val:'960万',label:'年間削減額'},{val:'ROI 320%',label:'投資対効果'}]}
       ]
     },
     2:{
       title:'02 — 業務分析',
-      svgHtml:function(){return '<div class="fsvg-label">📊 SVGアニメ — Before/After シミュレーション</div><svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block"><style>.s2bf{animation:s2ni .5s ease .2s both}.s2ai{animation:s2ni .5s ease .8s both}.s2af{animation:s2ni .5s ease 1.5s both}.s2rp{animation:s2ni .5s ease 2s both}.s2br{animation:s2gr .8s ease .4s both;transform-box:fill-box;transform-origin:bottom center}.s2gr{animation:s2gr .8s ease 1.7s both;transform-box:fill-box;transform-origin:bottom center}@keyframes s2ni{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes s2gr{from{transform:scaleY(0)}to{transform:scaleY(1)}}</style><g class="s2bf"><rect x="20" y="30" width="130" height="140" rx="10" fill="#1a0808" stroke="#ff6b6b" stroke-opacity=".4"/><text x="85" y="52" text-anchor="middle" fill="#ff6b6b" font-size="11" font-weight="bold" font-family="sans-serif">😰 Before</text><rect class="s2br" x="50" y="75" width="70" height="72" rx="4" fill="#ff3333" opacity=".5"/><text x="85" y="118" text-anchor="middle" fill="#ff6b6b" font-size="24" font-weight="bold" font-family="sans-serif">120h</text><text x="85" y="152" text-anchor="middle" fill="rgba(255,107,107,.5)" font-size="9" font-family="sans-serif">月間手作業時間</text></g><g class="s2ai"><rect x="220" y="55" width="160" height="130" rx="12" fill="rgba(103,232,249,.05)" stroke="#67e8f9" stroke-opacity=".3"/><text x="300" y="83" text-anchor="middle" fill="#67e8f9" font-size="13" font-weight="bold" font-family="sans-serif">🤖 AI分析エンジン</text><rect x="232" y="95" width="136" height="15" rx="3" fill="rgba(103,232,249,.08)"/><text x="300" y="106" text-anchor="middle" fill="#67e8f9" font-size="9" font-family="sans-serif">業務フロー解析</text><rect x="232" y="115" width="136" height="15" rx="3" fill="rgba(103,232,249,.08)"/><text x="300" y="126" text-anchor="middle" fill="#67e8f9" font-size="9" font-family="sans-serif">ボトルネック検出</text><rect x="232" y="135" width="136" height="15" rx="3" fill="rgba(103,232,249,.08)"/><text x="300" y="146" text-anchor="middle" fill="#67e8f9" font-size="9" font-family="sans-serif">ROIシミュレーション</text><text x="300" y="173" text-anchor="middle" fill="rgba(103,232,249,.4)" font-size="9" font-family="sans-serif">完全無料で実施</text></g><g class="s2af"><rect x="450" y="30" width="130" height="140" rx="10" fill="#0a1a0a" stroke="#33ff00" stroke-opacity=".4"/><text x="515" y="52" text-anchor="middle" fill="#33ff00" font-size="11" font-weight="bold" font-family="sans-serif">✅ After</text><rect class="s2gr" x="480" y="100" width="70" height="47" rx="4" fill="#33ff00" opacity=".4"/><text x="515" y="124" text-anchor="middle" fill="#33ff00" font-size="24" font-weight="bold" font-family="sans-serif">40h</text><text x="515" y="152" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="9" font-family="sans-serif">月間作業時間</text></g><g class="s2rp"><rect x="20" y="195" width="560" height="50" rx="8" fill="#111820" stroke="rgba(255,255,0,.2)"/><text x="300" y="215" text-anchor="middle" fill="#ffff00" font-size="11" font-weight="bold" font-family="sans-serif">📑 シミュレーション結果レポート（完全無料）</text><text x="150" y="233" text-anchor="middle" fill="#7da8e8" font-size="10" font-family="sans-serif">削減時間: 80h/月</text><text x="300" y="233" text-anchor="middle" fill="#33ff00" font-size="10" font-family="sans-serif">コスト削減: 年960万</text><text x="450" y="233" text-anchor="middle" fill="#ffff00" font-size="10" font-family="sans-serif">ROI: 320%</text></g></svg>';}
-      ,
       intro:'Before/Afterシミュレーション結果を完全無料でご提出。導入前から効果を数値で確認できます。',
       nodes:[
-        {icon:'😰',color:'c-red',title:'現状 (Before)',desc:'月120hの手作業書類処理。ミスが多発し、担当者は本来の仕事に集中できていない状態。',metric:'月120h / 年間コスト960万円'},
-        {icon:'🤖',color:'c-cyan',title:'AI分析エンジン',desc:'業務フロー解析・ボトルネック検出・ROIシミュレーションをAIが自動実行。',metric:''},
-        {icon:'✅',color:'c-green',title:'改善後 (After) + レポート',desc:'完全無料のシミュレーションレポートをお届け。削減時間・コスト削減額・ROIを数値で明示。',kpi:[{val:'月40h',label:'作業時間'},{val:'ROI 320%',label:'投資対効果'},{val:'無料',label:'この分析の費用'}]}
+        {icon:'😰',color:'c-red',title:'現状 (Before)',desc:'月120hの手作業書類処理。ミスが多発し、担当者は本来の仕事に集中できていない状態。年間で換算すると人件費ベースで960万円以上のロスです。',metric:'月120h 浪費',extraSvg:'bar'},
+        {icon:'🤖',color:'c-cyan',title:'AI分析エンジン',desc:'業務フロー解析・ボトルネック検出・ROIシミュレーションをAIが自動実行。人間が見落としがちなパターンも検出します。この分析は完全無料で実施します。',metric:''},
+        {icon:'✅',color:'c-green',title:'改善後 (After) + レポート',desc:'完全無料のシミュレーションレポートをお届け。削減時間・コスト削減額・ROIを数値で明示。このレポートを見てから導入を判断していただけます。',kpi:[{val:'月40h',label:'作業時間'},{val:'ROI 320%',label:'投資対効果'},{val:'¥0',label:'この分析の費用'}],extraSvg:'bar2'}
       ]
     },
     3:{
       title:'03 — AI導入・定着',
-      svgHtml:function(){return '<div class="fsvg-label">⚡ SVGアニメ — 建設現場の発注自動化フロー</div><svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block"><style>.s3n1{animation:s3ni .45s ease .1s both}.s3n2{animation:s3ni .45s ease .5s both}.s3n3{animation:s3ni .45s ease .9s both}.s3n4{animation:s3ni .45s ease 1.3s both}.s3n5{animation:s3ni .45s ease 1.7s both}.s3a1,.s3a2,.s3a3,.s3a4{animation:s3ai .3s ease both}.s3a1{animation-delay:.35s}.s3a2{animation-delay:.75s}.s3a3{animation-delay:1.15s}.s3a4{animation-delay:1.55s}.s3r{animation:s3ni .5s ease 2.1s both}@keyframes s3ni{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes s3ai{from{opacity:0}to{opacity:1}}</style><g class="s3n1"><rect x="8" y="30" width="95" height="88" rx="8" fill="rgba(255,255,0,.04)" stroke="rgba(255,255,0,.35)"/><text x="55" y="60" text-anchor="middle" font-size="26" font-family="sans-serif">📐</text><text x="55" y="80" text-anchor="middle" fill="#ffff00" font-size="11" font-weight="bold" font-family="sans-serif">図面撮影</text><text x="55" y="96" text-anchor="middle" fill="rgba(255,255,0,.4)" font-size="8" font-family="sans-serif">スマホで撮るだけ</text></g><g class="s3a1"><line x1="106" y1="74" x2="123" y2="74" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="3"/><polygon points="123,71 130,74 123,77" fill="#67e8f9"/></g><g class="s3n2"><rect x="133" y="30" width="95" height="88" rx="8" fill="rgba(103,232,249,.04)" stroke="rgba(103,232,249,.35)"/><text x="180" y="60" text-anchor="middle" font-size="26" font-family="sans-serif">🤖</text><text x="180" y="80" text-anchor="middle" fill="#67e8f9" font-size="11" font-weight="bold" font-family="sans-serif">AI読取</text><text x="180" y="96" text-anchor="middle" fill="rgba(103,232,249,.4)" font-size="8" font-family="sans-serif">部材・数量を認識</text></g><g class="s3a2"><line x1="231" y1="74" x2="248" y2="74" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="3"/><polygon points="248,71 255,74 248,77" fill="#67e8f9"/></g><g class="s3n3"><rect x="258" y="30" width="95" height="88" rx="8" fill="rgba(192,132,252,.04)" stroke="rgba(192,132,252,.35)"/><text x="305" y="60" text-anchor="middle" font-size="26" font-family="sans-serif">🗄️</text><text x="305" y="80" text-anchor="middle" fill="#c084fc" font-size="11" font-weight="bold" font-family="sans-serif">在庫照合</text><text x="305" y="96" text-anchor="middle" fill="rgba(192,132,252,.4)" font-size="8" font-family="sans-serif">社内DBと自動照合</text></g><g class="s3a3"><line x1="356" y1="74" x2="373" y2="74" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="3"/><polygon points="373,71 380,74 373,77" fill="#67e8f9"/></g><g class="s3n4"><rect x="383" y="30" width="95" height="88" rx="8" fill="rgba(51,255,0,.04)" stroke="rgba(51,255,0,.35)"/><text x="430" y="60" text-anchor="middle" font-size="26" font-family="sans-serif">📄</text><text x="430" y="80" text-anchor="middle" fill="#33ff00" font-size="11" font-weight="bold" font-family="sans-serif">発注書生成</text><text x="430" y="96" text-anchor="middle" fill="rgba(51,255,0,.4)" font-size="8" font-family="sans-serif">AIが自動作成</text></g><g class="s3a4"><line x1="481" y1="74" x2="498" y2="74" stroke="#33ff00" stroke-width="1.5" stroke-dasharray="3"/><polygon points="498,71 505,74 498,77" fill="#33ff00"/></g><g class="s3n5"><rect x="508" y="30" width="84" height="88" rx="8" fill="rgba(51,255,0,.08)" stroke="rgba(51,255,0,.5)"/><text x="550" y="60" text-anchor="middle" font-size="26" font-family="sans-serif">📤</text><text x="550" y="80" text-anchor="middle" fill="#33ff00" font-size="11" font-weight="bold" font-family="sans-serif">自動発注</text><text x="550" y="96" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="8" font-family="sans-serif">ボタン1つで完了</text></g><g class="s3r"><rect x="10" y="145" width="580" height="55" rx="8" fill="rgba(255,255,0,.03)" stroke="rgba(255,255,0,.2)"/><text x="300" y="165" text-anchor="middle" fill="#ffff00" font-size="11" font-weight="bold" font-family="sans-serif">⏱ 従来: 1件あたり2時間 → AI導入後: 5分（96%削減）</text><text x="300" y="184" text-anchor="middle" fill="rgba(103,232,249,.5)" font-size="9" font-family="sans-serif">人間は最終確認ボタンを押すだけ。ヒューマン・イン・ザ・ループで安全性を担保。</text></g><text x="300" y="225" text-anchor="middle" fill="rgba(51,255,0,.25)" font-size="9" font-family="sans-serif">定着サポート: 操作研修 + マニュアル作成 / 保守: 精度改善 + 業務変更対応</text></svg>';}
-      ,
       intro:'例: 建設現場の発注自動化。従来2時間かかっていた作業が5分に。',
       nodes:[
-        {icon:'📐',color:'c-yellow',title:'① 図面撮影',desc:'スマホで写真を撮るだけ。特別な機器・スキャナは不要です。',metric:''},
-        {icon:'🤖',color:'c-cyan',title:'② AI読取',desc:'部材・数量をAIが自動認識。手書き図面にも対応します。',metric:''},
-        {icon:'🗄️',color:'c-purple',title:'③ 在庫照合',desc:'社内在庫データベースと自動照合。発注漏れ・重複を防止します。',metric:''},
-        {icon:'📄',color:'c-green',title:'④ 発注書生成',desc:'AIが発注書を自動生成。既存の帳票フォーマットに対応。',metric:''},
-        {icon:'📤',color:'c-green',title:'⑤ 自動発注 → 完了',desc:'最終確認ボタンを押すだけ。ヒューマン・イン・ザ・ループで安全性を担保。',kpi:[{val:'2時間',label:'従来'},{val:'5分',label:'AI導入後'},{val:'96%削減',label:'工数削減'}]}
+        {icon:'📐',color:'c-yellow',title:'① 図面撮影',desc:'スマホで写真を撮るだけ。特別な機器・専用スキャナは不要です。現場の方がそのまま使えます。',metric:''},
+        {icon:'🤖',color:'c-cyan',title:'② AI読取',desc:'部材・数量をAIが自動認識。OCRより高精度で、手書き図面にも対応します。認識精度は継続的に改善されます。',metric:''},
+        {icon:'🗄️',color:'c-purple',title:'③ 在庫照合',desc:'社内在庫データベースと自動照合。発注漏れ・重複発注を自動で防止します。リアルタイムで在庫状況を反映します。',metric:''},
+        {icon:'📄',color:'c-green',title:'④ 発注書生成',desc:'AIが発注書を自動生成。フォーマットは既存の帳票に対応します。承認フローも設定可能です。',metric:''},
+        {icon:'📤',color:'c-green',title:'⑤ 自動発注 → 完了',desc:'最終確認ボタンを押すだけ。ヒューマン・イン・ザ・ループで安全性を担保しながら自動発注まで完了します。',kpi:[{val:'2時間',label:'従来の所要時間'},{val:'5分',label:'AI導入後'},{val:'96%削減',label:'工数削減率'}]}
       ]
     },
     4:{
       title:'04 — 効果測定',
-      svgHtml:function(){return '<div class="fsvg-label">📈 SVGアニメ — 月次ダッシュボード</div><svg viewBox="0 0 600 275" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block"><style>.s4bc{animation:s4ni .4s ease .2s both}.s4b1{animation:s4gr .7s ease .5s both;transform-box:fill-box;transform-origin:bottom center}.s4b2{animation:s4gr .7s ease .65s both;transform-box:fill-box;transform-origin:bottom center}.s4b3{animation:s4gr .7s ease .8s both;transform-box:fill-box;transform-origin:bottom center}.s4b4{animation:s4gr .7s ease .95s both;transform-box:fill-box;transform-origin:bottom center}.s4b5{animation:s4gr .7s ease 1.1s both;transform-box:fill-box;transform-origin:bottom center}.s4b6{animation:s4gr .7s ease 1.25s both;transform-box:fill-box;transform-origin:bottom center}.s4lc{animation:s4ni .4s ease .4s both}.s4ln{stroke-dasharray:450;stroke-dashoffset:450;animation:s4dl 1.8s ease 1.4s forwards}.s4k1{animation:s4ni .5s ease 1.9s both}.s4k2{animation:s4ni .5s ease 2.1s both}.s4k3{animation:s4ni .5s ease 2.3s both}@keyframes s4ni{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes s4gr{from{transform:scaleY(0)}to{transform:scaleY(1)}}@keyframes s4dl{to{stroke-dashoffset:0}}</style><g class="s4bc"><rect x="15" y="15" width="270" height="155" rx="8" fill="#0a0f1a" stroke="rgba(96,165,250,.2)"/><text x="150" y="35" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="bold" font-family="sans-serif">📊 削減時間推移 (h/月)</text><line x1="30" y1="155" x2="270" y2="155" stroke="rgba(96,165,250,.2)" stroke-width="1"/><rect class="s4b1" x="42" y="127" width="24" height="28" rx="2" fill="rgba(96,165,250,.4)"/><rect class="s4b2" x="80" y="113" width="24" height="42" rx="2" fill="rgba(96,165,250,.45)"/><rect class="s4b3" x="118" y="98" width="24" height="57" rx="2" fill="rgba(96,165,250,.55)"/><rect class="s4b4" x="156" y="85" width="24" height="70" rx="2" fill="rgba(51,255,0,.45)"/><rect class="s4b5" x="194" y="77" width="24" height="78" rx="2" fill="rgba(51,255,0,.55)"/><rect class="s4b6" x="232" y="71" width="24" height="84" rx="2" fill="rgba(51,255,0,.65)"/><text x="54" y="168" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="8" font-family="sans-serif">1月</text><text x="92" y="168" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="8" font-family="sans-serif">2月</text><text x="130" y="168" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="8" font-family="sans-serif">3月</text><text x="168" y="168" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="8" font-family="sans-serif">4月</text><text x="206" y="168" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="8" font-family="sans-serif">5月</text><text x="244" y="168" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="8" font-family="sans-serif">6月</text></g><g class="s4lc"><rect x="305" y="15" width="280" height="155" rx="8" fill="#0a0f1a" stroke="rgba(51,255,0,.2)"/><text x="445" y="35" text-anchor="middle" fill="#33ff00" font-size="11" font-weight="bold" font-family="sans-serif">📈 コスト削減累計 (万円)</text><polyline class="s4ln" points="325,155 355,145 390,130 420,112 455,95 488,78 570,62" stroke="#33ff00" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="570" cy="62" r="4" fill="#33ff00" opacity="0" style="animation:s4ni .3s ease 3.1s both"/><text x="575" y="59" fill="#33ff00" font-size="9" font-weight="bold" font-family="sans-serif" opacity="0" style="animation:s4ni .3s ease 3.1s both">480万</text><polyline points="325,155 355,153 390,148 420,140 455,132 488,124 570,115" stroke="#ffff00" stroke-width="1.5" fill="none" stroke-dasharray="4" opacity=".4"/><text x="333" y="168" fill="rgba(255,255,0,.35)" font-size="8" font-family="sans-serif">---- 目標</text></g><g class="s4k1"><rect x="15" y="195" width="175" height="65" rx="8" fill="rgba(96,165,250,.06)" stroke="rgba(96,165,250,.25)"/><text x="102" y="218" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="sans-serif">削減時間</text><text x="102" y="247" text-anchor="middle" fill="#bdd4ff" font-size="24" font-weight="bold" font-family="sans-serif">80h/月</text></g><g class="s4k2"><rect x="212" y="195" width="175" height="65" rx="8" fill="rgba(51,255,0,.06)" stroke="rgba(51,255,0,.25)"/><text x="299" y="218" text-anchor="middle" fill="#33ff00" font-size="10" font-family="sans-serif">コスト削減</text><text x="299" y="247" text-anchor="middle" fill="#33ff00" font-size="24" font-weight="bold" font-family="sans-serif">240万/月</text></g><g class="s4k3"><rect x="409" y="195" width="175" height="65" rx="8" fill="rgba(255,255,0,.06)" stroke="rgba(255,255,0,.25)"/><text x="496" y="218" text-anchor="middle" fill="#ffff00" font-size="10" font-family="sans-serif">ROI</text><text x="496" y="247" text-anchor="middle" fill="#ffff00" font-size="24" font-weight="bold" font-family="sans-serif">320%</text></g></svg>';}
-      ,
       intro:'毎月のダッシュボードで効果を可視化。請求金額の根拠も明確です。',
       nodes:[
-        {icon:'📈',color:'c-blue',title:'削減時間グラフ',desc:'導入1〜6ヶ月の削減時間推移を棒グラフで表示。どの月から効果が出たかが一目でわかります。',metric:'導入6ヶ月で月80h削減達成'},
-        {icon:'💰',color:'c-green',title:'コスト削減累計',desc:'月次のコスト削減額を折れ線グラフで表示。目標値との比較で進捗を管理。API費用を差し引いた実質コスト削減も明示します。',metric:'累計480万円削減（6ヶ月）'},
-        {icon:'🏆',color:'c-yellow',title:'KPIサマリー',desc:'毎月の請求金額と削減効果の対比を明示。成果が出なければ費用ゼロで継続か終了を判断できます。',kpi:[{val:'80h/月',label:'削減時間'},{val:'240万/月',label:'コスト削減'},{val:'ROI 320%',label:'投資対効果'}]}
+        {icon:'📈',color:'c-blue',title:'削減時間グラフ',desc:'導入1〜6ヶ月の削減時間推移を棒グラフで表示。どの月から効果が出始めたかが一目でわかります。月を重ねるごとに削減量が増加します。',metric:'導入6ヶ月で月80h削減達成',extraSvg:'bar'},
+        {icon:'💰',color:'c-green',title:'コスト削減累計',desc:'月次のコスト削減額を折れ線グラフで表示。目標値との比較で進捗を管理します。API費用を差し引いた実質コスト削減額も明示します。',metric:'累計480万円削減（6ヶ月）',extraSvg:'line'},
+        {icon:'🏆',color:'c-yellow',title:'月次KPIサマリー',desc:'毎月の請求金額と削減効果の対比を明示します。成果が出なければ費用ゼロで継続か終了かを判断できます。完全な透明性を保ちます。',kpi:[{val:'80h/月',label:'削減時間'},{val:'240万/月',label:'コスト削減'},{val:'ROI 320%',label:'投資対効果'}]}
       ]
     }
   };
 
-  function buildNode(node,idx){
-    var delayMs=100+idx*200;
-    var el=document.createElement('div');
-    el.className='flow-viz-node '+node.color;
-    el.style.animationDelay=delayMs+'ms';
-    var kpiColor=node.color==='c-yellow'?'#ffff00':node.color==='c-green'?'#33ff00':node.color==='c-cyan'?'#67e8f9':node.color==='c-blue'?'#60a5fa':'#c084fc';
-    var inner='<div class="flow-viz-node-inner"><div class="flow-viz-icon-wrap">'+node.icon+'</div><div class="flow-viz-content"><div class="flow-viz-title">'+node.title+'</div><div class="flow-viz-desc">'+node.desc+'</div>';
-    if(node.metric) inner+='<div class="flow-viz-metric">'+node.metric+'</div>';
-    if(node.kpi){
-      inner+='<div class="flow-viz-kpi">';
-      for(var k=0;k<node.kpi.length;k++) inner+='<div class="flow-viz-kpi-item"><div class="flow-viz-kpi-val" style="color:'+kpiColor+'">'+node.kpi[k].val+'</div><div class="flow-viz-kpi-label">'+node.kpi[k].label+'</div></div>';
-      inner+='</div>';
+  /* --- Build device frame (横モード) --- */
+  function buildDeviceFrame(stepN){
+    var s=steps[stepN];
+    var nodes=s.nodes;
+    var cur=0;
+    var frag=document.createDocumentFragment();
+
+    var outer=document.createElement('div');
+    outer.innerHTML=
+      '<div class="dev-wrap"><div class="dev-camera"></div>'+
+      '<div class="dev-screen" id="ds-screen">'+
+      '<div id="ds-content"></div>'+
+      '<div class="dev-arrow-ov" id="ds-arrow"></div>'+
+      '</div></div>'+
+      '<div class="dev-stand-wrap"></div>'+
+      '<div class="dev-foot"></div>'+
+      '<div class="dev-nav">'+
+      '<button class="dev-nav-btn" id="ds-prev">◀ 前へ</button>'+
+      '<div class="dev-nav-dots" id="ds-dots"></div>'+
+      '<span class="dev-nav-ctr" id="ds-ctr">1 / '+nodes.length+'</span>'+
+      '<button class="dev-nav-btn" id="ds-next">次へ ▶</button>'+
+      '</div>';
+
+    // dots
+    var dotsEl=outer.querySelector('#ds-dots');
+    for(var i=0;i<nodes.length;i++){
+      var d=document.createElement('span');
+      d.className='dev-nav-dot'+(i===0?' on':'');
+      (function(ii){d.addEventListener('click',function(){goTo(ii,'dot');});})(i);
+      dotsEl.appendChild(d);
     }
-    inner+='</div></div>';
-    el.innerHTML=inner;
-    return el;
+
+    var contentEl=outer.querySelector('#ds-content');
+    var arrowEl=outer.querySelector('#ds-arrow');
+    var ctrEl=outer.querySelector('#ds-ctr');
+    var dotsAll=outer.querySelectorAll('.dev-nav-dot');
+
+    function getKpiColor(c){
+      return c==='c-yellow'?'#ffff00':c==='c-green'?'#33ff00':c==='c-cyan'?'#67e8f9':c==='c-blue'?'#60a5fa':c==='c-red'?'#ff6b6b':'#c084fc';
+    }
+
+    function buildNodeHtml(node){
+      var kc=getKpiColor(node.color);
+      var metHtml=node.metric?'<div class="dev-slide-metric" style="color:'+kc+';border-color:'+kc+'40">'+node.metric+'</div>':'';
+      var kpiHtml='';
+      if(node.kpi){
+        kpiHtml='<div class="dev-slide-kpi">';
+        for(var k=0;k<node.kpi.length;k++) kpiHtml+='<div class="dev-slide-kpi-item"><div class="dev-slide-kpi-val" style="color:'+kc+'">'+node.kpi[k].val+'</div><div class="dev-slide-kpi-label">'+node.kpi[k].label+'</div></div>';
+        kpiHtml+='</div>';
+      }
+      var svgExtra='';
+      if(node.extraSvg==='bar') svgExtra=miniBarSvg([.3,.45,.6,.75,.9,1.05]);
+      else if(node.extraSvg==='bar2'){
+        // shorter bars (after state)
+        svgExtra='<div class="dev-slide-minisvg"><svg viewBox="0 0 180 62" xmlns="http://www.w3.org/2000/svg"><line x1="4" y1="58" x2="176" y2="58" stroke="rgba(255,255,255,.08)"/><rect class="msb" x="8" y="46" width="22" height="12" rx="2" fill="rgba(255,107,107,.4)" style="animation-delay:.3s"/><rect class="msb" x="36" y="42" width="22" height="16" rx="2" fill="rgba(255,107,107,.4)" style="animation-delay:.45s"/><rect class="msb" x="64" y="38" width="22" height="20" rx="2" fill="rgba(51,255,0,.45)" style="animation-delay:.6s"/><rect class="msb" x="92" y="34" width="22" height="24" rx="2" fill="rgba(51,255,0,.55)" style="animation-delay:.75s"/><rect class="msb" x="120" y="28" width="22" height="30" rx="2" fill="rgba(51,255,0,.65)" style="animation-delay:.9s"/><rect class="msb" x="148" y="20" width="22" height="38" rx="2" fill="rgba(51,255,0,.75)" style="animation-delay:1.05s"/></svg></div>';
+      }
+      else if(node.extraSvg==='line') svgExtra=miniLineSvg();
+      return '<div class="dev-slide-inner '+node.color+'"><div class="dev-slide-icon">'+node.icon+'</div><div class="dev-slide-title '+node.color+'">'+node.title+'</div><div class="dev-slide-desc">'+node.desc+'</div>'+metHtml+kpiHtml+svgExtra+'</div>';
+    }
+
+    function showSlide(idx,dir){
+      // arrow animation
+      if(dir==='next'||dir==='prev'){
+        arrowEl.style.opacity='1';
+        arrowEl.innerHTML='<div class="dev-arrow-fly">'+(dir==='next'?'→':'←')+'</div>';
+        setTimeout(function(){arrowEl.style.opacity='0';arrowEl.innerHTML='';},580);
+      }
+      // update content
+      setTimeout(function(){
+        contentEl.innerHTML=buildNodeHtml(nodes[idx]);
+        contentEl.querySelector('.dev-slide-inner').style.animation='none';
+        contentEl.querySelector('.dev-slide-inner').offsetHeight;
+        contentEl.querySelector('.dev-slide-inner').style.animation=(dir==='prev'?'devSlideLeft':'devSlideRight')+' .4s ease both';
+      },dir==='dot'?0:200);
+      // update dots
+      for(var i=0;i<dotsAll.length;i++) dotsAll[i].classList.toggle('on',i===idx);
+      ctrEl.textContent=(idx+1)+' / '+nodes.length;
+      outer.querySelector('#ds-prev').disabled=(idx===0);
+      outer.querySelector('#ds-next').disabled=(idx===nodes.length-1);
+    }
+
+    function goTo(idx,dir){cur=idx;showSlide(idx,dir);}
+
+    outer.querySelector('#ds-prev').addEventListener('click',function(){if(cur>0)goTo(cur-1,'prev');});
+    outer.querySelector('#ds-next').addEventListener('click',function(){if(cur<nodes.length-1)goTo(cur+1,'next');});
+
+    showSlide(0,'dot');
+    frag.appendChild(outer);
+    return frag;
   }
 
-  function buildConnector(idx){
-    var el=document.createElement('div');
-    el.className='flow-viz-connector';
-    el.style.animationDelay=(150+idx*200)+'ms';
-    el.innerHTML='<div class="flow-viz-connector-line">↓</div>';
-    return el;
+  /* --- Build vertical cards (縦モード) --- */
+  function buildVertical(stepN){
+    var s=steps[stepN];
+    var frag=document.createDocumentFragment();
+    var intro=document.createElement('p');
+    intro.className='flow-viz-intro';
+    intro.textContent=s.intro;
+    frag.appendChild(intro);
+    var viz=document.createElement('div');
+    viz.className='flow-viz';
+    for(var i=0;i<s.nodes.length;i++){
+      var node=s.nodes[i];
+      var delay=100+i*200;
+      var kc=node.color==='c-yellow'?'#ffff00':node.color==='c-green'?'#33ff00':node.color==='c-cyan'?'#67e8f9':node.color==='c-blue'?'#60a5fa':node.color==='c-red'?'#ff6b6b':'#c084fc';
+      var el=document.createElement('div');
+      el.className='flow-viz-node '+node.color;
+      el.style.animationDelay=delay+'ms';
+      var kpiHtml='';
+      if(node.kpi){
+        kpiHtml='<div class="flow-viz-kpi">';
+        for(var k=0;k<node.kpi.length;k++) kpiHtml+='<div class="flow-viz-kpi-item"><div class="flow-viz-kpi-val" style="color:'+kc+'">'+node.kpi[k].val+'</div><div class="flow-viz-kpi-label">'+node.kpi[k].label+'</div></div>';
+        kpiHtml+='</div>';
+      }
+      var metHtml=node.metric?'<div class="flow-viz-metric" style="color:'+kc+';border-color:'+kc+'40">'+node.metric+'</div>':'';
+      // add mini SVG for bar/line nodes in vertical mode too
+      var svgHtml='';
+      if(node.extraSvg==='bar') svgHtml='<div style="margin-top:12px">'+miniBarSvg([.4,.55,.7,.85,1,1.15])+'</div>';
+      else if(node.extraSvg==='line') svgHtml='<div style="margin-top:12px">'+miniLineSvg()+'</div>';
+      el.innerHTML='<div class="flow-viz-node-inner"><div class="flow-viz-icon-wrap">'+node.icon+'</div><div class="flow-viz-content"><div class="flow-viz-title" style="color:'+kc+'">'+node.title+'</div><div class="flow-viz-desc">'+node.desc+'</div>'+metHtml+kpiHtml+svgHtml+'</div></div>';
+      viz.appendChild(el);
+      if(i<s.nodes.length-1){
+        var conn=document.createElement('div');
+        conn.className='flow-viz-connector';
+        conn.style.animationDelay=(150+i*200)+'ms';
+        conn.innerHTML='<div class="flow-viz-connector-line">↓</div>';
+        viz.appendChild(conn);
+      }
+    }
+    frag.appendChild(viz);
+    return frag;
   }
 
+  /* --- openFlow --- */
   function openFlow(n){
     var s=steps[n];if(!s)return;
     titleEl.textContent=s.title;
     body.innerHTML='';
 
+    // mode label
+    var modeLabel=document.createElement('div');
+    modeLabel.className='fsvg-label';
+    modeLabel.textContent=flowModeNext===0?'🖥 デバイスビュー — ブロックを1つずつ確認':'📋 カードビュー — 全ブロックを縦並びで確認';
+    body.appendChild(modeLabel);
+
     if(flowModeNext===0){
-      // SVGアニメーションモード
-      body.innerHTML=s.svgHtml();
-      var modeTag=document.createElement('p');
-      modeTag.style.cssText='font-size:.78rem;color:rgba(96,165,250,.4);text-align:right;margin-top:8px;cursor:pointer';
-      modeTag.textContent='↕ カード表示に切り替え';
-      modeTag.addEventListener('click',function(){flowModeNext=0;openFlow(n);});
-      body.appendChild(modeTag);
+      body.appendChild(buildDeviceFrame(n));
     } else {
-      // 縦カードモード
-      var intro=document.createElement('p');
-      intro.className='flow-viz-intro';
-      intro.textContent=s.intro;
-      body.appendChild(intro);
-      var viz=document.createElement('div');
-      viz.className='flow-viz';
-      for(var i=0;i<s.nodes.length;i++){
-        viz.appendChild(buildNode(s.nodes[i],i));
-        if(i<s.nodes.length-1) viz.appendChild(buildConnector(i));
-      }
-      body.appendChild(viz);
-      var modeTag2=document.createElement('p');
-      modeTag2.style.cssText='font-size:.78rem;color:rgba(96,165,250,.4);text-align:right;margin-top:8px;cursor:pointer';
-      modeTag2.textContent='↕ SVGアニメ表示に切り替え';
-      modeTag2.addEventListener('click',function(){flowModeNext=1;openFlow(n);});
-      body.appendChild(modeTag2);
+      body.appendChild(buildVertical(n));
     }
 
     flowModeNext=1-flowModeNext;
@@ -2519,6 +2693,7 @@ function resetAll(){
   overlay.addEventListener('click',function(e){if(e.target===overlay)closeFlow();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isFlowOpen)closeFlow();});
 })();
+
 
 // === Business Calculation Window ===
 (function(){
