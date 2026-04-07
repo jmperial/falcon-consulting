@@ -14,7 +14,7 @@ html{scroll-behavior:smooth}
 body{
   background:#0a0a0a;color:#e0e0e0;overflow-x:hidden;
   font-family:'Meiryo UI','JetBrains Mono','Courier New',sans-serif;
-  line-height:1.7;word-break:auto-phrase;overflow-wrap:anywhere;
+  font-size:1rem;line-height:1.7;word-break:auto-phrase;overflow-wrap:anywhere;
 }
 a{color:inherit;text-decoration:none}
 
@@ -45,11 +45,11 @@ nav a:hover{color:#e0e0e0}
 .inner{max-width:720px;width:100%}
 
 /* === PROMPT COMMON === */
-.prompt{margin-bottom:24px;font-size:.85rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.prompt{margin-bottom:24px;font-size:1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .prompt .p-icon{font-weight:700;white-space:nowrap}
 .prompt .p-cmd{opacity:0}
 .prompt .p-cursor{display:inline-block;width:8px;height:16px;animation:blink 1s step-end infinite;vertical-align:middle}
-.era-label{font-size:.6rem;opacity:.35;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.era-label{font-size:.75rem;opacity:.35;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:6px}
 .era-label svg{width:14px;height:14px;flex-shrink:0}
 
 /* === CONTENT AREA (hidden until typed) === */
@@ -60,14 +60,14 @@ nav a:hover{color:#e0e0e0}
 .s6-kw.on{opacity:1;transform:translateY(0)}
 .s6-kw-senryaku{color:#33ff00;text-shadow:0 0 14px rgba(51,255,0,.7)}
 .s6-kw-jissou{color:#67e8f9;text-shadow:0 0 12px rgba(103,232,249,.6)}
-.s6-kw-onestop{color:#ffff00;font-size:clamp(1.9rem, 5vw, 2.8rem);text-shadow:0 0 16px rgba(255,255,0,.5)}
+.s6-kw-onestop{color:#ffff00;font-size:clamp(2.5rem, 5vw, 3.5rem);text-shadow:0 0 16px rgba(255,255,0,.5)}
 .s6-kw-onestop.on{animation:kwPulse 1.5s ease-out .3s both}
 @keyframes kwPulse{0%{transform:translateY(0) scale(1)}30%{transform:translateY(0) scale(1.12);text-shadow:0 0 30px rgba(255,255,0,.8),0 0 60px rgba(255,255,0,.3)}100%{transform:translateY(0) scale(1);text-shadow:0 0 16px rgba(255,255,0,.5)}}
 .content-area.show{opacity:1;transform:translateY(0)}
 
 /* === OUTPUT BLOCKS === */
-.out-line{margin-bottom:6px;font-size:.9rem}
-.out-title{font-size:clamp(1.5rem, 4.5vw, 2.4rem);font-weight:700;margin-bottom:16px;line-height:1.3}
+.out-line{margin-bottom:6px;font-size:1rem}
+.out-title{font-size:clamp(1.8rem, 4.5vw, 3rem);font-weight:700;margin-bottom:16px;line-height:1.3}
 
 /* === WINDOW FRAMES === */
 /* DOS frame */
@@ -190,18 +190,18 @@ nav a:hover{color:#e0e0e0}
 
 /* Profile content */
 .prof-name{
-  font-size:1.5rem;font-weight:700;margin-bottom:4px;
+  font-size:1.8rem;font-weight:700;margin-bottom:4px;
   background:linear-gradient(135deg,#c084fc,#67e8f9);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.prof-role{font-size:.8rem;color:rgba(200,180,253,.5);margin-bottom:24px}
+.prof-role{font-size:1rem;color:rgba(200,180,253,.5);margin-bottom:24px}
 .prof-section{margin-bottom:24px}
 .prof-section h3{
-  font-size:.75rem;color:#c084fc;letter-spacing:1.5px;
+  font-size:.9rem;color:#c084fc;letter-spacing:1.5px;
   text-transform:uppercase;margin-bottom:12px;
   padding-bottom:6px;border-bottom:1px solid rgba(168,85,247,.15);
 }
-.prof-section p{font-size:.85rem;color:rgba(103,232,249,.72);line-height:1.9;margin-bottom:8px}
+.prof-section p{font-size:1rem;color:rgba(103,232,249,.72);line-height:1.9;margin-bottom:8px}
 .prof-overview-block{
   border-left:2px solid rgba(103,232,249,.25);padding-left:14px;margin:4px 0 12px;
 }
@@ -231,11 +231,11 @@ nav a:hover{color:#e0e0e0}
   display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
 }
 .prof-highlight .ph-item{
-  padding:10px 16px;border-radius:8px;font-size:.8rem;
+  padding:10px 16px;border-radius:8px;font-size:1rem;
   border:1px solid rgba(168,85,247,.25);background:rgba(168,85,247,.06);
   color:#d4c8ff;flex:1;min-width:140px;
 }
-.prof-highlight .ph-item strong{display:block;color:#ede6ff;font-size:.9rem;margin-bottom:2px}
+.prof-highlight .ph-item strong{display:block;color:#ede6ff;font-size:1.1rem;margin-bottom:2px}
 .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .prof-timeline{margin-top:8px}
 .prof-tl-item{
@@ -248,8 +248,8 @@ nav a:hover{color:#e0e0e0}
   width:10px;height:10px;border-radius:50%;
   background:#a855f7;border:2px solid #0c0816;
 }
-.prof-tl-item h4{font-size:.85rem;color:#e0d4ff;margin-bottom:4px}
-.prof-tl-item p{font-size:.78rem;color:rgba(103,232,249,.65);line-height:1.7}
+.prof-tl-item h4{font-size:1rem;color:#e0d4ff;margin-bottom:4px}
+.prof-tl-item p{font-size:.95rem;color:rgba(103,232,249,.65);line-height:1.7}
 
 /* === MODAL CATCHCOPY === */
 .prof-hero{
@@ -258,7 +258,7 @@ nav a:hover{color:#e0e0e0}
   padding:20px 0 32px;
 }
 .prof-catchcopy{
-  font-size:clamp(1.7rem, 4.5vw, 2.6rem);font-weight:700;line-height:1.6;
+  font-size:clamp(2.2rem, 4.5vw, 3.2rem);font-weight:700;line-height:1.6;
   color:rgba(224,212,255,.85);
   opacity:0;transform:scale(.95);
   transition:opacity .7s ease,transform .7s ease;
@@ -332,12 +332,12 @@ nav a:hover{color:#e0e0e0}
 .contact-form{margin-top:20px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto}
 .form-group{margin-bottom:14px}
 .form-group label{
-  display:block;font-size:.72rem;color:rgba(192,132,252,.65);
+  display:block;font-size:.88rem;color:rgba(192,132,252,.65);
   margin-bottom:6px;letter-spacing:.5px;
 }
 .form-group input,.form-group textarea{
   width:100%;padding:10px 14px;
-  font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-size:.82rem;
+  font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-size:1rem;
   color:#e0d4ff;background:rgba(192,132,252,.05);
   border:1px solid rgba(192,132,252,.2);border-radius:8px;
   outline:none;transition:border-color .2s,box-shadow .2s;
@@ -365,7 +365,7 @@ nav a:hover{color:#e0e0e0}
   text-shadow:0 0 40px rgba(51,255,51,.1);
 }
 .s1 .out-title{color:#33ff00;text-shadow:0 0 8px rgba(51,255,51,.4)}
-.s1 .glow-line{color:#ffff00;font-size:clamp(2.4rem, 7vw, 4rem);font-weight:700;text-shadow:0 0 12px #ffff00,0 0 24px #ffb300;margin:16px 0}
+.s1 .glow-line{color:#ffff00;font-size:clamp(3rem, 7vw, 5rem);font-weight:700;text-shadow:0 0 12px #ffff00,0 0 24px #ffb300;margin:16px 0}
 .s1 .hero-glow-y{color:#ffff00;text-shadow:0 0 10px rgba(255,255,0,.6),0 0 20px rgba(255,255,0,.25);animation:heroYPulse 2s ease-in-out .2s both}
 @keyframes heroYPulse{0%{text-shadow:0 0 10px rgba(255,255,0,.6)}40%{text-shadow:0 0 24px rgba(255,255,0,1),0 0 48px rgba(255,255,0,.4)}100%{text-shadow:0 0 12px rgba(255,255,0,.5),0 0 24px rgba(255,255,0,.2)}}
 .s1 .stats{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
@@ -375,20 +375,20 @@ nav a:hover{color:#e0e0e0}
   background:rgba(51,255,0,.02);
 }
 .s1 .stat-card .stat-val{
-  font-size:1.6rem;font-weight:700;color:#33ff00;
+  font-size:2rem;font-weight:700;color:#33ff00;
   text-shadow:0 0 10px rgba(51,255,0,.4);line-height:1.2;
 }
 .s1 .stat-card .stat-label{
-  font-size:.7rem;color:rgba(51,255,0,.5);margin-top:6px;letter-spacing:.5px;
+  font-size:.85rem;color:rgba(51,255,0,.5);margin-top:6px;letter-spacing:.5px;
 }
 .s1 .stat-card .stat-sub{
-  font-size:.55rem;color:rgba(51,255,0,.3);margin-top:2px;
+  font-size:.7rem;color:rgba(51,255,0,.3);margin-top:2px;
 }
 .s1 .stat-card.highlight{
   border-color:rgba(255,255,0,.3);background:rgba(255,255,0,.03);
 }
 .s1 .stat-card.highlight .stat-val{
-  font-size:2rem;
+  font-size:2.6rem;
   color:#ffff00;text-shadow:0 0 12px rgba(255,255,0,.5);
 }
 .s1 .era-badge{
@@ -411,8 +411,8 @@ nav a:hover{color:#e0e0e0}
   opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease;
 }
 .pain-card.show{opacity:1;transform:translateY(0)}
-.pain-card h3{font-size:.95rem;margin-bottom:8px;color:#ff6b6b;text-shadow:0 0 8px rgba(255,107,107,.3)}
-.pain-card p{font-size:.8rem;color:#cc9933;line-height:1.5}
+.pain-card h3{font-size:1.1rem;margin-bottom:8px;color:#ff6b6b;text-shadow:0 0 8px rgba(255,107,107,.3)}
+.pain-card p{font-size:1rem;color:#cc9933;line-height:1.5}
 .pain-card.solve{border-color:rgba(51,255,51,.25);background:rgba(51,255,51,.03)}
 .pain-card.solve h3{color:#33ff00;text-shadow:0 0 8px rgba(51,255,0,.3)}
 .pain-card.solve p{color:#cc9933}
@@ -431,13 +431,13 @@ nav a:hover{color:#e0e0e0}
 }
 .svc-item.show{opacity:1;transform:translateY(0)}
 .svc-item:hover{background:rgba(6,182,212,.06)}
-.svc-item h3{font-size:clamp(1.1rem, 3vw, 1.5rem);margin-bottom:6px;color:#fff}
+.svc-item h3{font-size:clamp(1.4rem, 3vw, 2rem);margin-bottom:6px;color:#fff}
 .svc-item h3 .svc-num{
-  display:inline-block;font-size:.7rem;color:#0a0a0a;font-weight:700;
+  display:inline-block;font-size:.85rem;color:#0a0a0a;font-weight:700;
   background:#06b6d4;padding:2px 8px;border-radius:3px;margin-right:8px;
   vertical-align:middle;
 }
-.svc-item p{font-size:.85rem;color:#67e8f9;opacity:.75;line-height:1.6}
+.svc-item p{font-size:1rem;color:#67e8f9;opacity:.75;line-height:1.6}
 
 /* === SECTION 4: PRICING (CYAN → PURPLE TRANSITION) === */
 .s4{
@@ -492,8 +492,8 @@ nav a:hover{color:#e0e0e0}
   width:12px;height:12px;border-radius:50%;
   background:#60a5fa;border:2px solid #080d18;
 }
-.flow-step h3{font-size:clamp(1rem, 2.8vw, 1.35rem);color:#bdd4ff;margin-bottom:4px}
-.flow-step p{font-size:.8rem;color:#7da8e8;opacity:.85}
+.flow-step h3{font-size:clamp(1.3rem, 2.8vw, 1.7rem);color:#bdd4ff;margin-bottom:4px}
+.flow-step p{font-size:1rem;color:#7da8e8;opacity:.85}
 
 /* === SECTION 6: CREDENTIALS (DEEP PURPLE + GLOW) === */
 .s6{
@@ -519,11 +519,11 @@ nav a:hover{color:#e0e0e0}
   background:linear-gradient(135deg,rgba(168,85,247,.15),transparent 40%,transparent 60%,rgba(6,182,212,.15));
   pointer-events:none;
 }
-.cred-card h3{color:#c4b5fd;font-size:1.1rem;margin-bottom:12px}
-.cred-card p{color:rgba(220,200,255,.75);font-size:.85rem;line-height:1.6;margin-bottom:16px}
+.cred-card h3{color:#c4b5fd;font-size:1.3rem;margin-bottom:12px}
+.cred-card p{color:rgba(220,200,255,.75);font-size:1rem;line-height:1.6;margin-bottom:16px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start}
 .tag{
-  padding:5px 14px;border-radius:20px;font-size:.75rem;
+  padding:5px 14px;border-radius:20px;font-size:.9rem;
   border:1px solid rgba(168,85,247,.4);color:#d4c8ff;
   background:rgba(168,85,247,.08);
 }
@@ -540,8 +540,8 @@ nav a:hover{color:#e0e0e0}
   border:1px solid rgba(51,255,0,.15);border-bottom:none;
   border-radius:4px 4px 0 0;
 }
-.s7-dos .dos-line{color:#33ff00;font-size:.8rem;line-height:1.8}
-.s7-dos .dos-boot{color:rgba(51,255,0,.5);font-size:.7rem;margin-top:4px}
+.s7-dos .dos-line{color:#33ff00;font-size:1rem;line-height:1.8}
+.s7-dos .dos-boot{color:rgba(51,255,0,.5);font-size:.85rem;margin-top:4px}
 /* Claude Code bottom */
 .s7-cc{
   background:#12091e;
@@ -559,26 +559,26 @@ nav a:hover{color:#e0e0e0}
 .s7-cc .cc-bar .cc-tokens{color:rgba(192,132,252,.4);font-size:.55rem}
 .s7-cc .cc-form-body{padding:20px 24px;position:relative;z-index:1}
 .invader-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.25}
-.s7-cc .cc-input-line{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-size:.8rem}
+.s7-cc .cc-input-line{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-size:.95rem}
 .s7-cc .cc-input-line .chevron{color:#c084fc;font-weight:700}
 .s7-cc .cc-input-line .p-cmd{color:#67e8f9}
 .s7-cc .cc-msg{
-  color:#67e8f9;font-size:.78rem;line-height:1.7;
+  color:#67e8f9;font-size:.95rem;line-height:1.7;
   margin-bottom:20px;padding-left:18px;
   border-left:2px solid rgba(103,232,249,.25);
 }
 .s7-cc .cc-err{
-  color:#ff6b6b;font-size:.75rem;line-height:1.7;
+  color:#ff6b6b;font-size:.9rem;line-height:1.7;
   margin-bottom:12px;padding-left:18px;
   border-left:2px solid rgba(255,107,107,.3);
 }
 .s7-cc .cc-retry{
-  color:#ffff00;font-size:.75rem;line-height:1.7;
+  color:#ffff00;font-size:.9rem;line-height:1.7;
   margin-bottom:12px;padding-left:18px;
   border-left:2px solid rgba(255,255,0,.25);
 }
 .s7-cc .cc-ok{
-  color:#33ff00;font-size:.75rem;line-height:1.7;
+  color:#33ff00;font-size:.9rem;line-height:1.7;
   margin-bottom:20px;padding-left:18px;
   border-left:2px solid rgba(51,255,0,.25);
 }
@@ -598,7 +598,7 @@ nav a:hover{color:#e0e0e0}
 }
 .s7 .form-group input::placeholder,.s7 .form-group textarea::placeholder{color:rgba(192,132,252,.3)}
 .cta-btn{
-  display:inline-block;padding:12px 32px;font-size:.9rem;
+  display:inline-block;padding:14px 36px;font-size:1.1rem;
   font-family:'Meiryo UI','JetBrains Mono',sans-serif;font-weight:600;
   color:#0a0a0a;border-radius:4px;letter-spacing:.5px;
   background:#22cc00;border:none;
@@ -627,13 +627,13 @@ footer{
 }
 
 /* === NEW CLASSES: hero big line + s5 zero day === */
-.hero-big-line{font-size:clamp(0.95rem, 3.2vw, 1.2rem);font-family:'Noto Serif JP',serif;font-weight:700;letter-spacing:1px}
-.s5-zero-day{font-size:clamp(2.4rem, 7vw, 4rem);color:#ffff00;text-shadow:0 0 16px rgba(255,255,0,.5);font-weight:700}
+.hero-big-line{font-size:clamp(1.2rem, 3.2vw, 1.6rem);font-family:'Noto Serif JP',serif;font-weight:700;letter-spacing:1px}
+.s5-zero-day{font-size:clamp(3.5rem, 7vw, 5.5rem);color:#ffff00;text-shadow:0 0 16px rgba(255,255,0,.5);font-weight:700}
 
 /* === S4 CATCH VERTICAL === */
 .s4-catch{display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.4}
 .s4-catch .s4-line{display:block}
-.s4-catch .s4-price{font-size:clamp(2.4rem, 8vw, 4.5rem);color:#33ff00;text-shadow:0 0 16px rgba(51,255,0,.5),0 0 32px rgba(51,255,0,.2);font-weight:700;letter-spacing:2px}
+.s4-catch .s4-price{font-size:clamp(3rem, 8vw, 5.5rem);color:#33ff00;text-shadow:0 0 16px rgba(51,255,0,.5),0 0 32px rgba(51,255,0,.2);font-weight:700;letter-spacing:2px}
 
 /* === S4 PRICING TABLE === */
 .s4-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
@@ -641,19 +641,19 @@ footer{
 .s4-plan{padding:20px;border-radius:12px;border:1px solid rgba(240,208,96,.15);background:rgba(240,208,96,.03);text-align:center;position:relative}
 .s4-plan.featured{border-color:rgba(51,255,0,.3);background:rgba(51,255,0,.04)}
 .s4-plan.featured::before{content:'★ おすすめ';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#33ff00;color:#0a0a0a;font-size:.6rem;font-weight:700;padding:2px 10px;border-radius:10px}
-.s4-plan-name{font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,208,96,.6);margin-bottom:8px}
-.s4-plan-price{font-size:1.8rem;font-weight:700;color:#33ff00;margin-bottom:4px}
-.s4-plan-price span{font-size:.7rem;font-weight:400;color:rgba(240,208,96,.5)}
-.s4-plan-desc{font-size:.78rem;color:rgba(240,208,96,.5);line-height:1.5}
+.s4-plan-name{font-size:.9rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,208,96,.6);margin-bottom:8px}
+.s4-plan-price{font-size:2.2rem;font-weight:700;color:#33ff00;margin-bottom:4px}
+.s4-plan-price span{font-size:.85rem;font-weight:400;color:rgba(240,208,96,.5)}
+.s4-plan-desc{font-size:.95rem;color:rgba(240,208,96,.5);line-height:1.5}
 .s4-compare{margin-top:20px;display:flex;flex-direction:column;gap:8px}
-.s4-compare-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;font-size:.8rem}
+.s4-compare-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;font-size:1rem}
 .s4-compare-row.lose{border:1px solid rgba(255,107,107,.2);background:rgba(255,107,107,.03);color:#ff6b6b}
 .s4-compare-row.win{border:1px solid rgba(51,255,0,.25);background:rgba(51,255,0,.04);color:#33ff00}
 .s4-compare-row .label{flex:1}
 .s4-compare-row .price{font-weight:700;white-space:nowrap}
 .s4-points{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.s4-point{padding:5px 14px;border-radius:20px;font-size:.72rem;border:1px solid rgba(51,255,0,.3);color:#33ff00;background:rgba(51,255,0,.04)}
-.s4-biz-btn{display:block;margin:20px auto 0;padding:8px 20px;font-size:.7rem;color:rgba(240,208,96,.5);background:transparent;border:1px solid rgba(240,208,96,.15);border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.s4-point{padding:6px 16px;border-radius:20px;font-size:.9rem;border:1px solid rgba(51,255,0,.3);color:#33ff00;background:rgba(51,255,0,.04)}
+.s4-biz-btn{display:block;margin:20px auto 0;padding:10px 24px;font-size:.85rem;color:rgba(240,208,96,.5);background:transparent;border:1px solid rgba(240,208,96,.15);border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s}
 .s4-biz-btn:hover{color:#f0d060;border-color:rgba(240,208,96,.4)}
 
 /* === FLOW HIGHLIGHTS & BUTTONS === */
@@ -662,7 +662,7 @@ footer{
 .flow-hl-cyan{color:#67e8f9;background:rgba(103,232,249,.08);text-shadow:0 0 8px rgba(103,232,249,.3)}
 .flow-hl-green{color:#33ff00;background:rgba(51,255,0,.08);text-shadow:0 0 8px rgba(51,255,0,.3)}
 .flow-hl-pink{color:#ff69b4;background:rgba(255,105,180,.08);text-shadow:0 0 8px rgba(255,105,180,.3)}
-.flow-detail-btn{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:5px 14px;font-size:.7rem;color:#60a5fa;background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.25);border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.flow-detail-btn{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:8px 18px;font-size:.9rem;color:#60a5fa;background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.25);border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s}
 .flow-detail-btn:hover{background:rgba(96,165,250,.14);border-color:#60a5fa}
 
 /* === FLOW MODAL === */
@@ -674,10 +674,71 @@ footer{
 .flow-modal-bar .title{flex:1}
 .flow-modal-close{color:rgba(96,165,250,.6);cursor:pointer;font-size:1.2rem;padding:6px 10px;background:none;border:none;font-family:'JetBrains Mono',monospace;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;transition:color .2s}
 .flow-modal-close:hover{color:#60a5fa}
-.flow-modal-body{padding:24px;overflow-y:auto;flex:1;max-height:70vh}
-.flow-modal-body svg{width:100%;height:auto;margin-bottom:16px}
-.flow-modal-body h4{font-size:1rem;color:#bdd4ff;margin-bottom:8px}
-.flow-modal-body p{font-size:.82rem;color:#7da8e8;line-height:1.7}
+.flow-modal-body{padding:20px;overflow-y:auto;flex:1;max-height:80vh}
+.flow-modal-body h4{font-size:1.1rem;color:#bdd4ff;margin-bottom:8px}
+.flow-modal-body p{font-size:1rem;color:#7da8e8;line-height:1.7}
+
+/* === FLOW VISUALIZATION (vertical stacked) === */
+.flow-viz-intro{font-size:1rem;color:#7da8e8;margin-bottom:16px;line-height:1.6;padding:10px 14px;background:rgba(96,165,250,.05);border-radius:8px;border-left:2px solid rgba(96,165,250,.3)}
+.flow-viz{display:flex;flex-direction:column;gap:0;margin-bottom:20px}
+.flow-viz-node{
+  border-radius:12px;padding:20px 24px;border:1px solid;
+  opacity:0;transform:translateY(20px);
+  animation:flowNodeIn .5s ease forwards;
+}
+@keyframes flowNodeIn{to{opacity:1;transform:translateY(0)}}
+.flow-viz-node-inner{display:flex;align-items:flex-start;gap:16px}
+.flow-viz-icon-wrap{font-size:2.4rem;line-height:1;flex-shrink:0;padding-top:2px}
+.flow-viz-content{flex:1}
+.flow-viz-title{font-size:1.2rem;font-weight:700;margin-bottom:6px}
+.flow-viz-desc{font-size:.95rem;line-height:1.6;opacity:.85}
+.flow-viz-metric{
+  display:inline-block;margin-top:10px;padding:5px 14px;
+  border-radius:20px;font-size:.9rem;font-weight:700;
+  background:rgba(0,0,0,.3);border:1px solid;
+}
+.flow-viz-connector{
+  display:flex;align-items:center;justify-content:center;
+  height:28px;opacity:0;animation:flowNodeIn .3s ease forwards;
+}
+.flow-viz-connector-line{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  color:#60a5fa;font-size:1.1rem;opacity:.6;
+}
+
+/* Node color variants */
+.flow-viz-node.c-yellow{border-color:rgba(255,255,0,.3);background:rgba(255,255,0,.04)}
+.flow-viz-node.c-yellow .flow-viz-title{color:#ffff00}
+.flow-viz-node.c-yellow .flow-viz-metric{color:#ffff00;border-color:rgba(255,255,0,.4)}
+.flow-viz-node.c-cyan{border-color:rgba(103,232,249,.3);background:rgba(103,232,249,.04)}
+.flow-viz-node.c-cyan .flow-viz-title{color:#67e8f9}
+.flow-viz-node.c-cyan .flow-viz-metric{color:#67e8f9;border-color:rgba(103,232,249,.4)}
+.flow-viz-node.c-green{border-color:rgba(51,255,0,.3);background:rgba(51,255,0,.04)}
+.flow-viz-node.c-green .flow-viz-title{color:#33ff00}
+.flow-viz-node.c-green .flow-viz-metric{color:#33ff00;border-color:rgba(51,255,0,.4)}
+.flow-viz-node.c-red{border-color:rgba(255,107,107,.3);background:rgba(255,107,107,.04)}
+.flow-viz-node.c-red .flow-viz-title{color:#ff6b6b}
+.flow-viz-node.c-red .flow-viz-metric{color:#ff6b6b;border-color:rgba(255,107,107,.4)}
+.flow-viz-node.c-purple{border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.04)}
+.flow-viz-node.c-purple .flow-viz-title{color:#c084fc}
+.flow-viz-node.c-purple .flow-viz-metric{color:#c084fc;border-color:rgba(192,132,252,.4)}
+.flow-viz-node.c-blue{border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.04)}
+.flow-viz-node.c-blue .flow-viz-title{color:#60a5fa}
+.flow-viz-node.c-blue .flow-viz-metric{color:#60a5fa;border-color:rgba(96,165,250,.4)}
+
+/* Big KPI display for result nodes */
+.flow-viz-kpi{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.flow-viz-kpi-item{flex:1;min-width:80px;text-align:center;padding:12px;border-radius:8px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08)}
+.flow-viz-kpi-val{font-size:1.8rem;font-weight:700;line-height:1.1}
+.flow-viz-kpi-label{font-size:.75rem;opacity:.6;margin-top:4px}
+
+/* Desktop: wider modal for flow viz */
+@media(min-width:601px){
+  .flow-modal{max-width:760px}
+  .flow-viz-icon-wrap{font-size:3rem}
+  .flow-viz-title{font-size:1.4rem}
+  .flow-viz-desc{font-size:1rem}
+}
 
 /* === MOBILE (iPhone 17 base: ~393px) === */
 @media(max-width:600px){
@@ -685,21 +746,21 @@ footer{
   .s1 .hayabusa{font-size:4rem;top:70px;right:3%}
   .s1 .era-badge{top:60px;left:14px;font-size:.5rem}
   .s1 .stats{flex-direction:column;gap:10px}
-  /* vw統一: 全スマホで同一比率表示 */
-  .out-title{font-size:4.5vw}
-  .s1 .glow-line{font-size:7vw}
-  .s4-catch{font-size:5.6vw !important}
-  .s4-catch .s4-price{font-size:10vw}
-  .svc-item h3{font-size:3vw}
-  .flow-step h3{font-size:2.8vw}
-  .s6-kw-onestop{font-size:5vw}
-  .hero-big-line{font-size:3.2vw}
-  .s5-zero-day{font-size:7vw}
-  .price-formula{font-size:1rem}
+  /* vw統一: 全スマホで同一比率表示（LINEブラウザ基準に拡大）*/
+  .out-title{font-size:6.5vw}
+  .s1 .glow-line{font-size:10vw}
+  .s4-catch{font-size:7.5vw !important}
+  .s4-catch .s4-price{font-size:13vw}
+  .svc-item h3{font-size:5.5vw}
+  .flow-step h3{font-size:5.5vw}
+  .s6-kw-onestop{font-size:7.5vw}
+  .hero-big-line{font-size:5vw}
+  .s5-zero-day{font-size:11vw}
+  .price-formula{font-size:1.1rem}
   .price-plans{flex-direction:column}
   /* Modal */
   .modal-window{max-width:95vw}
-  .prof-catchcopy{font-size:4.5vw !important}
+  .prof-catchcopy{font-size:6.5vw !important}
   .prof-highlight{gap:6px}
   .prof-highlight .ph-item{min-width:calc(50% - 6px);padding:8px 10px;font-size:.72rem}
   .prof-highlight .ph-item strong{font-size:.8rem}
@@ -922,8 +983,8 @@ footer{
           </div>
         </div>
         <div class="content-area warp-output">
-          <div class="out-title" style="background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">大手コンサル × エンジニアの実務力</div>
-          <p class="s6-tagline" style="font-size:1rem;color:#e0d4ff;text-align:center;margin-bottom:20px"><span class="s6-kw s6-kw-senryaku">戦略</span>も<span class="s6-kw s6-kw-jissou">実装</span>も、<span class="s6-kw s6-kw-onestop">ワンストップ。</span></p>
+          <div class="out-title" style="background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">大手コンサル ×<br>エンジニアの実務力</div>
+          <p class="s6-tagline" style="font-size:1.3rem;color:#e0d4ff;text-align:center;margin-bottom:20px"><span class="s6-kw s6-kw-senryaku">戦略</span>も<span class="s6-kw s6-kw-jissou">実装</span>も、<span class="s6-kw s6-kw-onestop">ワンストップ。</span></p>
           <div class="cred-card">
             <p><span class="tip" style="color:#ffff00;font-weight:700;font-size:1.1rem;text-shadow:0 0 8px rgba(255,255,0,.4)" tabindex="0">Big4<span class="tip-text">Deloitte / PwC / <strong style="color:#ff69b4;font-size:.8rem">EY</strong> / KPMG</span></span>コンサルティングファームでのマネジメント経験と、システムアーキテクチャ・セキュリティの高度専門資格を活かし、戦略と実装の両面から支援。</p>
             <div class="tags">
@@ -2309,7 +2370,7 @@ function resetAll(){
   },{threshold:0}).observe(s7El);
 })();
 
-// === Flow Detail Modal ===
+// === Flow Detail Modal (縦長アニメーション表示) ===
 (function(){
   var overlay=document.getElementById('flow-modal');
   var body=document.getElementById('flow-modal-body');
@@ -2317,33 +2378,103 @@ function resetAll(){
   var closeBtn=document.getElementById('close-flow');
   var isFlowOpen=false;
 
+  // 各ステップのノードデータ (縦積みアニメーション)
   var steps={
     1:{
       title:'01 — 無料ヒアリング',
-      html:'<svg viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="558" height="258" rx="12" fill="#0c1220" stroke="#60a5fa" stroke-opacity=".2"/><circle cx="80" cy="100" r="28" fill="#1e3a5f"/><text x="80" y="105" text-anchor="middle" fill="#60a5fa" font-size="24">👤</text><text x="80" y="145" text-anchor="middle" fill="#7da8e8" font-size="10">クライアント</text><circle cx="180" cy="100" r="28" fill="#1a3520"/><text x="180" y="105" text-anchor="middle" fill="#33ff00" font-size="24">🦅</text><text x="180" y="145" text-anchor="middle" fill="#33ff00" font-size="10">コンサルタント</text><rect x="240" y="40" width="140" height="130" rx="6" fill="#111827" stroke="#60a5fa" stroke-opacity=".3"/><text x="310" y="60" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">課題マッピング</text><rect x="252" y="72" width="116" height="16" rx="3" fill="rgba(255,107,107,.15)" stroke="rgba(255,107,107,.3)"/><text x="260" y="84" fill="#ff6b6b" font-size="9">❌ 手作業の書類処理</text><rect x="252" y="94" width="116" height="16" rx="3" fill="rgba(255,107,107,.15)" stroke="rgba(255,107,107,.3)"/><text x="260" y="106" fill="#ff6b6b" font-size="9">❌ 発注ミス多発</text><rect x="252" y="116" width="116" height="16" rx="3" fill="rgba(255,255,0,.1)" stroke="rgba(255,255,0,.25)"/><text x="260" y="128" fill="#ffff00" font-size="9">⚡ 月80h削減可能</text><rect x="252" y="138" width="116" height="16" rx="3" fill="rgba(51,255,0,.1)" stroke="rgba(51,255,0,.25)"/><text x="260" y="150" fill="#33ff00" font-size="9">✅ ROI: 年間960万</text><rect x="410" y="40" width="130" height="130" rx="6" fill="#111827" stroke="#33ff00" stroke-opacity=".3"/><text x="475" y="60" text-anchor="middle" fill="#33ff00" font-size="10" font-weight="bold">削減見込みレポート</text><rect x="422" y="72" width="30" height="40" rx="2" fill="rgba(51,255,0,.15)"/><rect x="422" y="72" width="30" height="30" rx="2" fill="rgba(51,255,0,.25)"/><rect x="458" y="82" width="30" height="30" rx="2" fill="rgba(255,255,0,.15)"/><rect x="458" y="92" width="30" height="20" rx="2" fill="rgba(255,255,0,.25)"/><rect x="494" y="72" width="30" height="40" rx="2" fill="rgba(103,232,249,.15)"/><rect x="494" y="82" width="30" height="30" rx="2" fill="rgba(103,232,249,.25)"/><text x="475" y="130" text-anchor="middle" fill="#7da8e8" font-size="8">優先度付き</text><text x="475" y="142" text-anchor="middle" fill="#7da8e8" font-size="8">タスクリスト</text><text x="475" y="156" text-anchor="middle" fill="#33ff00" font-size="9" font-weight="bold">年間960万の改善</text><text x="280" y="210" text-anchor="middle" fill="#7da8e8" font-size="11">現場観察で業務フローを把握 → AI化できる領域を特定 → 削減見込みを金額で提示</text><line x1="130" y1="100" x2="230" y2="80" stroke="#60a5fa" stroke-opacity=".3" stroke-dasharray="4"/><line x1="390" y1="105" x2="405" y2="105" stroke="#33ff00" stroke-opacity=".4" stroke-dasharray="4"/></svg><h4>何をするのか</h4><p>コンサルタントが実際に現場を訪問。業務フローを観察し、ワークショップ形式で課題を洗い出します。AI化できる領域を特定し、<strong style="color:#33ff00">削減見込みを金額で可視化</strong>したレポートをお渡しします。</p>'
+      intro:'コンサルタントが実際に現場を訪問。ありのままの業務フローを観察・分析します。',
+      nodes:[
+        {icon:'🦅',color:'c-green',title:'現場訪問',desc:'コンサルタントが御社へ伺います。現場の方々と一緒に業務フローを観察し、どこに時間が奪われているかを把握します。',metric:''},
+        {icon:'📋',color:'c-yellow',title:'課題マッピング',desc:'ワークショップ形式で課題を洗い出し。手作業の書類処理・発注ミス・情報共有の遅延など、AI化できる領域を優先度付きで整理します。',metric:''},
+        {icon:'📊',color:'c-cyan',title:'削減見込みレポート',desc:'AI化によって削減できる時間・コストを金額で可視化。当日中にレポートをお渡しします。',metric:'月80h削減・年間960万円のROI'}
+      ]
     },
     2:{
       title:'02 — 業務分析',
-      html:'<svg viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="558" height="258" rx="12" fill="#0c1220" stroke="#60a5fa" stroke-opacity=".2"/><rect x="30" y="40" width="120" height="80" rx="6" fill="#111827" stroke="rgba(255,179,0,.3)"/><text x="90" y="60" text-anchor="middle" fill="#ffb300" font-size="10" font-weight="bold">Before</text><text x="90" y="80" text-anchor="middle" fill="#ff6b6b" font-size="20">月120h</text><text x="90" y="100" text-anchor="middle" fill="rgba(255,179,0,.5)" font-size="9">手作業での書類処理</text><path d="M160 80 L200 80" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowB)"/><defs><marker id="arrowB" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#60a5fa"/></marker></defs><rect x="210" y="30" width="140" height="100" rx="8" fill="rgba(103,232,249,.05)" stroke="#67e8f9" stroke-opacity=".3"/><text x="280" y="52" text-anchor="middle" fill="#67e8f9" font-size="11" font-weight="bold">🤖 AI分析エンジン</text><rect x="222" y="62" width="116" height="14" rx="3" fill="rgba(103,232,249,.1)"/><text x="280" y="73" text-anchor="middle" fill="#67e8f9" font-size="8">業務フロー解析</text><rect x="222" y="82" width="116" height="14" rx="3" fill="rgba(103,232,249,.1)"/><text x="280" y="93" text-anchor="middle" fill="#67e8f9" font-size="8">ボトルネック検出</text><rect x="222" y="102" width="116" height="14" rx="3" fill="rgba(103,232,249,.1)"/><text x="280" y="113" text-anchor="middle" fill="#67e8f9" font-size="8">AI化ROIシミュレーション</text><path d="M360 80 L400 80" stroke="#33ff00" stroke-width="2" marker-end="url(#arrowG)"/><defs><marker id="arrowG" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#33ff00"/></marker></defs><rect x="410" y="40" width="120" height="80" rx="6" fill="#111827" stroke="rgba(51,255,0,.3)"/><text x="470" y="60" text-anchor="middle" fill="#33ff00" font-size="10" font-weight="bold">After</text><text x="470" y="80" text-anchor="middle" fill="#33ff00" font-size="20">月40h</text><text x="470" y="100" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="9">AI+人間の協働</text><rect x="30" y="150" width="500" height="70" rx="6" fill="#111827" stroke="rgba(255,255,0,.2)"/><text x="280" y="170" text-anchor="middle" fill="#ffff00" font-size="11" font-weight="bold">📊 シミュレーション結果レポート（無料）</text><text x="110" y="195" text-anchor="middle" fill="#7da8e8" font-size="9">削減時間: 80h/月</text><text x="280" y="195" text-anchor="middle" fill="#33ff00" font-size="9">コスト削減: 年間960万</text><text x="450" y="195" text-anchor="middle" fill="#ffff00" font-size="9">ROI: 320%</text></svg><h4>何が届くのか</h4><p>業務フローを詳細分析し、<strong style="color:#67e8f9">Before/Afterのシミュレーション結果</strong>をレポートでお届けします。削減時間・コスト削減額・ROIを数値で明示。<strong style="color:#33ff00">この分析は完全無料</strong>です。</p>'
+      intro:'Before/Afterシミュレーション結果を完全無料でご提出。導入前から効果を数値で確認できます。',
+      nodes:[
+        {icon:'😰',color:'c-red',title:'現状 (Before)',desc:'月120hの手作業書類処理。ミスが多発し、チェック業務だけで1人分の工数を消費。担当者は本来の仕事に集中できていない状態。',metric:'月120h / 年間コスト960万円'},
+        {icon:'🤖',color:'c-cyan',title:'AI分析エンジン',desc:'業務フロー解析・ボトルネック検出・ROIシミュレーションをAIが自動実行。人間の見落としがちなパターンも検出します。',metric:''},
+        {icon:'✅',color:'c-green',title:'改善後 (After) + レポート',desc:'完全無料のシミュレーションレポートをお届け。削減時間・コスト削減額・ROIを数値で明示。この分析を見てから導入を判断していただけます。',kpi:[{val:'月40h',label:'作業時間'},{val:'ROI 320%',label:'投資対効果'},{val:'無料',label:'この分析の費用'}]}
+      ]
     },
     3:{
       title:'03 — AI導入・定着',
-      html:'<svg viewBox="0 0 560 280" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="558" height="278" rx="12" fill="#0c1220" stroke="#60a5fa" stroke-opacity=".2"/><text x="280" y="30" text-anchor="middle" fill="#7da8e8" font-size="11" font-weight="bold">例: 建設現場の発注自動化フロー</text><rect x="20" y="50" width="90" height="70" rx="8" fill="rgba(255,255,0,.06)" stroke="rgba(255,255,0,.3)"/><text x="65" y="72" text-anchor="middle" fill="#ffff00" font-size="20">📐</text><text x="65" y="92" text-anchor="middle" fill="#ffff00" font-size="9" font-weight="bold">図面撮影</text><text x="65" y="106" text-anchor="middle" fill="rgba(255,255,0,.5)" font-size="7">スマホで撮るだけ</text><path d="M115 85 L135 85" stroke="#67e8f9" stroke-width="2" marker-end="url(#arrowC)"/><defs><marker id="arrowC" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#67e8f9"/></marker></defs><rect x="140" y="50" width="90" height="70" rx="8" fill="rgba(103,232,249,.06)" stroke="rgba(103,232,249,.3)"/><text x="185" y="72" text-anchor="middle" fill="#67e8f9" font-size="20">🤖</text><text x="185" y="92" text-anchor="middle" fill="#67e8f9" font-size="9" font-weight="bold">AI読取</text><text x="185" y="106" text-anchor="middle" fill="rgba(103,232,249,.5)" font-size="7">部材・数量を自動認識</text><path d="M235 85 L255 85" stroke="#67e8f9" stroke-width="2" marker-end="url(#arrowC)"/><rect x="260" y="50" width="90" height="70" rx="8" fill="rgba(168,85,247,.06)" stroke="rgba(168,85,247,.3)"/><text x="305" y="72" text-anchor="middle" fill="#c084fc" font-size="20">🗄️</text><text x="305" y="92" text-anchor="middle" fill="#c084fc" font-size="9" font-weight="bold">在庫照合</text><text x="305" y="106" text-anchor="middle" fill="rgba(168,85,247,.5)" font-size="7">社内在庫DBと自動照合</text><path d="M355 85 L375 85" stroke="#67e8f9" stroke-width="2" marker-end="url(#arrowC)"/><rect x="380" y="50" width="90" height="70" rx="8" fill="rgba(51,255,0,.06)" stroke="rgba(51,255,0,.3)"/><text x="425" y="72" text-anchor="middle" fill="#33ff00" font-size="20">📄</text><text x="425" y="92" text-anchor="middle" fill="#33ff00" font-size="9" font-weight="bold">発注書生成</text><text x="425" y="106" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="7">AIが自動で作成</text><path d="M475 85 L495 85" stroke="#33ff00" stroke-width="2" marker-end="url(#arrowG2)"/><defs><marker id="arrowG2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#33ff00"/></marker></defs><rect x="500" y="50" width="50" height="70" rx="8" fill="rgba(51,255,0,.12)" stroke="rgba(51,255,0,.5)"/><text x="525" y="72" text-anchor="middle" fill="#33ff00" font-size="20">📤</text><text x="525" y="92" text-anchor="middle" fill="#33ff00" font-size="8" font-weight="bold">自動</text><text x="525" y="104" text-anchor="middle" fill="#33ff00" font-size="8" font-weight="bold">発注</text><rect x="30" y="150" width="500" height="50" rx="6" fill="rgba(255,255,0,.04)" stroke="rgba(255,255,0,.15)"/><text x="280" y="170" text-anchor="middle" fill="#ffff00" font-size="10">⏱ 従来: 1件あたり2時間 → AI導入後: 5分（96%削減）</text><text x="280" y="188" text-anchor="middle" fill="rgba(255,255,0,.5)" font-size="8">人間は最終確認ボタンを押すだけ。ヒューマン・イン・ザ・ループで安全性を担保。</text><rect x="30" y="220" width="240" height="40" rx="6" fill="rgba(51,255,0,.04)" stroke="rgba(51,255,0,.15)"/><text x="150" y="245" text-anchor="middle" fill="#33ff00" font-size="9">✅ 定着サポート: 操作研修 + マニュアル作成</text><rect x="290" y="220" width="240" height="40" rx="6" fill="rgba(103,232,249,.04)" stroke="rgba(103,232,249,.15)"/><text x="410" y="245" text-anchor="middle" fill="#67e8f9" font-size="9">🔧 保守: 精度改善 + 業務変更対応</text></svg><h4>具体例: 建設現場の発注自動化</h4><p>図面をスマホで撮影するだけで、AIが部材・数量を自動認識。社内在庫と照合し、<strong style="color:#33ff00">発注書を自動生成、そのまま自動発注</strong>まで完了。従来2時間かかっていた作業が5分に。人間は最終確認ボタンを押すだけです。</p>'
+      intro:'例: 建設現場の発注自動化。従来2時間かかっていた作業が5分に。',
+      nodes:[
+        {icon:'📐',color:'c-yellow',title:'① 図面撮影',desc:'スマホで写真を撮るだけ。特別な機器・専用スキャナは不要です。現場の方がそのまま使えます。',metric:''},
+        {icon:'🤖',color:'c-cyan',title:'② AI読取',desc:'部材・数量をAIが自動認識。OCRより高精度な読み取りで、手書き図面にも対応します。',metric:''},
+        {icon:'🗄️',color:'c-purple',title:'③ 在庫照合',desc:'社内在庫データベースと自動照合。発注漏れ・重複発注を自動で防止します。',metric:''},
+        {icon:'📄',color:'c-green',title:'④ 発注書生成',desc:'AIが発注書を自動生成。フォーマットは既存の帳票に対応。承認フローも設定可能です。',metric:''},
+        {icon:'📤',color:'c-green',title:'⑤ 自動発注 → 完了',desc:'最終確認ボタンを押すだけ。ヒューマン・イン・ザ・ループで安全性を担保しながら自動発注まで完了。',kpi:[{val:'2時間',label:'従来'},{val:'5分',label:'AI導入後'},{val:'96%削減',label:'工数削減'}]}
+      ]
     },
     4:{
       title:'04 — 効果測定',
-      html:'<svg viewBox="0 0 560 280" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="558" height="278" rx="12" fill="#0c1220" stroke="#60a5fa" stroke-opacity=".2"/><rect x="20" y="16" width="520" height="24" rx="4" fill="#111827" stroke="rgba(96,165,250,.2)"/><circle cx="34" cy="28" r="5" fill="#ff5f57"/><circle cx="50" cy="28" r="5" fill="#febc2e"/><circle cx="66" cy="28" r="5" fill="#28c840"/><text x="280" y="32" text-anchor="middle" fill="rgba(96,165,250,.6)" font-size="9">月次レポート — 2026年4月</text><rect x="30" y="52" width="250" height="120" rx="6" fill="#111827" stroke="rgba(96,165,250,.15)"/><text x="155" y="70" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">📊 削減時間推移</text><rect x="55" y="130" width="24" height="30" rx="2" fill="rgba(96,165,250,.3)"/><rect x="90" y="115" width="24" height="45" rx="2" fill="rgba(96,165,250,.4)"/><rect x="125" y="100" width="24" height="60" rx="2" fill="rgba(96,165,250,.5)"/><rect x="160" y="90" width="24" height="70" rx="2" fill="rgba(51,255,0,.4)"/><rect x="195" y="82" width="24" height="78" rx="2" fill="rgba(51,255,0,.5)"/><rect x="230" y="78" width="24" height="82" rx="2" fill="rgba(51,255,0,.6)"/><text x="67" y="155" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="7">1月</text><text x="102" y="155" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="7">2月</text><text x="137" y="155" text-anchor="middle" fill="rgba(96,165,250,.4)" font-size="7">3月</text><text x="172" y="155" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="7">4月</text><text x="207" y="155" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="7">5月</text><text x="242" y="155" text-anchor="middle" fill="rgba(51,255,0,.5)" font-size="7">6月</text><rect x="300" y="52" width="230" height="120" rx="6" fill="#111827" stroke="rgba(51,255,0,.15)"/><text x="415" y="70" text-anchor="middle" fill="#33ff00" font-size="10" font-weight="bold">📈 コスト削減累計</text><polyline points="320,150 350,140 380,125 410,108 440,95 470,80 500,68" stroke="#33ff00" stroke-width="2" fill="none"/><circle cx="500" cy="68" r="4" fill="#33ff00"/><text x="510" y="72" fill="#33ff00" font-size="8">480万</text><polyline points="320,150 350,148 380,142 410,135 440,128 470,120 500,112" stroke="#ffff00" stroke-width="1.5" fill="none" stroke-dasharray="4"/><text x="510" y="116" fill="#ffff00" font-size="7">目標</text><rect x="30" y="190" width="160" height="60" rx="8" fill="rgba(96,165,250,.06)" stroke="rgba(96,165,250,.2)"/><text x="110" y="212" text-anchor="middle" fill="#60a5fa" font-size="9">削減時間</text><text x="110" y="234" text-anchor="middle" fill="#bdd4ff" font-size="18" font-weight="bold">80h/月</text><rect x="205" y="190" width="160" height="60" rx="8" fill="rgba(51,255,0,.06)" stroke="rgba(51,255,0,.2)"/><text x="285" y="212" text-anchor="middle" fill="#33ff00" font-size="9">コスト削減</text><text x="285" y="234" text-anchor="middle" fill="#33ff00" font-size="18" font-weight="bold">240万/月</text><rect x="380" y="190" width="150" height="60" rx="8" fill="rgba(255,255,0,.06)" stroke="rgba(255,255,0,.2)"/><text x="455" y="212" text-anchor="middle" fill="#ffff00" font-size="9">ROI</text><text x="455" y="234" text-anchor="middle" fill="#ffff00" font-size="18" font-weight="bold">320%</text><text x="280" y="270" text-anchor="middle" fill="rgba(96,165,250,.5)" font-size="9">毎月のレポートで効果を可視化。請求の根拠もここから。</text></svg><h4>何が届くのか</h4><p>毎月、<strong style="color:#60a5fa">ダッシュボード形式の月次レポート</strong>をお届け。削減時間・コスト削減額・ROIをグラフで可視化。<strong style="color:#33ff00">請求金額の根拠もこのレポートから確認</strong>でき、完全な透明性を保ちます。</p>'
+      intro:'毎月のダッシュボードで効果を可視化。請求の根拠も明確で、完全な透明性を保ちます。',
+      nodes:[
+        {icon:'📈',color:'c-blue',title:'削減時間グラフ',desc:'導入1〜6ヶ月の削減時間推移を棒グラフで表示。どの月から効果が出始めたかが一目でわかります。',metric:'導入6ヶ月で月80h削減達成'},
+        {icon:'💰',color:'c-green',title:'コスト削減累計',desc:'月次のコスト削減額を折れ線グラフで表示。目標値との比較で進捗を管理。API費用を差し引いた実質コスト削減も明示します。',metric:'累計480万円削減（6ヶ月）'},
+        {icon:'🏆',color:'c-yellow',title:'KPIサマリー',desc:'毎月の請求金額と削減効果の対比を明示。「この月にいくら削減できたか」が明確で、成果が出なければ費用ゼロで継続か終了を判断できます。',kpi:[{val:'80h/月',label:'削減時間'},{val:'240万/月',label:'コスト削減'},{val:'ROI 320%',label:'投資対効果'}]}
+      ]
     }
   };
+
+  function buildNode(node,idx){
+    var delayMs=100+idx*200;
+    var el=document.createElement('div');
+    el.className='flow-viz-node '+node.color;
+    el.style.animationDelay=delayMs+'ms';
+    var inner='<div class="flow-viz-node-inner"><div class="flow-viz-icon-wrap">'+node.icon+'</div><div class="flow-viz-content"><div class="flow-viz-title">'+node.title+'</div><div class="flow-viz-desc">'+node.desc+'</div>';
+    if(node.metric){
+      inner+='<div class="flow-viz-metric">'+node.metric+'</div>';
+    }
+    if(node.kpi){
+      inner+='<div class="flow-viz-kpi">';
+      for(var k=0;k<node.kpi.length;k++){
+        var kpiColor=node.color==='c-yellow'?'#ffff00':node.color==='c-green'?'#33ff00':node.color==='c-cyan'?'#67e8f9':node.color==='c-blue'?'#60a5fa':'#c084fc';
+        inner+='<div class="flow-viz-kpi-item"><div class="flow-viz-kpi-val" style="color:'+kpiColor+'">'+node.kpi[k].val+'</div><div class="flow-viz-kpi-label">'+node.kpi[k].label+'</div></div>';
+      }
+      inner+='</div>';
+    }
+    inner+='</div></div>';
+    el.innerHTML=inner;
+    return el;
+  }
+
+  function buildConnector(idx){
+    var el=document.createElement('div');
+    el.className='flow-viz-connector';
+    el.style.animationDelay=(150+idx*200)+'ms';
+    el.innerHTML='<div class="flow-viz-connector-line">↓</div>';
+    return el;
+  }
 
   function openFlow(n){
     var s=steps[n];if(!s)return;
     titleEl.textContent=s.title;
-    body.innerHTML=s.html;
+    body.innerHTML='';
+
+    // Intro
+    var intro=document.createElement('p');
+    intro.className='flow-viz-intro';
+    intro.textContent=s.intro;
+    body.appendChild(intro);
+
+    // Nodes with connectors
+    var viz=document.createElement('div');
+    viz.className='flow-viz';
+    for(var i=0;i<s.nodes.length;i++){
+      viz.appendChild(buildNode(s.nodes[i],i));
+      if(i<s.nodes.length-1) viz.appendChild(buildConnector(i));
+    }
+    body.appendChild(viz);
+
     overlay.classList.add('open');
     isFlowOpen=true;
     document.body.style.overflow='hidden';
   }
+
   function closeFlow(){
     overlay.classList.remove('open');
     isFlowOpen=false;
