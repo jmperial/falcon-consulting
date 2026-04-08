@@ -1375,6 +1375,7 @@ function resetAll(){
         // clean partial state from previous cancelled run
         cmdEl.textContent='';cmdEl.style.opacity='0';
         if(content)content.classList.remove('show');
+        var _s4c=el.closest('.s4');if(_s4c)_s4c.querySelectorAll('.s4-catch .s4-line').forEach(function(e){e.classList.remove('show');});
         el.setAttribute('data-typing','true');
         (async function(){
           cmdEl.style.opacity='1';
@@ -1887,7 +1888,7 @@ function resetAll(){
       var cx=cvs.getContext('2d');
       var W=cvs.width,H=cvs.height;
       var frame=0,animId=null,stopped=false;
-      var isKing=Math.random()<0.4;
+      var isKing=false;
       var enemy={
         name:isKing?'メタル○ング':'○タルスライム',
         hp:isKing?3:2, max:isKing?3:2,
@@ -2256,29 +2257,15 @@ function resetAll(){
         await sleep(3500);
         if(bootState!=='booting'){stopMario();return;}
         stopMario();
-        // Director agent appears
-        var bossDiv=document.createElement('div');
-        bossDiv.className='cc-err';
-        ccDrama.appendChild(bossDiv);
-        await typeCC(bossDiv,'👔 部長Agent: 業務外プロセスを検出。即時停止を命令。',18);
-        await sleep(1000);
-        if(bootState!=='booting')return;
-        // Colleague panics
+        // Colleague agent wraps up
         var colDiv=document.createElement('div');
-        colDiv.className='cc-retry';
+        colDiv.className='cc-ok';
         ccDrama.appendChild(colDiv);
-        await typeCC(colDiv,'同僚Agent: ...プロセス中断。業務キューに復帰します。',18);
+        await typeCC(colDiv,'同僚Agent: ゲームクリア！本来業務に戻ります。',18);
         await sleep(600);
         if(bootState!=='booting')return;
         gameBox.style.transition='opacity .5s ease';gameBox.style.opacity='0';
         await sleep(600);gameBox.style.display='none';
-        if(bootState!=='booting')return;
-        // Proper agent fixes
-        var fixDiv=document.createElement('div');
-        fixDiv.className='cc-ok';
-        ccDrama.appendChild(fixDiv);
-        await typeCC(fixDiv,'部長Agent: 代替タスクを実行。フォーム生成を開始。',18);
-        await sleep(500);
         if(bootState!=='booting')return;
         var retryLine=document.createElement('div');
         retryLine.style.cssText='margin:12px 0 8px;font-size:.8rem;display:flex;align-items:center;gap:6px';
