@@ -1365,12 +1365,16 @@ function resetAll(){
       var el=entry.target;
       if(entry.isIntersecting&&entry.intersectionRatio>=0.18){
         // Entering viewport — start typing if not already
-        if(el.getAttribute('data-typing'))return;
+        var ts=el.getAttribute('data-typing');
+        if(ts==='true'||ts==='done')return;
         var cmd=el.getAttribute('data-cmd');
         var cmdEl=el.querySelector('.p-cmd');
         var inner=el.closest('.inner');
         var content=inner?inner.querySelector('.content-area'):null;
         if(!cmdEl||!cmd)return;
+        // clean partial state from previous cancelled run
+        cmdEl.textContent='';cmdEl.style.opacity='0';
+        if(content)content.classList.remove('show');
         el.setAttribute('data-typing','true');
         (async function(){
           cmdEl.style.opacity='1';
