@@ -31,7 +31,8 @@ nav{
   font-size:.8rem;
 }
 nav .logo{color:#33ff00;text-shadow:0 0 6px rgba(51,255,0,.35)}
-nav .logo .h{font-family:serif;font-size:1.15em;margin-right:3px;color:#ff69b4;text-shadow:0 0 12px rgba(255,105,180,.9)}
+nav .logo .h{font-family:"Noto Serif JP",serif;font-style:italic;font-weight:700;font-size:1.2em;margin-right:3px;color:#ff69b4;text-shadow:0 0 12px rgba(255,105,180,.9);display:inline-block;transform:skewX(-6deg)}
+.hayabusa-char{font-family:"Noto Serif JP",serif;font-style:italic;font-weight:700;display:inline-block;transform:skewX(-6deg)}
 nav ul{display:flex;gap:16px;list-style:none}
 nav a{color:#666;transition:color .2s}
 nav a:hover{color:#e0e0e0}
@@ -1290,7 +1291,7 @@ function resetAll(){
     {text:'PERFORMANCE-BASED AI CONSULTING',color:'#33ff00',delay:25},
     {text:'',pause:300},
     {text:'生成AIで、時間を取り戻す。',color:'#ffff00',delay:40,big:true,cls:'hero-glow-y'},
-    {segments:[{text:'隼',color:'#ff69b4'},{text:'(Falcon)のように、速く、確実に。',color:'#67e8f9'}],delay:35,big:true},
+    {segments:[{text:'隼',color:'#ff69b4',cls:'hayabusa-char'},{text:'(Falcon)のように、速く、確実に。',color:'#67e8f9'}],delay:35,big:true},
     {text:'成果が出なければ ──',color:'#67e8f9',delay:40,big:true},
     {text:'費用ゼロ。',color:'#ffff00',delay:70,cls:'glow-line'},
     {text:'',pause:400},
@@ -1309,6 +1310,7 @@ function resetAll(){
         var seg=c.segments[s];
         var sp=document.createElement('span');
         sp.style.color=seg.color;
+        if(seg.cls)sp.className=seg.cls;
         d.appendChild(sp);
         for(var i=0;i<seg.text.length;i++){
           if(heroState!=='typing')return;
