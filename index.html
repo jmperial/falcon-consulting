@@ -30,7 +30,7 @@ nav{
   display:flex;justify-content:space-between;align-items:center;
   font-size:.8rem;
 }
-nav .logo{color:#ff69b4;text-shadow:0 0 8px rgba(255,105,180,.5)}
+nav .logo{color:#33ff00;text-shadow:0 0 6px rgba(51,255,0,.35)}
 nav .logo .h{font-family:serif;font-size:1.15em;margin-right:3px;color:#ff69b4;text-shadow:0 0 12px rgba(255,105,180,.9)}
 nav ul{display:flex;gap:16px;list-style:none}
 nav a{color:#666;transition:color .2s}
@@ -1290,7 +1290,7 @@ function resetAll(){
     {text:'PERFORMANCE-BASED AI CONSULTING',color:'#33ff00',delay:25},
     {text:'',pause:300},
     {text:'生成AIで、時間を取り戻す。',color:'#ffff00',delay:40,big:true,cls:'hero-glow-y'},
-    {text:'隼(Falcon)のように、速く、確実に。',color:'#67e8f9',delay:35,big:true},
+    {segments:[{text:'隼',color:'#ff69b4'},{text:'(Falcon)のように、速く、確実に。',color:'#67e8f9'}],delay:35,big:true},
     {text:'成果が出なければ ──',color:'#67e8f9',delay:40,big:true},
     {text:'費用ゼロ。',color:'#ffff00',delay:70,cls:'glow-line'},
     {text:'',pause:400},
@@ -1299,15 +1299,28 @@ function resetAll(){
     {text:'リスクなく、確実な業務改革を。',color:'#ffff00',delay:30,big:true,cls:'hero-glow-y'},
   ];
   async function typeLine(c){
-    if(!c.text){await sleep(c.pause||200);return}
+    if(!c.text&&!c.segments){await sleep(c.pause||200);return}
     var d=document.createElement('div');
     d.className='out-line'+(c.cls?' '+c.cls:'');
-    d.style.color=c.color||'#33ff00';
-    if(c.big){d.className+=' hero-big-line';}
+    if(c.big) d.className+=' hero-big-line';
     heroOut.appendChild(d);
-    for(var i=0;i<c.text.length;i++){
-      if(heroState!=='typing')return;
-      d.textContent+=c.text[i];await sleep(c.delay||30);
+    if(c.segments){
+      for(var s=0;s<c.segments.length;s++){
+        var seg=c.segments[s];
+        var sp=document.createElement('span');
+        sp.style.color=seg.color;
+        d.appendChild(sp);
+        for(var i=0;i<seg.text.length;i++){
+          if(heroState!=='typing')return;
+          sp.textContent+=seg.text[i];await sleep(c.delay||30);
+        }
+      }
+    } else {
+      d.style.color=c.color||'#33ff00';
+      for(var i=0;i<c.text.length;i++){
+        if(heroState!=='typing')return;
+        d.textContent+=c.text[i];await sleep(c.delay||30);
+      }
     }
   }
   var heroCmd=document.getElementById('hero-cmd');
