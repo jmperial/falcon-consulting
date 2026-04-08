@@ -632,7 +632,8 @@ footer{
 
 /* === S4 CATCH VERTICAL === */
 .s4-catch{display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.4}
-.s4-catch .s4-line{display:block}
+.s4-catch .s4-line{display:block;opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+.s4-catch .s4-line.show{opacity:1;transform:translateY(0)}
 .s4-catch .s4-price{font-size:clamp(3rem, 8vw, 5.5rem);color:#33ff00;text-shadow:0 0 16px rgba(51,255,0,.5),0 0 32px rgba(51,255,0,.2);font-weight:700;letter-spacing:2px}
 
 /* === S4 PRICING TABLE === */
@@ -1371,7 +1372,7 @@ function resetAll(){
         el.setAttribute('data-typing','true');
         (async function(){
           cmdEl.style.opacity='1';
-          var spd=el.closest('.s6')?50:25;
+          var spd=el.closest('.s6')?50:el.closest('.s4')?80:25;
           for(var i=0;i<cmd.length;i++){
             if(el.getAttribute('data-typing')!=='true')return;
             cmdEl.textContent+=cmd[i];await sleep(spd);
@@ -1403,6 +1404,15 @@ function resetAll(){
               if(el.getAttribute('data-typing')!=='true')return;
               await sleep(400);
               svcItems[si].classList.add('show');
+            }
+          }
+          var s4sec=el.closest('.s4');
+          if(s4sec){
+            var catchLines=s4sec.querySelectorAll('.s4-catch .s4-line');
+            for(var ci=0;ci<catchLines.length;ci++){
+              if(el.getAttribute('data-typing')!=='true')return;
+              await sleep(700);
+              catchLines[ci].classList.add('show');
             }
           }
           el.setAttribute('data-typing','done');
@@ -1437,6 +1447,7 @@ function resetAll(){
       }
       sec.querySelectorAll('.s6-kw').forEach(function(e){e.classList.remove('on')});
       sec.querySelectorAll('.svc-item').forEach(function(e){e.classList.remove('show')});
+      sec.querySelectorAll('.s4-catch .s4-line').forEach(function(e){e.classList.remove('show')});
     });
   },{threshold:0});
   document.querySelectorAll('.sec:not(.s1):not(.s7)').forEach(function(s){resetObs.observe(s);});
