@@ -851,10 +851,14 @@ footer{
 .msl{stroke-dasharray:300;stroke-dashoffset:300;animation:mslDraw 1.4s ease .4s forwards}
 @keyframes mslDraw{to{stroke-dashoffset:0}}
 @media(max-width:600px){
-  .dev-slide-icon{font-size:2.5rem}
+  .dev-slide-inner{min-height:auto;padding:18px 16px 14px}
+  .dev-slide-icon{font-size:2.2rem;margin-bottom:6px}
   .dev-slide-title{font-size:1.25rem}
   .dev-slide-desc{font-size:.88rem}
-  .dev-slide-kpi-val{font-size:1.3rem}
+  .dev-slide-kpi{gap:6px;margin-top:10px}
+  .dev-slide-kpi-item{padding:7px 8px;min-width:60px}
+  .dev-slide-kpi-val{font-size:1.2rem}
+  .dev-slide-minisvg{margin-top:10px}
 }
 /* Overview SVG + auto-loop progress bar */
 @keyframes ovFade{from{opacity:0}to{opacity:1}}
@@ -2549,7 +2553,7 @@ function resetAll(){
       nodes:[
         {icon:'😰',color:'c-red',title:'現状 (Before)',desc:'月120hの手作業書類処理。ミスが多発し、担当者は本来の仕事に集中できていない状態。年間で換算すると人件費ベースで960万円以上のロスです。',metric:'月120h 浪費',extraSvg:'bar'},
         {icon:'🤖',color:'c-cyan',title:'AI分析エンジン',desc:'業務フロー解析・ボトルネック検出・ROIシミュレーションをAIが自動実行。人間が見落としがちなパターンも検出します。この分析は完全無料で実施します。',metric:''},
-        {icon:'✅',color:'c-green',title:'改善後 (After) + レポート',desc:'完全無料のシミュレーションレポートをお届け。削減時間・コスト削減額・ROIを数値で明示。このレポートを見てから導入を判断していただけます。',kpi:[{val:'月40h',label:'作業時間'},{val:'ROI 320%',label:'投資対効果'},{val:'¥0',label:'この分析の費用'}],extraSvg:'bar2'}
+        {icon:'✅',color:'c-green',title:'改善後 (After) + レポート',desc:'削減時間・コスト・ROIをすべて数値化。見てから判断できます。',kpi:[{val:'月40h',label:'作業時間'},{val:'ROI 320%',label:'投資対効果'},{val:'¥0',label:'この分析の費用'}],extraSvg:'bar2'}
       ]
     },
     3:{
