@@ -653,7 +653,9 @@ footer{
 .s4-compare-row.win{border:1px solid rgba(51,255,0,.3);background:rgba(51,255,0,.06);color:#33ff00}
 .s4-cr-name{font-size:.88rem;font-weight:600;opacity:.7;letter-spacing:.5px}
 .s4-cr-price{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;line-height:1.1}
-.s4-cr-note{font-size:1rem;opacity:.8;margin-top:2px}
+.s4-cr-note{font-size:1rem;margin-top:2px;overflow:hidden;transition:transform .45s cubic-bezier(.23,1,.32,1),opacity .42s ease;transform-origin:center center}
+.s4-cr-note.note-out{transform:translateX(70px) scaleY(0.03);opacity:0;transition:transform .32s cubic-bezier(.55,.06,.68,.19),opacity .28s ease}
+.s4-cr-note.note-from{transform:translateX(-70px) scaleY(0.03);opacity:0;transition:none !important}
 @media(max-width:600px){.s4-cr-price{font-size:8vw}}
 .s4-points{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .s4-point{padding:6px 16px;border-radius:20px;font-size:.9rem;border:1px solid rgba(51,255,0,.3);color:#33ff00;background:rgba(51,255,0,.04)}
@@ -1000,17 +1002,17 @@ footer{
             <div class="s4-compare-row lose">
               <div class="s4-cr-name">大手コンサル</div>
               <div class="s4-cr-price">¥300万〜/月</div>
-              <div class="s4-cr-note">稟議がとおらない</div>
+              <div class="s4-cr-note"><span style="color:#ff69b4">意思決定に時間 / 導入まで数ヶ月</span></div>
             </div>
             <div class="s4-compare-row lose">
               <div class="s4-cr-name">AI人材を採用</div>
               <div class="s4-cr-price">¥80万〜/月</div>
-              <div class="s4-cr-note">採用困難 &amp; 高コスト</div>
+              <div class="s4-cr-note"><span style="color:#ff69b4">採用難 / 育成期間6ヶ月以上</span></div>
             </div>
             <div class="s4-compare-row win">
               <div class="s4-cr-name">ファルコン</div>
               <div class="s4-cr-price">¥5万〜/月</div>
-              <div class="s4-cr-note">300名のAI専門チームが伴走</div>
+              <div class="s4-cr-note"><span style="color:#33ff00">即日稼働 / 300名のAI専門チームが伴走</span></div>
             </div>
           </div>
           <div class="s4-points">
@@ -1414,6 +1416,28 @@ function resetAll(){
               await sleep(700);
               catchLines[ci].classList.add('show');
             }
+            if(!s4sec._s4NoteTimer){
+              var s4NoteData=[
+                {el:s4sec.querySelectorAll('.s4-compare-row')[0].querySelector('.s4-cr-note'),msgs:['意思決定に時間 / 導入まで数ヶ月','稟議・調整・報告に時間を消費','承認が下りない・下りても数ヶ月待機','意思決定に時間・成果は数ヶ月後','社内稟議で却下される現実','高額投資・成果測定も困難','社内調整・稟議・経営会議のループ','検討〜導入で半年以上','経営層の説得で1年消費','稟議が通らない','決まるまでに競争相手が先に進む'],color:'#ff69b4',idx:0},
+                {el:s4sec.querySelectorAll('.s4-compare-row')[1].querySelector('.s4-cr-note'),msgs:['採用難 / 育成期間6ヶ月以上','採用活動・面接・オンボーディング負担','優秀人材は既に採用済み・市場に出ない','育成に6ヶ月・定着率の課題も','採用まで決まらない・給与も上昇圧力','給与以外に福利厚生・退職リスク','採用・育成・マネジメント工数が発生','採用から活躍まで3ヶ月は必要','「エンジニア市場は品切れ状態」で終了','採用できない','採用活動中に業界が変わる'],color:'#ff69b4',idx:0},
+                {el:s4sec.querySelectorAll('.s4-compare-row')[2].querySelector('.s4-cr-note'),msgs:['即日稼働 / 300名のAI専門チームが伴走','契約翌日から300名のAI専門チームが動く','今月から実行可能・リスク0で試せる','即戦力・300名の専門チームが最適化','CFOも納得・承認スピード3日','見える成果・低リスク投資','導入工数0・専門チームに任せられる','今週中に始まる・明日から相談可','月内スタート・迷わず決定できる','すぐ始められる','競争相手に差をつける・今月から'],color:'#33ff00',idx:0}
+              ];
+              s4NoteData.forEach(function(nd){nd.el.innerHTML='<span style="color:'+nd.color+'">'+nd.msgs[0]+'</span>';});
+              s4sec._s4NoteTimer=setInterval(function(){
+                s4NoteData.forEach(function(nd){
+                  var e=nd.el;
+                  e.classList.add('note-out');
+                  setTimeout(function(){
+                    nd.idx=(nd.idx+1)%nd.msgs.length;
+                    e.innerHTML='<span style="color:'+nd.color+'">'+nd.msgs[nd.idx]+'</span>';
+                    e.classList.remove('note-out');
+                    e.classList.add('note-from');
+                    e.getBoundingClientRect();
+                    e.classList.remove('note-from');
+                  },350);
+                });
+              },2800);
+            }
           }
           el.setAttribute('data-typing','done');
         })();
@@ -1448,6 +1472,8 @@ function resetAll(){
       sec.querySelectorAll('.s6-kw').forEach(function(e){e.classList.remove('on')});
       sec.querySelectorAll('.svc-item').forEach(function(e){e.classList.remove('show')});
       sec.querySelectorAll('.s4-catch .s4-line').forEach(function(e){e.classList.remove('show')});
+      if(sec._s4NoteTimer){clearInterval(sec._s4NoteTimer);delete sec._s4NoteTimer;}
+      sec.querySelectorAll('.s4-cr-note').forEach(function(n){n.classList.remove('note-out','note-from');});
     });
   },{threshold:0});
   document.querySelectorAll('.sec:not(.s1):not(.s7)').forEach(function(s){resetObs.observe(s);});
