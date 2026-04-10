@@ -1766,114 +1766,125 @@ function resetAll(){
     return function(){if(animId)cancelAnimationFrame(animId);};
   }
 
-  // Mini Mario Bros: colleague agent + director agent drama
-  function runMiniMario(container){
+  // Mini Space Invaders: colleague agent helps shoot down invaders
+  function runMiniInvader(container){
     var cvs=document.createElement('canvas');
     cvs.width=container.offsetWidth||280;cvs.height=120;
     cvs.style.cssText='width:100%;height:100%;display:block';
     container.appendChild(cvs);
     var cx=cvs.getContext('2d');
     var W=cvs.width,H=cvs.height;
-    var ground=H-16;
     var frame=0,animId=null;
-    // Player (you)
-    var p1={x:30,y:ground,vy:0,jump:false,color:'#33ff00',label:'You'};
-    // Colleague agent
-    var p2={x:70,y:ground,vy:0,jump:false,color:'#67e8f9',label:'同僚Agent'};
-    // Coins
-    var coins=[];for(var i=0;i<8;i++)coins.push({x:100+i*22,y:ground-28-Math.random()*16,alive:true});
-    // Blocks
-    var blocks=[
-      {x:90,y:ground-36,w:24,h:12},
-      {x:140,y:ground-48,w:24,h:12},
-      {x:200,y:ground-36,w:24,h:12},
-    ];
-    // Pipes
-    var pipes=[{x:W-50,y:ground-28,w:20,h:28}];
+    // Ships
+    var p1={x:W*0.35,y:H-16,color:'#33ff00',label:'You'};
+    var p2={x:W*0.62,y:H-16,color:'#67e8f9',label:'同僚Agent'};
+    // Bullets
+    var bullets=[];
+    // Invaders: 3 rows × 6 cols
+    var invaders=[];
+    var cols=6,rows=3;
+    var marginX=24,marginY=18,gapX=(W-marginX*2)/(cols-1),gapY=14;
+    for(var r=0;r<rows;r++){
+      for(var c=0;c<cols;c++){
+        invaders.push({x:marginX+c*gapX,y:marginY+r*gapY,alive:true,type:r});
+      }
+    }
+    var dir=1,speed=0.35;
+    var score=0;
+    var stars=[];for(var si=0;si<18;si++)stars.push({x:Math.random()*W,y:Math.random()*H,s:Math.random()*0.4+0.1});
 
-    function drawChar(ch,f){
-      var bob=Math.sin(f*0.15)*2;
-      // Body
-      cx.fillStyle=ch.color;
-      cx.fillRect(ch.x-5,ch.y-18+bob,10,12);
-      // Head
-      cx.beginPath();cx.arc(ch.x,ch.y-22+bob,6,0,Math.PI*2);cx.fill();
-      // Hat
-      cx.fillStyle=ch===p1?'#ff0000':'#0066ff';
-      cx.fillRect(ch.x-7,ch.y-28+bob,14,4);
-      cx.fillRect(ch.x-4,ch.y-31+bob,8,4);
-      // Eyes
-      cx.fillStyle='#fff';
-      cx.fillRect(ch.x-3,ch.y-23+bob,2,2);
-      cx.fillRect(ch.x+1,ch.y-23+bob,2,2);
-      // Legs
-      cx.fillStyle='#4a3728';
-      var legOff=Math.sin(f*0.2)*3;
-      cx.fillRect(ch.x-4,ch.y-6+bob,3,6);
-      cx.fillRect(ch.x+1,ch.y-6+bob+legOff*0.5,3,6);
-      // Label
-      cx.fillStyle='rgba(255,255,255,.5)';cx.font='7px monospace';
-      cx.fillText(ch.label,ch.x-12,ch.y-33+bob);
+    function drawInvader(iv){
+      if(!iv.alive)return;
+      var f=Math.floor(frame/18)%2;
+      var colors=['#ff69b4','#c084fc','#67e8f9'];
+      cx.fillStyle=colors[iv.type];
+      var x=Math.round(iv.x),y=Math.round(iv.y);
+      // 8x6 pixel-art invader, two-frame animation
+      var pat=f===0
+        ?[[0,0,1,0,0,1,0,0],
+          [0,0,0,1,1,0,0,0],
+          [0,1,1,1,1,1,1,0],
+          [1,1,0,1,1,0,1,1],
+          [1,1,1,1,1,1,1,1],
+          [0,1,0,0,0,0,1,0]]
+        :[[0,0,1,0,0,1,0,0],
+          [1,0,0,1,1,0,0,1],
+          [1,1,1,1,1,1,1,1],
+          [1,1,0,1,1,0,1,1],
+          [1,1,1,1,1,1,1,1],
+          [0,0,1,0,0,1,0,0]];
+      for(var py=0;py<pat.length;py++){
+        for(var px=0;px<pat[py].length;px++){
+          if(pat[py][px])cx.fillRect(x-4+px,y-3+py,1,1);
+        }
+      }
     }
-    function drawBlock(b){
-      cx.fillStyle='#c8820a';cx.fillRect(b.x,b.y,b.w,b.h);
-      cx.strokeStyle='#a06800';cx.lineWidth=1;cx.strokeRect(b.x,b.y,b.w,b.h);
-      // ? mark
-      cx.fillStyle='#fff';cx.font='bold 8px monospace';cx.fillText('?',b.x+b.w/2-3,b.y+b.h-2);
-    }
-    function drawPipe(pp){
-      cx.fillStyle='#33aa33';
-      cx.fillRect(pp.x,pp.y,pp.w,pp.h);
-      cx.fillRect(pp.x-3,pp.y,pp.w+6,6);
-      cx.fillStyle='#22882288';
-      cx.fillRect(pp.x+2,pp.y+6,pp.w-4,pp.h-6);
+
+    function drawShip(p){
+      var x=Math.round(p.x),y=Math.round(p.y);
+      cx.fillStyle=p.color;
+      cx.fillRect(x-6,y,12,3);
+      cx.fillRect(x-4,y-2,8,2);
+      cx.fillRect(x-1,y-4,2,2);
+      // base glow
+      cx.fillStyle='rgba(255,255,255,.25)';
+      cx.fillRect(x-3,y+3,6,1);
+      // label
+      cx.fillStyle='rgba(255,255,255,.55)';cx.font='7px monospace';
+      cx.fillText(p.label,x-(p.label.length*2),y+11);
     }
 
     function tick(){
       cx.clearRect(0,0,W,H);
-      // Sky
-      cx.fillStyle='#1a1a3e';cx.fillRect(0,0,W,H);
-      // Ground
-      cx.fillStyle='#8b5e3c';cx.fillRect(0,ground,W,H-ground);
-      cx.fillStyle='#4caf50';cx.fillRect(0,ground-3,W,3);
-
-      // Blocks
-      blocks.forEach(drawBlock);
-      // Pipes
-      pipes.forEach(drawPipe);
-      // Coins
-      cx.fillStyle='#ffd700';
-      coins.forEach(function(c){
-        if(c.alive){
-          var cy=c.y+Math.sin(frame*0.08+c.x)*3;
-          cx.beginPath();cx.arc(c.x,cy,4,0,Math.PI*2);cx.fill();
-          cx.fillStyle='#fff';cx.font='6px monospace';
-          cx.fillText('$',c.x-2,cy+2);cx.fillStyle='#ffd700';
-        }
+      // bg
+      cx.fillStyle='#000018';cx.fillRect(0,0,W,H);
+      // stars
+      stars.forEach(function(st){
+        st.y+=st.s;if(st.y>H){st.y=0;st.x=Math.random()*W;}
+        cx.fillStyle='rgba(255,255,255,'+(0.3+st.s)+')';
+        cx.fillRect(st.x|0,st.y|0,1,1);
       });
 
-      // Move players
-      p1.x+=1.0;
-      p2.x+=0.85;
-      // Jump p1
-      if(!p1.jump&&frame%45===0){p1.vy=-4.5;p1.jump=true;}
-      if(p1.jump){p1.y+=p1.vy;p1.vy+=0.35;if(p1.y>=ground){p1.y=ground;p1.jump=false;p1.vy=0;}}
-      // Jump p2
-      if(!p2.jump&&(frame+20)%50===0){p2.vy=-4;p2.jump=true;}
-      if(p2.jump){p2.y+=p2.vy;p2.vy+=0.35;if(p2.y>=ground){p2.y=ground;p2.jump=false;p2.vy=0;}}
-      // Coin collect
-      coins.forEach(function(c){
-        if(c.alive&&(Math.abs(p1.x-c.x)<10||Math.abs(p2.x-c.x)<10))c.alive=false;
+      // move invaders
+      var hitEdge=false;
+      invaders.forEach(function(iv){
+        if(!iv.alive)return;
+        iv.x+=speed*dir;
+        if(iv.x<6||iv.x>W-6)hitEdge=true;
       });
+      if(hitEdge){dir*=-1;invaders.forEach(function(iv){iv.y+=2;});}
 
-      drawChar(p1,frame);
-      drawChar(p2,frame);
+      // auto fire
+      if(frame%16===0)bullets.push({x:p1.x,y:p1.y-4,vy:-2.2});
+      if(frame%20===6)bullets.push({x:p2.x,y:p2.y-4,vy:-2.2});
 
-      // Score
+      // move bullets & collide
+      bullets.forEach(function(b){
+        b.y+=b.vy;
+        invaders.forEach(function(iv){
+          if(iv.alive&&Math.abs(b.x-iv.x)<4&&Math.abs(b.y-iv.y)<4){
+            iv.alive=false;b.y=-99;score+=10;
+          }
+        });
+      });
+      bullets=bullets.filter(function(b){return b.y>-10;});
+
+      // gentle ship sway
+      p1.x+=Math.sin(frame*0.05)*0.35;
+      p2.x+=Math.cos(frame*0.04)*0.35;
+
+      // draw invaders
+      invaders.forEach(drawInvader);
+      // draw bullets
+      cx.fillStyle='#ffff00';
+      bullets.forEach(function(b){cx.fillRect(Math.round(b.x),Math.round(b.y),1,3);});
+      // draw ships
+      drawShip(p1);drawShip(p2);
+
+      // HUD
       cx.fillStyle='rgba(255,255,255,.6)';cx.font='9px monospace';
-      var sc=coins.filter(function(c){return!c.alive}).length;
-      cx.fillText('COIN x '+sc,8,12);
-      cx.fillText('WORLD 1-1',W-70,12);
+      cx.fillText('SCORE '+score,8,12);
+      cx.fillText('INVADERS',W-58,12);
 
       frame++;
       animId=requestAnimationFrame(tick);
@@ -2140,7 +2151,7 @@ function resetAll(){
   // Pick random game
   function runRandomGame(container){
     var r=Math.random();
-    return r<0.25?'pacman':r<0.55?'mario':'dq';
+    return r<0.25?'pacman':r<0.55?'invader':'dq';
   }
 
   async function boot(){
@@ -2249,23 +2260,23 @@ function resetAll(){
         await typeCC(doneDiv,'Agent: フォーム生成完了。出力を返却。',18);
         await sleep(400);
         if(bootState!=='booting')return;
-      } else if(gameType==='mario'){
-        // Mario → colleague agent → director agent scolds → form
+      } else if(gameType==='invader'){
+        // Invader → colleague agent helps → wraps up → form
         var mOk=document.createElement('div');
         mOk.className='cc-ok';
         ccDrama.insertBefore(mOk,gameBox);
         await typeCC(mOk,'了解。同僚Agentを召喚。ゲーム起動中...',18);
         await sleep(500);
         if(bootState!=='booting')return;
-        var stopMario=runMiniMario(gameBox);
+        var stopInvader=runMiniInvader(gameBox);
         await sleep(3500);
-        if(bootState!=='booting'){stopMario();return;}
-        stopMario();
+        if(bootState!=='booting'){stopInvader();return;}
+        stopInvader();
         // Colleague agent wraps up
         var colDiv=document.createElement('div');
         colDiv.className='cc-ok';
         ccDrama.appendChild(colDiv);
-        await typeCC(colDiv,'同僚Agent: ゲームクリア！本来業務に戻ります。',18);
+        await typeCC(colDiv,'同僚Agent: インベーダー殲滅完了！本来業務に戻ります。',18);
         await sleep(600);
         if(bootState!=='booting')return;
         gameBox.style.transition='opacity .5s ease';gameBox.style.opacity='0';
